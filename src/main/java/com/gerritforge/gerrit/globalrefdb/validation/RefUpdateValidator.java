@@ -230,10 +230,8 @@ public class RefUpdateValidator {
               Project.nameKey(projectName), refPair.compareRef, refPair.putValue);
     } catch (GlobalRefDbSystemError e) {
       logger.atWarning().withCause(e).log(
-          "Not able to persist the data in Zookeeper for project '{}' and ref '{}', message: {}",
-          projectName,
-          refPair.getName(),
-          e.getMessage());
+          "Not able to persist the data in Zookeeper for project '%s' and ref '%s', message: %s",
+          projectName, refPair.getName(), e.getMessage());
       throw e;
     }
 
