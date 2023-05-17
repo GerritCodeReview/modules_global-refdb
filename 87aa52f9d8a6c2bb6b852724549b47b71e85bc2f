@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9eaba9b6_83799f99",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2023-05-17T05:15:05Z",
+      "side": 1,
+      "message": "Optional: mention how to import this limodule in Eclipse project. E.g. extend `tools/bzl/plugins.bzl#CUSTOM_PLUGINS` with `global-refdb` and tun: `tools/eclipse/project.py`.",
+      "revId": "87aa52f9d8a6c2bb6b852724549b47b71e85bc2f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
