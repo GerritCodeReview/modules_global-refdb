@@ -33,6 +33,26 @@ public interface GlobalRefDatabase {
   boolean isUpToDate(Project.NameKey project, Ref ref) throws GlobalRefDbLockException;
 
   /**
+   * Check in global ref-db if ref is up-to-date, without locking, warnings or checked exceptions.
+   *
+   * <p>Differently from the regular {@link #isUpToDate(com.google.gerrit.entities.Project.NameKey,
+   * Ref)} this method is suitable for checking the status of the local-ref against the global-refdb
+   * without having any intention to update its value in a transaction.
+   *
+   * <p>The concrete implementations of GlobalRefDatabase must provide a specific implementation for
+   * this method that does not create any warnings in the logs.
+   *
+   * @param project project name of the ref
+   * @param ref to be checked against global ref-db
+   * @return true if it is; false otherwise
+   * @since 3.4.8.5
+   */
+  default boolean isUpToDateUnchecked(Project.NameKey project, Ref ref) {
+    throw new UnsupportedOperationException(
+        "isUpToDateUnchecked() is not supported by " + this.getClass().getName());
+  }
+
+  /**
    * Compare a reference, and put if it is up-to-date with the current.
    *
    * <p>Two reference match if and only if they satisfy the following:
