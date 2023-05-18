@@ -46,6 +46,30 @@
       },
       "revId": "3bd4523f092104d421d143dd7ad34a7f19ccb011",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2c2f8dc_ea5e1725",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/GlobalRefDatabase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2023-05-18T20:46:25Z",
+      "side": 1,
+      "message": "What I mean is that we are calling isUpToDate which is doing locking so we just ignore the locking exception but locking happens anyway",
+      "parentUuid": "6ce23aff_3382af05",
+      "range": {
+        "startLine": 36,
+        "startChar": 50,
+        "endLine": 36,
+        "endChar": 66
+      },
+      "revId": "3bd4523f092104d421d143dd7ad34a7f19ccb011",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
