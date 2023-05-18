@@ -30,6 +30,7 @@ public class SharedRefDBMetrics {
   private Timer0 compareAndPutExecutionTime;
   private Timer0 removeExecutionTime;
   private Timer0 isUpToDateExecutionTime;
+  private Timer0 isUpToDateUncheckedExecutionTime;
 
   @Inject
   public SharedRefDBMetrics(MetricMaker metricMaker) {
@@ -67,6 +68,13 @@ public class SharedRefDBMetrics {
     isUpToDateExecutionTime =
         metricMaker.newTimer(
             "global_refdb/is_up_to_date_latency",
+            new Description(
+                    "Time spent on checking in global ref-db and locking if ref is up-to-date with the intent of updating it.")
+                .setCumulative()
+                .setUnit(Description.Units.MILLISECONDS));
+    isUpToDateUncheckedExecutionTime =
+        metricMaker.newTimer(
+            "global_refdb/is_up_to_date_unchecked_latency",
             new Description("Time spent on checking in global ref-db if ref is up-to-date.")
                 .setCumulative()
                 .setUnit(Description.Units.MILLISECONDS));
@@ -93,6 +101,10 @@ public class SharedRefDBMetrics {
   }
 
   public Context startIsUpToDateExecutionTime() {
+    return isUpToDateExecutionTime.start();
+  }
+
+  public Context startIsUpToDateUncheckedExecutionTime() {
     return isUpToDateExecutionTime.start();
   }
 }

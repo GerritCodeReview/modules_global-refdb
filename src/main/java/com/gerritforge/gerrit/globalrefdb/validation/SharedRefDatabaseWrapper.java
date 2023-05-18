@@ -73,6 +73,13 @@ public class SharedRefDatabaseWrapper implements GlobalRefDatabase {
     }
   }
 
+  @Override
+  public boolean isUpToDateUnchecked(Project.NameKey project, Ref ref) {
+    try (Context context = metrics.startIsUpToDateUncheckedExecutionTime()) {
+      return sharedRefDb().isUpToDateUnchecked(project, ref);
+    }
+  }
+
   /** {@inheritDoc}. The operation is logged upon success. */
   @Override
   public boolean compareAndPut(Project.NameKey project, Ref currRef, ObjectId newRefValue)
