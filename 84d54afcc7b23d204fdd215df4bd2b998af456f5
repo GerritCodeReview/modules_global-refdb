@@ -16,6 +16,23 @@
       "message": "Same as for the multi-site comment. Could you move the change to stable-3.6? We could then merge it up to master so we can keep the history clean.",
       "revId": "84d54afcc7b23d204fdd215df4bd2b998af456f5",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7e288f2_0d21b487",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2023-06-01T11:41:15Z",
+      "side": 1,
+      "message": "You can abandon this and when this [1] will be merged you can do a merge up to stable-3.7, stable-3.8 and master.\n\nLet me know if you need any help with that.\n\n[1]: https://gerrit-review.googlesource.com/c/modules/global-refdb/+/375596",
+      "revId": "84d54afcc7b23d204fdd215df4bd2b998af456f5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
