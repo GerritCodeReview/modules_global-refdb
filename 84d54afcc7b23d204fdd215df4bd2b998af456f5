@@ -33,6 +33,24 @@
       "message": "You can abandon this and when this [1] will be merged you can do a merge up to stable-3.7, stable-3.8 and master.\n\nLet me know if you need any help with that.\n\n[1]: https://gerrit-review.googlesource.com/c/modules/global-refdb/+/375596",
       "revId": "84d54afcc7b23d204fdd215df4bd2b998af456f5",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a722f2f_f0c88248",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1160861
+      },
+      "writtenOn": "2023-06-03T17:16:57Z",
+      "side": 1,
+      "message": "Yes I need help.\nI tried the following sequence and it didn\u0027t do what I expected it to:\n\ngit checkout stable-3.7\ngit merge stable-3.6\n\nIt looks like development on the stable-3.7 branch would be reverted by my attempt to merge the stable-3.6 changes onto it.\nIs there some documentation I can follow that explains the Gerrit stable branch merge process, so I can understand where I went wrong?",
+      "parentUuid": "f7e288f2_0d21b487",
+      "revId": "84d54afcc7b23d204fdd215df4bd2b998af456f5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
