@@ -22,6 +22,30 @@
       },
       "revId": "717f61427bce4cbfb405f9d200514fa0bd1f0ffa",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07c0628d_32dde2a6",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/SharedRefEnforcement.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-06-27T19:07:03Z",
+      "side": 1,
+      "message": "\u003e For a follow-up change, but is there something similar for `meta` suffix? and maybe even `changes` prefix?\n\nI was thinking about the same, but preferred to keep the scope of this change for robot-comments only.\n\n\u003e Also should we warn that ROBOT_COMMENTS are deprecated and this should be removed when merging up to stable-3.8?\n\nThat would be automatically detected because the constant won\u0027t exist anymore.",
+      "parentUuid": "3b9678d4_e806ce1f",
+      "range": {
+        "startLine": 61,
+        "startChar": 33,
+        "endLine": 61,
+        "endChar": 63
+      },
+      "revId": "717f61427bce4cbfb405f9d200514fa0bd1f0ffa",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
