@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70a07518_4df3995a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-06-27T13:44:41Z",
+      "side": 1,
+      "message": "Post-merge -2: this was based on master and should have not been merged to stable-3.6 as-is. Now we have master that has become stable-3.6, which would need to be undone.",
+      "revId": "b2909267e4097532875a03b98e0171cb5c0c6f93",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
