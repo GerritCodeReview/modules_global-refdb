@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b9678d4_e806ce1f",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/SharedRefEnforcement.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2023-06-27T13:44:38Z",
+      "side": 1,
+      "message": "For a follow-up change, but is there something similar for `meta` suffix? and maybe even `changes` prefix?\n\nAlso should we warn that ROBOT_COMMENTS are deprecated and this should be removed when merging up to stable-3.8?",
+      "range": {
+        "startLine": 61,
+        "startChar": 33,
+        "endLine": 61,
+        "endChar": 63
+      },
+      "revId": "717f61427bce4cbfb405f9d200514fa0bd1f0ffa",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
