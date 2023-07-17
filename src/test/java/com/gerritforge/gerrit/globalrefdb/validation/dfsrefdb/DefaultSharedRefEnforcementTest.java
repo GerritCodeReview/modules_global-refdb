@@ -17,6 +17,7 @@ package com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb;
 import static com.google.common.truth.Truth.assertThat;
 
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement.EnforcePolicy;
+import com.google.gerrit.entities.RefNames;
 import org.eclipse.jgit.lib.Ref;
 import org.junit.Test;
 
@@ -35,6 +36,14 @@ public class DefaultSharedRefEnforcementTest implements RefFixture {
   public void aChangeMetaShouldNotBeIgnored() {
     Ref immutableChangeRef = newRef("refs/changes/01/1/meta", AN_OBJECT_ID_1);
     assertThat(refEnforcement.getPolicy(A_TEST_PROJECT_NAME, immutableChangeRef.getName()))
+        .isEqualTo(EnforcePolicy.REQUIRED);
+  }
+
+  @Test
+  public void aChangeRobotCommentsShouldNotBeIgnored() {
+    Ref robotCommentsMutableRef =
+        newRef("refs/changes/01/1" + RefNames.ROBOT_COMMENTS_SUFFIX, AN_OBJECT_ID_1);
+    assertThat(refEnforcement.getPolicy(A_TEST_PROJECT_NAME, robotCommentsMutableRef.getName()))
         .isEqualTo(EnforcePolicy.REQUIRED);
   }
 
