@@ -20,3 +20,49 @@ appropriately. More information in the relevant [documentation](./bindings.md).
 
 Global ref-database expose metrics to measure the global ref-database operation latency.
 List of the available metrics can be found [here](./metrics.md).
+
+## How to build
+
+This libModule is built like a Gerrit in-tree plugin, using Bazelisk.
+
+### Build in Gerrit tree
+
+Create a symbolic link of the repository source to the Gerrit source tree /plugins/global-refdb directory.
+
+Example:
+
+git clone https://gerrit.googlesource.com/gerrit
+git clone https://gerrit.googlesource.com/modules/global-refdb
+cd gerrit/plugins
+ln -s ../../global-refdb .
+From the Gerrit source tree issue the command bazelsk build plugins/global-refdb
+
+Example:
+
+```
+bazelisk build plugins/global-refdb
+```
+
+The libModule jar file is created under basel-bin/plugins/global-refdb/global-refdb.jar
+
+To execute the tests run bazelisk test plugins/global-refdb/... from the Gerrit source tree.
+
+Example:
+
+```
+bazelisk test plugins/global-refdb/...
+```
+
+## How to import into Eclipse as a project
+
+Add `global-refdb` in the `CUSTOM_PLUGINS` section of the `tools/bzl/plugins.bzl`.
+
+Example:
+
+```
+CUSTOM_PLUGINS = [
+    "global-refdb",
+]
+```
+
+Run `tools/eclipse/project.py` for generating or updating the Eclipse project.

@@ -158,8 +158,9 @@ public class RefUpdateValidator {
   }
 
   private Boolean isRefToBeIgnored(String refName) {
-    Boolean isRefToBeIgnored = ignoredRefs.contains(refName);
-    logger.atFine().log("Is project version update? %s", isRefToBeIgnored);
+    Boolean isRefToBeIgnored =
+        ignoredRefs.stream().anyMatch(ignoredRefPrefix -> refName.startsWith(ignoredRefPrefix));
+    logger.atFine().log("Is project version update? %b", isRefToBeIgnored);
     return isRefToBeIgnored;
   }
 
@@ -175,7 +176,7 @@ public class RefUpdateValidator {
 
   protected Boolean isGlobalProject(String projectName) {
     Boolean isGlobalProject = projectsFilter.matches(projectName);
-    logger.atFine().log("Is global project? %s", isGlobalProject);
+    logger.atFine().log("Is global project? %b", isGlobalProject);
     return isGlobalProject;
   }
 
@@ -216,12 +217,6 @@ public class RefUpdateValidator {
         refEnforcement.getPolicy(projectName, refPair.getName());
     if (refEnforcementPolicy == EnforcePolicy.IGNORED) return;
 
-    String errorMessage =
-        String.format(
-            "Not able to persist the data in Zookeeper for project '%s' and ref '%s',"
-                + "the cluster is now in Split Brain since the commit has been "
-                + "persisted locally but not in SharedRef the value %s",
-            projectName, refPair.getName(), refPair.putValue);
     boolean succeeded;
     try {
       succeeded =
@@ -235,6 +230,12 @@ public class RefUpdateValidator {
     }
 
     if (!succeeded) {
+      String errorMessage =
+          String.format(
+              "Not able to persist the data in Zookeeper for project '%s' and ref '%s',"
+                  + "the cluster is now in Split Brain since the commit has been "
+                  + "persisted locally but not in SharedRef the value %s",
+              projectName, refPair.getName(), refPair.putValue);
       throw new SharedDbSplitBrainException(errorMessage);
     }
   }
