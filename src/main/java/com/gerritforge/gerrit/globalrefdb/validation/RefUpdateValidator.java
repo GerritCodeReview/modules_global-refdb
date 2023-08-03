@@ -186,15 +186,15 @@ public class RefUpdateValidator {
       OneParameterFunction<ObjectId, Result> rollbackFunction)
       throws IOException {
     try (CloseableSet<AutoCloseable> locks = new CloseableSet<>()) {
-      RefPair refPairForUpdate = newRefPairFrom(refUpdate);
-      compareAndGetLatestLocalRef(refPairForUpdate, locks);
+      RefUpdateSnapshot refUpdateSnapshot = newSnapshot(refUpdate);
+      compareAndGetLatestLocalRef(refUpdateSnapshot, locks);
       RefUpdate.Result result = refUpdateFunction.invoke();
       try {
         if (isSuccessful(result)) {
-          updateSharedDbOrThrowExceptionFor(refPairForUpdate);
+          updateSharedDbOrThrowExceptionFor(refUpdateSnapshot);
         }
       } catch (Exception e) {
-        result = rollbackFunction.invoke(refPairForUpdate.compareRef.getObjectId());
+        result = rollbackFunction.invoke(refUpdateSnapshot.getOldValue());
         if (isSuccessful(result)) {
           result = RefUpdate.Result.LOCK_FAILURE;
         }
@@ -206,26 +206,26 @@ public class RefUpdateValidator {
     } catch (OutOfSyncException e) {
       logger.atWarning().withCause(e).log(
           "Local node is out of sync with ref-db: %s", e.getMessage());
-
       return RefUpdate.Result.LOCK_FAILURE;
     }
   }
 
-  protected void updateSharedDbOrThrowExceptionFor(RefPair refPair) throws IOException {
+  protected void updateSharedDbOrThrowExceptionFor(RefUpdateSnapshot refSnapshot)
+      throws IOException {
     // We are not checking refs that should be ignored
     final EnforcePolicy refEnforcementPolicy =
-        refEnforcement.getPolicy(projectName, refPair.getName());
+        refEnforcement.getPolicy(projectName, refSnapshot.getName());
     if (refEnforcementPolicy == EnforcePolicy.IGNORED) return;
 
     boolean succeeded;
     try {
       succeeded =
           sharedRefDb.compareAndPut(
-              Project.nameKey(projectName), refPair.compareRef, refPair.putValue);
+              Project.nameKey(projectName), refSnapshot.getRef(), refSnapshot.getNewValue());
     } catch (GlobalRefDbSystemError e) {
       logger.atWarning().withCause(e).log(
           "Not able to persist the data in Zookeeper for project '%s' and ref '%s', message: %s",
-          projectName, refPair.getName(), e.getMessage());
+          projectName, refSnapshot.getName(), e.getMessage());
       throw e;
     }
 
@@ -235,17 +235,18 @@ public class RefUpdateValidator {
               "Not able to persist the data in Zookeeper for project '%s' and ref '%s',"
                   + "the cluster is now in Split Brain since the commit has been "
                   + "persisted locally but not in SharedRef the value %s",
-              projectName, refPair.getName(), refPair.putValue);
+              projectName, refSnapshot.getName(), refSnapshot.getNewValue());
       throw new SharedDbSplitBrainException(errorMessage);
     }
   }
 
-  protected RefPair compareAndGetLatestLocalRef(RefPair refPair, CloseableSet<AutoCloseable> locks)
+  protected RefUpdateSnapshot compareAndGetLatestLocalRef(
+      RefUpdateSnapshot refUpdateSnapshot, CloseableSet<AutoCloseable> locks)
       throws SharedLockException, OutOfSyncException, IOException {
-    String refName = refPair.getName();
+    String refName = refUpdateSnapshot.getName();
     EnforcePolicy refEnforcementPolicy = refEnforcement.getPolicy(projectName, refName);
     if (refEnforcementPolicy == EnforcePolicy.IGNORED) {
-      return refPair;
+      return refUpdateSnapshot;
     }
 
     locks.addResourceIfNotExist(
@@ -254,30 +255,33 @@ public class RefUpdateValidator {
             lockWrapperFactory.create(
                 projectName, refName, sharedRefDb.lockRef(Project.nameKey(projectName), refName)));
 
-    RefPair latestRefPair = getLatestLocalRef(refPair);
-    if (sharedRefDb.isUpToDate(Project.nameKey(projectName), latestRefPair.compareRef)) {
-      return latestRefPair;
+    RefUpdateSnapshot latestRefUpdateSnapshot = getLatestLocalRef(refUpdateSnapshot);
+    if (sharedRefDb.isUpToDate(Project.nameKey(projectName), latestRefUpdateSnapshot.getRef())) {
+      return latestRefUpdateSnapshot;
     }
 
-    if (isNullRef(latestRefPair.compareRef)
+    if (isNullRef(latestRefUpdateSnapshot.getRef())
         || sharedRefDb.exists(Project.nameKey(projectName), refName)) {
       validationMetrics.incrementSplitBrainPrevention();
 
       softFailBasedOnEnforcement(
-          new OutOfSyncException(projectName, latestRefPair.compareRef), refEnforcementPolicy);
+          new OutOfSyncException(projectName, latestRefUpdateSnapshot.getRef()),
+          refEnforcementPolicy);
     }
 
-    return latestRefPair;
+    return latestRefUpdateSnapshot;
   }
 
   private boolean isNullRef(Ref ref) {
     return ref.getObjectId().equals(ObjectId.zeroId());
   }
 
-  private RefPair getLatestLocalRef(RefPair refPair) throws IOException {
-    Ref latestRef = refDb.exactRef(refPair.getName());
-    return new RefPair(
-        latestRef == null ? nullRef(refPair.getName()) : latestRef, refPair.putValue);
+  private RefUpdateSnapshot getLatestLocalRef(RefUpdateSnapshot refUpdateSnapshot)
+      throws IOException {
+    Ref latestRef = refDb.exactRef(refUpdateSnapshot.getName());
+    return new RefUpdateSnapshot(
+        latestRef == null ? nullRef(refUpdateSnapshot.getName()) : latestRef,
+        refUpdateSnapshot.getNewValue());
   }
 
   private Ref nullRef(String name) {
@@ -305,8 +309,8 @@ public class RefUpdateValidator {
     }
   }
 
-  protected RefPair newRefPairFrom(RefUpdate refUpdate) throws IOException {
-    return new RefPair(getCurrentRef(refUpdate.getName()), refUpdate.getNewObjectId());
+  protected RefUpdateSnapshot newSnapshot(RefUpdate refUpdate) throws IOException {
+    return new RefUpdateSnapshot(getCurrentRef(refUpdate.getName()), refUpdate.getNewObjectId());
   }
 
   protected Ref getCurrentRef(String refName) throws IOException {
