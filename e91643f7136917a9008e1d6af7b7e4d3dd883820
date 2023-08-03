@@ -33,6 +33,24 @@
       "message": "I agree on the renaming for master. With regards to stable branches, this would have a ripple effect on all existing setups because the RefPair is a public class. I would keep it for master only.",
       "revId": "e91643f7136917a9008e1d6af7b7e4d3dd883820",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a41c7b9_febd4156",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-08-03T14:12:00Z",
+      "side": 1,
+      "message": "Why don\u0027t you split the change in two:\n- Reduce the visibility of RefPair to package-private on stable-3.6\n- Check that all *-refdb plugins are working as expected\n- Check that HA, multi-site and pull-replication are fine\n\nOnce the above is done, we can then do the refactoring as a separate change on stable-3.6\n\nWDYT?",
+      "parentUuid": "944e1c06_77adbe30",
+      "revId": "e91643f7136917a9008e1d6af7b7e4d3dd883820",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
