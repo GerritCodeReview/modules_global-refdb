@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8c91b78_79c8245e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2023-08-03T12:54:23Z",
+      "side": 1,
+      "message": "Would you accept moving this to a stable version ?\nWe are currently on 3.7 ...",
+      "revId": "e91643f7136917a9008e1d6af7b7e4d3dd883820",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
