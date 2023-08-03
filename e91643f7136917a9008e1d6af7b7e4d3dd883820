@@ -16,6 +16,23 @@
       "message": "Would you accept moving this to a stable version ?\nWe are currently on 3.7 ...",
       "revId": "e91643f7136917a9008e1d6af7b7e4d3dd883820",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "944e1c06_77adbe30",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-08-03T14:05:10Z",
+      "side": 1,
+      "message": "I agree on the renaming for master. With regards to stable branches, this would have a ripple effect on all existing setups because the RefPair is a public class. I would keep it for master only.",
+      "revId": "e91643f7136917a9008e1d6af7b7e4d3dd883820",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
