@@ -91,7 +91,7 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
   }
 
   @Test
-  public void immutableChangeShouldNotBeWrittenIntoZk() throws Exception {
+  public void immutableChangeShouldNotBeWrittenIntoSharedRefDb() throws Exception {
     String AN_IMMUTABLE_REF = "refs/changes/01/1/1";
 
     List<ReceiveCommand> cmds = Arrays.asList(new ReceiveCommand(A, B, AN_IMMUTABLE_REF, UPDATE));
