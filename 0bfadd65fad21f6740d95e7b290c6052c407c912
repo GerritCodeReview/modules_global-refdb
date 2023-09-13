@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "390406b0_ab1fb5b6",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-09-13T16:26:38Z",
+      "side": 1,
+      "message": "This should be split into a separate change, and this behaviour is unverified, we may want to throw a (new?) exception.",
+      "revId": "0bfadd65fad21f6740d95e7b290c6052c407c912",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
