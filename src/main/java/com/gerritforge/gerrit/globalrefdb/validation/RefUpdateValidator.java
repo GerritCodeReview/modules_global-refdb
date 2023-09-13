@@ -206,6 +206,11 @@ public class RefUpdateValidator {
             result = Result.LOCK_FAILURE;
             logger.atSevere().log(
                 "Failed to update global refdb, the local refdb has been rolled back");
+          } else {
+            result = Result.IO_FAILURE;
+            logger.atSevere().log(
+                "Failed to update global refdb, and failed to roll back local refdb. "
+                    + "A split brain error is likely");
           }
         }
       }
