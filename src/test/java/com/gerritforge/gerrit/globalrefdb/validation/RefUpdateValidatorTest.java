@@ -220,7 +220,26 @@ public class RefUpdateValidatorTest implements RefFixture {
   }
 
   @Test
-  public void shouldRollbackRefUpdateCompareAndPutIsFailing() throws Exception {
+  public void shouldReturnLockFailureWhenRollbackSucceeds() throws Exception {
+    lenient()
+        .doReturn(false)
+        .when(sharedRefDb)
+        .isUpToDate(any(Project.NameKey.class), any(Ref.class));
+    doReturn(true).when(sharedRefDb).isUpToDate(A_TEST_PROJECT_NAME_KEY, localRef);
+
+    when(sharedRefDb.compareAndPut(any(Project.NameKey.class), any(Ref.class), any(ObjectId.class)))
+        .thenThrow(GlobalRefDbSystemError.class);
+    when(rollbackFunction.invoke(any())).thenReturn(Result.NO_CHANGE);
+
+    Result result =
+        refUpdateValidator.executeRefUpdate(refUpdate, () -> Result.NEW, rollbackFunction);
+    assertThat(result).isEqualTo(Result.LOCK_FAILURE);
+
+    verify(rollbackFunction, times(1)).invoke(any());
+  }
+
+  @Test
+  public void shouldReturnRejectedOtherReasonWhenRollbackFails() throws Exception {
     lenient()
         .doReturn(false)
         .when(sharedRefDb)
@@ -233,6 +252,26 @@ public class RefUpdateValidatorTest implements RefFixture {
 
     Result result =
         refUpdateValidator.executeRefUpdate(refUpdate, () -> Result.NEW, rollbackFunction);
+    assertThat(result).isEqualTo(Result.REJECTED_OTHER_REASON);
+
+    verify(rollbackFunction, times(1)).invoke(any());
+  }
+
+  @Test
+  public void shouldReturnRejectedOtherReasonWhenRollbackThrows() throws Exception {
+    lenient()
+        .doReturn(false)
+        .when(sharedRefDb)
+        .isUpToDate(any(Project.NameKey.class), any(Ref.class));
+    doReturn(true).when(sharedRefDb).isUpToDate(A_TEST_PROJECT_NAME_KEY, localRef);
+
+    when(sharedRefDb.compareAndPut(any(Project.NameKey.class), any(Ref.class), any(ObjectId.class)))
+        .thenThrow(GlobalRefDbSystemError.class);
+    when(rollbackFunction.invoke(any())).thenThrow(RuntimeException.class);
+
+    Result result =
+        refUpdateValidator.executeRefUpdate(refUpdate, () -> Result.NEW, rollbackFunction);
+    assertThat(result).isEqualTo(Result.REJECTED_OTHER_REASON);
 
     verify(rollbackFunction, times(1)).invoke(any());
   }
@@ -255,6 +294,37 @@ public class RefUpdateValidatorTest implements RefFixture {
     when(sharedRefDb.compareAndPut(any(Project.NameKey.class), any(Ref.class), any(ObjectId.class)))
         .thenThrow(TestError.class);
     when(rollbackFunction.invoke(any())).thenReturn(Result.NO_CHANGE);
+
+    assertThrows(
+        TestError.class,
+        () -> refUpdateValidator.executeRefUpdate(refUpdate, () -> Result.NEW, rollbackFunction));
+
+    verify(rollbackFunction).invoke(any());
+  }
+
+  @Test
+  public void shouldThrowOriginalThrowableFromCompareAndPutWhenRollbackFails()
+      throws IOException {
+    doReturn(true).when(sharedRefDb).isUpToDate(A_TEST_PROJECT_NAME_KEY, localRef);
+
+    when(sharedRefDb.compareAndPut(any(Project.NameKey.class), any(Ref.class), any(ObjectId.class)))
+        .thenThrow(TestError.class);
+    when(rollbackFunction.invoke(any())).thenReturn(Result.LOCK_FAILURE);
+
+    assertThrows(
+        TestError.class,
+        () -> refUpdateValidator.executeRefUpdate(refUpdate, () -> Result.NEW, rollbackFunction));
+
+    verify(rollbackFunction).invoke(any());
+  }
+
+  @Test
+  public void shouldThrowOriginalThrowableFromCompareAndPutWhenRollbackThrows() throws IOException {
+    doReturn(true).when(sharedRefDb).isUpToDate(A_TEST_PROJECT_NAME_KEY, localRef);
+
+    when(sharedRefDb.compareAndPut(any(Project.NameKey.class), any(Ref.class), any(ObjectId.class)))
+        .thenThrow(TestError.class);
+    when(rollbackFunction.invoke(any())).thenThrow(IOException.class);
 
     assertThrows(
         TestError.class,
