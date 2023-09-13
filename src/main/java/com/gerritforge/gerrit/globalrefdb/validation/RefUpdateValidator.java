@@ -203,11 +203,24 @@ public class RefUpdateValidator {
             String.format("Failed to update global refdb: %s", e.getMessage()));
       } finally {
         if (!sharedDbUpdateSucceeded) {
-          result = rollbackFunction.invoke(refPairForUpdate.compareRef.getObjectId());
-          if (isSuccessful(result)) {
-            result = Result.LOCK_FAILURE;
+          try {
+            result = rollbackFunction.invoke(refPairForUpdate.compareRef.getObjectId());
+            if (isSuccessful(result)) {
+              result = Result.LOCK_FAILURE;
+              logger.atSevere().log(
+                  "Failed to update global refdb, the local refdb has been rolled back");
+            } else {
+              result = Result.REJECTED_OTHER_REASON;
+              logger.atSevere().log(
+                  "Failed to update global refdb, and failed to roll back local refdb. "
+                      + "A split brain error is possible");
+            }
+          } catch (Exception e) {
+            result = Result.REJECTED_OTHER_REASON;
             logger.atSevere().log(
-                "Failed to update global refdb, the local refdb has been rolled back");
+                "Failed to update global refdb, and failed to roll back local refdb. "
+                    + "A split brain error is possible: %s",
+                e.getMessage());
           }
         }
       }
