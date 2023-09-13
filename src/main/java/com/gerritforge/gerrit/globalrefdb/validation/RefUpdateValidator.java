@@ -191,17 +191,23 @@ public class RefUpdateValidator {
       compareAndGetLatestLocalRef(refPairForUpdate, locks);
       RefUpdate.Result result = refUpdateFunction.invoke();
       if (!isSuccessful(result)) return result;
+
+      boolean sharedDbUpdateSucceeded = false;
       try {
         updateSharedDbOrThrowExceptionFor(refPairForUpdate);
+        sharedDbUpdateSucceeded = true;
       } catch (Exception e) {
-        result = rollbackFunction.invoke(refPairForUpdate.compareRef.getObjectId());
-        if (isSuccessful(result)) {
-          result = RefUpdate.Result.LOCK_FAILURE;
-        }
         logger.atSevere().withCause(e).log(
-            String.format(
-                "Failed to update global refdb, the local refdb has been rolled back: %s",
-                e.getMessage()));
+            String.format("Failed to update global refdb: %s", e.getMessage()));
+      } finally {
+        if (!sharedDbUpdateSucceeded) {
+          result = rollbackFunction.invoke(refPairForUpdate.compareRef.getObjectId());
+          if (isSuccessful(result)) {
+            result = Result.LOCK_FAILURE;
+            logger.atSevere().log(
+                "Failed to update global refdb, the local refdb has been rolled back");
+          }
+        }
       }
       return result;
     } catch (OutOfSyncException e) {
