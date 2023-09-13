@@ -230,7 +230,7 @@ public class RefUpdateValidator {
       succeeded =
           sharedRefDb.compareAndPut(
               Project.nameKey(projectName), refPair.compareRef, refPair.putValue);
-    } catch (GlobalRefDbSystemError e) {
+    } catch (Exception e) {
       logger.atWarning().withCause(e).log(
           "Not able to persist the data in Zookeeper for project '{}' and ref '{}', message: {}",
           projectName,
