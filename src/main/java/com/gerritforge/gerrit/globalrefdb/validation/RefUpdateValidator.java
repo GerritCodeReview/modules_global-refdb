@@ -221,7 +221,7 @@ public class RefUpdateValidator {
 
     String errorMessage =
         String.format(
-            "Not able to persist the data in Zookeeper for project '%s' and ref '%s',"
+            "Not able to persist the data in SharedRef for project '%s' and ref '%s',"
                 + "the cluster is now in Split Brain since the commit has been "
                 + "persisted locally but not in SharedRef the value %s",
             projectName, refPair.getName(), refPair.putValue);
@@ -232,7 +232,7 @@ public class RefUpdateValidator {
               Project.nameKey(projectName), refPair.compareRef, refPair.putValue);
     } catch (GlobalRefDbSystemError e) {
       logger.atWarning().withCause(e).log(
-          "Not able to persist the data in Zookeeper for project '{}' and ref '{}', message: {}",
+          "Not able to persist the data in SharedRef for project '{}' and ref '{}', message: {}",
           projectName,
           refPair.getName(),
           e.getMessage());
