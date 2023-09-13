@@ -220,7 +220,26 @@ public class RefUpdateValidatorTest implements RefFixture {
   }
 
   @Test
-  public void shouldRollbackRefUpdateCompareAndPutIsFailing() throws Exception {
+  public void shouldReturnLockFailureWhenRollbackSucceeds() throws Exception {
+    lenient()
+        .doReturn(false)
+        .when(sharedRefDb)
+        .isUpToDate(any(Project.NameKey.class), any(Ref.class));
+    doReturn(true).when(sharedRefDb).isUpToDate(A_TEST_PROJECT_NAME_KEY, localRef);
+
+    when(sharedRefDb.compareAndPut(any(Project.NameKey.class), any(Ref.class), any(ObjectId.class)))
+        .thenThrow(GlobalRefDbSystemError.class);
+    when(rollbackFunction.invoke(any())).thenReturn(Result.NO_CHANGE);
+
+    Result result =
+        refUpdateValidator.executeRefUpdate(refUpdate, () -> Result.NEW, rollbackFunction);
+    assertThat(result).isEqualTo(Result.LOCK_FAILURE);
+
+    verify(rollbackFunction, times(1)).invoke(any());
+  }
+
+  @Test
+  public void shouldReturnIoFailureWhenRollbackFunctionFails() throws Exception {
     lenient()
         .doReturn(false)
         .when(sharedRefDb)
@@ -233,6 +252,7 @@ public class RefUpdateValidatorTest implements RefFixture {
 
     Result result =
         refUpdateValidator.executeRefUpdate(refUpdate, () -> Result.NEW, rollbackFunction);
+    assertThat(result).isEqualTo(Result.IO_FAILURE);
 
     verify(rollbackFunction, times(1)).invoke(any());
   }
