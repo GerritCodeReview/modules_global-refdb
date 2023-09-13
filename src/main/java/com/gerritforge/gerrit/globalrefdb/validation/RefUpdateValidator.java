@@ -190,10 +190,9 @@ public class RefUpdateValidator {
       RefPair refPairForUpdate = newRefPairFrom(refUpdate);
       compareAndGetLatestLocalRef(refPairForUpdate, locks);
       RefUpdate.Result result = refUpdateFunction.invoke();
+      if (!isSuccessful(result)) return result;
       try {
-        if (isSuccessful(result)) {
-          updateSharedDbOrThrowExceptionFor(refPairForUpdate);
-        }
+        updateSharedDbOrThrowExceptionFor(refPairForUpdate);
       } catch (Exception e) {
         result = rollbackFunction.invoke(refPairForUpdate.compareRef.getObjectId());
         if (isSuccessful(result)) {
