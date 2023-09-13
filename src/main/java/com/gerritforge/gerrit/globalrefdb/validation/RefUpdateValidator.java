@@ -188,19 +188,31 @@ public class RefUpdateValidator {
     try (CloseableSet<AutoCloseable> locks = new CloseableSet<>()) {
       RefPair refPairForUpdate = newRefPairFrom(refUpdate);
       compareAndGetLatestLocalRef(refPairForUpdate, locks);
+
       RefUpdate.Result result = refUpdateFunction.invoke();
       if (!isSuccessful(result)) return result;
+
+      boolean sharedDbUpdateSucceeded = false;
       try {
         updateSharedDbOrThrowExceptionFor(refPairForUpdate);
+        sharedDbUpdateSucceeded = true;
       } catch (Exception e) {
-        result = rollbackFunction.invoke(refPairForUpdate.compareRef.getObjectId());
-        if (isSuccessful(result)) {
-          result = RefUpdate.Result.LOCK_FAILURE;
-        }
         logger.atSevere().withCause(e).log(
-            String.format(
-                "Failed to update global refdb, the local refdb has been rolled back: %s",
-                e.getMessage()));
+            String.format("Failed to update global refdb: %s", e.getMessage()));
+      } finally {
+        if (!sharedDbUpdateSucceeded) {
+          result = rollbackFunction.invoke(refPairForUpdate.compareRef.getObjectId());
+          if (isSuccessful(result)) {
+            result = Result.LOCK_FAILURE;
+            logger.atSevere().log(
+                "Failed to update global refdb, the local refdb has been rolled back");
+          } else {
+            result = Result.IO_FAILURE;
+            logger.atSevere().log(
+                "Failed to update global refdb, and failed to roll back local refdb. "
+                    + "A split brain error is likely");
+          }
+        }
       }
       return result;
     } catch (OutOfSyncException e) {
