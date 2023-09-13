@@ -203,14 +203,7 @@ public class RefUpdateValidator {
             String.format("Failed to update global refdb: %s", e.getMessage()));
       } finally {
         if (!sharedDbUpdateSucceeded) {
-          result = rollbackFunction.invoke(refPairForUpdate.compareRef.getObjectId());
-          if (isSuccessful(result)) {
-            result = Result.LOCK_FAILURE;
-            logger.atSevere().log(
-                "Failed to update global refdb for project '%s', ref '%s', and object id '%s'."
-                    + " The local refdb has been rolled back",
-                projectName, refPairForUpdate.getName(), refPairForUpdate.compareRef.getObjectId());
-          }
+          result = executeRollback(rollbackFunction, refPairForUpdate);
         }
       }
       return result;
@@ -219,6 +212,29 @@ public class RefUpdateValidator {
           String.format("Local node is out of sync with ref-db: %s", e.getMessage()));
 
       return RefUpdate.Result.LOCK_FAILURE;
+    }
+  }
+
+  private Result executeRollback(
+      OneParameterFunction<ObjectId, Result> rollbackFunction, RefPair refPair) {
+    String errorMsgPrefix =
+        String.format(
+            "Failed to update global refdb for project '%s', ref '%s', and object id '%s'.",
+            projectName, refPair.getName(), refPair.compareRef.getObjectId());
+    try {
+      Result result = rollbackFunction.invoke(refPair.compareRef.getObjectId());
+      if (isSuccessful(result)) {
+        logger.atSevere().log("%s The local refdb has been rolled back", errorMsgPrefix);
+        return Result.LOCK_FAILURE;
+      }
+      logger.atSevere().log(
+          "%s Failed to roll back local refdb. A split brain error is possible", errorMsgPrefix);
+      return Result.REJECTED_OTHER_REASON;
+    } catch (Exception e) {
+      logger.atSevere().withCause(e).log(
+          "%s Failed to roll back local refdb. A split brain error is possible: %s",
+          errorMsgPrefix, e.getMessage());
+      return Result.REJECTED_OTHER_REASON;
     }
   }
 
