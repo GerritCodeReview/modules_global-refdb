@@ -15,6 +15,7 @@
 package com.gerritforge.gerrit.globalrefdb.validation;
 
 import static com.google.common.truth.Truth.assertThat;
+import static com.google.gerrit.testing.GerritJUnit.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doReturn;
@@ -30,6 +31,7 @@ import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.DefaultSharedRefEn
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.RefFixture;
 import com.google.common.collect.ImmutableSet;
 import com.google.gerrit.entities.Project;
+import java.io.IOException;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.RefDatabase;
@@ -231,6 +233,7 @@ public class RefUpdateValidatorTest implements RefFixture {
 
     Result result =
         refUpdateValidator.executeRefUpdate(refUpdate, () -> Result.NEW, rollbackFunction);
+    assertThat(result).isEqualTo(Result.IO_FAILURE);
 
     verify(rollbackFunction, times(1)).invoke(any());
   }
@@ -245,9 +248,27 @@ public class RefUpdateValidatorTest implements RefFixture {
         .compareAndPut(any(Project.NameKey.class), any(Ref.class), any(ObjectId.class));
   }
 
+  @Test
+  public void shouldRollbackWhenSharedRefUpdateCompareAndPutThrowsUncaughtThrowable()
+      throws IOException {
+    doReturn(true).when(sharedRefDb).isUpToDate(A_TEST_PROJECT_NAME_KEY, localRef);
+
+    when(sharedRefDb.compareAndPut(any(Project.NameKey.class), any(Ref.class), any(ObjectId.class)))
+        .thenThrow(TestError.class);
+    when(rollbackFunction.invoke(any())).thenReturn(Result.NO_CHANGE);
+
+    assertThrows(
+        TestError.class,
+        () -> refUpdateValidator.executeRefUpdate(refUpdate, () -> Result.NEW, rollbackFunction));
+
+    verify(rollbackFunction).invoke(any());
+  }
+
   private Result defaultRollback(ObjectId objectId) {
     return Result.NO_CHANGE;
   }
+
+  private static class TestError extends Error {}
 
   private RefUpdateValidator newRefUpdateValidator(SharedRefDatabaseWrapper refDbWrapper) {
     return new RefUpdateValidator(
