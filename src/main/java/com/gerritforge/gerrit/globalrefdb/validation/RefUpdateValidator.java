@@ -221,9 +221,9 @@ public class RefUpdateValidator {
 
     String errorMessage =
         String.format(
-            "Not able to persist the data in Zookeeper for project '%s' and ref '%s',"
+            "Not able to persist the data in SharedRef for project '%s' and ref '%s',"
                 + "the cluster is now in Split Brain since the commit has been "
-                + "persisted locally but not in SharedRef the value %s",
+                + "persisted locally but not in global-refdb the value %s",
             projectName, refPair.getName(), refPair.putValue);
     boolean succeeded;
     try {
@@ -232,7 +232,7 @@ public class RefUpdateValidator {
               Project.nameKey(projectName), refPair.compareRef, refPair.putValue);
     } catch (Exception e) {
       logger.atWarning().withCause(e).log(
-          "Not able to persist the data in Zookeeper for project '{}' and ref '{}', message: {}",
+          "Not able to persist the data in global-refdb for project '{}' and ref '{}', message: {}",
           projectName,
           refPair.getName(),
           e.getMessage());
@@ -347,7 +347,7 @@ public class RefUpdateValidator {
                   logger.atSevere().withCause(closingException).log(
                       "Exception trying to release resource %s, "
                           + "the locked resources won't be accessible in all cluster unless"
-                          + " the lock is removed from ZK manually",
+                          + " the lock is removed from global-refdb manually",
                       closeable);
                 }
               });
