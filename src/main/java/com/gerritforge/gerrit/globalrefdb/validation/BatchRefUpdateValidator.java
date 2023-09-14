@@ -197,10 +197,7 @@ public class BatchRefUpdateValidator extends RefUpdateValidator {
 
   private void updateSharedRefDb(Stream<ReceiveCommand> commandStream, List<RefPair> refsToUpdate)
       throws IOException {
-    if (commandStream
-        .filter(cmd -> cmd.getResult() != ReceiveCommand.Result.OK)
-        .findFirst()
-        .isPresent()) {
+    if (commandStream.anyMatch(cmd -> cmd.getResult() != ReceiveCommand.Result.OK)) {
       return;
     }
 
