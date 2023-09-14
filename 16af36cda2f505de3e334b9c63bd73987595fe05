@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "85452535_ccb62b13",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-09-14T10:42:55Z",
+      "side": 1,
+      "message": "Unneeded, but it makes the code more readable, and didn\u0027t think a newline warranted a separate change. Happy to take it out however.",
+      "parentUuid": "5aa8ad4a_786bbd08",
+      "revId": "16af36cda2f505de3e334b9c63bd73987595fe05",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a537e74c_0217cdb6",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-09-14T10:37:38Z",
       "side": 1,
       "message": "If the rollback failed? We should log something also letting the Gerrit admin know that the local refdb is now in split-brain.",
+      "range": {
+        "startLine": 205,
+        "startChar": 14,
+        "endLine": 205,
+        "endChar": 34
+      },
+      "revId": "16af36cda2f505de3e334b9c63bd73987595fe05",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffc77326_f5ce72d5",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-09-14T10:42:55Z",
+      "side": 1,
+      "message": "Good point - we were thinking the same thing. We thought we\u0027d do this in a separate change. We have an unfinished draft in the next change in the chain.",
+      "parentUuid": "a537e74c_0217cdb6",
       "range": {
         "startLine": 205,
         "startChar": 14,
