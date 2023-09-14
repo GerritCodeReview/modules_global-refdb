@@ -37,6 +37,8 @@ import com.google.gerrit.metrics.DisabledMetricMaker;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.eclipse.jgit.internal.storage.file.RefDirectory;
 import org.eclipse.jgit.junit.LocalDiskRepositoryTestCase;
 import org.eclipse.jgit.junit.TestRepository;
@@ -55,6 +57,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
@@ -73,6 +77,8 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
   @Mock SharedRefEnforcement tmpRefEnforcement;
   @Mock ProjectsFilter projectsFilter;
   @Mock OneParameterVoidFunction<List<ReceiveCommand>> rollbackFunction;
+
+  @Captor private ArgumentCaptor<List<ReceiveCommand>> receiveCommandsCaptor;
 
   @Before
   public void setup() throws Exception {
@@ -193,6 +199,45 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
 
     verify(sharedRefDatabase, never())
         .compareAndPut(any(Project.NameKey.class), any(Ref.class), any(ObjectId.class));
+  }
+
+  @Test
+  public void shouldLeaveRefsInSyncWithSharedRefDbWhenLastSharedRefDbUpdateFails()
+      throws IOException {
+    String REF_NAME_A = "refs/changes/01/1/1";
+    String REF_NAME_B = "refs/changes/02/1/1";
+    BatchRefUpdate batchRefUpdate =
+        newBatchUpdate(
+            List.of(
+                new ReceiveCommand(A, B, REF_NAME_A, UPDATE),
+                new ReceiveCommand(A, B, REF_NAME_B, UPDATE)));
+    BatchRefUpdateValidator batchRefUpdateValidator =
+        getRefValidatorForEnforcement(A_TEST_PROJECT_NAME, tmpRefEnforcement);
+
+    doReturn(SharedRefEnforcement.EnforcePolicy.REQUIRED)
+        .when(batchRefUpdateValidator.refEnforcement)
+        .getPolicy(any(), any());
+
+    doReturn(true).when(sharedRefDatabase).isUpToDate(any(), any());
+
+    doReturn(true, false).when(sharedRefDatabase).compareAndPut(any(), any(), any());
+
+    batchRefUpdateValidator.executeBatchUpdateWithValidation(
+        batchRefUpdate, () -> execute(batchRefUpdate), rollbackFunction);
+
+    verify(rollbackFunction).invoke(receiveCommandsCaptor.capture());
+
+    assertThat(
+            receiveCommandsCaptor.getAllValues().stream()
+                .map(l1 -> l1.stream().map(ReceiveCommand::getRefName).collect(Collectors.toList()))
+                .collect(Collectors.toList()))
+        .isEqualTo(List.of(List.of(REF_NAME_A)));
+
+    final List<ReceiveCommand> commands = batchRefUpdate.getCommands();
+    assertThat(commands.size()).isEqualTo(2);
+    // TODO: Should check ref name matches result
+    assertThat(commands.stream().map(ReceiveCommand::getResult).collect(Collectors.toList()))
+        .isEqualTo(List.of(Result.OK, Result.LOCK_FAILURE));
   }
 
   private BatchRefUpdateValidator newDefaultValidator(String projectName) {
