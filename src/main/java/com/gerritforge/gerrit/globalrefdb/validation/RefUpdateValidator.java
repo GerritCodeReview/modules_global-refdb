@@ -195,19 +195,22 @@ public class RefUpdateValidator {
       }
       try {
         updateSharedDbOrThrowExceptionFor(refPairForUpdate);
-      } catch (Exception e) {
+      } catch (Throwable throwable) {
+        logger.atSevere().withCause(throwable).log(
+            "Failed to update global refdb for project '%s', ref '%s', and object id '%s': %s."
+                + " Attempting to roll back local refdb",
+            projectName,
+            refPairForUpdate.getName(),
+            refPairForUpdate.compareRef.getObjectId(),
+            throwable.getMessage());
         result = rollbackFunction.invoke(refPairForUpdate.compareRef.getObjectId());
         if (isSuccessful(result)) {
           result = RefUpdate.Result.LOCK_FAILURE;
+          logger.atSevere().log("The local refdb has been rolled back");
         }
-        logger.atSevere().withCause(e).log(
-            String.format(
-                "Failed to update global refdb for project '%s', ref '%s', and object id '%s': %s."
-                    + " The local refdb has been rolled back",
-                projectName,
-                refPairForUpdate.getName(),
-                refPairForUpdate.compareRef.getObjectId(),
-                e.getMessage()));
+        if (!(throwable instanceof Exception)) {
+          throw throwable;
+        }
       }
       return result;
     } catch (OutOfSyncException e) {
