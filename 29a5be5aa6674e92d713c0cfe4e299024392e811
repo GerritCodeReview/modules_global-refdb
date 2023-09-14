@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "544568fd_ddc227ff",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-09-14T10:35:09Z",
+      "side": 1,
+      "message": "Are you sure this is correct? The method currently throws IOException, but with this it would throw Exception.\n\nWhat is exactly the purpose for this?",
+      "range": {
+        "startLine": 238,
+        "startChar": 6,
+        "endLine": 238,
+        "endChar": 14
+      },
+      "revId": "29a5be5aa6674e92d713c0cfe4e299024392e811",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
