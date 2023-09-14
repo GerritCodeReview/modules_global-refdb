@@ -22,6 +22,30 @@
       },
       "revId": "29a5be5aa6674e92d713c0cfe4e299024392e811",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5655c681_3f312694",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-09-14T10:38:44Z",
+      "side": 1,
+      "message": "The idea was to warn on other exceptions too, but yes you\u0027re right it changes the behaviour. I will abandon this change.",
+      "parentUuid": "544568fd_ddc227ff",
+      "range": {
+        "startLine": 238,
+        "startChar": 6,
+        "endLine": 238,
+        "endChar": 14
+      },
+      "revId": "29a5be5aa6674e92d713c0cfe4e299024392e811",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
