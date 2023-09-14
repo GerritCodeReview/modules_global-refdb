@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5aa8ad4a_786bbd08",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-09-14T10:37:38Z",
+      "side": 1,
+      "message": "nit: unneeded change",
+      "revId": "16af36cda2f505de3e334b9c63bd73987595fe05",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a537e74c_0217cdb6",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-09-14T10:37:38Z",
+      "side": 1,
+      "message": "If the rollback failed? We should log something also letting the Gerrit admin know that the local refdb is now in split-brain.",
+      "range": {
+        "startLine": 205,
+        "startChar": 14,
+        "endLine": 205,
+        "endChar": 34
+      },
+      "revId": "16af36cda2f505de3e334b9c63bd73987595fe05",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
