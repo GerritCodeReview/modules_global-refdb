@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b9a0ee6a_8f795e65",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-09-14T10:44:20Z",
+      "side": 1,
+      "message": "This is true. Reading the possible results I thought it was the one that most fit the error, the alternative being `REJECTED_OTHER_REASON`. Should I change to that, or did you have something else in mind?",
+      "parentUuid": "0afa651f_26691907",
+      "range": {
+        "startLine": 212,
+        "startChar": 30,
+        "endLine": 212,
+        "endChar": 40
+      },
+      "revId": "a0f8d6ba6561da9a78f5cd9a01625100a98df8b7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c2e1d3a2_fd8368f0",
         "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
         "patchSetId": 4
@@ -37,6 +61,30 @@
       "writtenOn": "2023-09-14T10:39:48Z",
       "side": 1,
       "message": "We don\u0027t really know if there was an I/O failure",
+      "range": {
+        "startLine": 218,
+        "startChar": 28,
+        "endLine": 218,
+        "endChar": 38
+      },
+      "revId": "a0f8d6ba6561da9a78f5cd9a01625100a98df8b7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc8cf7b7_eddef41a",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-09-14T10:44:20Z",
+      "side": 1,
+      "message": "Same as above.",
+      "parentUuid": "c2e1d3a2_fd8368f0",
       "range": {
         "startLine": 218,
         "startChar": 28,
