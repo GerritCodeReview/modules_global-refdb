@@ -140,7 +140,7 @@ public class BatchRefUpdateValidator extends RefUpdateValidator {
       return;
     }
 
-    List<RefPair> refsToUpdate = getRefsPairs(commands).collect(Collectors.toList());
+    List<RefPair> refsToUpdate = getRefPairs(commands).collect(Collectors.toList());
     List<RefPair> refsFailures =
         refsToUpdate.stream().filter(RefPair::hasFailed).collect(Collectors.toList());
     if (!refsFailures.isEmpty()) {
@@ -209,7 +209,7 @@ public class BatchRefUpdateValidator extends RefUpdateValidator {
     }
   }
 
-  private Stream<RefPair> getRefsPairs(List<ReceiveCommand> receivedCommands) {
+  private Stream<RefPair> getRefPairs(List<ReceiveCommand> receivedCommands) {
     return receivedCommands.stream().map(this::getRefPairForCommand);
   }
 
