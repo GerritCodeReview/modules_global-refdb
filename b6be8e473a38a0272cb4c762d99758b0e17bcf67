@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "61190791_fc253e05",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/BatchRefUpdateValidator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-09-15T15:44:45Z",
+      "side": 1,
+      "message": "😊",
+      "parentUuid": "f6f932f9_c0cf6ff6",
+      "revId": "b6be8e473a38a0272cb4c762d99758b0e17bcf67",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "621a6ce8_243bb34a",
         "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
         "patchSetId": 5
