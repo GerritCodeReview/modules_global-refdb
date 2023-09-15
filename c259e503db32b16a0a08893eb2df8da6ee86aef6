@@ -16,6 +16,24 @@
       "message": "would this finally section more readable?:\n```\n finally {\n        if (sharedDbUpdateSucceeded) {\n          return result;\n        }\n        try {\n          result \u003d rollbackFunction.invoke(refPairForUpdate.compareRef.getObjectId());\n          if (isSuccessful(result)) {\n            logger.atSevere().log(\n                \"Failed to update global refdb, the local refdb has been rolled back\");\n            return Result.LOCK_FAILURE;\n          }\n          logger.atSevere().log(\n              \"Failed to update global refdb, and failed to roll back local refdb. \"\n                  + \"A split brain error is possible\");\n          return Result.REJECTED_OTHER_REASON;\n        } catch (Exception e) {\n          logger.atSevere().log(\n              \"Failed to update global refdb, and failed to roll back local refdb. \"\n                  + \"A split brain error is possible: %s\",\n              e.getMessage());\n          return Result.REJECTED_OTHER_REASON;\n        }\n      }\n```",
       "revId": "c259e503db32b16a0a08893eb2df8da6ee86aef6",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5510028_66bc7822",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1149185
+      },
+      "writtenOn": "2023-09-15T16:01:34Z",
+      "side": 1,
+      "message": "Actually maybe you could add the try and catch in a method called i.e `rollback` or something similar.",
+      "parentUuid": "b1efe91d_24f6106a",
+      "revId": "c259e503db32b16a0a08893eb2df8da6ee86aef6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
