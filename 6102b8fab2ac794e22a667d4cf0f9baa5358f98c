@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7577caa7_aec623cb",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1149185
+      },
+      "writtenOn": "2023-09-15T14:53:56Z",
+      "side": 1,
+      "message": "dont need to use `String.format`. You could use:\n``` \nlogger.atSevere().withCause(e).log(\"Failed to update global refdb: %s\", e.getMessage())\n```",
+      "revId": "6102b8fab2ac794e22a667d4cf0f9baa5358f98c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
