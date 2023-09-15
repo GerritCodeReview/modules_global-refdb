@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19f9eadd_048abcf0",
+        "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/BatchRefUpdateValidatorTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-09-15T15:47:25Z",
+      "side": 1,
+      "message": "I accept there\u0027s some inconsistency in the term used to describe the global-refdb. The logs now refer to `global-refdb` instead of some form of Zookeeper - I thought it best to call it `SharedRefDb` here as that appears to be the terminology used by other tests in this file.",
+      "revId": "a0d7c3ac4ad9b3b1cd43132d9e38b92f0e1e2c1c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
