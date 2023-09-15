@@ -52,6 +52,23 @@
       "parentUuid": "01eb1787_5dda940b",
       "revId": "6102b8fab2ac794e22a667d4cf0f9baa5358f98c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "386c031b_a8ae06f4",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1149185
+      },
+      "writtenOn": "2023-09-15T15:50:44Z",
+      "side": 1,
+      "message": "Maybe the finally section can be replaced by (if you find it more readable) this:\n\n```\n     } finally {\n        if (!sharedDbUpdateSucceeded) {\n          result \u003d rollbackFunction.invoke(refPairForUpdate.compareRef.getObjectId());\n          if (isSuccessful(result)) {\n            logger.atSevere().log(\n                \"Failed to update global refdb, the local refdb has been rolled back\");\n            return Result.LOCK_FAILURE;\n          }\n        }\n      }\n```",
+      "revId": "6102b8fab2ac794e22a667d4cf0f9baa5358f98c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
