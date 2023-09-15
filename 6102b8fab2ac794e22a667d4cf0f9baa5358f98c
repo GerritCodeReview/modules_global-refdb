@@ -34,6 +34,24 @@
       "parentUuid": "7577caa7_aec623cb",
       "revId": "6102b8fab2ac794e22a667d4cf0f9baa5358f98c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "969b30dc_a977a77a",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-09-15T15:15:20Z",
+      "side": 1,
+      "message": "Done https://gerrit-review.googlesource.com/c/modules/global-refdb/+/386579",
+      "parentUuid": "01eb1787_5dda940b",
+      "revId": "6102b8fab2ac794e22a667d4cf0f9baa5358f98c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
