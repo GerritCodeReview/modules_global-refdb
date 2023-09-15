@@ -34,6 +34,24 @@
       "parentUuid": "b1efe91d_24f6106a",
       "revId": "c259e503db32b16a0a08893eb2df8da6ee86aef6",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c609d10_e022174b",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-09-15T21:07:51Z",
+      "side": 1,
+      "message": "We can\u0027t return from a finally as we\u0027d clobber the exception when one is thrown.\n\nAbstracting the try/catch into a separate method is a good idea, I\u0027ll do that.\n\nThanks 😊",
+      "parentUuid": "c5510028_66bc7822",
+      "revId": "c259e503db32b16a0a08893eb2df8da6ee86aef6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
