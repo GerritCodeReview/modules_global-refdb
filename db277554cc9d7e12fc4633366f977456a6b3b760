@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db80f58f_f29b37c3",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1149185
+      },
+      "writtenOn": "2023-09-15T14:51:09Z",
+      "side": 1,
+      "message": "Dont need to use `String.format`, you can use:\n\n```\nlogger.atSevere().log(\"Failed to update global refdb, and failed to roll back local refdb. A split brain error is possible: %s\",e.getMessage()) \n\n```",
+      "revId": "db277554cc9d7e12fc4633366f977456a6b3b760",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
