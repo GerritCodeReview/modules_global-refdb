@@ -16,6 +16,24 @@
       "message": "Is there a special reason to use `final`?",
       "revId": "2f4035f187e92cd9e81e5e13a862bbf2f4d86110",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "accca195_53722082",
+        "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/BatchRefUpdateValidatorTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-09-15T14:54:42Z",
+      "side": 1,
+      "message": "Ha, funny because I raised this in the next change. No reason, just the source test had it. I\u0027ll remove it, it\u0027s distracting.",
+      "parentUuid": "01043f04_de8d1bdd",
+      "revId": "2f4035f187e92cd9e81e5e13a862bbf2f4d86110",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
