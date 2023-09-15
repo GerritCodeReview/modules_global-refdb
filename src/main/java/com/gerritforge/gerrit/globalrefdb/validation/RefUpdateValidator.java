@@ -167,9 +167,8 @@ public class RefUpdateValidator {
   private <T extends Throwable> void softFailBasedOnEnforcement(T e, EnforcePolicy policy)
       throws T {
     logger.atWarning().withCause(e).log(
-        String.format(
-            "Failure while running with policy enforcement %s. Error message: %s",
-            policy, e.getMessage()));
+        "Failure while running with policy enforcement %s. Error message: %s",
+        policy, e.getMessage());
     if (policy == EnforcePolicy.REQUIRED) {
       throw e;
     }
@@ -199,8 +198,7 @@ public class RefUpdateValidator {
         updateSharedDbOrThrowExceptionFor(refPairForUpdate);
         sharedDbUpdateSucceeded = true;
       } catch (Exception e) {
-        logger.atSevere().withCause(e).log(
-            String.format("Failed to update global refdb: %s", e.getMessage()));
+        logger.atSevere().withCause(e).log("Failed to update global refdb: %s", e.getMessage());
       } finally {
         if (!sharedDbUpdateSucceeded) {
           result = executeRollback(rollbackFunction, refPairForUpdate);
@@ -209,7 +207,7 @@ public class RefUpdateValidator {
       return result;
     } catch (OutOfSyncException e) {
       logger.atWarning().withCause(e).log(
-          String.format("Local node is out of sync with ref-db: %s", e.getMessage()));
+          "Local node is out of sync with ref-db: %s", e.getMessage());
 
       return RefUpdate.Result.LOCK_FAILURE;
     }
