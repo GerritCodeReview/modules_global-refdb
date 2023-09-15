@@ -157,13 +157,20 @@ public class BatchRefUpdateValidator extends RefUpdateValidator {
     try (CloseableSet<AutoCloseable> locks = new CloseableSet<>()) {
       final List<RefPair> finalRefsToUpdate = compareAndGetLatestLocalRefs(refsToUpdate, locks);
       delegateUpdate.invoke();
+      boolean sharedDbUpdateSucceeded = false;
       try {
         updateSharedRefDb(commands.stream(), finalRefsToUpdate);
+        sharedDbUpdateSucceeded = true;
       } catch (Exception e) {
         logger.atWarning().withCause(e).log(
-            "Batch ref-update failing because of failure during the global refdb update. Set all commands Result to LOCK_FAILURE [%d]",
-            commands.size());
-        rollback(delegateUpdateRollback, finalRefsToUpdate, commands);
+            "Batch ref-update failed because of failure during the global refdb update.");
+      } finally {
+        if (!sharedDbUpdateSucceeded) {
+          logger.atWarning().log(
+              "Batch ref-update failed, set all commands Result to LOCK_FAILURE [%d]",
+              commands.size());
+          rollback(delegateUpdateRollback, finalRefsToUpdate, commands);
+        }
       }
     } catch (OutOfSyncException e) {
       logger.atWarning().withCause(e).log(
