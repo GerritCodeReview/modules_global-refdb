@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01043f04_de8d1bdd",
+        "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/BatchRefUpdateValidatorTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1149185
+      },
+      "writtenOn": "2023-09-15T14:38:10Z",
+      "side": 1,
+      "message": "Is there a special reason to use `final`?",
+      "revId": "2f4035f187e92cd9e81e5e13a862bbf2f4d86110",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
