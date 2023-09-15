@@ -15,16 +15,11 @@
 package com.gerritforge.gerrit.globalrefdb.validation;
 
 import static com.google.common.truth.Truth.assertThat;
+import static com.google.gerrit.testing.GerritJUnit.assertThrows;
 import static java.util.Collections.singletonList;
 import static org.eclipse.jgit.transport.ReceiveCommand.Type.UPDATE;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.anyString;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.lenient;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import com.gerritforge.gerrit.globalrefdb.GlobalRefDbSystemError;
 import com.gerritforge.gerrit.globalrefdb.validation.RefUpdateValidator.OneParameterVoidFunction;
@@ -180,6 +175,35 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
   }
 
   @Test
+  public void shouldRollbackWhenSharedRefUpdateCompareAndPutThrowsUncaughtThrowable()
+      throws Exception {
+    String REF_NAME = "refs/changes/01/1/meta";
+    BatchRefUpdate batchRefUpdate =
+        newBatchUpdate(singletonList(new ReceiveCommand(A, B, REF_NAME, UPDATE)));
+    BatchRefUpdateValidator batchRefUpdateValidator =
+        getRefValidatorForEnforcement(A_TEST_PROJECT_NAME, tmpRefEnforcement);
+
+    doReturn(SharedRefEnforcement.EnforcePolicy.REQUIRED)
+        .when(batchRefUpdateValidator.refEnforcement)
+        .getPolicy(A_TEST_PROJECT_NAME, REF_NAME);
+    doReturn(true).when(sharedRefDatabase).isUpToDate(any(), any());
+
+    doThrow(TestError.class).when(sharedRefDatabase).compareAndPut(any(), any(), any());
+
+    assertThrows(
+        TestError.class,
+        () ->
+            batchRefUpdateValidator.executeBatchUpdateWithValidation(
+                batchRefUpdate, () -> execute(batchRefUpdate), rollbackFunction));
+
+    verify(rollbackFunction).invoke(any());
+    final List<ReceiveCommand> commands = batchRefUpdate.getCommands();
+    assertThat(commands.size()).isEqualTo(1);
+    commands.forEach(
+        (command) -> assertThat(command.getResult()).isEqualTo(ReceiveCommand.Result.LOCK_FAILURE));
+  }
+
+  @Test
   public void shouldRollbackRefUpdateWhenRefDbIsNotUpdated() throws Exception {
     String REF_NAME = "refs/changes/01/1/meta";
     BatchRefUpdate batchRefUpdate =
@@ -266,4 +290,6 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
   public String testBranch() {
     return "branch_" + nameRule.getMethodName();
   }
+
+  private static class TestError extends Error {}
 }
