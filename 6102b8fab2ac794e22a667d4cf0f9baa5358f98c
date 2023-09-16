@@ -87,6 +87,29 @@
       "parentUuid": "386c031b_a8ae06f4",
       "revId": "6102b8fab2ac794e22a667d4cf0f9baa5358f98c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "972b6049_6a4c1cc0",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-09-16T12:19:59Z",
+      "side": 1,
+      "message": "The Gerrit admin would surely need to know also:\n- The repository involved\n- The ref name involved\n- The global-refdb update (ObjectIds) that failed",
+      "range": {
+        "startLine": 210,
+        "startChar": 17,
+        "endLine": 210,
+        "endChar": 46
+      },
+      "revId": "6102b8fab2ac794e22a667d4cf0f9baa5358f98c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
