@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "32bbf0c5_f882353b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-09-19T08:39:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "821509f8_0fe64a34",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 6
+      },
+      "revId": "fe83ad13adde4740103c30239d26f5dfd65976d4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "743bd514_8c58ee0c",
         "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/BatchRefUpdateValidatorTest.java",
         "patchSetId": 2
