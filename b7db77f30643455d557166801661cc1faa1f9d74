@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c841a7e9_d2560dd0",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-09-19T07:42:06Z",
+      "side": 1,
+      "message": "The local ref-db is in spit-brain.",
+      "range": {
+        "startLine": 231,
+        "startChar": 47,
+        "endLine": 231,
+        "endChar": 78
+      },
+      "revId": "b7db77f30643455d557166801661cc1faa1f9d74",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1040472f_1dc2e4dc",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-09-19T07:42:06Z",
+      "side": 1,
+      "message": "The local ref-db is in split-brain.",
+      "range": {
+        "startLine": 235,
+        "startChar": 47,
+        "endLine": 235,
+        "endChar": 78
+      },
+      "revId": "b7db77f30643455d557166801661cc1faa1f9d74",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
