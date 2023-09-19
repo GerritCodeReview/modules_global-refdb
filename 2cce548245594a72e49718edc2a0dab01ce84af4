@@ -41,6 +41,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "46750f18_85c1cf40",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-09-19T08:01:00Z",
+      "side": 1,
+      "message": "It\u0027s just supposed to be a happy path test - if we make the refs different, I hope this makes it a real use-case.",
+      "parentUuid": "80200a3a_c9ac6a7c",
+      "revId": "2cce548245594a72e49718edc2a0dab01ce84af4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aaabfaf0_1ad55dbd",
@@ -54,6 +72,30 @@
       "writtenOn": "2023-09-19T07:46:39Z",
       "side": 1,
       "message": "Is this a valid use-case? Gerrit never creates a batch ref-update with two instances of the same update.",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 46
+      },
+      "revId": "2cce548245594a72e49718edc2a0dab01ce84af4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60b02046_8f19a703",
+        "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/BatchRefUpdateValidatorTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-09-19T08:01:00Z",
+      "side": 1,
+      "message": "These are supposed to be different - will amend.",
+      "parentUuid": "aaabfaf0_1ad55dbd",
       "range": {
         "startLine": 95,
         "startChar": 0,
