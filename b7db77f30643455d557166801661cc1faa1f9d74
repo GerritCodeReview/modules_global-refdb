@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "654b918a_a51ec009",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-09-19T08:17:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c841a7e9_d2560dd0",
+      "range": {
+        "startLine": 231,
+        "startChar": 47,
+        "endLine": 231,
+        "endChar": 78
+      },
+      "revId": "b7db77f30643455d557166801661cc1faa1f9d74",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1040472f_1dc2e4dc",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-09-19T07:42:06Z",
       "side": 1,
       "message": "The local ref-db is in split-brain.",
+      "range": {
+        "startLine": 235,
+        "startChar": 47,
+        "endLine": 235,
+        "endChar": 78
+      },
+      "revId": "b7db77f30643455d557166801661cc1faa1f9d74",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02274f97_bf365400",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-09-19T08:17:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1040472f_1dc2e4dc",
       "range": {
         "startLine": 235,
         "startChar": 47,
