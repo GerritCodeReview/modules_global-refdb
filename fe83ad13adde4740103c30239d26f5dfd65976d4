@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "821509f8_0fe64a34",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-09-19T07:34:24Z",
+      "side": 1,
+      "message": "Can you create an issue on the Gerrit Code Review issue tracker and just indicate the reference to the bug?",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 6
+      },
+      "revId": "fe83ad13adde4740103c30239d26f5dfd65976d4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "743bd514_8c58ee0c",
