@@ -31,7 +31,8 @@ import org.junit.Test;
 
 public class GlobalRefDatabaseTest extends AbstractDaemonTest {
 
-  private String refName = RefNames.REFS_HEADS + "branch";
+  protected ExtendedGlobalRefDatabase objectUnderTest;
+  protected String refName = RefNames.REFS_HEADS + "branch";
 
   private ObjectId objectId1;
   private ObjectId objectId2;
@@ -44,8 +45,6 @@ public class GlobalRefDatabaseTest extends AbstractDaemonTest {
   private Ref initialRef = ref(refName, ObjectId.zeroId());
 
   private Executor executor = Executors.newFixedThreadPool(1);
-
-  private GlobalRefDatabase objectUnderTest;
 
   @Before
   public void setup() throws Exception {
