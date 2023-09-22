@@ -82,6 +82,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c0c49dc_d493a60e",
+        "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidatorTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-09-22T21:01:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5057c2fa_66e3d11b",
+      "revId": "04bd18ec810b56fa38d3901d0829db0d3f9afd4a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b868c053_b0d0569d",
@@ -95,6 +113,24 @@
       "writtenOn": "2023-09-22T14:52:35Z",
       "side": 1,
       "message": "Redundant `times(1)`.",
+      "revId": "04bd18ec810b56fa38d3901d0829db0d3f9afd4a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b58038a_5f15827b",
+        "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidatorTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-09-22T21:01:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b868c053_b0d0569d",
       "revId": "04bd18ec810b56fa38d3901d0829db0d3f9afd4a",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
