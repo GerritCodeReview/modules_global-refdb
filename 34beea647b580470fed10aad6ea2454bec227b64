@@ -37,6 +37,42 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "5f5dccd4_da1dbd44",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-09-22T13:25:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3dcd8a35_07176ff4",
+      "revId": "34beea647b580470fed10aad6ea2454bec227b64",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2516f41e_dd2735f9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-09-22T13:25:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c10f08b_a0d6beb9",
+      "revId": "34beea647b580470fed10aad6ea2454bec227b64",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "451821ab_10e2bb3a",
         "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
         "patchSetId": 2
