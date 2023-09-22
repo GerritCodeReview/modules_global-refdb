@@ -108,6 +108,30 @@
       },
       "revId": "2ad6d32051210a94b80752d3ec12aee52d89b01c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23ad8cd2_acd86e13",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDatabaseWrapper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-09-22T09:10:25Z",
+      "side": 1,
+      "message": "Ah, used in multisite [1]\n\n[1] https://gerrit-review.googlesource.com/c/plugins/multi-site/+/386901",
+      "parentUuid": "ffb40dd9_7679764a",
+      "range": {
+        "startLine": 116,
+        "startChar": 2,
+        "endLine": 116,
+        "endChar": 8
+      },
+      "revId": "2ad6d32051210a94b80752d3ec12aee52d89b01c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
