@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c5481fe_3f21b216",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-09-22T09:02:23Z",
+      "side": 1,
+      "message": "Is this correct? I can\u0027t see this interface in this change.",
+      "range": {
+        "startLine": 9,
+        "startChar": 24,
+        "endLine": 9,
+        "endChar": 41
+      },
+      "revId": "2ad6d32051210a94b80752d3ec12aee52d89b01c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a62bd6d_8c7b5a42",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-09-22T09:02:23Z",
+      "side": 1,
+      "message": "I\u0027m probably missing context here, but this doesn\u0027t match the expectation in the issue (i.e. retry compare-and-swap). Are there split brain risks associated with this method? Should they be mentioned somewhere?",
+      "range": {
+        "startLine": 10,
+        "startChar": 41,
+        "endLine": 11,
+        "endChar": 54
+      },
+      "revId": "2ad6d32051210a94b80752d3ec12aee52d89b01c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cee7ce23_3700c76e",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/ExtendedGlobalRefDatabase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-09-22T09:02:23Z",
+      "side": 1,
+      "message": "Is it safe to do this, instead of `compareAndPut`? Should the javadoc mention that `compareAndPut` would be preferable, and this should only be used in certain cases?",
+      "revId": "2ad6d32051210a94b80752d3ec12aee52d89b01c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0229d4f_1cb06c98",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/ExtendedGlobalRefDatabase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-09-22T09:02:23Z",
+      "side": 1,
+      "message": "Nit: why not `put`, to use the same nomenclature as `compareAndPut`?",
+      "range": {
+        "startLine": 32,
+        "startChar": 11,
+        "endLine": 32,
+        "endChar": 14
+      },
+      "revId": "2ad6d32051210a94b80752d3ec12aee52d89b01c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffb40dd9_7679764a",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDatabaseWrapper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-09-22T09:02:23Z",
+      "side": 1,
+      "message": "Why do we need this need to be `public`?",
+      "range": {
+        "startLine": 116,
+        "startChar": 2,
+        "endLine": 116,
+        "endChar": 8
+      },
+      "revId": "2ad6d32051210a94b80752d3ec12aee52d89b01c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
