@@ -158,20 +158,18 @@ public class BatchRefUpdateValidator extends RefUpdateValidator {
       final List<RefPair> finalRefsToUpdate = compareAndGetLatestLocalRefs(refsToUpdate, locks);
       delegateUpdate.invoke();
       try {
-        updateSharedRefDb(batchRefUpdate.getCommands().stream(), finalRefsToUpdate);
+        updateSharedRefDb(commands.stream(), finalRefsToUpdate);
       } catch (Exception e) {
-        List<ReceiveCommand> receiveCommands = batchRefUpdate.getCommands();
         logger.atWarning().withCause(e).log(
             "Batch ref-update failing because of failure during the global refdb update. Set all commands Result to LOCK_FAILURE [%d]",
-            receiveCommands.size());
-        rollback(delegateUpdateRollback, finalRefsToUpdate, receiveCommands);
+            commands.size());
+        rollback(delegateUpdateRollback, finalRefsToUpdate, commands);
       }
     } catch (OutOfSyncException e) {
-      List<ReceiveCommand> receiveCommands = batchRefUpdate.getCommands();
       logger.atWarning().withCause(e).log(
           "Batch ref-update failing because node is out of sync with the shared ref-db. Set all commands Result to LOCK_FAILURE [%d]",
-          receiveCommands.size());
-      receiveCommands.forEach((command) -> command.setResult(ReceiveCommand.Result.LOCK_FAILURE));
+          commands.size());
+      commands.forEach((command) -> command.setResult(ReceiveCommand.Result.LOCK_FAILURE));
     }
   }
 
