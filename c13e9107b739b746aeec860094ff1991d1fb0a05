@@ -33,6 +33,24 @@
       "message": "nit: I\u0027m bit confused with this boolean flag. Wouldn\u0027t it be more readable to just catch `Throwable` and re-throw it if it\u0027s not an `Exception`? something like:\n```java\n} catch (Throwable e) {\n  boolean isException \u003d e instanceof Exception;\n  if (isException) {\n    // log goes here\n  }\n  // we do rollback here\n  if (!isException) {\n    throw e;\n  }\n}\n```",
       "revId": "c13e9107b739b746aeec860094ff1991d1fb0a05",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35e16660_08367606",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/BatchRefUpdateValidator.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-09-25T12:45:10Z",
+      "side": 1,
+      "message": "I agree your suggestion is tidier, but the underlying idea here was to never catch `Throwable`. If we come to an agreement that it\u0027s safe, then I suppose we could.",
+      "parentUuid": "3fe4ee33_99900829",
+      "revId": "c13e9107b739b746aeec860094ff1991d1fb0a05",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
