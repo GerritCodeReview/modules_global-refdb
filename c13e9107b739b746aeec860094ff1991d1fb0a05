@@ -51,6 +51,24 @@
       "parentUuid": "3fe4ee33_99900829",
       "revId": "c13e9107b739b746aeec860094ff1991d1fb0a05",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7316eee1_af505920",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/BatchRefUpdateValidator.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1010134
+      },
+      "writtenOn": "2023-09-26T11:44:26Z",
+      "side": 1,
+      "message": "\u003e but the underlying idea here was to never catch `Throwable`\n\nI\u0027ve heard that idea, but what you\u0027re actually doing here is _catching_ the `Throwable` in an indirect way. I do get it that it\u0027s not the best \"practice\" to catch it, but sometimes that\u0027s a valid use case, so why then work around it by adding a boolean flag that it checked in the `finally` block.",
+      "parentUuid": "35e16660_08367606",
+      "revId": "c13e9107b739b746aeec860094ff1991d1fb0a05",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
