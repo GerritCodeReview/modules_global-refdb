@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea734509_0f01ce87",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-10-04T22:57:27Z",
+      "side": 1,
+      "message": "Why do we need this catch? Why not just leaving the exception surfacing upstream?",
+      "range": {
+        "startLine": 233,
+        "startChar": 0,
+        "endLine": 238,
+        "endChar": 5
+      },
+      "revId": "8aee2a2df5f7c805f6fa1b64b6eb1e5e708f27b4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65bd4ed2_aca021ba",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-10-04T22:57:27Z",
+      "side": 1,
+      "message": "Why all this extra logic? I believe the bug was just that the rollback function wasn\u0027t invoked, whilst here we are adding a lot more logic.",
+      "range": {
+        "startLine": 226,
+        "startChar": 0,
+        "endLine": 238,
+        "endChar": 5
+      },
+      "revId": "8aee2a2df5f7c805f6fa1b64b6eb1e5e708f27b4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
