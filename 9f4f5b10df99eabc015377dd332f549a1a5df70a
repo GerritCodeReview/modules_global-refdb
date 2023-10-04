@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c075139_2495217c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-10-04T22:58:18Z",
+      "side": 1,
+      "message": "Why is this change in the chain of the rollback management? It should be standalone IMHO and merged separately.",
+      "revId": "9f4f5b10df99eabc015377dd332f549a1a5df70a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
