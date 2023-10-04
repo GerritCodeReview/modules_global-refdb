@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "237c3112_e259c0e7",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-10-04T22:52:50Z",
+      "side": 1,
+      "message": "Not sure this code change should be in this fix: we are now setting Result.LOCK_FAILURE even when potentially the error is different, as the finally would be executed for any error, even the fatal ones like out of memory.",
+      "range": {
+        "startLine": 207,
+        "startChar": 0,
+        "endLine": 213,
+        "endChar": 11
+      },
+      "revId": "96394e93c9205d067404aebb027575bc6a8b0748",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
