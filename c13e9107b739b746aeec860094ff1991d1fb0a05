@@ -87,6 +87,24 @@
       "parentUuid": "7316eee1_af505920",
       "revId": "c13e9107b739b746aeec860094ff1991d1fb0a05",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "196b96a0_f868efd9",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/BatchRefUpdateValidator.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1025452
+      },
+      "writtenOn": "2023-10-04T11:01:48Z",
+      "side": 1,
+      "message": "I don\u0027t believe that in case when `Throwable` is thrown `rollback` will do anything useful as app will be dead anyway 😊 IOW forget the flag, catch `Exception` and rollback if it happens - that would be my take 😄 and `finally` would not be needed there.",
+      "parentUuid": "3842efb1_3616c064",
+      "revId": "c13e9107b739b746aeec860094ff1991d1fb0a05",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
