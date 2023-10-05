@@ -45,6 +45,54 @@
       },
       "revId": "8aee2a2df5f7c805f6fa1b64b6eb1e5e708f27b4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d330b98_154e7ca8",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-10-05T08:20:29Z",
+      "side": 1,
+      "message": "We log this error but don\u0027t let it bubble up. This code is called from a `finally` block, so if it throws, any uncaught errors from the finally block will be clobbered. Also in the `finally` block we don\u0027t have access to the error (should one have been thrown), so we can\u0027t log that and let this bubble up instead.",
+      "parentUuid": "ea734509_0f01ce87",
+      "range": {
+        "startLine": 233,
+        "startChar": 0,
+        "endLine": 238,
+        "endChar": 5
+      },
+      "revId": "8aee2a2df5f7c805f6fa1b64b6eb1e5e708f27b4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a7e8e7e_b48c2e18",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-10-05T08:20:29Z",
+      "side": 1,
+      "message": "I was concerned about having moved the `invoke` to a `finally`, which means any errors thrown in there would have clobbered the original uncaught error, so I thought this code should be made safe. If we don\u0027t, and the rollback function throws, any uncaught errors from the original try block will be clobbered (mentioned in the final paragraph of the commit description).",
+      "parentUuid": "65bd4ed2_aca021ba",
+      "range": {
+        "startLine": 226,
+        "startChar": 0,
+        "endLine": 238,
+        "endChar": 5
+      },
+      "revId": "8aee2a2df5f7c805f6fa1b64b6eb1e5e708f27b4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
