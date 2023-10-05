@@ -141,6 +141,24 @@
       "parentUuid": "df2b1f12_8026e9b2",
       "revId": "c13e9107b739b746aeec860094ff1991d1fb0a05",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b876b5dd_2530507f",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/BatchRefUpdateValidator.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1010134
+      },
+      "writtenOn": "2023-10-05T09:26:12Z",
+      "side": 1,
+      "message": "\u003e As a rule of thumb, Throwable should never ever be caught because it could be a type of error that it is just non recoverable at all.\n\nI think that having this coded as `catch (Throwable e)` in this case is more readable and convey the intent better than usage of a ``boolean` flag and `finally` block.\n\n\u003e The purpose of the fix is making sure that we at least attempt to rollback.\n\nI\u0027d still argue that catching `Throwable` is better approach. In any case would be good to document that _intent_ of \"at least attempting to rollback\", so that in teh future we won\u0027t scream _WTF_ when we look at this code.",
+      "parentUuid": "0d0b682f_7f27281d",
+      "revId": "c13e9107b739b746aeec860094ff1991d1fb0a05",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
