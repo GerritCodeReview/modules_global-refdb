@@ -22,6 +22,30 @@
       },
       "revId": "96394e93c9205d067404aebb027575bc6a8b0748",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5cafe158_7e218fd1",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-10-05T07:59:45Z",
+      "side": 1,
+      "message": "We will only return this value if:\n* `updatedSharedDbOrThrowExceptionFor` throws\n* we catch the exception (any `Exception`, this code is unchanged)\n* the rollback succeeds\n\nFor uncaught exceptions (the case you describe, as I understand it), the original error will not be caught, so we\u0027ll execute the code in the `finally` but as we don\u0027t return, the original error will propagate as it\u0027s uncaught. In other words, `result` will not be returned.\n\nObviously this assumes the uncaught exception hasn\u0027t caused the JVM to crash before we get here.",
+      "parentUuid": "237c3112_e259c0e7",
+      "range": {
+        "startLine": 207,
+        "startChar": 0,
+        "endLine": 213,
+        "endChar": 11
+      },
+      "revId": "96394e93c9205d067404aebb027575bc6a8b0748",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
