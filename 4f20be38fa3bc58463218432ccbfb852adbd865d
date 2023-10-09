@@ -74,6 +74,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "84811df6_f60a0f3c",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1010134
+      },
+      "writtenOn": "2023-10-09T20:34:39Z",
+      "side": 1,
+      "message": "great! good that we had that test, it will allow us keep the same behaviour.\n\nLet\u0027s keep the case for `GlobalRefDbSystemError`, meaning assume that it\u0027s handled here and rethrow in case of any other `RuntimeException`s eg:\n\n```java\nif (!(throwable instanceof GlobalRefDbError)) {\n  Throwables.throwIfUnchecked(throwable);\n}\n```\n\nBTW. current diff on the left side shows `catch (Exception e) {`, but I think it was `GlobalRefDbError` at some point in time.",
+      "parentUuid": "2e67dd5a_835349a3",
+      "revId": "4f20be38fa3bc58463218432ccbfb852adbd865d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5810050a_2d54f0b2",
         "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidatorTest.java",
         "patchSetId": 18
@@ -103,6 +121,24 @@
       "side": 1,
       "message": "See my other comment, but I think we only require this test when we have different behaviour for `RuntimeException` and `Exception`.",
       "parentUuid": "5810050a_2d54f0b2",
+      "revId": "4f20be38fa3bc58463218432ccbfb852adbd865d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "311109de_384e09d8",
+        "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidatorTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1010134
+      },
+      "writtenOn": "2023-10-09T20:34:39Z",
+      "side": 1,
+      "message": "I\u0027m thinking here about any other `RuntimeException`s here, not necessarily connected to the RefDb. We don\u0027t know what could happen out there in the wild, what other `RuntimeExceptions` can be thrown and we don\u0027t want to swallow them here.",
+      "parentUuid": "ba33cbb6_2cb7a24b",
       "revId": "4f20be38fa3bc58463218432ccbfb852adbd865d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
