@@ -202,7 +202,11 @@ public class RefUpdateValidator {
         }
         logger.atSevere().withCause(e).log(
             String.format(
-                "Failed to update global refdb, the local refdb has been rolled back: %s",
+                "Failed to update global refdb for project '%s', ref '%s', and object id '%s': %s."
+                    + " The local refdb has been rolled back",
+                projectName,
+                refPairForUpdate.getName(),
+                refPairForUpdate.compareRef.getObjectId(),
                 e.getMessage()));
       }
       return result;
