@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "940eb710_9299a74d",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-10-09T20:30:10Z",
+      "side": 1,
+      "message": "s/we catch it/we catch these/",
+      "parentUuid": "2e67dd5a_835349a3",
+      "revId": "4f20be38fa3bc58463218432ccbfb852adbd865d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5810050a_2d54f0b2",
         "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidatorTest.java",
         "patchSetId": 18
