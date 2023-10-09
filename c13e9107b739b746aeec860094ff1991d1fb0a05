@@ -159,6 +159,24 @@
       "parentUuid": "0d0b682f_7f27281d",
       "revId": "c13e9107b739b746aeec860094ff1991d1fb0a05",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50e9f83b_def82d76",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/BatchRefUpdateValidator.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-10-09T14:10:29Z",
+      "side": 1,
+      "message": "We did a little digging, and it looks like there is precedent for catching `Throwable` in Gerrit (no links, but easy to look for). As Luca points out, as a rule of thumb we should not catch `Error`s, but if we rethrow we should be safe (relatively speaking), so we either crash before we\u0027ve rethrown, in which case it doesn\u0027 matter anyway, or we rethrow the exception. Either way we don\u0027t catch/return `Error`s, which is dangerous.\n\nGerrit also makes use of Guava\u0027s `throwIfUnchecked` [1] which we could look at using here (and in the respective change for `RefUpdateValidator` [2]).\n\nRemoving the boolean flag does make the code easier to read, so we\u0027ll follow that approach.\n\n[1] https://guava.dev/releases/23.0/api/docs/com/google/common/base/Throwables.html#throwIfUnchecked-java.lang.Throwable-\n[2] https://gerrit-review.googlesource.com/c/modules/global-refdb/+/386058/17",
+      "parentUuid": "b876b5dd_2530507f",
+      "revId": "c13e9107b739b746aeec860094ff1991d1fb0a05",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
