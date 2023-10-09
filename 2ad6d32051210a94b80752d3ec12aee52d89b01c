@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e726fee_9777a268",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2023-10-09T15:21:27Z",
+      "side": 1,
+      "message": "Typo it should be `ExtendedGlobalRefDatabase`",
+      "parentUuid": "1c5481fe_3f21b216",
+      "range": {
+        "startLine": 9,
+        "startChar": 24,
+        "endLine": 9,
+        "endChar": 41
+      },
+      "revId": "2ad6d32051210a94b80752d3ec12aee52d89b01c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0a62bd6d_8c7b5a42",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-09-22T09:02:23Z",
       "side": 1,
       "message": "I\u0027m probably missing context here, but this doesn\u0027t match the expectation in the issue (i.e. retry compare-and-swap). Are there split brain risks associated with this method? Should they be mentioned somewhere?",
+      "range": {
+        "startLine": 10,
+        "startChar": 41,
+        "endLine": 11,
+        "endChar": 54
+      },
+      "revId": "2ad6d32051210a94b80752d3ec12aee52d89b01c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87e41114_b9d6735b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2023-10-09T15:21:27Z",
+      "side": 1,
+      "message": "We decided that we do not need to check the current value before updating value when updating `refs/meta/version`",
+      "parentUuid": "0a62bd6d_8c7b5a42",
       "range": {
         "startLine": 10,
         "startChar": 41,
@@ -66,6 +114,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fc1833b9_c05444e4",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/ExtendedGlobalRefDatabase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2023-10-09T15:21:27Z",
+      "side": 1,
+      "message": "It depends on the context. We cannot say that `compareAndPut` is preferable. It is the same as for example in `java.util.concurrent.atomic.AtomitcInteger` where you have `compareAndSet`[1] and `set`[2] methods but the documentation is not mentioning which one is preferred or what are the use cases.\n\n1.https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicInteger.html#compareAndSet-int-int-\n2.https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicInteger.html#set-int-",
+      "parentUuid": "cee7ce23_3700c76e",
+      "revId": "2ad6d32051210a94b80752d3ec12aee52d89b01c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d0229d4f_1cb06c98",
         "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/ExtendedGlobalRefDatabase.java",
         "patchSetId": 2
@@ -77,6 +143,30 @@
       "writtenOn": "2023-09-22T09:02:23Z",
       "side": 1,
       "message": "Nit: why not `put`, to use the same nomenclature as `compareAndPut`?",
+      "range": {
+        "startLine": 32,
+        "startChar": 11,
+        "endLine": 32,
+        "endChar": 14
+      },
+      "revId": "2ad6d32051210a94b80752d3ec12aee52d89b01c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4b45057_b9a7795f",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/ExtendedGlobalRefDatabase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2023-10-09T15:21:27Z",
+      "side": 1,
+      "message": "Well if we want to follow the java api we should have `compareAndSet` instead of `compareAndPut`\n\nhttps://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicInteger.html#compareAndSet-int-int-",
+      "parentUuid": "d0229d4f_1cb06c98",
       "range": {
         "startLine": 32,
         "startChar": 11,
