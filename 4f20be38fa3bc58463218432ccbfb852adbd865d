@@ -92,6 +92,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "156dc86c_dafbf224",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-10-09T20:53:48Z",
+      "side": 1,
+      "message": "How do you mean it used to be different? Maybe I\u0027m missing something but as far as I can see this code has been catching `Exception` since change Ia7cc54a5b32fa2997cfb4673cb768fe43107b02a, when rollbacks were introduced. Also there is another `RuntimeException` in the same namespace as `GlobalRefDbSystemError` - [`GlobalRefDbLockException`](https://gerrit.googlesource.com/modules/global-refdb/+/refs/heads/master/src/main/java/com/gerritforge/gerrit/globalrefdb/GlobalRefDbLockException.java). Should we add that to the condition, or should we swallow it?\n\nI agree with your sentiment, but I\u0027m slightly apprehensive of second-guessing what the author meant. Maybe we can speak about it outside the context of this code review. Also I\u0027d rather do that in a separate change.\n\nWDYT?",
+      "parentUuid": "84811df6_f60a0f3c",
+      "revId": "4f20be38fa3bc58463218432ccbfb852adbd865d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5810050a_2d54f0b2",
         "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidatorTest.java",
         "patchSetId": 18
