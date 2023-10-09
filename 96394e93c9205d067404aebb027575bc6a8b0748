@@ -46,6 +46,30 @@
       },
       "revId": "96394e93c9205d067404aebb027575bc6a8b0748",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bba67138_437584c0",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-10-09T19:43:44Z",
+      "side": 1,
+      "message": "Refactored out.",
+      "parentUuid": "5cafe158_7e218fd1",
+      "range": {
+        "startLine": 207,
+        "startChar": 0,
+        "endLine": 213,
+        "endChar": 11
+      },
+      "revId": "96394e93c9205d067404aebb027575bc6a8b0748",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }

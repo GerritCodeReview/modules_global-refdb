@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2e67dd5a_835349a3",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-10-09T19:43:44Z",
+      "side": 1,
+      "message": "I agree, and my first implementation used exactly that method, it seemed to fit this scenario like a glove.\n\nUnfortunately this broke a test. [`GlobalRefDbSystemError`](https://gerrit.googlesource.com/modules/global-refdb/+/refs/heads/master/src/main/java/com/gerritforge/gerrit/globalrefdb/GlobalRefDbSystemError.java) is a `RuntimeException`, and we catch it and recover in the existing code (L198 in the left column), and the [test](https://gerrit.googlesource.com/modules/global-refdb/+/refs/heads/master/src/test/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidatorTest.java#221) checks this exact behaviour. I\u0027m not 100% sure this is modelled correctly (it\u0027s a little unconventional at best), but as this is the current behaviour I think it\u0027s outside the scope of this ticket to change it.\n\nIf we agree we should change something here, maybe we could have a follow-up change.",
+      "parentUuid": "0963cbc6_4dd3f071",
+      "revId": "4f20be38fa3bc58463218432ccbfb852adbd865d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5810050a_2d54f0b2",
         "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidatorTest.java",
         "patchSetId": 18
@@ -49,6 +67,24 @@
       "writtenOn": "2023-10-09T15:58:34Z",
       "side": 1,
       "message": "could you also please add test for a `RuntimeExeption` and a _regular_ subclass of `Exception`?",
+      "revId": "4f20be38fa3bc58463218432ccbfb852adbd865d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba33cbb6_2cb7a24b",
+        "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidatorTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-10-09T19:43:44Z",
+      "side": 1,
+      "message": "See my other comment, but I think we only require this test when we have different behaviour for `RuntimeException` and `Exception`.",
+      "parentUuid": "5810050a_2d54f0b2",
       "revId": "4f20be38fa3bc58463218432ccbfb852adbd865d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
