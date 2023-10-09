@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d74253f_e65b4a85",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1010134
+      },
+      "writtenOn": "2023-10-09T15:58:34Z",
+      "side": 1,
+      "message": "we\u0027ll swallow `RuntimeExeptions` here as they are type of `Exception`. As `RuntimeExeptions` can be potentially unrecoverable, we can leave the system in broken state. IMO we should also rethrow `RuntimeExceptions`.",
+      "revId": "4f20be38fa3bc58463218432ccbfb852adbd865d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5810050a_2d54f0b2",
+        "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidatorTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1010134
+      },
+      "writtenOn": "2023-10-09T15:58:34Z",
+      "side": 1,
+      "message": "could you also please add test for a `RuntimeExeption` and a _regular_ subclass of `Exception`?",
+      "revId": "4f20be38fa3bc58463218432ccbfb852adbd865d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
