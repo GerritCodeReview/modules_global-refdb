@@ -243,6 +243,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "da033c34_5b86ac15",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/ExtendedGlobalRefDatabase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2023-10-10T10:33:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8376c348_8f2d4d43",
+      "range": {
+        "startLine": 32,
+        "startChar": 11,
+        "endLine": 32,
+        "endChar": 14
+      },
+      "revId": "2ad6d32051210a94b80752d3ec12aee52d89b01c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ffb40dd9_7679764a",
