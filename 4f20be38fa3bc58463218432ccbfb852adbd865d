@@ -110,6 +110,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b2d3b54a_db78e61f",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1010134
+      },
+      "writtenOn": "2023-10-10T16:17:06Z",
+      "side": 1,
+      "message": "after a closer examination of the code here, I think we can move that whole logging and rollback logic into the `updateSharedDbOrThrowExceptionFor()` method. It doesn\u0027t make sense to throw an exception from that method and catch it here. We already have a try-catch block in `updateSharedDbOrThrowExceptionFor()`, it will be better to reuse it, than nest yet another try-catch within.",
+      "parentUuid": "156dc86c_dafbf224",
+      "revId": "4f20be38fa3bc58463218432ccbfb852adbd865d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5810050a_2d54f0b2",
         "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidatorTest.java",
         "patchSetId": 18
