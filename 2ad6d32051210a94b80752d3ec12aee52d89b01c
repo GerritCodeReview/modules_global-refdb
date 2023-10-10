@@ -95,6 +95,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "69404899_d8030b84",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-10-10T09:08:59Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "87e41114_b9d6735b",
+      "range": {
+        "startLine": 10,
+        "startChar": 41,
+        "endLine": 11,
+        "endChar": 54
+      },
+      "revId": "2ad6d32051210a94b80752d3ec12aee52d89b01c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cee7ce23_3700c76e",
@@ -126,6 +150,24 @@
       "side": 1,
       "message": "It depends on the context. We cannot say that `compareAndPut` is preferable. It is the same as for example in `java.util.concurrent.atomic.AtomitcInteger` where you have `compareAndSet`[1] and `set`[2] methods but the documentation is not mentioning which one is preferred or what are the use cases.\n\n1.https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicInteger.html#compareAndSet-int-int-\n2.https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicInteger.html#set-int-",
       "parentUuid": "cee7ce23_3700c76e",
+      "revId": "2ad6d32051210a94b80752d3ec12aee52d89b01c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0541d7a_1c1c8d80",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/ExtendedGlobalRefDatabase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-10-10T09:08:59Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "fc1833b9_c05444e4",
       "revId": "2ad6d32051210a94b80752d3ec12aee52d89b01c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -167,6 +209,30 @@
       "side": 1,
       "message": "Well if we want to follow the java api we should have `compareAndSet` instead of `compareAndPut`\n\nhttps://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicInteger.html#compareAndSet-int-int-",
       "parentUuid": "d0229d4f_1cb06c98",
+      "range": {
+        "startLine": 32,
+        "startChar": 11,
+        "endLine": 32,
+        "endChar": 14
+      },
+      "revId": "2ad6d32051210a94b80752d3ec12aee52d89b01c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8376c348_8f2d4d43",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/ExtendedGlobalRefDatabase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-10-10T09:08:59Z",
+      "side": 1,
+      "message": "We could do... but `compareAndPut` is what the method is called in this codebase, and this method is analogous to that, not to that of `AtomicInteger`. Or were you thinking to rename `compareAndPut` to `compareAndSet` (in a prior change, perhaps?), that way we\u0027d use `set`?\n\n`compareAndPut` and `set` aren\u0027t consistent with each other.",
+      "parentUuid": "d4b45057_b9a7795f",
       "range": {
         "startLine": 32,
         "startChar": 11,
