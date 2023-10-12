@@ -213,6 +213,24 @@
       "parentUuid": "35a4a17e_6115912f",
       "revId": "c13e9107b739b746aeec860094ff1991d1fb0a05",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "447a7dd0_cbe4bd8a",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/BatchRefUpdateValidator.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-10-12T22:30:35Z",
+      "side": 1,
+      "message": "The cases in Gerrit should be fixed IMHO, as they catch Throwable and do not re-throw anything.\n\nThe rollback is a clean-up operation if the body of the block was not executed, therefore is perfectly logic to be in the clean-up section of the method. We are not _managing_ the exception therefore adding in the `catch` is misleading.\n\nBut I\u0027d prefer to have a call on the code-styling rather than delaying this change further. It\u0027s very simple and readable IMHO, I wouldn\u0027t add risk of catching Throwable which is a clear code smell and risky business.",
+      "parentUuid": "d28ba486_fc723ad3",
+      "revId": "c13e9107b739b746aeec860094ff1991d1fb0a05",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
