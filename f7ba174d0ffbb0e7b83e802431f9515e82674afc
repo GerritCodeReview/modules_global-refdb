@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63473a35_ffb06f26",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-10-12T21:32:16Z",
+      "side": 1,
+      "message": "Giving a temporary -2 because I don\u0027t see us converging anywhere.\nCan we have a discussion?",
+      "revId": "f7ba174d0ffbb0e7b83e802431f9515e82674afc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82fea85f_afbd0b0d",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-10-12T21:32:16Z",
+      "side": 1,
+      "message": "You should never ever catch Throwable (see [1]).\n\n[1] https://www.baeldung.com/java-catch-throwable-bad-practice",
+      "range": {
+        "startLine": 198,
+        "startChar": 15,
+        "endLine": 198,
+        "endChar": 34
+      },
+      "revId": "f7ba174d0ffbb0e7b83e802431f9515e82674afc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
