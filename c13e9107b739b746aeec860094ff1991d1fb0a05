@@ -177,6 +177,24 @@
       "parentUuid": "b876b5dd_2530507f",
       "revId": "c13e9107b739b746aeec860094ff1991d1fb0a05",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35a4a17e_6115912f",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/BatchRefUpdateValidator.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-10-12T21:50:52Z",
+      "side": 1,
+      "message": "I\u0027ve found the place you\u0027ve mentioned in Gerrit code:\n```\n      } catch (Throwable e) {\n        logger.atSevere().withCause(e).log(\n            \"%s\",\n            MessageFormat.format(\n                HttpServerText.get().internalErrorDuringUploadPack,\n                ServletUtils.getRepository(req)));\n        if (!rsp.isCommitted()) {\n          rsp.reset();\n          String msg \u003d e instanceof PackProtocolException ? e.getMessage() : null;\n          sendError(req, rsp, UploadPackErrorHandler.statusCodeForThrowable(e), msg);\n        }\n      }`\n```\n\nThat is a serious mistake IMHO: we are catching Throwable (which is NOT supposed to be caught) and we are not even re-throwing it in case it is a non-recoverable error, like a stack overview or out of memory.\n\nThe argument I hear is that _catching throwable is more readable_? That doesn\u0027t look a strong enough argument to me.\n\nMarking this as resolved, unless you\u0027d like to have more organic conversation on a short call.",
+      "parentUuid": "50e9f83b_def82d76",
+      "revId": "c13e9107b739b746aeec860094ff1991d1fb0a05",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
