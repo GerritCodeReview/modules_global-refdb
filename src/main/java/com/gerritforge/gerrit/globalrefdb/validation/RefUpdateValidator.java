@@ -189,10 +189,11 @@ public class RefUpdateValidator {
       RefPair refPairForUpdate = newRefPairFrom(refUpdate);
       compareAndGetLatestLocalRef(refPairForUpdate, locks);
       RefUpdate.Result result = refUpdateFunction.invoke();
+      if (!isSuccessful(result)) {
+        return result;
+      }
       try {
-        if (isSuccessful(result)) {
-          updateSharedDbOrThrowExceptionFor(refPairForUpdate);
-        }
+        updateSharedDbOrThrowExceptionFor(refPairForUpdate);
       } catch (Exception e) {
         result = rollbackFunction.invoke(refPairForUpdate.compareRef.getObjectId());
         if (isSuccessful(result)) {
@@ -217,6 +218,12 @@ public class RefUpdateValidator {
         refEnforcement.getPolicy(projectName, refPair.getName());
     if (refEnforcementPolicy == EnforcePolicy.IGNORED) return;
 
+    String errorMessage =
+        String.format(
+            "Not able to persist the data in SharedRef for project '%s' and ref '%s',"
+                + "the cluster is now in Split Brain since the commit has been "
+                + "persisted locally but not in global-refdb the value %s",
+            projectName, refPair.getName(), refPair.putValue);
     boolean succeeded;
     try {
       succeeded =
@@ -224,18 +231,12 @@ public class RefUpdateValidator {
               Project.nameKey(projectName), refPair.compareRef, refPair.putValue);
     } catch (GlobalRefDbSystemError e) {
       logger.atWarning().withCause(e).log(
-          "Not able to persist the data in Zookeeper for project '%s' and ref '%s', message: %s",
+          "Not able to persist the data in global-refdb for project '%s' and ref '%s', message: %s",
           projectName, refPair.getName(), e.getMessage());
       throw e;
     }
 
     if (!succeeded) {
-      String errorMessage =
-          String.format(
-              "Not able to persist the data in Zookeeper for project '%s' and ref '%s',"
-                  + "the cluster is now in Split Brain since the commit has been "
-                  + "persisted locally but not in SharedRef the value %s",
-              projectName, refPair.getName(), refPair.putValue);
       throw new SharedDbSplitBrainException(errorMessage);
     }
   }
@@ -343,7 +344,7 @@ public class RefUpdateValidator {
                   logger.atSevere().withCause(closingException).log(
                       "Exception trying to release resource %s, "
                           + "the locked resources won't be accessible in all cluster unless"
-                          + " the lock is removed from ZK manually",
+                          + " the lock is removed from global-refdb manually",
                       closeable);
                 }
               });

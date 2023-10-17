@@ -20,8 +20,8 @@ import com.google.gerrit.acceptance.AbstractDaemonTest;
 import com.google.gerrit.acceptance.PushOneCommit;
 import com.google.gerrit.entities.RefNames;
 import com.google.gerrit.json.OutputFormat;
+import com.google.gerrit.server.Sequence;
 import com.google.gerrit.server.config.SitePaths;
-import com.google.gerrit.server.notedb.Sequences;
 import com.google.gerrit.server.util.SystemLog;
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -101,7 +101,7 @@ public class Log4jSharedRefLoggerTest extends AbstractDaemonTest {
   @Test
   public void shouldLogBlobRefs() throws Exception {
     Repository allUsersRepo = repoManager.openRepository(allUsers);
-    String blobRefName = RefNames.REFS_SEQUENCES + Sequences.NAME_ACCOUNTS;
+    String blobRefName = RefNames.REFS_SEQUENCES + Sequence.NAME_ACCOUNTS;
     Ref currRef = allUsersRepo.exactRef(blobRefName);
     log4jSharedRefLogger.logRefUpdate(allUsers.get(), currRef, currRef.getObjectId());
 
