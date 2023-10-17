@@ -28,6 +28,7 @@ public class SharedRefDBMetrics {
   private final Timer0 getOperationExecutionTime;
   private final Timer0 existsExecutionTime;
   private Timer0 compareAndPutExecutionTime;
+  private Timer0 setExecutionTime;
   private Timer0 removeExecutionTime;
   private Timer0 isUpToDateExecutionTime;
 
@@ -37,6 +38,12 @@ public class SharedRefDBMetrics {
         metricMaker.newTimer(
             "global_refdb/compare_and_put_latency",
             new Description("Time spent on compareAndPut.")
+                .setCumulative()
+                .setUnit(Description.Units.MILLISECONDS));
+    setExecutionTime =
+        metricMaker.newTimer(
+            "global_refdb/set_latency",
+            new Description("Time spent on set.")
                 .setCumulative()
                 .setUnit(Description.Units.MILLISECONDS));
     getOperationExecutionTime =
@@ -74,6 +81,10 @@ public class SharedRefDBMetrics {
 
   public Context startCompareAndPutExecutionTime() {
     return compareAndPutExecutionTime.start();
+  }
+
+  public Context startSetExecutionTime() {
+    return setExecutionTime.start();
   }
 
   public Context startGetExecutionTime() {
