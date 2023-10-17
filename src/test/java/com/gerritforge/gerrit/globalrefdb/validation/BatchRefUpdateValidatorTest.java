@@ -91,7 +91,38 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
   }
 
   @Test
-  public void immutableChangeShouldNotBeWrittenIntoZk() throws Exception {
+  public void shouldUpdateSharedRefDbForAllRefUpdates() throws IOException {
+    String REF_NAME_A = "refs/changes/01/1/1";
+    String REF_NAME_B = "refs/changes/02/1/1";
+    BatchRefUpdate batchRefUpdate =
+        newBatchUpdate(
+            List.of(
+                new ReceiveCommand(A, B, REF_NAME_A, UPDATE),
+                new ReceiveCommand(A, B, REF_NAME_B, UPDATE)));
+    BatchRefUpdateValidator batchRefUpdateValidator =
+        getRefValidatorForEnforcement(A_TEST_PROJECT_NAME, tmpRefEnforcement);
+
+    doReturn(SharedRefEnforcement.EnforcePolicy.REQUIRED)
+        .when(batchRefUpdateValidator.refEnforcement)
+        .getPolicy(A_TEST_PROJECT_NAME, REF_NAME_A);
+
+    doReturn(true).when(sharedRefDatabase).isUpToDate(any(), any());
+
+    doReturn(true).when(sharedRefDatabase).compareAndPut(any(), any(), any());
+
+    batchRefUpdateValidator.executeBatchUpdateWithValidation(
+        batchRefUpdate, () -> execute(batchRefUpdate), rollbackFunction);
+
+    verify(rollbackFunction, never()).invoke(any());
+
+    List<ReceiveCommand> commands = batchRefUpdate.getCommands();
+    assertThat(commands.size()).isEqualTo(2);
+    commands.forEach(
+        (command) -> assertThat(command.getResult()).isEqualTo(ReceiveCommand.Result.OK));
+  }
+
+  @Test
+  public void immutableChangeShouldNotBeWrittenIntoSharedRefDb() throws Exception {
     String AN_IMMUTABLE_REF = "refs/changes/01/1/1";
 
     List<ReceiveCommand> cmds = Arrays.asList(new ReceiveCommand(A, B, AN_IMMUTABLE_REF, UPDATE));

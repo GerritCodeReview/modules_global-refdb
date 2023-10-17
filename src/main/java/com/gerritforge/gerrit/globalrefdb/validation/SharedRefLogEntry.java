@@ -41,7 +41,7 @@ class SharedRefLogEntry {
     UpdateRef(
         String projectName,
         String refName,
-        String oldId,
+        @Nullable String oldId,
         String newId,
         @Nullable GitPerson committer,
         @Nullable String comment) {
@@ -68,7 +68,7 @@ class SharedRefLogEntry {
     public String refName;
     public String oldId;
 
-    DeleteRef(String projectName, String refName, String oldId) {
+    DeleteRef(String projectName, String refName, @Nullable String oldId) {
       this.type = Type.DELETE_REF;
       this.projectName = projectName;
       this.refName = refName;
