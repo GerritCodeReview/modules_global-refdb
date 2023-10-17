@@ -140,6 +140,18 @@ public class Log4jSharedRefLogger extends LibModuleLogFile implements SharedRefL
     }
   }
 
+  @Override
+  public <T> void logRefUpdate(String project, String refName, T newRefValue) {
+    if (newRefValue != null) {
+      sharedRefDBLog.info(
+          gson.toJson(
+              new SharedRefLogEntry.UpdateRef(
+                  project, refName, null, safeToString(newRefValue), null, null)));
+    } else {
+      sharedRefDBLog.info(gson.toJson(new SharedRefLogEntry.DeleteRef(project, refName, null)));
+    }
+  }
+
   /**
    * {@inheritDoc}.
    *
