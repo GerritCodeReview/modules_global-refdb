@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "775a0183_1897967f",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-10-18T11:23:02Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be in the `if(!succeeded)` block? It\u0027s only used in there.",
+      "revId": "3e85699dddecd7c2dca6315950502eb95ce33cc7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
