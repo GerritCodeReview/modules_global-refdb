@@ -42,6 +42,16 @@ public interface SharedRefLogger {
   <T> void logRefUpdate(String project, String refName, T currRef, T newRefValue);
 
   /**
+   * Log the update of ref pointed to by refName, in project 'project' to ref 'newRefValue'
+   *
+   * @param project the project the update is for
+   * @param refName the name of the ref being updatex
+   * @param newRefValue the new value of the ref being updated
+   * @param <T> Type of the 'currRef' and the 'newRefValue'
+   */
+  <T> void logRefUpdate(String project, String refName, T newRefValue);
+
+  /**
    * Log the deletion of 'project' from the global refdb
    *
    * @param project the project being deleted
