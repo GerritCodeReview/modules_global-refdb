@@ -14,6 +14,7 @@
 
 package com.gerritforge.gerrit.globalrefdb.validation;
 
+import com.gerritforge.gerrit.globalrefdb.ExtendedGlobalRefDatabase;
 import com.gerritforge.gerrit.globalrefdb.GlobalRefDatabase;
 import com.gerritforge.gerrit.globalrefdb.GlobalRefDbLockException;
 import com.gerritforge.gerrit.globalrefdb.GlobalRefDbSystemError;
@@ -35,7 +36,7 @@ import org.eclipse.jgit.lib.Ref;
  * {@link NoopSharedRefDatabase} instance is wrapped instead.
  */
 @Singleton
-public class SharedRefDatabaseWrapper implements GlobalRefDatabase {
+public class SharedRefDatabaseWrapper implements ExtendedGlobalRefDatabase {
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
   private static final GlobalRefDatabase NOOP_REFDB = new NoopSharedRefDatabase();
 
@@ -97,6 +98,23 @@ public class SharedRefDatabaseWrapper implements GlobalRefDatabase {
       }
       return succeeded;
     }
+  }
+
+  @Override
+  public <T> void put(Project.NameKey project, String refName, T newValue)
+      throws GlobalRefDbSystemError {
+    if (!isSetOperationSupported()) {
+      throw new UnsupportedOperationException(
+          "GlobalRefDb implementation doesn't support set operation");
+    }
+    try (Context context = metrics.startSetExecutionTime()) {
+      ((ExtendedGlobalRefDatabase) sharedRefDb()).put(project, refName, newValue);
+      sharedRefLogger.logRefUpdate(project.get(), refName, newValue);
+    }
+  }
+
+  public boolean isSetOperationSupported() {
+    return sharedRefDb() instanceof ExtendedGlobalRefDatabase;
   }
 
   /** {@inheritDoc}. The operation is logged. */
