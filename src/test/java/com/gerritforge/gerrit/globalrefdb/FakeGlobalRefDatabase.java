@@ -16,6 +16,7 @@ package com.gerritforge.gerrit.globalrefdb;
 
 import com.google.common.collect.MapMaker;
 import com.google.gerrit.entities.Project;
+import com.google.gerrit.entities.Project.NameKey;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicReference;
@@ -26,7 +27,7 @@ import org.eclipse.jgit.lib.Ref;
 import org.junit.Ignore;
 
 @Ignore
-public class FakeGlobalRefDatabase implements GlobalRefDatabase {
+public class FakeGlobalRefDatabase implements ExtendedGlobalRefDatabase {
 
   private ConcurrentMap<Project.NameKey, ConcurrentMap<String, AtomicReference<ObjectId>>>
       keyValueStore;
@@ -130,6 +131,12 @@ public class FakeGlobalRefDatabase implements GlobalRefDatabase {
     }
 
     return projectRefLock;
+  }
+
+  @Override
+  public <T> void put(NameKey project, String refName, T newValue) throws GlobalRefDbSystemError {
+    String key = String.format("%s/%s", project.get(), refName);
+    genericKeyValueStore.put(key, new AtomicReference<>(newValue));
   }
 
   private static class RefLock implements AutoCloseable {
