@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97eb5d80_b1f4a99b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1149185
+      },
+      "writtenOn": "2023-10-23T11:43:50Z",
+      "side": 1,
+      "message": "please, would you mind extending the explanations why there is break compatibility?",
+      "revId": "1cbf953d483ab00176098b8fa33f29680f7fb539",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
