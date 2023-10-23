@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f2f6a04a_b4e5f375",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2023-10-23T21:14:09Z",
+      "side": 1,
+      "message": "introduced",
+      "range": {
+        "startLine": 9,
+        "startChar": 32,
+        "endLine": 9,
+        "endChar": 41
+      },
+      "revId": "1cbf953d483ab00176098b8fa33f29680f7fb539",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "97eb5d80_b1f4a99b",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -14,6 +37,52 @@
       "writtenOn": "2023-10-23T11:43:50Z",
       "side": 1,
       "message": "please, would you mind extending the explanations why there is break compatibility?",
+      "revId": "1cbf953d483ab00176098b8fa33f29680f7fb539",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c70f9df_b3964690",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2023-10-23T21:14:09Z",
+      "side": 1,
+      "message": "Do we have a list of consumers that will break with this?\nCan we list our expectations here so that we know immediately what to tackle?\n\nAlso, do we want to hold off the merging of this so that we can prepare with the relevant plugin fixes?",
+      "range": {
+        "startLine": 12,
+        "startChar": 8,
+        "endLine": 12,
+        "endChar": 35
+      },
+      "revId": "1cbf953d483ab00176098b8fa33f29680f7fb539",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6f348bf_31ff8228",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/GlobalRefDatabase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2023-10-23T21:14:09Z",
+      "side": 1,
+      "message": "this seems wrong, consider re-wording",
+      "range": {
+        "startLine": 100,
+        "startChar": 12,
+        "endLine": 100,
+        "endChar": 44
+      },
       "revId": "1cbf953d483ab00176098b8fa33f29680f7fb539",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
