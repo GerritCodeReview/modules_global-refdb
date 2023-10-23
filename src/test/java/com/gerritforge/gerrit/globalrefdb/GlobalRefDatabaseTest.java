@@ -31,7 +31,7 @@ import org.junit.Test;
 
 public class GlobalRefDatabaseTest extends AbstractDaemonTest {
 
-  protected ExtendedGlobalRefDatabase objectUnderTest;
+  protected GlobalRefDatabase objectUnderTest;
   protected String refName = RefNames.REFS_HEADS + "branch";
 
   private ObjectId objectId1;

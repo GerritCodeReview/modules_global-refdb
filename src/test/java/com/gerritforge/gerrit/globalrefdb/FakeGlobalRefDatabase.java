@@ -27,7 +27,7 @@ import org.eclipse.jgit.lib.Ref;
 import org.junit.Ignore;
 
 @Ignore
-public class FakeGlobalRefDatabase implements ExtendedGlobalRefDatabase {
+public class FakeGlobalRefDatabase implements GlobalRefDatabase {
 
   private ConcurrentMap<Project.NameKey, ConcurrentMap<String, AtomicReference<ObjectId>>>
       keyValueStore;

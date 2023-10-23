@@ -14,7 +14,6 @@
 
 package com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb;
 
-import com.gerritforge.gerrit.globalrefdb.ExtendedGlobalRefDatabase;
 import com.gerritforge.gerrit.globalrefdb.GlobalRefDatabase;
 import com.gerritforge.gerrit.globalrefdb.GlobalRefDbLockException;
 import com.gerritforge.gerrit.globalrefdb.GlobalRefDbSystemError;
@@ -30,7 +29,7 @@ import org.eclipse.jgit.lib.Ref;
  * <p>This is useful for setting up a test environment and allows multi-site library to be installed
  * independently from any additional libModules or the existence of a specific Ref-DB installation.
  */
-public class NoopSharedRefDatabase implements ExtendedGlobalRefDatabase {
+public class NoopSharedRefDatabase implements GlobalRefDatabase {
 
   /**
    * Project/ref is always considered up-to-date
