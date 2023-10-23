@@ -93,6 +93,19 @@ public interface GlobalRefDatabase {
       throws GlobalRefDbSystemError;
 
   /**
+   * Put a value of generic type T.
+   *
+   * <p>Put is executed as an atomic operation.
+   *
+   * @param project project name of the ref.
+   * @param refName to store the value for.
+   * @param newValue new value to store.
+   * @param <T> Type of the current and new value
+   * @throws GlobalRefDbSystemError the reference cannot be put due to a system error.
+   */
+  <T> void put(Project.NameKey project, String refName, T newValue);
+
+  /**
    * Lock a reference.
    *
    * @param project project name
