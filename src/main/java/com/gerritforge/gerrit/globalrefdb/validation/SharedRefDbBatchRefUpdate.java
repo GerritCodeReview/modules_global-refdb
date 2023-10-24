@@ -207,10 +207,7 @@ public class SharedRefDbBatchRefUpdate extends BatchRefUpdate {
     batchRefValidatorFactory
         .create(project, refDb, ignoredRefs)
         .executeBatchUpdateWithValidation(
-            batchRefUpdate,
-            () -> batchRefUpdate.execute(walk, monitor, options),
-            (commands) ->
-                batchRefUpdateRollback.addCommand(commands).execute(walk, monitor, options));
+            batchRefUpdate, () -> batchRefUpdate.execute(walk, monitor, options));
   }
 
   /**
@@ -231,9 +228,7 @@ public class SharedRefDbBatchRefUpdate extends BatchRefUpdate {
     batchRefValidatorFactory
         .create(project, refDb, ignoredRefs)
         .executeBatchUpdateWithValidation(
-            batchRefUpdate,
-            () -> batchRefUpdate.execute(walk, monitor),
-            (commands) -> batchRefUpdateRollback.addCommand(commands).execute(walk, monitor));
+            batchRefUpdate, () -> batchRefUpdate.execute(walk, monitor));
   }
 
   @Override
