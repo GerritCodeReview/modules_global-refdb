@@ -37,6 +37,8 @@ import com.google.gerrit.metrics.DisabledMetricMaker;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.eclipse.jgit.internal.storage.file.RefDirectory;
 import org.eclipse.jgit.junit.LocalDiskRepositoryTestCase;
 import org.eclipse.jgit.junit.TestRepository;
@@ -224,6 +226,38 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
 
     verify(sharedRefDatabase, never())
         .compareAndPut(any(Project.NameKey.class), any(Ref.class), any(ObjectId.class));
+  }
+
+  @Test
+  public void shouldLeaveRefsInSyncWithSharedRefDbWhenLastSharedRefDbUpdateFails()
+      throws IOException {
+    String REF_NAME_A = "refs/changes/01/1/1";
+    String REF_NAME_B = "refs/changes/02/1/1";
+    BatchRefUpdate batchRefUpdate =
+        newBatchUpdate(
+            List.of(
+                new ReceiveCommand(A, B, REF_NAME_A, UPDATE),
+                new ReceiveCommand(A, B, REF_NAME_B, UPDATE)));
+    BatchRefUpdateValidator batchRefUpdateValidator =
+        getRefValidatorForEnforcement(A_TEST_PROJECT_NAME, tmpRefEnforcement);
+
+    doReturn(SharedRefEnforcement.EnforcePolicy.REQUIRED)
+        .when(batchRefUpdateValidator.refEnforcement)
+        .getPolicy(any(), any());
+
+    doReturn(true).when(sharedRefDatabase).isUpToDate(any(), any());
+
+    doReturn(true, false).when(sharedRefDatabase).compareAndPut(any(), any(), any());
+
+    batchRefUpdateValidator.executeBatchUpdateWithValidation(
+        batchRefUpdate, () -> execute(batchRefUpdate), rollbackFunction);
+
+    verify(rollbackFunction, never()).invoke(any());
+
+    final List<ReceiveCommand> commands = batchRefUpdate.getCommands();
+    assertThat(commands.size()).isEqualTo(2);
+    assertThat(commands.stream().map(ReceiveCommand::getResult).collect(Collectors.toList()))
+        .isEqualTo(List.of(Result.LOCK_FAILURE, Result.LOCK_FAILURE));
   }
 
   private BatchRefUpdateValidator newDefaultValidator(String projectName) {
