@@ -102,15 +102,11 @@ public class BatchRefUpdateValidator extends RefUpdateValidator {
    *
    * @param batchRefUpdate batchRefUpdate object
    * @param batchRefUpdateFunction batchRefUpdate function to execute upon validation
-   * @param batchRefUpdateRollbackFunction function to invoke when the ref-update needs to be rolled
-   *     back
    * @throws IOException batch update failed
    */
   @SuppressWarnings("JavadocReference")
   public void executeBatchUpdateWithValidation(
-      BatchRefUpdate batchRefUpdate,
-      NoParameterVoidFunction batchRefUpdateFunction,
-      OneParameterVoidFunction<List<ReceiveCommand>> batchRefUpdateRollbackFunction)
+      BatchRefUpdate batchRefUpdate, NoParameterVoidFunction batchRefUpdateFunction)
       throws IOException {
     if (refEnforcement.getPolicy(projectName) == EnforcePolicy.IGNORED
         || !isGlobalProject(projectName)) {
@@ -119,7 +115,7 @@ public class BatchRefUpdateValidator extends RefUpdateValidator {
     }
 
     try {
-      doExecuteBatchUpdate(batchRefUpdate, batchRefUpdateFunction, batchRefUpdateRollbackFunction);
+      doExecuteBatchUpdate(batchRefUpdate, batchRefUpdateFunction);
     } catch (IOException e) {
       logger.atWarning().withCause(e).log(
           "Failed to execute Batch Update on project %s", projectName);
@@ -130,10 +126,7 @@ public class BatchRefUpdateValidator extends RefUpdateValidator {
   }
 
   private void doExecuteBatchUpdate(
-      BatchRefUpdate batchRefUpdate,
-      NoParameterVoidFunction delegateUpdate,
-      OneParameterVoidFunction<List<ReceiveCommand>> delegateUpdateRollback)
-      throws IOException {
+      BatchRefUpdate batchRefUpdate, NoParameterVoidFunction delegateUpdate) throws IOException {
 
     List<ReceiveCommand> commands = batchRefUpdate.getCommands();
     if (commands.isEmpty()) {
@@ -160,11 +153,16 @@ public class BatchRefUpdateValidator extends RefUpdateValidator {
       try {
         updateSharedRefDb(batchRefUpdate.getCommands().stream(), finalRefsToUpdate);
       } catch (Exception e) {
+        // we are now in split brain as at least one ref update succeeded locally but failed in
+        // global-refdb
+        // we therefore need to NOT rollback the localref updates, increment the split brain metric,
+        // log what happened and mark the ref updates with a lock failure status
         List<ReceiveCommand> receiveCommands = batchRefUpdate.getCommands();
+        validationMetrics.incrementSplitBrain();
         logger.atWarning().withCause(e).log(
             "Batch ref-update failing because of failure during the global refdb update. Set all commands Result to LOCK_FAILURE [%d]",
             receiveCommands.size());
-        rollback(delegateUpdateRollback, finalRefsToUpdate, receiveCommands);
+        receiveCommands.forEach(command -> command.setResult(ReceiveCommand.Result.LOCK_FAILURE));
       }
     } catch (OutOfSyncException e) {
       List<ReceiveCommand> receiveCommands = batchRefUpdate.getCommands();
@@ -173,24 +171,6 @@ public class BatchRefUpdateValidator extends RefUpdateValidator {
           receiveCommands.size());
       receiveCommands.forEach((command) -> command.setResult(ReceiveCommand.Result.LOCK_FAILURE));
     }
-  }
-
-  private void rollback(
-      OneParameterVoidFunction<List<ReceiveCommand>> delegateUpdateRollback,
-      List<RefPair> refsBeforeUpdate,
-      List<ReceiveCommand> receiveCommands)
-      throws IOException {
-    List<ReceiveCommand> rollbackCommands =
-        refsBeforeUpdate.stream()
-            .map(
-                refBeforeUpdate ->
-                    new ReceiveCommand(
-                        refBeforeUpdate.putValue,
-                        refBeforeUpdate.compareRef.getObjectId(),
-                        refBeforeUpdate.getName()))
-            .collect(Collectors.toList());
-    delegateUpdateRollback.invoke(rollbackCommands);
-    receiveCommands.forEach(command -> command.setResult(ReceiveCommand.Result.LOCK_FAILURE));
   }
 
   private void updateSharedRefDb(Stream<ReceiveCommand> commandStream, List<RefPair> refsToUpdate)
