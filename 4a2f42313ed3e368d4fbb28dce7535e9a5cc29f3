@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c353ece_27f5670f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1157810
+      },
+      "writtenOn": "2023-10-24T11:38:55Z",
+      "side": 1,
+      "message": "The test will fail until we address the bug, that\u0027s expected, at this stage I\u0027d like to confirm the test captures the expected behaviour.",
+      "revId": "4a2f42313ed3e368d4fbb28dce7535e9a5cc29f3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
