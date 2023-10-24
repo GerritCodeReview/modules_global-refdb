@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef201f2f_3088d98d",
+        "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/BatchRefUpdateValidatorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1157810
+      },
+      "writtenOn": "2023-10-24T13:41:02Z",
+      "side": 1,
+      "message": "test name needs updating to reflect what its doing",
+      "revId": "62991f4b4549c81834ecb2132fb9d09f7d9231e7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
