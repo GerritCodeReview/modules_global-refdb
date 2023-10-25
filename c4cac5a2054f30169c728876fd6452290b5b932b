@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "81378191_03161539",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2023-10-25T19:06:50Z",
+      "side": 1,
+      "message": "Why don\u0027t we introduce transactional BatchRefUpdate in global-refdb ?\nShould be rather simple to implement at least for the implementations which are based on a database system (aws-dynamodb-refdb, spanner-refdb).\n\nAnother option would be to revert the succeeded ref updates which are part of the local BatchRefUpdate in global-refdb. This would require that we cache the old values of those refs until we know if the overall update succeeded or failed.",
+      "revId": "c4cac5a2054f30169c728876fd6452290b5b932b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "0a756e60_f3dff4d9",
