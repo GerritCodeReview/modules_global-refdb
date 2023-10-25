@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a756e60_f3dff4d9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1063024
+      },
+      "writtenOn": "2023-10-25T13:26:35Z",
+      "side": 1,
+      "message": "LGTM - this is pretty much what I had in mind when I raised the issue. The idea is to make it clearer to the Gerrit admin what happened and make it easier to recover. The description is really good I think, summarises the issue very well 😊\n\n+1 from me - someone who knows the library better than me can +2 this.",
+      "revId": "c4cac5a2054f30169c728876fd6452290b5b932b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
