@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "78ea613e_414de179",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1157810
+      },
+      "writtenOn": "2023-10-26T07:25:56Z",
+      "side": 1,
+      "message": "\u003e Another option would be to revert the succeeded ref updates which are part of the local BatchRefUpdate in global-refdb\n\nThis was discussed in the issue (see comments) and the concern was that if the update operation in global refdb failed, then its likely a rollback will also fail. Hence the decision to log the split brain and let the gerrit admin manually resolve it. \n\n\u003e Why don\u0027t we introduce transactional BatchRefUpdate in global-refdb?\n\nIMO this will need some wider discussion. I don\u0027t know how such design tasks are handled in the gerrit community, perhaps you can start by putting together a design doc?",
+      "parentUuid": "81378191_03161539",
+      "revId": "c4cac5a2054f30169c728876fd6452290b5b932b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "0a756e60_f3dff4d9",
