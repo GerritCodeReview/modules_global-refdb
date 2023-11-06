@@ -38,6 +38,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "753e7687_f50eb50c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1157810
+      },
+      "writtenOn": "2023-11-06T13:27:01Z",
+      "side": 1,
+      "message": "Upon further discussion IRL it was decided to abandon this approach, and instead introduce transactional BatchRefUpdate in global-refdb.",
+      "parentUuid": "78ea613e_414de179",
+      "revId": "c4cac5a2054f30169c728876fd6452290b5b932b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "0a756e60_f3dff4d9",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 5
