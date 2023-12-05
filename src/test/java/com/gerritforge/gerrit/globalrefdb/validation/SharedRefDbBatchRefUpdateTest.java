@@ -23,7 +23,7 @@ import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.DefaultSharedRefEnforcement;
@@ -48,7 +48,7 @@ import org.mockito.ArgumentMatcher;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.Silent.class)
 public class SharedRefDbBatchRefUpdateTest implements RefFixture {
 
   @Mock SharedRefDatabaseWrapper sharedRefDb;
@@ -113,7 +113,7 @@ public class SharedRefDbBatchRefUpdateTest implements RefFixture {
 
     sharedRefDbRefUpdate = getSharedRefDbBatchRefUpdateWithDefaultPolicyEnforcement();
 
-    verifyZeroInteractions(validationMetrics);
+    verifyNoInteractions(validationMetrics);
   }
 
   @Test
