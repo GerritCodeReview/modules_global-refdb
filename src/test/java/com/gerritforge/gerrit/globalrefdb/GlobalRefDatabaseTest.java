@@ -95,26 +95,28 @@ public class GlobalRefDatabaseTest extends AbstractDaemonTest {
   }
 
   @Test
-  public void shouldReturnIsUpToDateWhenProjectDoesNotExistsInTheGlobalRefDB() {
+  public void shouldReturnIsUpToDateWhenProjectDoesNotExistsInTheGlobalRefDB()
+      throws GlobalRefDbLockException {
     assertThat(objectUnderTest.isUpToDate(project, initialRef)).isTrue();
   }
 
   @Test
-  public void shouldReturnIsUpToDate() {
+  public void shouldReturnIsUpToDate() throws GlobalRefDbLockException {
     objectUnderTest.compareAndPut(project, nullRef, objectId1);
 
     assertThat(objectUnderTest.isUpToDate(project, ref1)).isTrue();
   }
 
   @Test
-  public void shouldReturnIsNotUpToDateWhenLocalRepoIsOutdated() {
+  public void shouldReturnIsNotUpToDateWhenLocalRepoIsOutdated() throws GlobalRefDbLockException {
     objectUnderTest.compareAndPut(project, nullRef, objectId1);
 
     assertThat(objectUnderTest.isUpToDate(project, nullRef)).isFalse();
   }
 
   @Test
-  public void shouldReturnIsNotUpToDateWhenLocalRepoIsAheadOfTheGlobalRefDB() {
+  public void shouldReturnIsNotUpToDateWhenLocalRepoIsAheadOfTheGlobalRefDB()
+      throws GlobalRefDbLockException {
     objectUnderTest.compareAndPut(project, nullRef, objectId1);
 
     assertThat(objectUnderTest.isUpToDate(project, ref2)).isFalse();
