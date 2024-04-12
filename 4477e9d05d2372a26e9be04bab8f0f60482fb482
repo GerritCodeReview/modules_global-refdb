@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75966a6c_7d33de94",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2024-04-12T07:37:55Z",
+      "side": 1,
+      "message": "I am not sure of all the implications, especially for all the implementing plugins.",
+      "revId": "4477e9d05d2372a26e9be04bab8f0f60482fb482",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
