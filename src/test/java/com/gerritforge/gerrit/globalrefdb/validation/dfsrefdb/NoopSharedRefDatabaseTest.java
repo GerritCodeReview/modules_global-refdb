@@ -16,6 +16,7 @@ package com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb;
 
 import static com.google.common.truth.Truth.assertThat;
 
+import com.gerritforge.gerrit.globalrefdb.GlobalRefDbLockException;
 import org.eclipse.jgit.lib.Ref;
 import org.junit.Test;
 
@@ -25,7 +26,7 @@ public class NoopSharedRefDatabaseTest implements RefFixture {
   private NoopSharedRefDatabase objectUnderTest = new NoopSharedRefDatabase();
 
   @Test
-  public void isUpToDateShouldAlwaysReturnTrue() {
+  public void isUpToDateShouldAlwaysReturnTrue() throws GlobalRefDbLockException {
     assertThat(objectUnderTest.isUpToDate(A_TEST_PROJECT_NAME_KEY, sampleRef)).isTrue();
   }
 
