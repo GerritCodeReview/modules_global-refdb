@@ -14,10 +14,10 @@
 
 package com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb;
 
-import java.io.IOException;
+import com.google.gerrit.git.LockFailureException;
 
 /** Unable to lock a project/ref resource. */
-public class SharedLockException extends IOException {
+public class SharedLockException extends LockFailureException {
   private static final long serialVersionUID = 1L;
 
   /**
