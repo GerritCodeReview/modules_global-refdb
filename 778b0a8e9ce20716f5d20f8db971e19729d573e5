@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90f5d884_e8e4cd55",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/GlobalRefDatabase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-04-14T11:20:42Z",
+      "side": 1,
+      "message": "Should this be configurable maybe?",
+      "range": {
+        "startLine": 118,
+        "startChar": 37,
+        "endLine": 118,
+        "endChar": 42
+      },
+      "revId": "778b0a8e9ce20716f5d20f8db971e19729d573e5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
