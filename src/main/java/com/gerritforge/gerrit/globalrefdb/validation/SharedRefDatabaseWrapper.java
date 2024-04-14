@@ -119,10 +119,10 @@ public class SharedRefDatabaseWrapper implements ExtendedGlobalRefDatabase {
 
   /** {@inheritDoc}. The operation is logged. */
   @Override
-  public AutoCloseable lockRef(Project.NameKey project, String refName)
+  public AutoCloseable lockRef(Project.NameKey project, String refName, long lockTimeout)
       throws GlobalRefDbLockException {
     try (Context context = metrics.startLockRefExecutionTime()) {
-      AutoCloseable locker = sharedRefDb().lockRef(project, refName);
+      AutoCloseable locker = sharedRefDb().lockRef(project, refName, lockTimeout);
       sharedRefLogger.logLockAcquisition(project.get(), refName);
       return locker;
     }
