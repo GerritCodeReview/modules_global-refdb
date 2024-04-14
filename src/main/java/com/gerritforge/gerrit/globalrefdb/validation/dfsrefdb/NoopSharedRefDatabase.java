@@ -19,6 +19,7 @@ import com.gerritforge.gerrit.globalrefdb.GlobalRefDatabase;
 import com.gerritforge.gerrit.globalrefdb.GlobalRefDbLockException;
 import com.gerritforge.gerrit.globalrefdb.GlobalRefDbSystemError;
 import com.google.gerrit.entities.Project;
+import java.time.Duration;
 import java.util.Optional;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Ref;
@@ -82,11 +83,12 @@ public class NoopSharedRefDatabase implements ExtendedGlobalRefDatabase {
    *
    * @param project project name
    * @param refName ref to lock
+   * @param lockTimeout lock timeout
    * @return a dummy {@link java.io.Closeable}.
    * @throws GlobalRefDbLockException Never thrown by this implementation
    */
   @Override
-  public AutoCloseable lockRef(Project.NameKey project, String refName)
+  public AutoCloseable lockRef(Project.NameKey project, String refName, Duration lockTimeout)
       throws GlobalRefDbLockException {
     return () -> {};
   }

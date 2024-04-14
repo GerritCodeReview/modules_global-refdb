@@ -17,6 +17,7 @@ package com.gerritforge.gerrit.globalrefdb;
 import com.google.common.collect.MapMaker;
 import com.google.gerrit.entities.Project;
 import com.google.gerrit.entities.Project.NameKey;
+import java.time.Duration;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicReference;
@@ -78,7 +79,7 @@ public class FakeGlobalRefDatabase implements ExtendedGlobalRefDatabase {
   }
 
   @Override
-  public AutoCloseable lockRef(Project.NameKey project, String refName)
+  public AutoCloseable lockRef(Project.NameKey project, String refName, Duration lockTimeout)
       throws GlobalRefDbLockException {
     ConcurrentMap<String, AtomicReference<Lock>> projectRefLock = projectRefLock(project);
     AtomicReference<Lock> currLock = projectRefLock.get(refName);

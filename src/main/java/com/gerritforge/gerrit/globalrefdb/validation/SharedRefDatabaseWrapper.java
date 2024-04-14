@@ -26,6 +26,7 @@ import com.google.gerrit.extensions.registration.DynamicItem;
 import com.google.gerrit.metrics.Timer0.Context;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import java.time.Duration;
 import java.util.Optional;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Ref;
@@ -119,10 +120,10 @@ public class SharedRefDatabaseWrapper implements ExtendedGlobalRefDatabase {
 
   /** {@inheritDoc}. The operation is logged. */
   @Override
-  public AutoCloseable lockRef(Project.NameKey project, String refName)
+  public AutoCloseable lockRef(Project.NameKey project, String refName, Duration lockTimeout)
       throws GlobalRefDbLockException {
     try (Context context = metrics.startLockRefExecutionTime()) {
-      AutoCloseable locker = sharedRefDb().lockRef(project, refName);
+      AutoCloseable locker = sharedRefDb().lockRef(project, refName, lockTimeout);
       sharedRefLogger.logLockAcquisition(project.get(), refName);
       return locker;
     }

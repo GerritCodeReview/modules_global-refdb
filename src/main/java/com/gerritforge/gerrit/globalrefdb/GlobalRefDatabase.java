@@ -15,6 +15,7 @@
 package com.gerritforge.gerrit.globalrefdb;
 
 import com.google.gerrit.entities.Project;
+import java.time.Duration;
 import java.util.Optional;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Ref;
@@ -93,14 +94,30 @@ public interface GlobalRefDatabase {
       throws GlobalRefDbSystemError;
 
   /**
+   * Lock a reference, with a timeout.
+   *
+   * @param project project name
+   * @param refName ref to lock
+   * @param lockTimeout maximum number of time to wait for obtaining the lock
+   * @return lock object
+   * @throws GlobalRefDbLockException if the lock still cannot be obtained after the timeout or for
+   *     other reasons.
+   */
+  AutoCloseable lockRef(Project.NameKey project, String refName, Duration lockTimeout)
+      throws GlobalRefDbLockException;
+
+  /**
    * Lock a reference.
    *
    * @param project project name
    * @param refName ref to lock
    * @return lock object
-   * @throws GlobalRefDbLockException if the lock cannot be obtained
+   * @throws GlobalRefDbLockException if the lock cannot be obtained after 1 second.
    */
-  AutoCloseable lockRef(Project.NameKey project, String refName) throws GlobalRefDbLockException;
+  default AutoCloseable lockRef(Project.NameKey project, String refName)
+      throws GlobalRefDbLockException {
+    return lockRef(project, refName, Duration.ofSeconds(1));
+  }
 
   /**
    * Verify if the DB contains a value for the specific project and ref name
