@@ -82,11 +82,12 @@ public class NoopSharedRefDatabase implements ExtendedGlobalRefDatabase {
    *
    * @param project project name
    * @param refName ref to lock
+   * @param lockTimeout lock timeout
    * @return a dummy {@link java.io.Closeable}.
    * @throws GlobalRefDbLockException Never thrown by this implementation
    */
   @Override
-  public AutoCloseable lockRef(Project.NameKey project, String refName)
+  public AutoCloseable lockRef(Project.NameKey project, String refName, long lockTimeout)
       throws GlobalRefDbLockException {
     return () -> {};
   }

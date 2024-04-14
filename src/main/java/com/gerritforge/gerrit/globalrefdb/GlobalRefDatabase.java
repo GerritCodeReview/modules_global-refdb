@@ -93,14 +93,30 @@ public interface GlobalRefDatabase {
       throws GlobalRefDbSystemError;
 
   /**
+   * Lock a reference, with a timeout.
+   *
+   * @param project project name
+   * @param refName ref to lock
+   * @param lockTimeout maximum number of time in msec to wait for obtaining the lock
+   * @return lock object
+   * @throws GlobalRefDbLockException if the lock still cannot be obtained after the timeout or for
+   *     other reasons.
+   */
+  AutoCloseable lockRef(Project.NameKey project, String refName, long lockTimeout)
+      throws GlobalRefDbLockException;
+
+  /**
    * Lock a reference.
    *
    * @param project project name
    * @param refName ref to lock
    * @return lock object
-   * @throws GlobalRefDbLockException if the lock cannot be obtained
+   * @throws GlobalRefDbLockException if the lock cannot be obtained after 1 second.
    */
-  AutoCloseable lockRef(Project.NameKey project, String refName) throws GlobalRefDbLockException;
+  default AutoCloseable lockRef(Project.NameKey project, String refName)
+      throws GlobalRefDbLockException {
+    return lockRef(project, refName, 1000L);
+  }
 
   /**
    * Verify if the DB contains a value for the specific project and ref name

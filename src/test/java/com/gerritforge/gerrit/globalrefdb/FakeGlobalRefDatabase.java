@@ -78,7 +78,7 @@ public class FakeGlobalRefDatabase implements ExtendedGlobalRefDatabase {
   }
 
   @Override
-  public AutoCloseable lockRef(Project.NameKey project, String refName)
+  public AutoCloseable lockRef(Project.NameKey project, String refName, long lockTimeout)
       throws GlobalRefDbLockException {
     ConcurrentMap<String, AtomicReference<Lock>> projectRefLock = projectRefLock(project);
     AtomicReference<Lock> currLock = projectRefLock.get(refName);
