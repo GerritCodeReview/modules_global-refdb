@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a41e1d13_9a7c0240",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-04-15T11:59:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ebcd95f6_1cbe08bd",
+      "revId": "4c5b79d2599086ad11e701807ed47ca9e9c0b135",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "73f39b61_8f0baa1b",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-04-15T11:23:07Z",
       "side": 1,
       "message": "We need to adapt all implementing plugins. Otherwise, they will not work with this change.",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 38
+      },
+      "revId": "4c5b79d2599086ad11e701807ed47ca9e9c0b135",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2d5b05f_9c115e6a",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/GlobalRefDatabase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-04-15T11:59:12Z",
+      "side": 1,
+      "message": "I can prepare the changes on the other plugins, this is master so we don\u0027t expect to be always 100% backward compatible.",
+      "parentUuid": "73f39b61_8f0baa1b",
       "range": {
         "startLine": 105,
         "startChar": 0,
