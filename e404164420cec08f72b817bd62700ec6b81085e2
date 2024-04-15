@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "69ad9ae7_af8f8ecf",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-04-15T13:58:53Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "d2dad4e1_9bde606a",
+      "range": {
+        "startLine": 41,
+        "startChar": 46,
+        "endLine": 41,
+        "endChar": 81
+      },
+      "revId": "e404164420cec08f72b817bd62700ec6b81085e2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "753e78cc_c8e1f708",
@@ -47,6 +71,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "efe0b58b_9227a4fb",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-04-15T13:58:53Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "753e78cc_c8e1f708",
+      "range": {
+        "startLine": 49,
+        "startChar": 40,
+        "endLine": 49,
+        "endChar": 87
+      },
+      "revId": "e404164420cec08f72b817bd62700ec6b81085e2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1591f3d7_b0f0c09d",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-04-15T13:18:45Z",
       "side": 1,
       "message": "```suggestion\nTo execute the tests run `bazelisk test plugins/global-refdb/...` from the Gerrit source tree.\n```",
+      "range": {
+        "startLine": 51,
+        "startChar": 25,
+        "endLine": 51,
+        "endChar": 63
+      },
+      "revId": "e404164420cec08f72b817bd62700ec6b81085e2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fdba79c9_815c86ee",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-04-15T13:58:53Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "1591f3d7_b0f0c09d",
       "range": {
         "startLine": 51,
         "startChar": 25,
