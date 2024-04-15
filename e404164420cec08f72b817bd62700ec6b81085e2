@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2dad4e1_9bde606a",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2024-04-15T13:18:45Z",
+      "side": 1,
+      "message": "```suggestion\nFrom the Gerrit source tree issue the command `bazelisk build plugins/global-refdb`\n```",
+      "range": {
+        "startLine": 41,
+        "startChar": 46,
+        "endLine": 41,
+        "endChar": 81
+      },
+      "revId": "e404164420cec08f72b817bd62700ec6b81085e2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "753e78cc_c8e1f708",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2024-04-15T13:18:45Z",
+      "side": 1,
+      "message": "```suggestion\nThe libModule jar file is created under `bazel-bin/plugins/global-refdb/global-refdb.jar`\n```",
+      "range": {
+        "startLine": 49,
+        "startChar": 40,
+        "endLine": 49,
+        "endChar": 87
+      },
+      "revId": "e404164420cec08f72b817bd62700ec6b81085e2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1591f3d7_b0f0c09d",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2024-04-15T13:18:45Z",
+      "side": 1,
+      "message": "```suggestion\nTo execute the tests run `bazelisk test plugins/global-refdb/...` from the Gerrit source tree.\n```",
+      "range": {
+        "startLine": 51,
+        "startChar": 25,
+        "endLine": 51,
+        "endChar": 63
+      },
+      "revId": "e404164420cec08f72b817bd62700ec6b81085e2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
