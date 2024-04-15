@@ -22,6 +22,30 @@
       },
       "revId": "778b0a8e9ce20716f5d20f8db971e19729d573e5",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fcd7b0c_50875c88",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/GlobalRefDatabase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-04-15T08:53:41Z",
+      "side": 1,
+      "message": "Isn\u0027t that essentially the purpose of this change - allowing various implementations to configure it?",
+      "parentUuid": "90f5d884_e8e4cd55",
+      "range": {
+        "startLine": 118,
+        "startChar": 37,
+        "endLine": 118,
+        "endChar": 42
+      },
+      "revId": "778b0a8e9ce20716f5d20f8db971e19729d573e5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }

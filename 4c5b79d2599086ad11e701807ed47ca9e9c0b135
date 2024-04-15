@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebcd95f6_1cbe08bd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-04-15T08:53:41Z",
+      "side": 1,
+      "message": "[nit] acquire",
+      "revId": "4c5b79d2599086ad11e701807ed47ca9e9c0b135",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
