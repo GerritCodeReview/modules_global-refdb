@@ -16,6 +16,29 @@
       "message": "[nit] acquire",
       "revId": "4c5b79d2599086ad11e701807ed47ca9e9c0b135",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73f39b61_8f0baa1b",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/GlobalRefDatabase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2024-04-15T11:23:07Z",
+      "side": 1,
+      "message": "We need to adapt all implementing plugins. Otherwise, they will not work with this change.",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 38
+      },
+      "revId": "4c5b79d2599086ad11e701807ed47ca9e9c0b135",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }

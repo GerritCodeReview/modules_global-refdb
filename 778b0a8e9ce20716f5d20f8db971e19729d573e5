@@ -46,6 +46,30 @@
       },
       "revId": "778b0a8e9ce20716f5d20f8db971e19729d573e5",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5364b6b5_7e6076b9",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/GlobalRefDatabase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2024-04-15T11:23:07Z",
+      "side": 1,
+      "message": "I guess Luca means configurable by the Gerrit admin when installing the lib module. Each refdb implementation could already override the timeout by using (`lockRef(Project.NameKey project, String refName, long lockTimeout)`).\n\nI believe it might make sense to make it configurable, since times to get a lock might be dependent on the database being used, especially a self deployed zookeeper. It might also depend on the size of repositories (updates in large repos might take longer). So optimizing this might make sense to some users.",
+      "parentUuid": "5fcd7b0c_50875c88",
+      "range": {
+        "startLine": 118,
+        "startChar": 37,
+        "endLine": 118,
+        "endChar": 42
+      },
+      "revId": "778b0a8e9ce20716f5d20f8db971e19729d573e5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
