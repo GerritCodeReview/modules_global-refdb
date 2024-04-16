@@ -41,6 +41,7 @@ public class FooModule extends FactoryModule {
           .to(CustomSharedRefEnforcementByProject.class)
           .in(Scopes.SINGLETON);
     }
+    DynamicSet.bind(binder(), ExceptionHook.class).to(SharedRefDbExceptionHook.class);
   }
 }
 ```
