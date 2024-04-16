@@ -16,6 +16,23 @@
       "message": "The message from this paragraph is misleading. Gerrit does have retry code but the retry \"loop\" wasn\u0027t entered due to the exception type throws from the global ref-db.",
       "revId": "525d2f8d8a58dda12da7610868c92ecf97734a55",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11b140a2_0bfcfa38",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-04-16T09:48:40Z",
+      "side": 1,
+      "message": "For my understanding: why do we need both to change the exception hierarchy and add an ExceptionHook? Wouldn\u0027t just the ExceptionHook be enough?",
+      "revId": "525d2f8d8a58dda12da7610868c92ecf97734a55",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
