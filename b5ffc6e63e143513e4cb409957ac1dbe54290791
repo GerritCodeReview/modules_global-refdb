@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb24cb5d_9cd6d06b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2024-04-16T11:28:29Z",
+      "side": 1,
+      "message": "nit: reformat commit message",
+      "revId": "b5ffc6e63e143513e4cb409957ac1dbe54290791",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
