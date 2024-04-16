@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24757d37_f93f8441",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2024-04-16T12:08:38Z",
+      "side": 1,
+      "message": "I started looking into how we can implement this in spanner-refdb.\nI am not sure I understand what\u0027s the intention of this series.\n\nWhat should a global-refdb implementation do if it tries to acquire a lock for some ref and it can\u0027t get it on the first attempt ? Should it retry acquiring this lock inside its lock() method until it either gets the lock or the timeout was exceeded and it fails with lock failed exception? What is then the purpose of the outer retry loop implemented in Thomas\u0027 2 other changes in this series ?\n\nLooks like we only need one of these retry loops.\n\nAdvantage of Thomas\u0027 approach is that it\u0027s generic and doesn\u0027t require each global-refdb implementation to implement this retry. \n\nOn the other hand implementing the retry loop inside each global-refdb implementation keeps the loop tighter and only needs to retry acquiring the lock instead of retrying the complete Gerrit command like e.g. posting a review comment.\n\nWDYT ?",
+      "revId": "e9f1780fe1bf8bd347c406f8f1023ad498ceb277",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
