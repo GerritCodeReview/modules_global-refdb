@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dc0bb1e3_51cdf872",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-04-16T11:54:50Z",
+      "side": 1,
+      "message": "I meant: claiming that Gerrit doesn\u0027t retry could be understood as if the retry code is not existing. However, the retry code is there but wasn\u0027t used because of the issue/fix you describe in the next paragraph.",
+      "parentUuid": "c9c71d58_3a6ae9d3",
+      "revId": "525d2f8d8a58dda12da7610868c92ecf97734a55",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "11b140a2_0bfcfa38",
         "filename": "/COMMIT_MSG",
         "patchSetId": 10
