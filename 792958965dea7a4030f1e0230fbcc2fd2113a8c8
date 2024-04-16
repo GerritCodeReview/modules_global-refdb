@@ -16,6 +16,29 @@
       "message": "thank",
       "revId": "792958965dea7a4030f1e0230fbcc2fd2113a8c8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fed9ea1_3ffd98ea",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/GlobalRefDatabase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-04-16T10:06:15Z",
+      "side": 1,
+      "message": "optional: I would rather use `Duration` than `long` for the timeout. Then the unit is included in the value and there is less chance of passing a wrong value.",
+      "range": {
+        "startLine": 105,
+        "startChar": 65,
+        "endLine": 105,
+        "endChar": 81
+      },
+      "revId": "792958965dea7a4030f1e0230fbcc2fd2113a8c8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
