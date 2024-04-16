@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c9c71d58_3a6ae9d3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2024-04-16T11:00:54Z",
+      "side": 1,
+      "message": "As far as I could follow the code, there is not a single exception by default that would trigger a retry right now, since retryOn() is never being called and no ExceptionHook is implemented in core.",
+      "parentUuid": "ab439540_b57f6565",
+      "revId": "525d2f8d8a58dda12da7610868c92ecf97734a55",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "11b140a2_0bfcfa38",
         "filename": "/COMMIT_MSG",
         "patchSetId": 10
@@ -31,6 +49,24 @@
       "writtenOn": "2024-04-16T09:48:40Z",
       "side": 1,
       "message": "For my understanding: why do we need both to change the exception hierarchy and add an ExceptionHook? Wouldn\u0027t just the ExceptionHook be enough?",
+      "revId": "525d2f8d8a58dda12da7610868c92ecf97734a55",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2efd47cf_24efc17c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2024-04-16T11:00:54Z",
+      "side": 1,
+      "message": "Yes, it is not really needed.\nLet me move it into a separate change, since I still think, that it would make sense, since:\n- I don\u0027t see a reason for GlobalRefDbLockException to be an unchecked exception\n- Both, SharedLockException and GlobalRefDbLockException use the same method\n- SharedLockException does not seem to be thrown anywhere, but is checked for.\n- SharedLockException is checked for in a place where only GlobalRefDbLockException should be thrown AFAIU",
+      "parentUuid": "11b140a2_0bfcfa38",
       "revId": "525d2f8d8a58dda12da7610868c92ecf97734a55",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
