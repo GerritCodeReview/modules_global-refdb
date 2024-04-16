@@ -34,6 +34,24 @@
       "parentUuid": "24757d37_f93f8441",
       "revId": "e9f1780fe1bf8bd347c406f8f1023ad498ceb277",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "526361d1_3f95f007",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-04-16T12:55:16Z",
+      "side": 1,
+      "message": "\u003e What should a global-refdb implementation do if it tries to acquire a lock for some ref and it can\u0027t get it on the first attempt ? Should it retry acquiring this lock inside its lock() method until it either gets the lock or the timeout was exceeded and it fails with lock failed exception? What is then the purpose of the outer retry loop implemented in Thomas\u0027 2 other changes in this series ?\n\n\u003e Looks like we only need one of these retry loops.\n\nThe issue here I understand is that Spanner doesn\u0027t provide any lock facility, hence you are simulating it with a create \u0026 retry of the same key.\n\nThe other implement the lock natively that already have an internal wait mechanism for the lock to be available.\nThis change just expose the visibility of the lock timeout of what is already out there. \n\nThe reason why you see this issue and we don\u0027t, is due to the implementation of the global-refdb:\n- DynamoDb and Zookeeper: they provide lock \u0026 retry natively\n- Spanner: does not provide a lock \u0026 retry; you have at the moment simulated the lock but not the retry\n\nDoes the above make sense?",
+      "parentUuid": "230dbdf6_77f2cdca",
+      "revId": "e9f1780fe1bf8bd347c406f8f1023ad498ceb277",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
