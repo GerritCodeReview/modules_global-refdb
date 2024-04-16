@@ -17,6 +17,7 @@ package com.gerritforge.gerrit.globalrefdb.validation;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.gerritforge.gerrit.globalrefdb.GlobalRefDbLockException;
 import com.google.gerrit.entities.Project;
 import com.google.gerrit.metrics.Timer0.Context;
 import org.eclipse.jgit.lib.ObjectId;
@@ -58,14 +59,16 @@ public class SharedRefDatabaseWrapperTest {
   }
 
   @Test
-  public void shouldUpdateLockRefExecutionTimeMetricWhenLockRefIsCalled() {
+  public void shouldUpdateLockRefExecutionTimeMetricWhenLockRefIsCalled()
+      throws GlobalRefDbLockException {
     objectUnderTest.lockRef(projectName, refName);
     verify(metrics).startLockRefExecutionTime();
     verify(context).close();
   }
 
   @Test
-  public void shouldUpdateIsUpToDateExecutionTimeMetricWhenIsUpToDate() {
+  public void shouldUpdateIsUpToDateExecutionTimeMetricWhenIsUpToDate()
+      throws GlobalRefDbLockException {
     objectUnderTest.isUpToDate(projectName, ref);
     verify(metrics).startIsUpToDateExecutionTime();
     verify(context).close();
