@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7564ad44_565ee8a7",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/GlobalRefDbLockException.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-04-17T08:13:11Z",
+      "side": 1,
+      "message": "Oops, I left out the important part - it results in \"Unable to lock project (ref) on ref (project)\" - not just changing the message but rendering an incorrect one.",
+      "parentUuid": "4dc9ed70_661fdfc5",
+      "revId": "b5ffc6e63e143513e4cb409957ac1dbe54290791",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0cf1e773_eec33992",
         "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/SharedLockException.java",
         "patchSetId": 2
