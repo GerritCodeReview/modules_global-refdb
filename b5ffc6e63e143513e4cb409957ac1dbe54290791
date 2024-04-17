@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b8ea352_cd18087b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2024-04-17T11:24:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb24cb5d_9cd6d06b",
+      "revId": "b5ffc6e63e143513e4cb409957ac1dbe54290791",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "be3803d3_e1c97d39",
@@ -70,6 +88,42 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e51f5e65_79a47c9a",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/GlobalRefDbLockException.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2024-04-17T11:24:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7564ad44_565ee8a7",
+      "revId": "b5ffc6e63e143513e4cb409957ac1dbe54290791",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2852de5_07cebdf7",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/GlobalRefDbLockException.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2024-04-17T11:24:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be3803d3_e1c97d39",
+      "revId": "b5ffc6e63e143513e4cb409957ac1dbe54290791",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0cf1e773_eec33992",
@@ -83,6 +137,24 @@
       "writtenOn": "2024-04-17T08:12:18Z",
       "side": 1,
       "message": "```suggestion\n    super(String.format(\"Unable to lock ref %s on project %s\", refName, project), cause);\n```",
+      "revId": "b5ffc6e63e143513e4cb409957ac1dbe54290791",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a04f039_21518e08",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/SharedLockException.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2024-04-17T11:24:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0cf1e773_eec33992",
       "revId": "b5ffc6e63e143513e4cb409957ac1dbe54290791",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
