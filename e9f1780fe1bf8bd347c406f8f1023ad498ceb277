@@ -52,6 +52,24 @@
       "parentUuid": "230dbdf6_77f2cdca",
       "revId": "e9f1780fe1bf8bd347c406f8f1023ad498ceb277",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6920cc92_bb15908f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-04-17T12:31:18Z",
+      "side": 1,
+      "message": "I believe the issue cannot be resolved by only having a longer timeout to get global ref-db lock. A noteDb update operation is ultimately translated into some JGit operations (RefUpdate, BatchRefUpdate) and when a noteDb operation fails we cannot simply retry the existing RefUpdate/BatchRefUpdate instance as it would contain a stale oldObjectId, because the meta-ref of the change we are trying to update has changed from a concurrent operation. IOW, we need to retry the whole noteDb update operation which would create new JGit RefUpdate/BatchRefUpdate objects that are configured with the current tip of the meta-ref as the expected oldObjectId.",
+      "parentUuid": "526361d1_3f95f007",
+      "revId": "e9f1780fe1bf8bd347c406f8f1023ad498ceb277",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
