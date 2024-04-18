@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d1d9ab1_645e3ee0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-04-18T21:01:54Z",
+      "side": 1,
+      "message": "Why don\u0027t we move this change as-is to stable-3.7 (the earliest non-EOL version) and then remove the aliasing on master?\n\nMaster should allow clean-ups and refactoring, whilst we should not break existing functionality on stable branches.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 34
+      },
+      "revId": "481961c61083b628e617029264bd1d69c7e4943a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
