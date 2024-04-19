@@ -14,13 +14,13 @@
 
 package com.gerritforge.gerrit.globalrefdb;
 
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedLockException;
+import com.google.gerrit.git.LockFailureException;
 
 /**
  * {@code GlobalRefDbLockException} is an exception that can be thrown when interacting with the
  * global-refdb to represent the inability to lock or acquire a resource.
  */
-public class GlobalRefDbLockException extends SharedLockException {
+public class GlobalRefDbLockException extends LockFailureException {
   private static final long serialVersionUID = 1L;
 
   /**
@@ -32,6 +32,6 @@ public class GlobalRefDbLockException extends SharedLockException {
    * @param cause the cause of the locking failure
    */
   public GlobalRefDbLockException(String project, String refName, Exception cause) {
-    super(project, refName, cause);
+    super(String.format("Unable to lock ref %s on project %s", refName, project), cause);
   }
 }
