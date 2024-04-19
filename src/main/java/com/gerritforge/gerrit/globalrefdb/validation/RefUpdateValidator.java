@@ -14,12 +14,12 @@
 
 package com.gerritforge.gerrit.globalrefdb.validation;
 
+import com.gerritforge.gerrit.globalrefdb.GlobalRefDbLockException;
 import com.gerritforge.gerrit.globalrefdb.GlobalRefDbSystemError;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.CustomSharedRefEnforcementByProject;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.DefaultSharedRefEnforcement;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.OutOfSyncException;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedDbSplitBrainException;
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedLockException;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement.EnforcePolicy;
 import com.google.common.base.MoreObjects;
@@ -242,7 +242,7 @@ public class RefUpdateValidator {
   }
 
   protected RefPair compareAndGetLatestLocalRef(RefPair refPair, CloseableSet<AutoCloseable> locks)
-      throws SharedLockException, OutOfSyncException, IOException {
+      throws GlobalRefDbLockException, OutOfSyncException, IOException {
     String refName = refPair.getName();
     EnforcePolicy refEnforcementPolicy = refEnforcement.getPolicy(projectName, refName);
     if (refEnforcementPolicy == EnforcePolicy.IGNORED) {
@@ -326,8 +326,8 @@ public class RefUpdateValidator {
     }
 
     public void addResourceIfNotExist(
-        String key, ExceptionThrowingSupplier<T, SharedLockException> resourceFactory)
-        throws SharedLockException {
+        String key, ExceptionThrowingSupplier<T, GlobalRefDbLockException> resourceFactory)
+        throws GlobalRefDbLockException {
       if (!elements.containsKey(key)) {
         elements.put(key, resourceFactory.create());
       }
