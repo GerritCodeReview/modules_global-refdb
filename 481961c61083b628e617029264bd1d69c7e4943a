@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "352e8ce4_d1c228d4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2024-04-19T12:12:47Z",
+      "side": 1,
+      "message": "I have removed the SharedLockException in Ifb27848965295d69f6f52750cb0347f149192564. I have done it that way around, since GlobalRefDbLockException is being used in the interfaces. I have done it in a separate change, so that this one could be cherry-picked to stable branches more easily.",
+      "parentUuid": "4d869fa1_4703e450",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 9
+      },
+      "revId": "481961c61083b628e617029264bd1d69c7e4943a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3d1d9ab1_645e3ee0",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
