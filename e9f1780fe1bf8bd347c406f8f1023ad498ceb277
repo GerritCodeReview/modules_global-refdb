@@ -88,6 +88,24 @@
       "parentUuid": "6920cc92_bb15908f",
       "revId": "e9f1780fe1bf8bd347c406f8f1023ad498ceb277",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b500a59_3b6869ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-04-19T09:32:37Z",
+      "side": 1,
+      "message": "I don\u0027t think it needs to be restarted from the client. If a client posts a message on a change then restarting that update on the server side should be enough as it would create new JGit RefUpdate object(s) with the current tip of the meta-ref as the expected old OID.",
+      "parentUuid": "4208af33_70d90eef",
+      "revId": "e9f1780fe1bf8bd347c406f8f1023ad498ceb277",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
