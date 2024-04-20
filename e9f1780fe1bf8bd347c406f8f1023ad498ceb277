@@ -142,6 +142,24 @@
       "parentUuid": "346e38ec_5b34616d",
       "revId": "e9f1780fe1bf8bd347c406f8f1023ad498ceb277",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa024f71_945d7fa8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-04-20T10:49:10Z",
+      "side": 1,
+      "message": "\u003e \u003e Sure, but this code isn\u0027t just used for updates of the /meta isn\u0027t it?\n\u003e every ref-update would use this code, including the Git operations.\n\u003e \n\u003e Yes, every ref-update handled that leads to a lock in the global refdb, i.e. of mutable refs. The question is, whether that is an issue at all. E.g., if a change is submitted and the first try to merge the latest patchset into the target branch fails, because the target branch is locked in the refdb, we could retry the submit. Either the complete submit (including rebase/merge if necessary) works or it fails, e.g. because there is now a conflict, and then with a different exception and will not be retried. What is important is that the whole operation is retried, so that the oldId in the RefUpdate is being updated to match the potentially new state.\n\nI am not against making the failure of the lock a retry-able operation. This change is different though: it just exposes at interface level what the locking system already does now.\n\nWhen you lock, you give a maximum time to wait for the lock: all the existing implementations of global-refdb already have it, with the exception of Spanner.\nI am sure Spanner has that timeout somewhere, as you need to define for how long to wait for Spanner to answer with a _yes_ I acquired the resource or _no_ I did not. If you did not acquire the resource after the timeout, just throw the exception and that\u0027s fine.\n\nNothing happens instantaneously and you always have to set timeouts for giving up and throwing the exception.\n\nDoes that make sense to have a closure to the discussion thread?",
+      "parentUuid": "91a0da6f_26bfef5c",
+      "revId": "e9f1780fe1bf8bd347c406f8f1023ad498ceb277",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
