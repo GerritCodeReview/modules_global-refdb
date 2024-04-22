@@ -74,6 +74,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "88a96e81_6b903800",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2024-04-22T14:02:36Z",
+      "side": 1,
+      "message": "We are running this series in production since last week and it fixes the problems we were facing with concurrent updates for the same change. E.g. concurrently posted review comments on the same change now all succeed since they are retried automatically.",
+      "parentUuid": "1819a07c_7ce24650",
+      "range": {
+        "startLine": 16,
+        "startChar": 42,
+        "endLine": 17,
+        "endChar": 65
+      },
+      "revId": "195c782545a608df11c436ab86bb97abd09a4704",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "7a74f864_d183b2fa",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 16
