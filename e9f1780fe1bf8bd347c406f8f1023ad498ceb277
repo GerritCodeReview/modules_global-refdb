@@ -160,6 +160,47 @@
       "parentUuid": "91a0da6f_26bfef5c",
       "revId": "e9f1780fe1bf8bd347c406f8f1023ad498ceb277",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fb57823_e3a4357f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-04-22T13:30:47Z",
+      "side": 1,
+      "message": "Actually Luca\u0027s remarks about the existence of timeout in spanner are correct. There is global client-level timeout/retry configuration:\nhttps://cloud.google.com/spanner/docs/custom-timeout-and-retry\n\nper-statement timeout:\nhttps://cloud.google.com/spanner/docs/statement-timeout\n\nand per-transaction timeout:\nhttps://cloud.google.com/spanner/docs/transaction-timeout\n\nFurther, I believe that this change and the follow-up changes in this series are independent and I am going to break that dependency so that we can also review/submit independently.",
+      "parentUuid": "fa024f71_945d7fa8",
+      "revId": "e9f1780fe1bf8bd347c406f8f1023ad498ceb277",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54e49dc4_61342e51",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/GlobalRefDatabase.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-04-22T13:30:47Z",
+      "side": 1,
+      "message": "What I don\u0027t like here is that this forces to choose a timeout value. How do we use the default timeout configured on the client level? For example in spanner we can configure default timeout/retry parameters on the client level:\nhttps://cloud.google.com/spanner/docs/custom-timeout-and-retry\n\nI think that there should be a possibility to use the default timeout, maybe by passing a special value from here, like 0 or -1.",
+      "range": {
+        "startLine": 119,
+        "startChar": 37,
+        "endLine": 119,
+        "endChar": 58
+      },
+      "revId": "e9f1780fe1bf8bd347c406f8f1023ad498ceb277",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
