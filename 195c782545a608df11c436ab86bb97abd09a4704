@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6f68af6_ef18b1e4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-04-22T13:58:32Z",
+      "side": 1,
+      "message": "This is of course worth trying but not in the context of this change.",
+      "parentUuid": "a6ac7a16_025fbf42",
+      "range": {
+        "startLine": 16,
+        "startChar": 42,
+        "endLine": 17,
+        "endChar": 65
+      },
+      "revId": "195c782545a608df11c436ab86bb97abd09a4704",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "7a74f864_d183b2fa",
