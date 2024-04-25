@@ -236,6 +236,24 @@
       "parentUuid": "75839cf8_53965c8c",
       "revId": "e9f1780fe1bf8bd347c406f8f1023ad498ceb277",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa8f6e7d_3bd498f9",
+        "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/FakeGlobalRefDatabase.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1161625
+      },
+      "writtenOn": "2024-04-25T19:50:00Z",
+      "side": 1,
+      "message": "\u003e And we should agree on a special timeout value (maybe zero) which means to use the default timeout as configured on the client level?",
+      "parentUuid": "9d7eaf1e_56373965",
+      "revId": "e9f1780fe1bf8bd347c406f8f1023ad498ceb277",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
