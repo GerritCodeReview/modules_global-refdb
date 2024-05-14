@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ad77e9c_db3372ba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2024-05-14T16:15:11Z",
+      "side": 1,
+      "message": "I checked that all 3 implementations of global-refdb\n\n- aws-dynamodb-refdb\n- spanner-refdb\n- zookeeper-refdb\n\ncompile against this version of global-refdb.\n\nAlso tests for spanner-refdb and zookeeper-refdb succeed.\nFor aws-dynamodb-refdb I pushed some fixes, though tests failed with the error that it couldn\u0027t find valid docker environment. Will check this tomorrow again.",
+      "revId": "dc0ecc5eab0591672547f9cc9ad7a4477bb9352f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
