@@ -22,24 +22,24 @@ import org.eclipse.jgit.lib.Ref;
  * Ref}. This is used to snapshot the current status of a ref update so that validations against the
  * global refdb are unaffected by changes on the {@link org.eclipse.jgit.lib.RefDatabase}.
  */
-public class RefPair {
-  public final Ref compareRef;
-  public final ObjectId putValue;
-  public final Exception exception;
+class RefUpdateSnapshot {
+  private final Ref ref;
+  private final ObjectId newValue;
+  private final Exception exception;
 
   /**
    * Constructs a {@code RefPair} with the provided old and new ref values. The oldRef value is
    * required not to be null, in which case an {@link IllegalArgumentException} is thrown.
    *
-   * @param oldRef the old ref
+   * @param ref the old ref
    * @param newRefValue the new (candidate) value for this ref.
    */
-  RefPair(Ref oldRef, ObjectId newRefValue) {
-    if (oldRef == null) {
+  RefUpdateSnapshot(Ref ref, ObjectId newRefValue) {
+    if (ref == null) {
       throw new IllegalArgumentException("Required not-null ref in RefPair");
     }
-    this.compareRef = oldRef;
-    this.putValue = newRefValue;
+    this.ref = ref;
+    this.newValue = newRefValue;
     this.exception = null;
   }
 
@@ -50,10 +50,10 @@ public class RefPair {
    * @param newRef
    * @param e
    */
-  RefPair(Ref newRef, Exception e) {
-    this.compareRef = newRef;
+  RefUpdateSnapshot(Ref newRef, Exception e) {
+    this.ref = newRef;
     this.exception = e;
-    this.putValue = ObjectId.zeroId();
+    this.newValue = ObjectId.zeroId();
   }
 
   /**
@@ -62,7 +62,43 @@ public class RefPair {
    * @return the current ref value
    */
   public String getName() {
-    return compareRef.getName();
+    return ref.getName();
+  }
+
+  /**
+   * Get the ref's old value
+   *
+   * @return the ref's old value
+   */
+  public ObjectId getOldValue() {
+    return ref.getObjectId();
+  }
+
+  /**
+   * Get the ref's new (candidate) value
+   *
+   * @return the ref's new (candidate) value
+   */
+  public ObjectId getNewValue() {
+    return newValue;
+  }
+
+  /**
+   * Get the snapshotted ref with its old value
+   *
+   * @return the snapshotted ref with its old value
+   */
+  public Ref getRef() {
+    return ref;
+  }
+
+  /**
+   * Get the exception which occurred when retrieving the ref's new value
+   *
+   * @return the exception which occurred when retrieving the ref's new value
+   */
+  public Exception getException() {
+    return exception;
   }
 
   /**
