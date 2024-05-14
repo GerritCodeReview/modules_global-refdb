@@ -140,22 +140,24 @@ public class BatchRefUpdateValidator extends RefUpdateValidator {
       return;
     }
 
-    List<RefPair> refsToUpdate = getRefPairs(commands).collect(Collectors.toList());
-    List<RefPair> refsFailures =
-        refsToUpdate.stream().filter(RefPair::hasFailed).collect(Collectors.toList());
+    List<RefUpdateSnapshot> refsToUpdate =
+        getRefUpdateSnapshots(commands).collect(Collectors.toList());
+    List<RefUpdateSnapshot> refsFailures =
+        refsToUpdate.stream().filter(RefUpdateSnapshot::hasFailed).collect(Collectors.toList());
     if (!refsFailures.isEmpty()) {
       String allFailuresMessage =
           refsFailures.stream()
-              .map(refPair -> String.format("Failed to fetch ref %s", refPair.compareRef.getName()))
+              .map(refSnapshot -> String.format("Failed to fetch ref %s", refSnapshot.getName()))
               .collect(Collectors.joining(", "));
-      Exception firstFailureException = refsFailures.get(0).exception;
+      Exception firstFailureException = refsFailures.get(0).getException();
 
       logger.atSevere().withCause(firstFailureException).log("%s", allFailuresMessage);
       throw new IOException(allFailuresMessage, firstFailureException);
     }
 
     try (CloseableSet<AutoCloseable> locks = new CloseableSet<>()) {
-      final List<RefPair> finalRefsToUpdate = compareAndGetLatestLocalRefs(refsToUpdate, locks);
+      final List<RefUpdateSnapshot> finalRefsToUpdate =
+          compareAndGetLatestLocalRefs(refsToUpdate, locks);
       delegateUpdate.invoke();
       boolean sharedDbUpdateSucceeded = false;
       try {
@@ -184,7 +186,7 @@ public class BatchRefUpdateValidator extends RefUpdateValidator {
 
   private void rollback(
       OneParameterVoidFunction<List<ReceiveCommand>> delegateUpdateRollback,
-      List<RefPair> refsBeforeUpdate,
+      List<RefUpdateSnapshot> refsBeforeUpdate,
       List<ReceiveCommand> receiveCommands)
       throws IOException {
     List<ReceiveCommand> rollbackCommands =
@@ -192,61 +194,62 @@ public class BatchRefUpdateValidator extends RefUpdateValidator {
             .map(
                 refBeforeUpdate ->
                     new ReceiveCommand(
-                        refBeforeUpdate.putValue,
-                        refBeforeUpdate.compareRef.getObjectId(),
+                        refBeforeUpdate.getNewValue(),
+                        refBeforeUpdate.getOldValue(),
                         refBeforeUpdate.getName()))
             .collect(Collectors.toList());
     delegateUpdateRollback.invoke(rollbackCommands);
     receiveCommands.forEach(command -> command.setResult(ReceiveCommand.Result.LOCK_FAILURE));
   }
 
-  private void updateSharedRefDb(Stream<ReceiveCommand> commandStream, List<RefPair> refsToUpdate)
+  private void updateSharedRefDb(
+      Stream<ReceiveCommand> commandStream, List<RefUpdateSnapshot> refsToUpdate)
       throws IOException {
     if (commandStream.anyMatch(cmd -> cmd.getResult() != ReceiveCommand.Result.OK)) {
       return;
     }
 
-    for (RefPair refPair : refsToUpdate) {
-      updateSharedDbOrThrowExceptionFor(refPair);
+    for (RefUpdateSnapshot refUpdateSnapshot : refsToUpdate) {
+      updateSharedDbOrThrowExceptionFor(refUpdateSnapshot);
     }
   }
 
-  private Stream<RefPair> getRefPairs(List<ReceiveCommand> receivedCommands) {
-    return receivedCommands.stream().map(this::getRefPairForCommand);
+  private Stream<RefUpdateSnapshot> getRefUpdateSnapshots(List<ReceiveCommand> receivedCommands) {
+    return receivedCommands.stream().map(this::getRefUpdateSnapshotForCommand);
   }
 
-  private RefPair getRefPairForCommand(ReceiveCommand command) {
+  private RefUpdateSnapshot getRefUpdateSnapshotForCommand(ReceiveCommand command) {
     try {
       switch (command.getType()) {
         case CREATE:
-          return new RefPair(nullRef(command.getRefName()), getNewRef(command));
+          return new RefUpdateSnapshot(nullRef(command.getRefName()), getNewValue(command));
 
         case UPDATE:
         case UPDATE_NONFASTFORWARD:
-          return new RefPair(getCurrentRef(command.getRefName()), getNewRef(command));
+          return new RefUpdateSnapshot(getCurrentRef(command.getRefName()), getNewValue(command));
 
         case DELETE:
-          return new RefPair(getCurrentRef(command.getRefName()), ObjectId.zeroId());
+          return new RefUpdateSnapshot(getCurrentRef(command.getRefName()), ObjectId.zeroId());
 
         default:
-          return new RefPair(
+          return new RefUpdateSnapshot(
               command.getRef(),
               new IllegalArgumentException("Unsupported command type " + command.getType()));
       }
     } catch (IOException e) {
-      return new RefPair(command.getRef(), e);
+      return new RefUpdateSnapshot(command.getRef(), e);
     }
   }
 
-  private ObjectId getNewRef(ReceiveCommand command) {
+  private ObjectId getNewValue(ReceiveCommand command) {
     return command.getNewId();
   }
 
-  private List<RefPair> compareAndGetLatestLocalRefs(
-      List<RefPair> refsToUpdate, CloseableSet<AutoCloseable> locks) throws IOException {
-    List<RefPair> latestRefsToUpdate = new ArrayList<>();
-    for (RefPair refPair : refsToUpdate) {
-      latestRefsToUpdate.add(compareAndGetLatestLocalRef(refPair, locks));
+  private List<RefUpdateSnapshot> compareAndGetLatestLocalRefs(
+      List<RefUpdateSnapshot> refsToUpdate, CloseableSet<AutoCloseable> locks) throws IOException {
+    List<RefUpdateSnapshot> latestRefsToUpdate = new ArrayList<>();
+    for (RefUpdateSnapshot refUpdateSnapshot : refsToUpdate) {
+      latestRefsToUpdate.add(compareAndGetLatestLocalRef(refUpdateSnapshot, locks));
     }
     return latestRefsToUpdate;
   }
