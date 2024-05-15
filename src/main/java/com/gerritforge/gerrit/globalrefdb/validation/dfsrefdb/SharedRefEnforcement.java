@@ -14,13 +14,30 @@
 
 package com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb;
 
+import com.gerritforge.gerrit.globalrefdb.validation.SharedRefDbConfiguration;
 import com.google.gerrit.entities.RefNames;
+import java.util.regex.Pattern;
 
 /** Type of enforcement to implement between the local and shared RefDb. */
 public interface SharedRefEnforcement {
   public enum EnforcePolicy {
     IGNORED,
     REQUIRED;
+  }
+
+  class StorageRule {
+    public enum StorageRuleType {
+      INCLUDE,
+      EXCLUDE;
+    }
+
+    Pattern pattern;
+    StorageRuleType ruleType;
+
+    public StorageRule(StorageRuleType ruleType, Pattern pattern) {
+      this.ruleType = ruleType;
+      this.pattern = pattern;
+    }
   }
 
   /**
@@ -41,7 +58,8 @@ public interface SharedRefEnforcement {
   public EnforcePolicy getPolicy(String projectName);
 
   /**
-   * Check if a refName should be ignored by global refdb. The Default behaviour is to ignore:
+   * Check if a refName should be ignored by global refdb. The default behaviour activates after any
+   * custom rules, if no matches for the custom rules are found or no custom rules are provided.
    *
    * <ul>
    *   <li>refs/draft-comments :user-specific temporary storage that does not need to be seen by
@@ -53,7 +71,20 @@ public interface SharedRefEnforcement {
    * @param refName the name of the ref to check
    * @return true if ref should be ignored; false otherwise
    */
-  default boolean isRefToBeIgnoredBySharedRefDb(String refName) {
+  default boolean isRefToBeIgnoredBySharedRefDb(String refName, SharedRefDbConfiguration config) {
+    for (StorageRule rule : config.getSharedRefDb().getStorageRules()) {
+      // pattern match the refName to the value of the rule entry
+      if (rule.pattern.matcher(refName).matches()) {
+        if (rule.ruleType.equals(StorageRule.StorageRuleType.EXCLUDE)) {
+          return true;
+        }
+        return false;
+      }
+    }
+    return isRefToBeIgnoredByDefaultRules(refName);
+  }
+
+  private boolean isRefToBeIgnoredByDefaultRules(String refName) {
     return refName == null
         || refName.startsWith("refs/draft-comments")
         || (refName.startsWith("refs/changes")

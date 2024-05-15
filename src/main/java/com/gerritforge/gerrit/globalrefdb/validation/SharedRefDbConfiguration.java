@@ -19,13 +19,19 @@ import static com.google.common.base.Suppliers.ofInstance;
 
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement.EnforcePolicy;
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement.StorageRule;
+import com.google.common.base.Splitter;
 import com.google.common.base.Supplier;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.MultimapBuilder;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.storage.file.FileBasedConfig;
@@ -104,10 +110,13 @@ public class SharedRefDbConfiguration {
     public static final String ENABLE_KEY = "enabled";
     public static final String SUBSECTION_ENFORCEMENT_RULES = "enforcementRules";
     public static final String IGNORED_REFS_PREFIXES = "ignoredRefsPrefixes";
+    public static final String SUBSECTION_STORAGE_RULES = "storageRules";
+    public static final String RULE = "rule";
 
     private final boolean enabled;
     private final Multimap<EnforcePolicy, String> enforcementRules;
     private final ImmutableSet<String> ignoredRefsPrefixes;
+    private final List<StorageRule> storageRules;
 
     private SharedRefDatabase(Supplier<Config> cfg) {
       enabled = getBoolean(cfg, SECTION, null, ENABLE_KEY, false);
@@ -117,6 +126,11 @@ public class SharedRefDbConfiguration {
             policy, getList(cfg, SECTION, SUBSECTION_ENFORCEMENT_RULES, policy.name()));
       }
 
+      List<String> storageRulesList =
+          new ArrayList<>(
+              Arrays.asList(cfg.get().getStringList(SECTION, SUBSECTION_STORAGE_RULES, RULE)));
+
+      storageRules = parseStorageRulesList(storageRulesList);
       ignoredRefsPrefixes = ImmutableSet.copyOf(getList(cfg, SECTION, null, IGNORED_REFS_PREFIXES));
     }
 
@@ -131,14 +145,17 @@ public class SharedRefDbConfiguration {
 
     /**
      * Getter for the map of {@link EnforcePolicy} to a specific "project:refs". Each entry can be
-     * either be {@link SharedRefEnforcement.EnforcePolicy#IGNORED} or {@link
-     * SharedRefEnforcement.EnforcePolicy#REQUIRED} and it represents the level of consistency
-     * enforcements for that specific "project:refs". If the project or ref is omitted, apply the
-     * policy to all projects or all refs.
+     * either be {@link
+     * com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement.EnforcePolicy#IGNORED}
+     * or {@link
+     * com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement.EnforcePolicy#REQUIRED}
+     * and it represents the level of consistency enforcements for that specific "project:refs". If
+     * the project or ref is omitted, apply the policy to all projects or all refs.
      *
      * <p>The projec/ref will not be validated against the global refdb if it one to be ignored by
-     * default ({@link SharedRefEnforcement#isRefToBeIgnoredBySharedRefDb(String)} or if it has been
-     * configured so, for example:
+     * default ({@link
+     * com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement#isRefToBeIgnoredBySharedRefDb(String,
+     * SharedRefDbConfiguration)} or if it has been configured so, for example:
      *
      * <pre>
      *     [ref-database "enforcementRules"]
@@ -152,6 +169,21 @@ public class SharedRefDbConfiguration {
     }
 
     /**
+     * Getter for the map of {@link StorageRule} to a specific ref. Each entry can be either be
+     * {@link
+     * com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement.StorageRule.StorageRuleType#INCLUDE}
+     * or {@link
+     * com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement.StorageRule.StorageRuleType#EXCLUDE}.
+     * Included refs will be stored in the global refdb storage, excluded ones will not. First rule
+     * to match the given ref applies. Default rules are applied last.
+     *
+     * @return Map of refs storage rules
+     */
+    public List<StorageRule> getStorageRules() {
+      return storageRules;
+    }
+
+    /**
      * Returns the set of refs prefixes that are ignored during the validation and enforcement of
      * the global refdb.
      *
@@ -159,6 +191,43 @@ public class SharedRefDbConfiguration {
      */
     public ImmutableSet<String> getIgnoredRefsPrefixes() {
       return ignoredRefsPrefixes;
+    }
+
+    /**
+     * Parses the storage rules list into a list of map entries of INCLUDE and EXCLUDE rules which
+     * determine which refs to include or exclude from the global-refdb
+     *
+     * @return List of map entries of refs to include and exclude
+     */
+    private List<StorageRule> parseStorageRulesList(List<String> storageRulesList) {
+      List<StorageRule> calculatedRules = new ArrayList<>();
+
+      for (String item : storageRulesList) {
+        List<String> parts = ImmutableList.copyOf(Splitter.on(':').limit(2).split(item).iterator());
+        if (parts.size() == 2) {
+          String key = parts.get(0).toUpperCase();
+          String value = parts.get(1);
+          try {
+            Pattern pattern = Pattern.compile(value);
+            calculatedRules.add(new StorageRule(StorageRule.StorageRuleType.valueOf(key), pattern));
+          } catch (PatternSyntaxException e) {
+            log.debug("{} {} is invalid regex.", SUBSECTION_STORAGE_RULES, value);
+          } catch (IllegalArgumentException e) {
+            log.error(
+                "{} {} is incorrectly formatted. Rule must begin with INCLUDE: or EXCLUDE:",
+                SUBSECTION_STORAGE_RULES,
+                item,
+                e);
+          }
+        } else {
+          log.debug(
+              "{} {} is incorrectly formatted. Rule must be INCLUDE:regex or EXCLUDE:regex",
+              SUBSECTION_STORAGE_RULES,
+              item);
+        }
+      }
+
+      return calculatedRules;
     }
 
     private List<String> getList(
