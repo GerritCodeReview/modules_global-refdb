@@ -13,7 +13,6 @@
 // limitations under the License.
 
 package com.gerritforge.gerrit.globalrefdb.validation;
-
 import com.gerritforge.gerrit.globalrefdb.GlobalRefDbLockException;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
@@ -21,12 +20,10 @@ import com.google.gerrit.server.ExceptionHook;
 import java.util.Optional;
 
 public class SharedRefDbExceptionHook implements ExceptionHook {
-
   @Override
   public boolean shouldRetry(String actionType, String actionName, Throwable throwable) {
     return throwable instanceof GlobalRefDbLockException;
   }
-
   @Override
   public Optional<Status> getStatus(Throwable throwable) {
     if (throwable instanceof GlobalRefDbLockException) {
