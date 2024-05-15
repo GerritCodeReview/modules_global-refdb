@@ -16,6 +16,52 @@
       "message": "The ignoreNone option doesn\u0027t work (yet).",
       "revId": "17b65738fbc2a547fc245a1c28604e2a46c2365c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f3911ab_5c22a7ac",
+        "filename": "config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2024-05-15T15:31:18Z",
+      "side": 1,
+      "message": "I\u0027d write this more explicitly:\n\n`refs/changes/*` except `refs/changes/*/*/meta`",
+      "range": {
+        "startLine": 42,
+        "startChar": 7,
+        "endLine": 42,
+        "endChar": 36
+      },
+      "revId": "17b65738fbc2a547fc245a1c28604e2a46c2365c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9606e14_fbcb0286",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2024-05-15T15:31:18Z",
+      "side": 1,
+      "message": "No Ref pattern to ignore configured, storing all refs",
+      "range": {
+        "startLine": 126,
+        "startChar": 19,
+        "endLine": 126,
+        "endChar": 66
+      },
+      "revId": "17b65738fbc2a547fc245a1c28604e2a46c2365c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
