@@ -34,6 +34,32 @@ the libModule consuming this library.
 
     Defaults: No rules = All projects are REQUIRED to be consistent on all refs.
 
+```ref-database.storageRules```
+:   Specifies which refs will be stored in the global-refdb based on regular
+    expressions. This is evaluated on a top-down basis, where the first matching
+    pattern applies to a given ref. If no patterns match, the default patterns
+    apply.
+
+    The default behavior is to not store:
+    1. `refs/draft-comments`: user-specific temporary storage
+    2. `refs/changes/.*` except `refs/changes/.*/.*/meta`: immutable refs
+    3. `refs/cache-automerge`: these refs are not replicated
+
+    User-provided patterns can replace the default behavior.
+
+    To store all refs in the global-refdb:
+    ```
+    [ref-database "storageRules"]
+      INCLUDE = .*
+    ```
+
+    Example to store draft-comments but exclude cache-automerge:
+    ```
+    [ref-database "storageRules"]
+      INCLUDE = ^refs/draft-comments.*
+      EXCLUDE = ^refs/cache-automerge.*
+    ```
+
 ```projects.pattern```
 :   Specifies which projects should be validated against the global refdb.
     It can be provided more than once, and supports three formats: regular

@@ -16,14 +16,50 @@ package com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb;
 
 import static com.google.common.truth.Truth.assertThat;
 
+import com.gerritforge.gerrit.globalrefdb.validation.SharedRefDbConfiguration;
+import com.gerritforge.gerrit.globalrefdb.validation.SharedRefDbConfiguration.SharedRefDatabase;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement.EnforcePolicy;
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement.StorageRule;
 import com.google.gerrit.entities.RefNames;
+import java.util.Arrays;
+import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.Ref;
 import org.junit.Test;
 
 public class DefaultSharedRefEnforcementTest implements RefFixture {
 
-  SharedRefEnforcement refEnforcement = new DefaultSharedRefEnforcement();
+  SharedRefEnforcement refEnforcement =
+      new DefaultSharedRefEnforcement(new SharedRefDbConfiguration(new Config(), "testplugin"));
+
+  @Test
+  public void allChangesRequiredWhenStorageRulesIncludeAll() {
+    Config config = new Config();
+    config.setStringList(
+        SharedRefDatabase.SECTION,
+        SharedRefDatabase.SUBSECTION_STORAGE_RULES,
+        SharedRefDatabase.RULE,
+        Arrays.asList(StorageRule.INCLUDE.name() + ":.*"));
+
+    SharedRefEnforcement refEnforcementWithStorageRules =
+        new DefaultSharedRefEnforcement(new SharedRefDbConfiguration(config, "testplugin"));
+
+    Ref immutableChangeRef = newRef(A_REF_NAME_OF_A_PATCHSET, AN_OBJECT_ID_1);
+    Ref draftCommentRef = newRef("refs/draft-comments/01/1/1000000", AN_OBJECT_ID_1);
+    Ref cacheAutomergeRef = newRef("refs/cache-automerge/01/1/1000000", AN_OBJECT_ID_1);
+
+    assertThat(
+            refEnforcementWithStorageRules.getPolicy(
+                A_TEST_PROJECT_NAME, immutableChangeRef.getName()))
+        .isEqualTo(EnforcePolicy.REQUIRED);
+    assertThat(
+            refEnforcementWithStorageRules.getPolicy(
+                A_TEST_PROJECT_NAME, draftCommentRef.getName()))
+        .isEqualTo(EnforcePolicy.REQUIRED);
+    assertThat(
+            refEnforcementWithStorageRules.getPolicy(
+                A_TEST_PROJECT_NAME, cacheAutomergeRef.getName()))
+        .isEqualTo(EnforcePolicy.REQUIRED);
+  }
 
   @Test
   public void anImmutableChangeShouldBeIgnored() {
