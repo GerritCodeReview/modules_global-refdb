@@ -34,6 +34,43 @@ the libModule consuming this library.
 
     Defaults: No rules = All projects are REQUIRED to be consistent on all refs.
 
+```ref-database.storageRules```
+:   Specifies which refs will be stored in the global-refdb based on regular
+    expressions. This is evaluated on a top-down basis, where the first matching
+    pattern applies to a given ref. The last rules to be checked are the default
+    exclusions:
+
+    1. `refs/draft-comments`
+    2. `refs/changes/.*` except `refs/changes/.*/.*/meta`: immutable refs
+    3. `refs/cache-automerge`
+
+    User-provided patterns can override the default behavior.
+
+    To store all refs in the global-refdb:
+    ```
+    [ref-database "storageRules"]
+      rule = INCLUDE:^.*
+    ```
+    To store all draft-comments, then exclude any remaining refs containing the
+    string 'test':
+    ```
+    [ref-database "storageRules"]
+      rule = INCLUDE:^refs/draft-comments/.*
+      rule = EXCLUDE:^.*test.*
+    ```
+    Note the nuance: The uppermost matching rule is evaluated first, so a draft
+    comment that happened to contain the term 'test' in its ref would be included.
+    If the desired behavior is the other way around, the rule order should be:
+    ```
+    [ref-database "storageRules"]
+      rule = EXCLUDE:^.*test.*
+      rule = INCLUDE:^refs/draft-comments/.*
+    ```
+    This configuration would exclude all refs containing 'test', then include
+    all remaining draft-comments.
+
+    Any refs that do not match either custom or default patterns are stored.
+
 ```projects.pattern```
 :   Specifies which projects should be validated against the global refdb.
     It can be provided more than once, and supports three formats: regular
