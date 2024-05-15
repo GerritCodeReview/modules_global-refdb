@@ -34,6 +34,31 @@ the libModule consuming this library.
 
     Defaults: No rules = All projects are REQUIRED to be consistent on all refs.
 
+```ref-database.ignoredRefPatterns```
+:   Specifies which refs will be ignored based on regular expressions.
+
+    The default behavior is to ignore:
+    1. refs/draft-comments: user-specific temporary storage
+    2. refs/changes/&lt;non-meta&gt;: those refs are immutable
+    3. refs/cache-automerge: these refs are not replicated
+
+    User-provided patterns entirely replace the default behavior.
+
+    To store all refs in the global-refdb, use `ignoreNone = true`. This
+    will override any patterns in the list:
+    ```
+    [ref-database "ignoredRefPatterns"]
+      ignoreNone = true
+    ```
+    *Example retaining default behavior:*
+    (With ROBOT_COMMENTS_SUFFIX replaced with your robot comments suffix)
+    ```
+    [ref-database "ignoredRefPatterns"]
+       pattern = ^refs/draft-comments.*
+       pattern = ^refs/changes(?!.*\\/meta)(?!.*ROBOT_COMMENTS_SUFFIX).*$
+       pattern = ^refs/cache-automerge.*
+    ```
+
 ```projects.pattern```
 :   Specifies which projects should be validated against the global refdb.
     It can be provided more than once, and supports three formats: regular

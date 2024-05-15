@@ -32,7 +32,9 @@ public class DefaultSharedRefEnforcement implements SharedRefEnforcement {
    */
   @Override
   public EnforcePolicy getPolicy(String projectName, String refName) {
-    return isRefToBeIgnoredBySharedRefDb(refName) ? EnforcePolicy.IGNORED : EnforcePolicy.REQUIRED;
+    return isRefToBeIgnoredBySharedRefDb(refName, null)
+        ? EnforcePolicy.IGNORED
+        : EnforcePolicy.REQUIRED;
   }
 
   /**

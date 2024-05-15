@@ -14,7 +14,12 @@
 
 package com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb;
 
+import com.google.common.collect.ImmutableSet;
 import com.google.gerrit.entities.RefNames;
+import java.util.Arrays;
+import java.util.List;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /** Type of enforcement to implement between the local and shared RefDb. */
 public interface SharedRefEnforcement {
@@ -22,6 +27,15 @@ public interface SharedRefEnforcement {
     IGNORED,
     REQUIRED;
   }
+
+  static final List<Pattern> defaultIgnoredRefPatterns =
+      Arrays.asList(
+          null,
+          Pattern.compile("^refs/draft-comments.*"),
+          // Matches for refs/changes not ending with /meta or ROBOT_COMMENTS_SUFFIX
+          Pattern.compile(
+              "^refs/changes(?!.*\\/meta)(?!.*" + RefNames.ROBOT_COMMENTS_SUFFIX + ").*$"),
+          Pattern.compile("^refs/cache-automerge.*"));
 
   /**
    * Get the enforcement policy for a project/refName.
@@ -41,7 +55,8 @@ public interface SharedRefEnforcement {
   public EnforcePolicy getPolicy(String projectName);
 
   /**
-   * Check if a refName should be ignored by global refdb. The Default behaviour is to ignore:
+   * Check if a refName should be ignored by global refdb. The default behaviour activates when
+   * customPatterns is null:
    *
    * <ul>
    *   <li>refs/draft-comments :user-specific temporary storage that does not need to be seen by
@@ -53,12 +68,18 @@ public interface SharedRefEnforcement {
    * @param refName the name of the ref to check
    * @return true if ref should be ignored; false otherwise
    */
-  default boolean isRefToBeIgnoredBySharedRefDb(String refName) {
-    return refName == null
-        || refName.startsWith("refs/draft-comments")
-        || (refName.startsWith("refs/changes")
-            && !refName.endsWith("/meta")
-            && !refName.endsWith(RefNames.ROBOT_COMMENTS_SUFFIX))
-        || refName.startsWith("refs/cache-automerge");
+  default boolean isRefToBeIgnoredBySharedRefDb(
+      String refName, ImmutableSet<String> customPatterns) {
+    List<Pattern> ignoredRefPatterns =
+        customPatterns != null
+            ? customPatterns.stream().map(Pattern::compile).collect(Collectors.toList())
+            : defaultIgnoredRefPatterns;
+
+    for (Pattern pattern : ignoredRefPatterns) {
+      if (pattern != null && pattern.matcher(refName).matches()) {
+        return true;
+      }
+    }
+    return false;
   }
 }

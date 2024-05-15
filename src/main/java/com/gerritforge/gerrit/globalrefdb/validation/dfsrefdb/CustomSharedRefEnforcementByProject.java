@@ -34,6 +34,7 @@ public class CustomSharedRefEnforcementByProject implements SharedRefEnforcement
   private static final String ALL = ".*";
 
   private final Supplier<Map<String, Map<String, EnforcePolicy>>> predefEnforcements;
+  private final SharedRefDbConfiguration config;
 
   /**
    * Constructs a {@code CustomSharedRefEnforcementByProject} with the values specified in the
@@ -44,6 +45,7 @@ public class CustomSharedRefEnforcementByProject implements SharedRefEnforcement
   @Inject
   public CustomSharedRefEnforcementByProject(SharedRefDbConfiguration config) {
     this.predefEnforcements = memoize(() -> parseDryRunEnforcementsToMap(config));
+    this.config = config;
   }
 
   private static Map<String, Map<String, EnforcePolicy>> parseDryRunEnforcementsToMap(
@@ -93,7 +95,7 @@ public class CustomSharedRefEnforcementByProject implements SharedRefEnforcement
    */
   @Override
   public EnforcePolicy getPolicy(String projectName, String refName) {
-    if (isRefToBeIgnoredBySharedRefDb(refName)) {
+    if (isRefToBeIgnoredBySharedRefDb(refName, config.getSharedRefDb().getIgnoredRefPatterns())) {
       return EnforcePolicy.IGNORED;
     }
 

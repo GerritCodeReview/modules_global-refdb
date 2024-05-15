@@ -104,10 +104,13 @@ public class SharedRefDbConfiguration {
     public static final String ENABLE_KEY = "enabled";
     public static final String SUBSECTION_ENFORCEMENT_RULES = "enforcementRules";
     public static final String IGNORED_REFS_PREFIXES = "ignoredRefsPrefixes";
+    public static final String IGNORE_NONE = "ignoreNone";
+    public static final String IGNORED_REFS_PATTERNS = "ignoredRefPatterns";
 
     private final boolean enabled;
     private final Multimap<EnforcePolicy, String> enforcementRules;
     private final ImmutableSet<String> ignoredRefsPrefixes;
+    private final ImmutableSet<String> ignoredRefPatterns;
 
     private SharedRefDatabase(Supplier<Config> cfg) {
       enabled = getBoolean(cfg, SECTION, null, ENABLE_KEY, false);
@@ -117,6 +120,15 @@ public class SharedRefDbConfiguration {
             policy, getList(cfg, SECTION, SUBSECTION_ENFORCEMENT_RULES, policy.name()));
       }
 
+      boolean ignoreNone = getBoolean(cfg, SECTION, IGNORED_REFS_PATTERNS, IGNORE_NONE, false);
+      if (ignoreNone) {
+        ignoredRefPatterns = ImmutableSet.of();
+        log.debug("Ref patterns to ignore: None (storing all refs)");
+      } else {
+        ignoredRefPatterns =
+            ImmutableSet.copyOf(getList(cfg, SECTION, IGNORED_REFS_PATTERNS, "pattern"));
+        log.debug(String.format("Ref patterns to ignore: %s", ignoredRefPatterns.toString()));
+      }
       ignoredRefsPrefixes = ImmutableSet.copyOf(getList(cfg, SECTION, null, IGNORED_REFS_PREFIXES));
     }
 
@@ -159,6 +171,16 @@ public class SharedRefDbConfiguration {
      */
     public ImmutableSet<String> getIgnoredRefsPrefixes() {
       return ignoredRefsPrefixes;
+    }
+
+    /**
+     * Returns the set of ref patterns that are ignored during the validation and enforcement of the
+     * global refdb.
+     *
+     * @return Set of ignored patterns of ignored refs
+     */
+    public ImmutableSet<String> getIgnoredRefPatterns() {
+      return ignoredRefPatterns;
     }
 
     private List<String> getList(
