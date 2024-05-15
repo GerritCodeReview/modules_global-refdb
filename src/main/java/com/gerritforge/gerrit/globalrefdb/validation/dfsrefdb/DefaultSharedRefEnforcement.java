@@ -14,6 +14,7 @@
 
 package com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb;
 
+
 /**
  * Default implementation of {@link SharedRefEnforcement}. This class provides the default
  * project/ref enforcement rules when no more specific rules have been configured for the libModule
