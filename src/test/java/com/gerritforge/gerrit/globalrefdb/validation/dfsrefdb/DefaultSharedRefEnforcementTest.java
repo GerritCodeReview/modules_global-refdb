@@ -16,13 +16,16 @@ package com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb;
 
 import static com.google.common.truth.Truth.assertThat;
 
+import com.gerritforge.gerrit.globalrefdb.validation.SharedRefDbConfiguration;
 import com.google.gerrit.entities.RefNames;
+import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.Ref;
 import org.junit.Test;
 
 public class DefaultSharedRefEnforcementTest implements RefFixture {
 
-  SharedRefEnforcement refEnforcement = new DefaultSharedRefEnforcement();
+  SharedRefEnforcement refEnforcement =
+      new DefaultSharedRefEnforcement(new SharedRefDbConfiguration(new Config(), "testplugin"));
 
   @Test
   public void anImmutableChangeShouldBeIgnored() {

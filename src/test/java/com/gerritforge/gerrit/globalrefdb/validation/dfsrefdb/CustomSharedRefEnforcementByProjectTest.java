@@ -15,6 +15,7 @@
 package com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb;
 
 import static com.google.common.truth.Truth.assertThat;
+import static com.google.gerrit.testing.GerritJUnit.assertThrows;
 
 import com.gerritforge.gerrit.globalrefdb.validation.SharedRefDbConfiguration;
 import com.gerritforge.gerrit.globalrefdb.validation.SharedRefDbConfiguration.SharedRefDatabase;
@@ -34,13 +35,98 @@ public class CustomSharedRefEnforcementByProjectTest implements RefFixture {
     sharedRefDbConfig.setStringList(
         SharedRefDatabase.SECTION,
         SharedRefDatabase.SUBSECTION_ENFORCEMENT_RULES,
-        SharedRefEnforcement.Policy.EXCLUDE.name(),
+        SharedRefDatabase.RULE,
         Arrays.asList(
-            "ProjectOne",
-            "ProjectTwo:refs/heads/master/test",
-            "ProjectTwo:refs/heads/master/test2"));
+            SharedRefEnforcement.Policy.EXCLUDE.name() + ":ProjectOne:",
+            SharedRefEnforcement.Policy.EXCLUDE.name() + ":ProjectTwo:refs/heads/master/test",
+            SharedRefEnforcement.Policy.EXCLUDE.name() + ":ProjectTwo:refs/heads/master/test2"));
 
     refEnforcement = newCustomRefEnforcement(sharedRefDbConfig);
+  }
+
+  @Test
+  public void allChangesRequiredWhenEnforcementRulesIncludeAll() {
+    Config sharedRefDbConfig = new Config();
+    sharedRefDbConfig.setStringList(
+        SharedRefDatabase.SECTION,
+        SharedRefDatabase.SUBSECTION_ENFORCEMENT_RULES,
+        SharedRefDatabase.RULE,
+        Arrays.asList(SharedRefEnforcement.Policy.INCLUDE.name() + "::"));
+
+    SharedRefEnforcement refEnforcementIncludeAll = newCustomRefEnforcement(sharedRefDbConfig);
+
+    Ref immutableChangeRef = newRef(A_REF_NAME_OF_A_PATCHSET, AN_OBJECT_ID_1);
+    Ref draftCommentRef = newRef("refs/draft-comments/01/1/1000000", AN_OBJECT_ID_1);
+    Ref cacheAutomergeRef = newRef("refs/cache-automerge/01/1/1000000", AN_OBJECT_ID_1);
+
+    assertThat(
+            refEnforcementIncludeAll.getPolicy(A_TEST_PROJECT_NAME, immutableChangeRef.getName()))
+        .isEqualTo(SharedRefEnforcement.Policy.INCLUDE);
+    assertThat(refEnforcementIncludeAll.getPolicy(A_TEST_PROJECT_NAME, draftCommentRef.getName()))
+        .isEqualTo(SharedRefEnforcement.Policy.INCLUDE);
+    assertThat(refEnforcementIncludeAll.getPolicy(A_TEST_PROJECT_NAME, cacheAutomergeRef.getName()))
+        .isEqualTo(SharedRefEnforcement.Policy.INCLUDE);
+  }
+
+  @Test
+  public void ruleWithInvalidPolicyShouldThrowIllegalArgumentException() {
+    Config sharedRefDbConfig = new Config();
+    sharedRefDbConfig.setStringList(
+        SharedRefDatabase.SECTION,
+        SharedRefDatabase.SUBSECTION_ENFORCEMENT_RULES,
+        SharedRefDatabase.RULE,
+        Arrays.asList("NotAValidPolicy::"));
+
+    assertThrows(IllegalArgumentException.class, () -> newCustomRefEnforcement(sharedRefDbConfig));
+  }
+
+  @Test
+  public void improperlyFormattedRuleShouldThrowIllegalArgumentException() {
+    Config sharedRefDbConfig = new Config();
+    sharedRefDbConfig.setStringList(
+        SharedRefDatabase.SECTION,
+        SharedRefDatabase.SUBSECTION_ENFORCEMENT_RULES,
+        SharedRefDatabase.RULE,
+        Arrays.asList(":"));
+
+    assertThrows(IllegalArgumentException.class, () -> newCustomRefEnforcement(sharedRefDbConfig));
+  }
+
+  @Test
+  public void rulesShouldBeEvaluatedTopDown() {
+    Config sharedRefDbConfig = new Config();
+    sharedRefDbConfig.setStringList(
+        SharedRefDatabase.SECTION,
+        SharedRefDatabase.SUBSECTION_ENFORCEMENT_RULES,
+        SharedRefDatabase.RULE,
+        Arrays.asList(
+            SharedRefEnforcement.Policy.INCLUDE.name() + "::",
+            SharedRefEnforcement.Policy.EXCLUDE.name() + "::refs/draft-comments*"));
+
+    SharedRefEnforcement refEnforcementIncludeAll = newCustomRefEnforcement(sharedRefDbConfig);
+
+    Ref someChangeRef = newRef(A_REF_NAME_OF_A_PATCHSET, AN_OBJECT_ID_1);
+    Ref draftCommentRef = newRef("refs/draft-comments/01/1/1000000", AN_OBJECT_ID_1);
+
+    assertThat(refEnforcementIncludeAll.getPolicy(A_TEST_PROJECT_NAME, someChangeRef.getName()))
+        .isEqualTo(SharedRefEnforcement.Policy.INCLUDE);
+    assertThat(refEnforcementIncludeAll.getPolicy(A_TEST_PROJECT_NAME, draftCommentRef.getName()))
+        .isEqualTo(SharedRefEnforcement.Policy.INCLUDE);
+
+    sharedRefDbConfig.setStringList(
+        SharedRefDatabase.SECTION,
+        SharedRefDatabase.SUBSECTION_ENFORCEMENT_RULES,
+        SharedRefDatabase.RULE,
+        Arrays.asList(
+            SharedRefEnforcement.Policy.EXCLUDE.name() + "::refs/draft-comments*",
+            SharedRefEnforcement.Policy.INCLUDE.name() + "::"));
+
+    refEnforcementIncludeAll = newCustomRefEnforcement(sharedRefDbConfig);
+
+    assertThat(refEnforcementIncludeAll.getPolicy(A_TEST_PROJECT_NAME, someChangeRef.getName()))
+        .isEqualTo(SharedRefEnforcement.Policy.INCLUDE);
+    assertThat(refEnforcementIncludeAll.getPolicy(A_TEST_PROJECT_NAME, draftCommentRef.getName()))
+        .isEqualTo(SharedRefEnforcement.Policy.EXCLUDE);
   }
 
   @Test
@@ -117,7 +203,8 @@ public class CustomSharedRefEnforcementByProjectTest implements RefFixture {
   @Test
   public void getProjectPolicyForNonListedProjectWhenSingleProject() {
     SharedRefEnforcement customEnforcement =
-        newCustomRefEnforcementWithValue(SharedRefEnforcement.Policy.EXCLUDE, ":refs/heads/master");
+        newCustomRefEnforcementWithValue(
+            SharedRefEnforcement.Policy.EXCLUDE.name() + "::refs/heads/master");
 
     assertThat(customEnforcement.getPolicy("NonListedProject"))
         .isEqualTo(SharedRefEnforcement.Policy.INCLUDE);
@@ -126,19 +213,18 @@ public class CustomSharedRefEnforcementByProjectTest implements RefFixture {
   @Test
   public void getANonListedProjectWhenOnlyOneProjectIsListedShouldReturnInclude() {
     SharedRefEnforcement customEnforcement =
-        newCustomRefEnforcementWithValue(SharedRefEnforcement.Policy.EXCLUDE, "AProject:");
+        newCustomRefEnforcementWithValue(SharedRefEnforcement.Policy.EXCLUDE.name() + ":AProject:");
     assertThat(customEnforcement.getPolicy("NonListedProject", "refs/heads/master"))
         .isEqualTo(SharedRefEnforcement.Policy.INCLUDE);
   }
 
-  private SharedRefEnforcement newCustomRefEnforcementWithValue(
-      SharedRefEnforcement.Policy policy, String... projectAndRefs) {
+  private SharedRefEnforcement newCustomRefEnforcementWithValue(String... rule) {
     Config sharedRefDbConfiguration = new Config();
     sharedRefDbConfiguration.setStringList(
         SharedRefDatabase.SECTION,
         SharedRefDatabase.SUBSECTION_ENFORCEMENT_RULES,
-        policy.name(),
-        Arrays.asList(projectAndRefs));
+        SharedRefDatabase.RULE,
+        Arrays.asList(rule));
     return newCustomRefEnforcement(sharedRefDbConfiguration);
   }
 

@@ -14,12 +14,26 @@
 
 package com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb;
 
+import com.gerritforge.gerrit.globalrefdb.validation.SharedRefDbConfiguration;
+import com.google.inject.Inject;
+
 /**
  * Default implementation of {@link SharedRefEnforcement}. This class provides the default
  * project/ref enforcement rules when no more specific rules have been configured for the libModule
  * consuming this library.
  */
 public class DefaultSharedRefEnforcement implements SharedRefEnforcement {
+  private final SharedRefDbConfiguration config;
+
+  /**
+   * Constructs a {@code DefaultSharedRefEnforcement}
+   *
+   * @param config the libModule configuration
+   */
+  @Inject
+  public DefaultSharedRefEnforcement(SharedRefDbConfiguration config) {
+    this.config = config;
+  }
 
   /**
    * Returns {@link Policy#EXCLUDE} for refs to be ignored {@link

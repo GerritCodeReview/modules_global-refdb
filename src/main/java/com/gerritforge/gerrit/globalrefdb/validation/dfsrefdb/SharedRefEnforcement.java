@@ -19,8 +19,35 @@ import com.google.gerrit.entities.RefNames;
 /** Type of enforcement to implement between the local and shared RefDb. */
 public interface SharedRefEnforcement {
   enum Policy {
-    EXCLUDE,
-    INCLUDE;
+    INCLUDE,
+    EXCLUDE;
+  }
+
+  class Rule {
+    private final String projectWildcard;
+    private final String refWildcard;
+    private final Policy policy;
+
+    public Rule(SharedRefEnforcement.Policy policy, String projectWildcard, String refWildcard) {
+      this.policy = policy;
+      this.projectWildcard = projectWildcard;
+      this.refWildcard = refWildcard;
+    }
+
+    public Policy getPolicy() {
+      return this.policy;
+    }
+
+    public boolean matches(String projectName, String refName) {
+      return wildcardMatches(this.projectWildcard, projectName)
+          && wildcardMatches(this.refWildcard, refName);
+    }
+
+    private boolean wildcardMatches(String wildcardPattern, String value) {
+      return wildcardPattern.equals(value)
+          || (wildcardPattern.endsWith("*")
+              && value.startsWith(wildcardPattern.substring(0, wildcardPattern.length() - 1)));
+    }
   }
 
   /**
@@ -41,7 +68,8 @@ public interface SharedRefEnforcement {
   Policy getPolicy(String projectName);
 
   /**
-   * Check if a refName should be ignored by global refdb. The Default behaviour is to ignore:
+   * Check if a refName should be ignored by global refdb. The default behaviour activates after any
+   * custom rules, if no matches for the custom rules are found or no custom rules are provided.
    *
    * <ul>
    *   <li>refs/draft-comments :user-specific temporary storage that does not need to be seen by
