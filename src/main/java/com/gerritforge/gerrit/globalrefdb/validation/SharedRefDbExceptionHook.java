@@ -16,7 +16,7 @@ package com.gerritforge.gerrit.globalrefdb.validation;
 
 import com.gerritforge.gerrit.globalrefdb.GlobalRefDbLockException;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
+import com.google.gerrit.common.Nullable;
 import com.google.gerrit.server.ExceptionHook;
 import java.util.Optional;
 
@@ -36,14 +36,12 @@ public class SharedRefDbExceptionHook implements ExceptionHook {
   }
 
   @Override
-  public ImmutableList<String> getUserMessages(Throwable throwable, ImmutableSet<String> traceIds) {
+  public ImmutableList<String> getUserMessages(Throwable throwable, @Nullable String traceId) {
     if (throwable instanceof GlobalRefDbLockException) {
       ImmutableList.Builder<String> builder = new ImmutableList.Builder<>();
       builder.add(throwable.getMessage());
-      for (String traceId : traceIds) {
-        if (traceId != null && !traceId.isBlank()) {
-          builder.add(String.format("Trace ID: %s", traceId));
-        }
+      if (traceId != null && !traceId.isBlank()) {
+        builder.add(String.format("Trace ID: %s", traceId));
       }
       return builder.build();
     }
