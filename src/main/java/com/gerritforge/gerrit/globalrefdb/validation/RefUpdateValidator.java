@@ -16,11 +16,24 @@ package com.gerritforge.gerrit.globalrefdb.validation;
 
 import com.gerritforge.gerrit.globalrefdb.GlobalRefDbLockException;
 import com.gerritforge.gerrit.globalrefdb.GlobalRefDbSystemError;
+<<<<<<< PATCH SET (2c8e6d Replace Custom EnforcementRules with storeAllRefs/storeNoRef)
+||||||| BASE
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.CustomSharedRefEnforcementByProject;
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.DefaultSharedRefEnforcement;
+=======
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.CustomSharedRefEnforcementByProject;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.DefaultSharedRefEnforcement;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacySharedRefEnforcement;
+>>>>>>> BASE      (a29b75 Deprecate SharedRefEnforcement)
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.OutOfSyncException;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedDbSplitBrainException;
+<<<<<<< PATCH SET (2c8e6d Replace Custom EnforcementRules with storeAllRefs/storeNoRef)
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement;
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement.Policy;
+||||||| BASE
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement;
+=======
+>>>>>>> BASE      (a29b75 Deprecate SharedRefEnforcement)
 import com.google.common.base.MoreObjects;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.flogger.FluentLogger;
@@ -87,9 +100,7 @@ public class RefUpdateValidator {
    *
    * @param sharedRefDb an instance of the global refdb to check for out-of-sync refs.
    * @param validationMetrics to update validation results, such as split-brains.
-   * @param refEnforcement Specific ref enforcements for this project. Either a {@link
-   *     CustomSharedRefEnforcementByProject} when custom policies are provided via configuration
-   *     file or a {@link DefaultSharedRefEnforcement} for defaults.
+   * @param refEnforcement Whether or not a given ref should be stored
    * @param lockWrapperFactory factory providing a {@link LockWrapper}
    * @param projectsFilter filter to match whether the project being updated should be validated
    *     against global refdb
@@ -132,8 +143,15 @@ public class RefUpdateValidator {
    *       RefUpdateValidator#isRefToBeIgnored(String)})
    *   <li>The project being updated is a global project ({@link
    *       RefUpdateValidator#isGlobalProject(String)}
+<<<<<<< PATCH SET (2c8e6d Replace Custom EnforcementRules with storeAllRefs/storeNoRef)
+   *   <li>The enforcement policy for the project being updated is {@link Policy#EXCLUDE}
+||||||| BASE
+   *   <li>The enforcement policy for the project being updated is {@link
+   *       SharedRefEnforcement.Policy#EXCLUDE}
+=======
    *   <li>The enforcement policy for the project being updated is {@link
    *       LegacySharedRefEnforcement.Policy#EXCLUDE}
+>>>>>>> BASE      (a29b75 Deprecate SharedRefEnforcement)
    * </ul>
    *
    * @param refUpdate the refUpdate command
@@ -150,7 +168,13 @@ public class RefUpdateValidator {
       throws IOException {
     if (isRefToBeIgnored(refUpdate.getName())
         || !isGlobalProject(projectName)
+<<<<<<< PATCH SET (2c8e6d Replace Custom EnforcementRules with storeAllRefs/storeNoRef)
+        || refEnforcement.getPolicy(projectName) == Policy.EXCLUDE) {
+||||||| BASE
+        || refEnforcement.getPolicy(projectName) == SharedRefEnforcement.Policy.EXCLUDE) {
+=======
         || refEnforcement.getPolicy(projectName) == LegacySharedRefEnforcement.Policy.EXCLUDE) {
+>>>>>>> BASE      (a29b75 Deprecate SharedRefEnforcement)
       return refUpdateFunction.invoke();
     }
 
@@ -164,6 +188,19 @@ public class RefUpdateValidator {
     return isRefToBeIgnored;
   }
 
+<<<<<<< PATCH SET (2c8e6d Replace Custom EnforcementRules with storeAllRefs/storeNoRef)
+||||||| BASE
+  private <T extends Throwable> void softFailBasedOnEnforcement(
+      T e, SharedRefEnforcement.Policy policy) throws T {
+    logger.atWarning().withCause(e).log(
+        "Failure while running with policy enforcement %s. Error message: %s",
+        policy, e.getMessage());
+    if (policy == SharedRefEnforcement.Policy.INCLUDE) {
+      throw e;
+    }
+  }
+
+=======
   private <T extends Throwable> void softFailBasedOnEnforcement(
       T e, LegacySharedRefEnforcement.Policy policy) throws T {
     logger.atWarning().withCause(e).log(
@@ -174,6 +211,7 @@ public class RefUpdateValidator {
     }
   }
 
+>>>>>>> BASE      (a29b75 Deprecate SharedRefEnforcement)
   protected Boolean isGlobalProject(String projectName) {
     Boolean isGlobalProject = projectsFilter.matches(projectName);
     logger.atFine().log("Is global project? %b", isGlobalProject);
@@ -214,9 +252,21 @@ public class RefUpdateValidator {
   protected void updateSharedDbOrThrowExceptionFor(RefUpdateSnapshot refSnapshot)
       throws IOException {
     // We are not checking refs that should be ignored
+<<<<<<< PATCH SET (2c8e6d Replace Custom EnforcementRules with storeAllRefs/storeNoRef)
+    final Policy refEnforcementPolicy =
+||||||| BASE
+    final SharedRefEnforcement.Policy refEnforcementPolicy =
+=======
     final LegacySharedRefEnforcement.Policy refEnforcementPolicy =
+>>>>>>> BASE      (a29b75 Deprecate SharedRefEnforcement)
         refEnforcement.getPolicy(projectName, refSnapshot.getName());
+<<<<<<< PATCH SET (2c8e6d Replace Custom EnforcementRules with storeAllRefs/storeNoRef)
+    if (refEnforcementPolicy == Policy.EXCLUDE) return;
+||||||| BASE
+    if (refEnforcementPolicy == SharedRefEnforcement.Policy.EXCLUDE) return;
+=======
     if (refEnforcementPolicy == LegacySharedRefEnforcement.Policy.EXCLUDE) return;
+>>>>>>> BASE      (a29b75 Deprecate SharedRefEnforcement)
 
     boolean succeeded;
     try {
@@ -245,9 +295,18 @@ public class RefUpdateValidator {
       RefUpdateSnapshot refUpdateSnapshot, CloseableSet<AutoCloseable> locks)
       throws GlobalRefDbLockException, OutOfSyncException, IOException {
     String refName = refUpdateSnapshot.getName();
+<<<<<<< PATCH SET (2c8e6d Replace Custom EnforcementRules with storeAllRefs/storeNoRef)
+    Policy refEnforcementPolicy = refEnforcement.getPolicy(projectName, refName);
+    if (refEnforcementPolicy == Policy.EXCLUDE) {
+||||||| BASE
+    SharedRefEnforcement.Policy refEnforcementPolicy =
+        refEnforcement.getPolicy(projectName, refName);
+    if (refEnforcementPolicy == SharedRefEnforcement.Policy.EXCLUDE) {
+=======
     LegacySharedRefEnforcement.Policy refEnforcementPolicy =
         refEnforcement.getPolicy(projectName, refName);
     if (refEnforcementPolicy == LegacySharedRefEnforcement.Policy.EXCLUDE) {
+>>>>>>> BASE      (a29b75 Deprecate SharedRefEnforcement)
       return refUpdateSnapshot;
     }
 
@@ -266,9 +325,7 @@ public class RefUpdateValidator {
         || sharedRefDb.exists(Project.nameKey(projectName), refName)) {
       validationMetrics.incrementSplitBrainPrevention();
 
-      softFailBasedOnEnforcement(
-          new OutOfSyncException(projectName, latestRefUpdateSnapshot.getRef()),
-          refEnforcementPolicy);
+      throw new OutOfSyncException(projectName, latestRefUpdateSnapshot.getRef());
     }
 
     return latestRefUpdateSnapshot;
