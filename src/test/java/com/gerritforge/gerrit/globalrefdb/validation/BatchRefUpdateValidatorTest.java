@@ -258,7 +258,9 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
   }
 
   private BatchRefUpdateValidator newDefaultValidator(String projectName) {
-    return getRefValidatorForEnforcement(projectName, new DefaultSharedRefEnforcement());
+    return getRefValidatorForEnforcement(
+        projectName,
+        new DefaultSharedRefEnforcement(new SharedRefDbConfiguration(new Config(), "testplugin")));
   }
 
   private BatchRefUpdateValidator getRefValidatorForEnforcement(
