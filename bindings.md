@@ -34,6 +34,16 @@ public class FooModule extends FactoryModule {
     factory(BatchRefUpdateValidator.Factory.class);
     bind(SharedRefDbConfiguration.class).toInstance(cfg.getSharedRefDbConfiguration());
     bind(GitRepositoryManager.class).to(SharedRefDbGitRepositoryManager.class);
+<<<<<<< PATCH SET (e71513 Replace Custom EnforcementRules with storeAllRefs/storeNoRef)
+||||||| BASE
+    if (cfg.getSharedRefDbConfiguration().getSharedRefDb().getEnforcementRules().isEmpty()) {
+      bind(SharedRefEnforcement.class).to(DefaultSharedRefEnforcement.class).in(Scopes.SINGLETON);
+    } else {
+      bind(SharedRefEnforcement.class)
+          .to(CustomSharedRefEnforcementByProject.class)
+          .in(Scopes.SINGLETON);
+    }
+=======
     if (cfg.getSharedRefDbConfiguration().getSharedRefDb().getEnforcementRules().isEmpty()) {
       bind(LegacySharedRefEnforcement.class).to(LegacyDefaultSharedRefEnforcement.class).in(Scopes.SINGLETON);
     } else {
@@ -41,6 +51,7 @@ public class FooModule extends FactoryModule {
           .to(LegacyCustomSharedRefEnforcementByProject.class)
           .in(Scopes.SINGLETON);
     }
+>>>>>>> BASE      (916353 Deprecate SharedRefEnforcement)
     DynamicSet.bind(binder(), ExceptionHook.class).to(SharedRefDbExceptionHook.class);
   }
 }

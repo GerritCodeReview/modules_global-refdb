@@ -14,11 +14,24 @@
 
 package com.gerritforge.gerrit.globalrefdb.validation;
 
+<<<<<<< PATCH SET (e71513 Replace Custom EnforcementRules with storeAllRefs/storeNoRef)
+||||||| BASE
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.CustomSharedRefEnforcementByProject;
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.DefaultSharedRefEnforcement;
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacySharedRefEnforcement;
+=======
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacyCustomSharedRefEnforcementByProject;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacyDefaultSharedRefEnforcement;
+>>>>>>> BASE      (916353 Deprecate SharedRefEnforcement)
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.OutOfSyncException;
+<<<<<<< PATCH SET (e71513 Replace Custom EnforcementRules with storeAllRefs/storeNoRef)
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement;
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement.Policy;
+||||||| BASE
+=======
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacySharedRefEnforcement;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacySharedRefEnforcement.EnforcePolicy;
+>>>>>>> BASE      (916353 Deprecate SharedRefEnforcement)
 import com.google.common.collect.ImmutableSet;
 import com.google.common.flogger.FluentLogger;
 import com.google.inject.Inject;
@@ -55,9 +68,19 @@ public class BatchRefUpdateValidator extends RefUpdateValidator {
    *
    * @param sharedRefDb an instance of the global refdb to check for out-of-sync refs.
    * @param validationMetrics to update validation results, such as split-brains.
+<<<<<<< PATCH SET (e71513 Replace Custom EnforcementRules with storeAllRefs/storeNoRef)
+   * @param refEnforcement Specific ref enforcements for this project.
+   * @param lockWrapperFactory factory providing a {@link LockWrapper}
+||||||| BASE
+   * @param refEnforcement Specific ref enforcements for this project. Either a {@link
+   *     CustomSharedRefEnforcementByProject} when custom policies are provided via configuration *
+   *     file or a {@link DefaultSharedRefEnforcement} for defaults.
+   * @param lockWrapperFactory factory providing a {@link LockWrapper}
+=======
    * @param refEnforcement Specific ref enforcements for this project. Either a {@link
    *     LegacyCustomSharedRefEnforcementByProject} when custom policies are provided via configuration *
    *     file or a {@link LegacyDefaultSharedRefEnforcement} for defaults.
+>>>>>>> BASE      (916353 Deprecate SharedRefEnforcement)
    * @param projectsFilter filter to match whether the project being updated should be validated
    *     against global refdb
    * @param projectName the name of the project being updated.
@@ -69,7 +92,15 @@ public class BatchRefUpdateValidator extends RefUpdateValidator {
   public BatchRefUpdateValidator(
       SharedRefDatabaseWrapper sharedRefDb,
       ValidationMetrics validationMetrics,
+<<<<<<< PATCH SET (e71513 Replace Custom EnforcementRules with storeAllRefs/storeNoRef)
+      SharedRefEnforcement refEnforcement,
+      LockWrapper.Factory lockWrapperFactory,
+||||||| BASE
       LegacySharedRefEnforcement refEnforcement,
+      LockWrapper.Factory lockWrapperFactory,
+=======
+      LegacySharedRefEnforcement refEnforcement,
+>>>>>>> BASE      (916353 Deprecate SharedRefEnforcement)
       ProjectsFilter projectsFilter,
       @Assisted String projectName,
       @Assisted RefDatabase refDb,
@@ -94,7 +125,7 @@ public class BatchRefUpdateValidator extends RefUpdateValidator {
    * <ul>
    *   <li>The project being updated is a global project ({@link
    *       RefUpdateValidator#isGlobalProject(String)}
-   *   <li>The enforcement policy for the project being updated is {@link EnforcePolicy#IGNORED}
+   *   <li>The enforcement policy for the project being updated is {@link Policy#EXCLUDE}
    * </ul>
    *
    * @param batchRefUpdate batchRefUpdate object
@@ -109,8 +140,15 @@ public class BatchRefUpdateValidator extends RefUpdateValidator {
       NoParameterVoidFunction batchRefUpdateFunction,
       OneParameterVoidFunction<List<ReceiveCommand>> batchRefUpdateRollbackFunction)
       throws IOException {
+<<<<<<< PATCH SET (e71513 Replace Custom EnforcementRules with storeAllRefs/storeNoRef)
+    if (refEnforcement.getPolicy(projectName) == Policy.EXCLUDE || !isGlobalProject(projectName)) {
+||||||| BASE
+    if (refEnforcement.getPolicy(projectName) == LegacySharedRefEnforcement.Policy.EXCLUDE
+        || !isGlobalProject(projectName)) {
+=======
     if (refEnforcement.getPolicy(projectName) == EnforcePolicy.IGNORED
         || !isGlobalProject(projectName)) {
+>>>>>>> BASE      (916353 Deprecate SharedRefEnforcement)
       batchRefUpdateFunction.invoke();
       return;
     }
@@ -120,7 +158,13 @@ public class BatchRefUpdateValidator extends RefUpdateValidator {
     } catch (IOException e) {
       logger.atWarning().withCause(e).log(
           "Failed to execute Batch Update on project %s", projectName);
+<<<<<<< PATCH SET (e71513 Replace Custom EnforcementRules with storeAllRefs/storeNoRef)
+      if (refEnforcement.getPolicy(projectName) == Policy.INCLUDE) {
+||||||| BASE
+      if (refEnforcement.getPolicy(projectName) == LegacySharedRefEnforcement.Policy.INCLUDE) {
+=======
       if (refEnforcement.getPolicy(projectName) == EnforcePolicy.REQUIRED) {
+>>>>>>> BASE      (916353 Deprecate SharedRefEnforcement)
         throw e;
       }
     }

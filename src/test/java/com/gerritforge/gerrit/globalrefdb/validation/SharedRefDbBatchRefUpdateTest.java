@@ -27,13 +27,25 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
+<<<<<<< PATCH SET (e71513 Replace Custom EnforcementRules with storeAllRefs/storeNoRef)
+||||||| BASE
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.DefaultSharedRefEnforcement;
+=======
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacyDefaultSharedRefEnforcement;
+>>>>>>> BASE      (916353 Deprecate SharedRefEnforcement)
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.RefFixture;
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement;
 import com.google.common.collect.ImmutableSet;
 import java.io.IOException;
+<<<<<<< PATCH SET (e71513 Replace Custom EnforcementRules with storeAllRefs/storeNoRef)
+||||||| BASE
+import java.util.Collections;
+=======
 import java.util.Collections;
 import java.util.List;
+>>>>>>> BASE      (916353 Deprecate SharedRefEnforcement)
 import org.eclipse.jgit.lib.BatchRefUpdate;
+import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectIdRef;
 import org.eclipse.jgit.lib.ProgressMonitor;
@@ -102,6 +114,7 @@ public class SharedRefDbBatchRefUpdateTest implements RefFixture {
     when(projectsFilter.matches(anyString())).thenReturn(true);
   }
 
+  @SuppressWarnings("deprecation")
   private void setMockRequiredReturnValues() throws IOException {
 
     doReturn(batchRefUpdate).when(refDatabase).newBatchUpdate();
@@ -131,7 +144,7 @@ public class SharedRefDbBatchRefUpdateTest implements RefFixture {
     doReturn(true)
         .when(sharedRefDb)
         .compareAndPut(eq(A_TEST_PROJECT_NAME_KEY), refEquals(oldRef), eq(newRef.getObjectId()));
-    sharedRefDbRefUpdate.execute(revWalk, progressMonitor, Collections.emptyList());
+    sharedRefDbRefUpdate.execute(revWalk, progressMonitor, EMPTY_LIST);
     verify(sharedRefDb)
         .compareAndPut(eq(A_TEST_PROJECT_NAME_KEY), refEquals(oldRef), eq(newRef.getObjectId()));
   }
@@ -147,7 +160,7 @@ public class SharedRefDbBatchRefUpdateTest implements RefFixture {
         .when(batchRefUpdateValidator)
         .executeBatchUpdateWithValidation(any(), any(), any());
 
-    sharedRefDbRefUpdate.execute(revWalk, progressMonitor, Collections.emptyList());
+    sharedRefDbRefUpdate.execute(revWalk, progressMonitor, EMPTY_LIST);
   }
 
   @Test
@@ -156,7 +169,7 @@ public class SharedRefDbBatchRefUpdateTest implements RefFixture {
     doReturn(true).when(sharedRefDb).exists(A_TEST_PROJECT_NAME_KEY, A_TEST_REF_NAME);
     doReturn(false).when(sharedRefDb).isUpToDate(A_TEST_PROJECT_NAME_KEY, oldRef);
 
-    sharedRefDbRefUpdate.execute(revWalk, progressMonitor, Collections.emptyList());
+    sharedRefDbRefUpdate.execute(revWalk, progressMonitor, EMPTY_LIST);
 
     verify(validationMetrics).incrementSplitBrainPrevention();
   }
@@ -168,7 +181,7 @@ public class SharedRefDbBatchRefUpdateTest implements RefFixture {
 
     sharedRefDbRefUpdate = getSharedRefDbBatchRefUpdateWithDefaultPolicyEnforcement();
 
-    sharedRefDbRefUpdate.execute(revWalk, progressMonitor, Collections.emptyList());
+    sharedRefDbRefUpdate.execute(revWalk, progressMonitor, EMPTY_LIST);
   }
 
   private SharedRefDbBatchRefUpdate getSharedRefDbBatchRefUpdateWithDefaultPolicyEnforcement() {
@@ -180,7 +193,15 @@ public class SharedRefDbBatchRefUpdateTest implements RefFixture {
             return new BatchRefUpdateValidator(
                 sharedRefDb,
                 validationMetrics,
+<<<<<<< PATCH SET (e71513 Replace Custom EnforcementRules with storeAllRefs/storeNoRef)
+                new SharedRefEnforcement(new SharedRefDbConfiguration(new Config(), "testplugin")),
+                new DummyLockWrapper(),
+||||||| BASE
+                new DefaultSharedRefEnforcement(),
+                new DummyLockWrapper(),
+=======
                 new LegacyDefaultSharedRefEnforcement(),
+>>>>>>> BASE      (916353 Deprecate SharedRefEnforcement)
                 projectsFilter,
                 projectName,
                 refDb,

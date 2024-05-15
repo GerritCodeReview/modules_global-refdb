@@ -31,9 +31,20 @@ import static org.mockito.Mockito.when;
 
 import com.gerritforge.gerrit.globalrefdb.GlobalRefDbSystemError;
 import com.gerritforge.gerrit.globalrefdb.validation.RefUpdateValidator.OneParameterVoidFunction;
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacyDefaultSharedRefEnforcement;
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.RefFixture;
+<<<<<<< PATCH SET (e71513 Replace Custom EnforcementRules with storeAllRefs/storeNoRef)
+||||||| BASE
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.DefaultSharedRefEnforcement;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacySharedRefEnforcement;
+=======
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacyDefaultSharedRefEnforcement;
+>>>>>>> BASE      (916353 Deprecate SharedRefEnforcement)
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.RefFixture;
+<<<<<<< PATCH SET (e71513 Replace Custom EnforcementRules with storeAllRefs/storeNoRef)
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement;
+||||||| BASE
+=======
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacySharedRefEnforcement;
+>>>>>>> BASE      (916353 Deprecate SharedRefEnforcement)
 import com.google.common.collect.ImmutableSet;
 import com.google.gerrit.entities.Project;
 import com.google.gerrit.metrics.DisabledMetricMaker;
@@ -76,7 +87,7 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
 
   @Mock SharedRefDatabaseWrapper sharedRefDatabase;
 
-  @Mock LegacySharedRefEnforcement tmpRefEnforcement;
+  @Mock SharedRefEnforcement tmpRefEnforcement;
   @Mock ProjectsFilter projectsFilter;
   @Mock OneParameterVoidFunction<List<ReceiveCommand>> rollbackFunction;
 
@@ -108,7 +119,13 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
     BatchRefUpdateValidator batchRefUpdateValidator =
         getRefValidatorForEnforcement(tmpRefEnforcement);
 
+<<<<<<< PATCH SET (e71513 Replace Custom EnforcementRules with storeAllRefs/storeNoRef)
+    doReturn(SharedRefEnforcement.Policy.INCLUDE)
+||||||| BASE
+    doReturn(LegacySharedRefEnforcement.Policy.INCLUDE)
+=======
     doReturn(LegacySharedRefEnforcement.EnforcePolicy.REQUIRED)
+>>>>>>> BASE      (916353 Deprecate SharedRefEnforcement)
         .when(batchRefUpdateValidator.refEnforcement)
         .getPolicy(A_TEST_PROJECT_NAME, A_REF_NAME_1);
 
@@ -166,7 +183,13 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
     BatchRefUpdateValidator batchRefUpdateValidator =
         getRefValidatorForEnforcement(tmpRefEnforcement);
 
+<<<<<<< PATCH SET (e71513 Replace Custom EnforcementRules with storeAllRefs/storeNoRef)
+    doReturn(SharedRefEnforcement.Policy.INCLUDE)
+||||||| BASE
+    doReturn(LegacySharedRefEnforcement.Policy.INCLUDE)
+=======
     doReturn(LegacySharedRefEnforcement.EnforcePolicy.REQUIRED)
+>>>>>>> BASE      (916353 Deprecate SharedRefEnforcement)
         .when(batchRefUpdateValidator.refEnforcement)
         .getPolicy(A_TEST_PROJECT_NAME, A_REF_NAME_1);
     doReturn(false).when(sharedRefDatabase).isUpToDate(eq(A_TEST_PROJECT_NAME_KEY), any());
@@ -188,7 +211,13 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
     BatchRefUpdateValidator batchRefUpdateValidator =
         getRefValidatorForEnforcement(tmpRefEnforcement);
 
+<<<<<<< PATCH SET (e71513 Replace Custom EnforcementRules with storeAllRefs/storeNoRef)
+    doReturn(SharedRefEnforcement.Policy.INCLUDE)
+||||||| BASE
+    doReturn(LegacySharedRefEnforcement.Policy.INCLUDE)
+=======
     doReturn(LegacySharedRefEnforcement.EnforcePolicy.REQUIRED)
+>>>>>>> BASE      (916353 Deprecate SharedRefEnforcement)
         .when(batchRefUpdateValidator.refEnforcement)
         .getPolicy(A_TEST_PROJECT_NAME, A_REF_NAME_1);
     doReturn(true).when(sharedRefDatabase).isUpToDate(any(), any());
@@ -212,7 +241,13 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
     BatchRefUpdateValidator batchRefUpdateValidator =
         getRefValidatorForEnforcement(tmpRefEnforcement);
 
+<<<<<<< PATCH SET (e71513 Replace Custom EnforcementRules with storeAllRefs/storeNoRef)
+    doReturn(SharedRefEnforcement.Policy.INCLUDE)
+||||||| BASE
+    doReturn(LegacySharedRefEnforcement.Policy.INCLUDE)
+=======
     doReturn(LegacySharedRefEnforcement.EnforcePolicy.REQUIRED)
+>>>>>>> BASE      (916353 Deprecate SharedRefEnforcement)
         .when(batchRefUpdateValidator.refEnforcement)
         .getPolicy(A_TEST_PROJECT_NAME, A_REF_NAME_1);
 
@@ -246,6 +281,15 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
         .compareAndPut(any(Project.NameKey.class), any(Ref.class), any(ObjectId.class));
   }
 
+<<<<<<< PATCH SET (e71513 Replace Custom EnforcementRules with storeAllRefs/storeNoRef)
+  private BatchRefUpdateValidator newDefaultValidator(String projectName) {
+    return getRefValidatorForEnforcement(
+        projectName,
+        new SharedRefEnforcement(new SharedRefDbConfiguration(new Config(), "testplugin")));
+||||||| BASE
+  private BatchRefUpdateValidator newDefaultValidator(String projectName) {
+    return getRefValidatorForEnforcement(projectName, new DefaultSharedRefEnforcement());
+=======
   private void updateRef(String refName, ObjectId sha1) throws IOException {
     RefUpdate refUpdate = refdir.newUpdate(refName, false);
     refUpdate.setNewObjectId(sha1);
@@ -258,10 +302,17 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
 
   private BatchRefUpdateValidator newDefaultValidator() {
     return getRefValidatorForEnforcement(new LegacyDefaultSharedRefEnforcement());
+>>>>>>> BASE      (916353 Deprecate SharedRefEnforcement)
   }
 
   private BatchRefUpdateValidator getRefValidatorForEnforcement(
+<<<<<<< PATCH SET (e71513 Replace Custom EnforcementRules with storeAllRefs/storeNoRef)
+      String projectName, SharedRefEnforcement sharedRefEnforcement) {
+||||||| BASE
+      String projectName, LegacySharedRefEnforcement sharedRefEnforcement) {
+=======
       LegacySharedRefEnforcement LegacySharedRefEnforcement) {
+>>>>>>> BASE      (916353 Deprecate SharedRefEnforcement)
     return new BatchRefUpdateValidator(
         sharedRefDatabase,
         new ValidationMetrics(

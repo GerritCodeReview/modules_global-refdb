@@ -14,8 +14,16 @@
 
 package com.gerritforge.gerrit.globalrefdb.validation;
 
+<<<<<<< PATCH SET (e71513 Replace Custom EnforcementRules with storeAllRefs/storeNoRef)
+import static java.util.Collections.EMPTY_SET;
+
+||||||| BASE
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.DefaultSharedRefEnforcement;
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacySharedRefEnforcement;
+=======
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacyDefaultSharedRefEnforcement;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacySharedRefEnforcement;
+>>>>>>> BASE      (916353 Deprecate SharedRefEnforcement)
 import com.google.common.collect.ImmutableSet;
 import com.google.gerrit.acceptance.LightweightPluginDaemonTest;
 import com.google.gerrit.acceptance.TestPlugin;
@@ -23,7 +31,6 @@ import com.google.gerrit.extensions.config.FactoryModule;
 import com.google.gerrit.server.config.GerritServerConfig;
 import com.google.inject.*;
 import com.google.inject.name.Names;
-import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 import org.eclipse.jgit.lib.Config;
@@ -60,7 +67,7 @@ public class ValidationModuleTest extends LightweightPluginDaemonTest {
   public static class ValidationModuleWithEmptyIgnoredRefs extends ValidationModule {
     @Inject
     public ValidationModuleWithEmptyIgnoredRefs(@GerritServerConfig Config config) {
-      super(config, Optional.of(Collections.emptySet()));
+      super(config, Optional.of(EMPTY_SET));
     }
   }
 
@@ -104,7 +111,14 @@ public class ValidationModuleTest extends LightweightPluginDaemonTest {
       bind(ValidationMetrics.class);
 
       bind(SharedRefDbGitRepositoryManager.class);
+<<<<<<< PATCH SET (e71513 Replace Custom EnforcementRules with storeAllRefs/storeNoRef)
+||||||| BASE
+      bind(LegacySharedRefEnforcement.class)
+          .to(DefaultSharedRefEnforcement.class)
+          .in(Scopes.SINGLETON);
+=======
       bind(LegacySharedRefEnforcement.class).to(LegacyDefaultSharedRefEnforcement.class).in(Scopes.SINGLETON);
+>>>>>>> BASE      (916353 Deprecate SharedRefEnforcement)
     }
   }
 }

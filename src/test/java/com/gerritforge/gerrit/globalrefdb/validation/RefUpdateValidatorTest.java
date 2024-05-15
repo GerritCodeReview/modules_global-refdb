@@ -28,11 +28,22 @@ import static org.mockito.Mockito.when;
 import com.gerritforge.gerrit.globalrefdb.GlobalRefDbSystemError;
 import com.gerritforge.gerrit.globalrefdb.RefDbLockException;
 import com.gerritforge.gerrit.globalrefdb.validation.RefUpdateValidator.OneParameterFunction;
+<<<<<<< PATCH SET (e71513 Replace Custom EnforcementRules with storeAllRefs/storeNoRef)
+||||||| BASE
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.DefaultSharedRefEnforcement;
+=======
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacyDefaultSharedRefEnforcement;
+>>>>>>> BASE      (916353 Deprecate SharedRefEnforcement)
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.RefFixture;
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement;
 import com.google.common.collect.ImmutableSet;
 import com.google.gerrit.entities.Project;
+<<<<<<< PATCH SET (e71513 Replace Custom EnforcementRules with storeAllRefs/storeNoRef)
+import org.eclipse.jgit.lib.Config;
+||||||| BASE
+=======
 import java.io.IOException;
+>>>>>>> BASE      (916353 Deprecate SharedRefEnforcement)
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectIdRef;
 import org.eclipse.jgit.lib.Ref;
@@ -47,8 +58,16 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class RefUpdateValidatorTest implements RefFixture {
+<<<<<<< PATCH SET (e71513 Replace Custom EnforcementRules with storeAllRefs/storeNoRef)
+  private static final SharedRefEnforcement defaultRefEnforcement =
+      new SharedRefEnforcement(new SharedRefDbConfiguration(new Config(), "testplugin"));
+||||||| BASE
+  private static final DefaultSharedRefEnforcement defaultRefEnforcement =
+      new DefaultSharedRefEnforcement();
+=======
   private static final LegacyDefaultSharedRefEnforcement defaultRefEnforcement =
       new LegacyDefaultSharedRefEnforcement();
+>>>>>>> BASE      (916353 Deprecate SharedRefEnforcement)
 
   @Mock SharedRefDatabaseWrapper sharedRefDb;
 
@@ -211,11 +230,20 @@ public class RefUpdateValidatorTest implements RefFixture {
     doReturn(lock).when(sharedRefDb).lockRef(any(), anyString());
 
     Result result =
+<<<<<<< PATCH SET (e71513 Replace Custom EnforcementRules with storeAllRefs/storeNoRef)
+        refUpdateValidator.executeRefUpdate(refUpdate, () -> Result.NEW, rollbackFunction);
+    verify(rollbackFunction, times(1)).invoke(any());
+||||||| BASE
+        refUpdateValidator.executeRefUpdate(refUpdate, () -> Result.NEW, rollbackFunction);
+
+    verify(rollbackFunction, times(1)).invoke(any());
+=======
         refUpdateValidator.executeRefUpdate(
             refUpdate, () -> doLocalRefUpdate(refName), rollbackFunction);
 
     verify(sharedRefDb).compareAndPut(A_TEST_PROJECT_NAME_KEY, localRef, AN_OBJECT_ID_2);
     verify(rollbackFunction).invoke(any());
+>>>>>>> BASE      (916353 Deprecate SharedRefEnforcement)
     assertThat(result).isEqualTo(Result.LOCK_FAILURE);
   }
 
@@ -252,7 +280,12 @@ public class RefUpdateValidatorTest implements RefFixture {
             refUpdate, () -> doLocalRefUpdate(localRef.getName()), rollbackFunction);
     assertEquals(Result.LOCK_FAILURE, result);
 
+<<<<<<< PATCH SET (e71513 Replace Custom EnforcementRules with storeAllRefs/storeNoRef)
+    verify(rollbackFunction, times(1)).invoke(any());
+||||||| BASE
+=======
     verify(rollbackFunction).invoke(any());
+>>>>>>> BASE      (916353 Deprecate SharedRefEnforcement)
   }
 
   @Test

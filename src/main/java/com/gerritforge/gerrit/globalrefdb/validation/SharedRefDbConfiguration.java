@@ -17,13 +17,18 @@ package com.gerritforge.gerrit.globalrefdb.validation;
 import static com.google.common.base.Suppliers.memoize;
 import static com.google.common.base.Suppliers.ofInstance;
 
+<<<<<<< PATCH SET (e71513 Replace Custom EnforcementRules with storeAllRefs/storeNoRef)
+import com.gerritforge.gerrit.globalrefdb.validation.SharedRefDbConfiguration.Projects;
+import com.gerritforge.gerrit.globalrefdb.validation.SharedRefDbConfiguration.SharedRefDatabase;
+||||||| BASE
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacySharedRefEnforcement;
+=======
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacySharedRefEnforcement;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacySharedRefEnforcement.EnforcePolicy;
+>>>>>>> BASE      (916353 Deprecate SharedRefEnforcement)
 import com.google.common.base.Supplier;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Multimap;
-import com.google.common.collect.MultimapBuilder;
 import java.io.IOException;
 import java.util.List;
 import org.eclipse.jgit.errors.ConfigInvalidException;
@@ -99,29 +104,59 @@ public class SharedRefDbConfiguration {
 
   /**
    * Represents the global refdb configuration, which is computed by reading the 'ref-database'
+<<<<<<< PATCH SET (e71513 Replace Custom EnforcementRules with storeAllRefs/storeNoRef)
+   * section from the configuration file of this library's consumers. It specifies whether it is
+   * enabled and tunes other parameters that define specific behaviours of the global refdb.
+||||||| BASE
+   * section from the configuration file of this library's consumers. It allows to specify whether
+   * it is enabled, specific {@link LegacySharedRefEnforcement}s and to tune other parameters that
+   * define specific behaviours of the global refdb.
+=======
    * section from the configuration file of this library's consumers. It allows to specify whether
    * it is enabled, specific {@link LegacySharedRefEnforcement}s and to tune other parameters that define
    * specific behaviours of the global refdb.
+>>>>>>> BASE      (916353 Deprecate SharedRefEnforcement)
    */
   public static class SharedRefDatabase {
     public static final String SECTION = "ref-database";
     public static final String ENABLE_KEY = "enabled";
-    public static final String SUBSECTION_ENFORCEMENT_RULES = "enforcementRules";
+    public static final String STORE_ALL_REFS_KEY = "storeAllRefs";
+    public static final String STORE_NO_REFS_KEY = "storeNoRefs";
     public static final String IGNORED_REFS_PREFIXES = "ignoredRefsPrefixes";
+    public static final String PROJECT = "project";
 
     private final boolean enabled;
+<<<<<<< PATCH SET (e71513 Replace Custom EnforcementRules with storeAllRefs/storeNoRef)
+||||||| BASE
+    private final Multimap<LegacySharedRefEnforcement.Policy, String> enforcementRules;
+=======
     private final Multimap<EnforcePolicy, String> enforcementRules;
+>>>>>>> BASE      (916353 Deprecate SharedRefEnforcement)
     private final ImmutableSet<String> ignoredRefsPrefixes;
+    private final ImmutableList<String> storeAllRefs;
+    private final ImmutableList<String> storeNoRefs;
 
     private SharedRefDatabase(Supplier<Config> cfg) {
       enabled = getBoolean(cfg, SECTION, null, ENABLE_KEY, false);
+<<<<<<< PATCH SET (e71513 Replace Custom EnforcementRules with storeAllRefs/storeNoRef)
+||||||| BASE
+      enforcementRules = MultimapBuilder.hashKeys().arrayListValues().build();
+      for (LegacySharedRefEnforcement.Policy policy : LegacySharedRefEnforcement.Policy.values()) {
+        enforcementRules.putAll(
+            policy, getList(cfg, SECTION, SUBSECTION_ENFORCEMENT_RULES, policy.name()));
+      }
+
+=======
       enforcementRules = MultimapBuilder.hashKeys().arrayListValues().build();
       for (EnforcePolicy policy : EnforcePolicy.values()) {
         enforcementRules.putAll(
             policy, getList(cfg, SECTION, SUBSECTION_ENFORCEMENT_RULES, policy.name()));
       }
 
+>>>>>>> BASE      (916353 Deprecate SharedRefEnforcement)
       ignoredRefsPrefixes = ImmutableSet.copyOf(getList(cfg, SECTION, null, IGNORED_REFS_PREFIXES));
+      storeAllRefs = getList(cfg, SECTION, STORE_ALL_REFS_KEY, PROJECT);
+      storeNoRefs = getList(cfg, SECTION, STORE_NO_REFS_KEY, PROJECT);
     }
 
     /**
@@ -134,12 +169,36 @@ public class SharedRefDbConfiguration {
     }
 
     /**
+<<<<<<< PATCH SET (e71513 Replace Custom EnforcementRules with storeAllRefs/storeNoRef)
+     * Returns the list of projects to store all refs for in the global-refdb
+||||||| BASE
+     * Getter for the map of {@link LegacySharedRefEnforcement.Policy} to a specific "project:refs".
+     * Each entry can be either be {@link LegacySharedRefEnforcement.Policy#EXCLUDE} or {@link
+     * LegacySharedRefEnforcement.Policy#INCLUDE} and it represents the level of consistency
+     * enforcements for that specific "project:refs". If the project or ref is omitted, apply the
+     * policy to all projects or all refs.
+=======
      * Getter for the map of {@link EnforcePolicy} to a specific "project:refs". Each entry can be
      * either be {@link LegacySharedRefEnforcement.EnforcePolicy#IGNORED} or {@link
      * LegacySharedRefEnforcement.EnforcePolicy#REQUIRED} and it represents the level of consistency
      * enforcements for that specific "project:refs". If the project or ref is omitted, apply the
      * policy to all projects or all refs.
+>>>>>>> BASE      (916353 Deprecate SharedRefEnforcement)
      *
+<<<<<<< PATCH SET (e71513 Replace Custom EnforcementRules with storeAllRefs/storeNoRef)
+     * @return list of projects to store all refs for
+||||||| BASE
+     * <p>The projec/ref will not be validated against the global refdb if it one to be ignored by
+     * default ({@link LegacySharedRefEnforcement#isRefToBeIgnoredBySharedRefDb(String)} or if it
+     * has been configured so, for example:
+     *
+     * <pre>
+     *     [ref-database "enforcementRules"]
+     *    IGNORED = AProject:/refs/heads/feature
+     * </pre>
+     *
+     * @return Map of "project:refs" policies
+=======
      * <p>The projec/ref will not be validated against the global refdb if it one to be ignored by
      * default ({@link LegacySharedRefEnforcement#isRefToBeIgnoredBySharedRefDb(String)} or if it has been
      * configured so, for example:
@@ -150,9 +209,27 @@ public class SharedRefDbConfiguration {
      * </pre>
      *
      * @return Map of "project:refs" policies
+>>>>>>> BASE      (916353 Deprecate SharedRefEnforcement)
      */
+<<<<<<< PATCH SET (e71513 Replace Custom EnforcementRules with storeAllRefs/storeNoRef)
+    public ImmutableList<String> getStoreAllRefs() {
+      return storeAllRefs;
+    }
+
+    /**
+     * Returns the list of projects to not store in the global-refdb
+     *
+     * @return list of projects to not store refs for
+     */
+    public ImmutableList<String> getStoreNoRefs() {
+      return storeNoRefs;
+||||||| BASE
+    public Multimap<LegacySharedRefEnforcement.Policy, String> getEnforcementRules() {
+      return enforcementRules;
+=======
     public Multimap<EnforcePolicy, String> getEnforcementRules() {
       return enforcementRules;
+>>>>>>> BASE      (916353 Deprecate SharedRefEnforcement)
     }
 
     /**
@@ -165,7 +242,7 @@ public class SharedRefDbConfiguration {
       return ignoredRefsPrefixes;
     }
 
-    private List<String> getList(
+    private ImmutableList<String> getList(
         Supplier<Config> cfg, String section, String subsection, String name) {
       return ImmutableList.copyOf(cfg.get().getStringList(section, subsection, name));
     }
