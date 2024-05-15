@@ -11,28 +11,45 @@ the libModule consuming this library.
 :   Enable the use of a global refdb
     Defaults: true
 
-```ref-database.enforcementRules.<policy>```
-:   Level of consistency enforcement across sites on a project:refs basis.
-    Supports two values for enforcing the policy on multiple projects or refs.
-    If the project or ref is omitted, apply the policy to all projects or all refs.
+```ref-database.enforcementRules```
+:   Specifies which refs will be included in the global-refdb.
 
-    The <policy> can have one of the following values:
+    Rules apply in order top-down, such that the first matched rule is the one
+    to take effect. Default rules apply after custom rules. Rules support
+    project scopes and wildcard matching.
 
-    1. REQUIRED - Throw an exception if a git ref-update is processed against
-    a local ref not yet in sync with the global refdb.
-    The user transaction is cancelled.
+    The default behavior is to exclude draft comments, immutable non-meta refs,
+    and cache-automerge refs:
 
-    2. IGNORED - Ignore any validation against the global refdb.
+    `refs/draft-comments/*`
+    `refs/changes/*` except `refs/changes/.../meta`
+    `refs/cache-automerge/*`
 
-    *Example:*
+    To store all refs for all projects in the global-refdb:
     ```
     [ref-database "enforcementRules"]
-       IGNORED = AProject:/refs/heads/feature
+      rule = INCLUDE:*:*
     ```
+    To store all draft-comments except those of a specific project:
+    ```
+    [ref-database "enforcementRules"]
+      rule = EXCLUDE:my-repo:refs/draft-comments/*
+      rule = INCLUDE:*:refs/draft-comments/*
+    ```
+    Note the nuance: The uppermost matching rule is evaluated first, so despite
+    both rules applying to a draft comment in my-repo, it is excluded due to
+    matching the first rule.
 
-    Ignore the alignment with the global refdb for AProject on refs/heads/feature.
+    If the rules were the other way around:
+    ```
+    [ref-database "enforcementRules"]
+      rule = INCLUDE:*:refs/draft-comments/*
+      rule = EXCLUDE:my-repo:refs/draft-comments/*
+    ```
+    This configuration would include all draft comments and the second rule
+    would not be effective.
 
-    Defaults: No rules = All projects are REQUIRED to be consistent on all refs.
+    Any refs that do not match either custom or default rules are stored.
 
 ```projects.pattern```
 :   Specifies which projects should be validated against the global refdb.
