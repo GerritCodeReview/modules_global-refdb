@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d46ba25c_2217ad49",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-05-15T15:06:39Z",
+      "side": 1,
+      "message": "The ignoreNone option doesn\u0027t work (yet).",
+      "revId": "17b65738fbc2a547fc245a1c28604e2a46c2365c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
