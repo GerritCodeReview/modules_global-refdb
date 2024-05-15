@@ -15,7 +15,6 @@
 package com.gerritforge.gerrit.globalrefdb.validation;
 
 import static java.util.Arrays.asList;
-import static java.util.Collections.EMPTY_LIST;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.eq;
@@ -27,13 +26,16 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
+import com.gerritforge.gerrit.globalrefdb.DraftCommentEventsEnabledProvider;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacyDefaultSharedRefEnforcement;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.RefFixture;
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement;
 import com.google.common.collect.ImmutableSet;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import org.eclipse.jgit.lib.BatchRefUpdate;
+import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectIdRef;
 import org.eclipse.jgit.lib.ProgressMonitor;
@@ -164,7 +166,7 @@ public class SharedRefDbBatchRefUpdateTest implements RefFixture {
   @Test
   public void executeSuccessfullyWithNoExceptionsWhenEmptyList() throws IOException {
     doReturn(batchRefUpdate).when(refDatabase).newBatchUpdate();
-    doReturn(EMPTY_LIST).when(batchRefUpdate).getCommands();
+    doReturn(Collections.emptyList()).when(batchRefUpdate).getCommands();
 
     sharedRefDbRefUpdate = getSharedRefDbBatchRefUpdateWithDefaultPolicyEnforcement();
 
@@ -180,6 +182,9 @@ public class SharedRefDbBatchRefUpdateTest implements RefFixture {
             return new BatchRefUpdateValidator(
                 sharedRefDb,
                 validationMetrics,
+                new SharedRefEnforcement(
+                    new SharedRefDbConfiguration(new Config(), "testplugin"),
+                    new DraftCommentEventsEnabledProvider(new Config())),
                 new LegacyDefaultSharedRefEnforcement(),
                 projectsFilter,
                 projectName,

@@ -46,8 +46,8 @@ public class LegacyDefaultSharedRefEnforcement implements LegacySharedRefEnforce
 
   /**
    * Returns {@link EnforcePolicy#IGNORED} for refs to be ignored {@link
-   * LegacySharedRefEnforcement#isRefToBeIgnoredBySharedRefDb(String)}, {@link EnforcePolicy#REQUIRED}
-   * otherwise
+   * LegacySharedRefEnforcement#isRefToBeIgnoredBySharedRefDb(String)}, {@link
+   * EnforcePolicy#REQUIRED} otherwise
    *
    * @param projectName project to be enforced
    * @param refName ref name to be enforced

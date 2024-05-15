@@ -104,7 +104,9 @@ public class ValidationModuleTest extends LightweightPluginDaemonTest {
       bind(ValidationMetrics.class);
 
       bind(SharedRefDbGitRepositoryManager.class);
-      bind(LegacySharedRefEnforcement.class).to(LegacyDefaultSharedRefEnforcement.class).in(Scopes.SINGLETON);
+      bind(LegacySharedRefEnforcement.class)
+          .to(LegacyDefaultSharedRefEnforcement.class)
+          .in(Scopes.SINGLETON);
     }
   }
 }
