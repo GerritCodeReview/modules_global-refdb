@@ -16,30 +16,61 @@ package com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb;
 
 import static com.google.common.truth.Truth.assertThat;
 
+import com.gerritforge.gerrit.globalrefdb.validation.SharedRefDbConfiguration;
+import com.gerritforge.gerrit.globalrefdb.validation.SharedRefDbConfiguration.SharedRefDatabase;
 import com.google.gerrit.entities.RefNames;
+import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.Ref;
+import org.junit.Before;
 import org.junit.Test;
 
-public class DefaultSharedRefEnforcementTest implements RefFixture {
+public class RefStorageBehaviorTest implements RefFixture {
 
-  SharedRefEnforcement refEnforcement = new DefaultSharedRefEnforcement();
+  SharedRefEnforcement refEnforcement;
+
+  @Before
+  public void setUp() {
+    Config sharedRefDbConfig = new Config();
+    refEnforcement = newRefEnforcement(sharedRefDbConfig);
+  }
 
   @Test
-  public void anImmutableChangeShouldBeIgnored() {
+  public void shouldIncludeAllChangesWhenStoringAllRefs() {
+    Config sharedRefDbConfig = new Config();
+    sharedRefDbConfig.setBoolean(
+        SharedRefDatabase.SECTION, null, SharedRefDatabase.STORE_ALL_REFS_KEY, true);
+
+    SharedRefEnforcement refEnforcementIncludeAll = newRefEnforcement(sharedRefDbConfig);
+
+    Ref immutableChangeRef = newRef(A_REF_NAME_OF_A_PATCHSET, AN_OBJECT_ID_1);
+    Ref draftCommentRef = newRef("refs/draft-comments/01/1/1000000", AN_OBJECT_ID_1);
+    Ref cacheAutomergeRef = newRef("refs/cache-automerge/01/1/1000000", AN_OBJECT_ID_1);
+
+    assertThat(
+            refEnforcementIncludeAll.getPolicy(A_TEST_PROJECT_NAME, immutableChangeRef.getName()))
+        .isEqualTo(SharedRefEnforcement.Policy.INCLUDE);
+    assertThat(refEnforcementIncludeAll.getPolicy(A_TEST_PROJECT_NAME, draftCommentRef.getName()))
+        .isEqualTo(SharedRefEnforcement.Policy.INCLUDE);
+    assertThat(refEnforcementIncludeAll.getPolicy(A_TEST_PROJECT_NAME, cacheAutomergeRef.getName()))
+        .isEqualTo(SharedRefEnforcement.Policy.INCLUDE);
+  }
+
+  @Test
+  public void anImmutableChangeShouldBeExcluded() {
     Ref immutableChangeRef = newRef(A_REF_NAME_OF_A_PATCHSET, AN_OBJECT_ID_1);
     assertThat(refEnforcement.getPolicy(A_TEST_PROJECT_NAME, immutableChangeRef.getName()))
         .isEqualTo(SharedRefEnforcement.Policy.EXCLUDE);
   }
 
   @Test
-  public void aChangeMetaShouldNotBeIgnored() {
+  public void aChangeMetaShouldBeIncluded() {
     Ref immutableChangeRef = newRef("refs/changes/01/1/meta", AN_OBJECT_ID_1);
     assertThat(refEnforcement.getPolicy(A_TEST_PROJECT_NAME, immutableChangeRef.getName()))
         .isEqualTo(SharedRefEnforcement.Policy.INCLUDE);
   }
 
   @Test
-  public void aChangeRobotCommentsShouldNotBeIgnored() {
+  public void aChangeRobotCommentsShouldBeIncluded() {
     Ref robotCommentsMutableRef =
         newRef("refs/changes/01/1" + RefNames.ROBOT_COMMENTS_SUFFIX, AN_OBJECT_ID_1);
     assertThat(refEnforcement.getPolicy(A_TEST_PROJECT_NAME, robotCommentsMutableRef.getName()))
@@ -47,38 +78,42 @@ public class DefaultSharedRefEnforcementTest implements RefFixture {
   }
 
   @Test
-  public void aCacheAutomergeShouldBeIgnored() {
+  public void aCacheAutomergeShouldBeExcluded() {
     Ref immutableChangeRef = newRef("refs/cache-automerge/01/1/1000000", AN_OBJECT_ID_1);
     assertThat(refEnforcement.getPolicy(A_TEST_PROJECT_NAME, immutableChangeRef.getName()))
         .isEqualTo(SharedRefEnforcement.Policy.EXCLUDE);
   }
 
   @Test
-  public void aDraftCommentsShouldBeIgnored() {
+  public void aDraftCommentsShouldBeExcluded() {
     Ref immutableChangeRef = newRef("refs/draft-comments/01/1/1000000", AN_OBJECT_ID_1);
     assertThat(refEnforcement.getPolicy(A_TEST_PROJECT_NAME, immutableChangeRef.getName()))
         .isEqualTo(SharedRefEnforcement.Policy.EXCLUDE);
   }
 
   @Test
-  public void regularRefHeadsMasterShouldNotBeIgnored() {
+  public void regularRefHeadsMasterShouldBeIncluded() {
     Ref immutableChangeRef = newRef("refs/heads/master", AN_OBJECT_ID_1);
     assertThat(refEnforcement.getPolicy(A_TEST_PROJECT_NAME, immutableChangeRef.getName()))
         .isEqualTo(SharedRefEnforcement.Policy.INCLUDE);
   }
 
   @Test
-  public void regularCommitShouldNotBeIgnored() {
+  public void regularCommitShouldBeIncluded() {
     Ref immutableChangeRef = newRef("refs/heads/stable-2.16", AN_OBJECT_ID_1);
     assertThat(refEnforcement.getPolicy(A_TEST_PROJECT_NAME, immutableChangeRef.getName()))
         .isEqualTo(SharedRefEnforcement.Policy.INCLUDE);
   }
 
   @Test
-  public void allUsersExternalIdsRefShouldBeRequired() {
+  public void allUsersExternalIdsRefShouldBeIncluded() {
     Ref refOne = newRef("refs/meta/external-ids", AN_OBJECT_ID_1);
     assertThat(refEnforcement.getPolicy("All-Users", refOne.getName()))
         .isEqualTo(SharedRefEnforcement.Policy.INCLUDE);
+  }
+
+  private SharedRefEnforcement newRefEnforcement(Config sharedRefDbConfig) {
+    return new SharedRefEnforcement(new SharedRefDbConfiguration(sharedRefDbConfig, "testplugin"));
   }
 
   @Override
