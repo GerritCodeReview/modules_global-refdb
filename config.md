@@ -34,6 +34,24 @@ the libModule consuming this library.
 
     Defaults: No rules = All projects are REQUIRED to be consistent on all refs.
 
+    Warning: This configuration is deprecated in favor of the storeAllRefs/
+    storeNoRefs described below. Existing configured enforcementRules will work,
+    but not in tandem with the storeAllRefs/storeNoRefs paradigm.
+
+```ref-database.storeAllRefs```
+:   Specifies which projects should have all refs stored, including refs which
+    are excluded by default. An asterisk can be used to match all projects.
+
+    The default behavior for non-specified projects is to exclude draft comments,
+    immutable non-meta refs, and cache-automerge refs. When listed under
+    `storeAllRefs` those refs will be included.
+
+```ref-database.storeNoRefs```
+:   Specifies which projects should not be stored in the global-refdb. No refs
+    from these projects will be stored. An asterisk can be used to match all
+    projects. If a project is in both storeNoRefs and storeAllRefs, it will not
+    be stored; the order of processing is storeNoRefs then storeAllRefs.
+
 ```projects.pattern```
 :   Specifies which projects should be validated against the global refdb.
     It can be provided more than once, and supports three formats: regular
