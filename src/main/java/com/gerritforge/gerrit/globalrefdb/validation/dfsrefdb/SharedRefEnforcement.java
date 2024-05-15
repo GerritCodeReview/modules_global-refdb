@@ -14,13 +14,36 @@
 
 package com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb;
 
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement.EnforcementRule.EnforcePolicy;
 import com.google.gerrit.entities.RefNames;
 
 /** Type of enforcement to implement between the local and shared RefDb. */
 public interface SharedRefEnforcement {
-  public enum EnforcePolicy {
-    IGNORED,
-    REQUIRED;
+  class EnforcementRule {
+    public enum EnforcePolicy {
+      INCLUDE,
+      EXCLUDE;
+    }
+
+    String projectName;
+    String refName;
+    EnforcePolicy ruleType;
+
+    public EnforcementRule(EnforcePolicy ruleType, String projectName, String refName) {
+      this.ruleType = ruleType;
+      this.projectName = projectName;
+      this.refName = refName;
+    }
+
+    public boolean matches(String projectName, String refName) {
+      return matchStrings(this.projectName, projectName) && matchStrings(this.refName, refName);
+    }
+
+    private boolean matchStrings(String pattern, String value) {
+      return pattern.equals(value)
+          || (pattern.endsWith("*")
+              && value.startsWith(pattern.substring(0, pattern.length() - 1)));
+    }
   }
 
   /**
@@ -30,7 +53,7 @@ public interface SharedRefEnforcement {
    * @param refName ref name to be enforced
    * @return the {@link EnforcePolicy} value
    */
-  public EnforcePolicy getPolicy(String projectName, String refName);
+  public EnforcementRule.EnforcePolicy getPolicy(String projectName, String refName);
 
   /**
    * Get the enforcement policy for a project
@@ -38,10 +61,11 @@ public interface SharedRefEnforcement {
    * @param projectName the name of the project
    * @return the {@link EnforcePolicy} value
    */
-  public EnforcePolicy getPolicy(String projectName);
+  public EnforcementRule.EnforcePolicy getPolicy(String projectName);
 
   /**
-   * Check if a refName should be ignored by global refdb. The Default behaviour is to ignore:
+   * Check if a refName should be ignored by global refdb. The default behaviour activates after any
+   * custom rules, if no matches for the custom rules are found or no custom rules are provided.
    *
    * <ul>
    *   <li>refs/draft-comments :user-specific temporary storage that does not need to be seen by
