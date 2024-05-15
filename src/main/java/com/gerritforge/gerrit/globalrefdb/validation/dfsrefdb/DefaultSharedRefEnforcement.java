@@ -14,35 +14,50 @@
 
 package com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb;
 
+import com.gerritforge.gerrit.globalrefdb.validation.SharedRefDbConfiguration;
+import com.google.inject.Inject;
+
 /**
  * Default implementation of {@link SharedRefEnforcement}. This class provides the default
  * project/ref enforcement rules when no more specific rules have been configured for the libModule
  * consuming this library.
  */
 public class DefaultSharedRefEnforcement implements SharedRefEnforcement {
+  private final SharedRefDbConfiguration config;
 
   /**
-   * Returns {@link EnforcePolicy#IGNORED} for refs to be ignored {@link
-   * SharedRefEnforcement#isRefToBeIgnoredBySharedRefDb(String)}, {@link EnforcePolicy#REQUIRED}
-   * otherwise
+   * Constructs a {@code DefaultSharedRefEnforcement}
+   *
+   * @param config the libModule configuration
+   */
+  @Inject
+  public DefaultSharedRefEnforcement(SharedRefDbConfiguration config) {
+    this.config = config;
+  }
+
+  /**
+   * Returns {@link Policy#EXCLUDE} for refs to be ignored {@link
+   * SharedRefEnforcement#isRefToBeIgnoredBySharedRefDb(String)}, {@link Policy#INCLUDE} otherwise
    *
    * @param projectName project to be enforced
    * @param refName ref name to be enforced
    * @return the policy for this project/ref
    */
   @Override
-  public EnforcePolicy getPolicy(String projectName, String refName) {
-    return isRefToBeIgnoredBySharedRefDb(refName) ? EnforcePolicy.IGNORED : EnforcePolicy.REQUIRED;
+  public SharedRefEnforcement.Policy getPolicy(String projectName, String refName) {
+    return isRefToBeIgnoredBySharedRefDb(refName)
+        ? SharedRefEnforcement.Policy.EXCLUDE
+        : SharedRefEnforcement.Policy.INCLUDE;
   }
 
   /**
    * The global refdb validation policy for 'projectName'
    *
    * @param projectName project to be enforced
-   * @return always {@link EnforcePolicy#REQUIRED}
+   * @return always {@link Policy#INCLUDE}
    */
   @Override
-  public EnforcePolicy getPolicy(String projectName) {
-    return EnforcePolicy.REQUIRED;
+  public SharedRefEnforcement.Policy getPolicy(String projectName) {
+    return SharedRefEnforcement.Policy.INCLUDE;
   }
 }
