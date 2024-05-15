@@ -177,7 +177,8 @@ public class BatchRefUpdateValidator extends RefUpdateValidator {
     } catch (OutOfSyncException e) {
       List<ReceiveCommand> receiveCommands = batchRefUpdate.getCommands();
       logger.atWarning().withCause(e).log(
-          "Batch ref-update failing because node is out of sync with the shared ref-db. Set all commands Result to LOCK_FAILURE [%d]",
+          "Batch ref-update failing because node is out of sync with the shared ref-db. Set all"
+              + " commands Result to LOCK_FAILURE [%d]",
           receiveCommands.size());
       receiveCommands.forEach((command) -> command.setResult(ReceiveCommand.Result.LOCK_FAILURE));
     }

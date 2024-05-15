@@ -14,26 +14,17 @@
 
 package com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb;
 
-import static com.google.common.base.Suppliers.memoize;
-
 import com.gerritforge.gerrit.globalrefdb.validation.SharedRefDbConfiguration;
-import com.google.common.base.MoreObjects;
-import com.google.common.base.Splitter;
-import com.google.common.base.Supplier;
-import com.google.common.collect.ImmutableMap;
 import com.google.inject.Inject;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.List;
 
 /**
  * Implementation of the {@link SharedRefEnforcement} interface which derives project and
  * project/ref enforcement policy from the configuration of the libModule consuming this library
  */
 public class CustomSharedRefEnforcementByProject implements SharedRefEnforcement {
-  private static final String ALL = ".*";
-
-  private final Supplier<Map<String, Map<String, Policy>>> predefEnforcements;
+  private final SharedRefDbConfiguration config;
+  private final List<Rule> enforcementRules;
 
   /**
    * Constructs a {@code CustomSharedRefEnforcementByProject} with the values specified in the
@@ -43,46 +34,14 @@ public class CustomSharedRefEnforcementByProject implements SharedRefEnforcement
    */
   @Inject
   public CustomSharedRefEnforcementByProject(SharedRefDbConfiguration config) {
-    this.predefEnforcements = memoize(() -> parseDryRunEnforcementsToMap(config));
-  }
-
-  private static Map<String, Map<String, Policy>> parseDryRunEnforcementsToMap(
-      SharedRefDbConfiguration config) {
-    Map<String, Map<String, Policy>> enforcementMap = new HashMap<>();
-
-    for (Map.Entry<Policy, String> enforcementEntry :
-        config.getSharedRefDb().getEnforcementRules().entries()) {
-      parseEnforcementEntry(enforcementMap, enforcementEntry);
-    }
-
-    return enforcementMap;
-  }
-
-  private static void parseEnforcementEntry(
-      Map<String, Map<String, Policy>> enforcementMap, Map.Entry<Policy, String> enforcementEntry) {
-    Iterator<String> projectAndRef = Splitter.on(':').split(enforcementEntry.getValue()).iterator();
-    Policy enforcementPolicy = enforcementEntry.getKey();
-
-    if (projectAndRef.hasNext()) {
-      String projectName = emptyToAll(projectAndRef.next());
-      String refName = emptyToAll(projectAndRef.hasNext() ? projectAndRef.next() : ALL);
-
-      Map<String, Policy> existingOrDefaultRef =
-          enforcementMap.getOrDefault(projectName, new HashMap<>());
-
-      existingOrDefaultRef.put(refName, enforcementPolicy);
-
-      enforcementMap.put(projectName, existingOrDefaultRef);
-    }
-  }
-
-  private static String emptyToAll(String value) {
-    return value.trim().isEmpty() ? ALL : value;
+    this.config = config;
+    this.enforcementRules = config.getSharedRefDb().getEnforcementRules();
   }
 
   /**
    * The enforcement policy for 'refName' in 'projectName' as computed from the libModule's
-   * configuration file.
+   * configuration file. We iterate over the whole list even if the project name is known; if we
+   * expect a large number of rules we may prefer a Map<Project, Rule> instead later.
    *
    * <p>By default all projects are INCLUDE to be consistent on all refs.
    *
@@ -92,22 +51,12 @@ public class CustomSharedRefEnforcementByProject implements SharedRefEnforcement
    */
   @Override
   public Policy getPolicy(String projectName, String refName) {
-    if (isRefToBeIgnoredBySharedRefDb(refName)) {
-      return Policy.EXCLUDE;
+    for (Rule rule : enforcementRules) {
+      if (rule.matches(projectName, refName)) {
+        return rule.getPolicy();
+      }
     }
-
-    return getRefPolicy(projectName, refName);
-  }
-
-  private Policy getRefPolicy(String projectName, String refName) {
-    Map<String, Policy> orDefault =
-        predefEnforcements
-            .get()
-            .getOrDefault(
-                projectName, predefEnforcements.get().getOrDefault(ALL, ImmutableMap.of()));
-
-    return MoreObjects.firstNonNull(
-        orDefault.getOrDefault(refName, orDefault.get(ALL)), Policy.INCLUDE);
+    return isRefToBeIgnoredBySharedRefDb(refName) ? Policy.EXCLUDE : Policy.INCLUDE;
   }
 
   /**
@@ -120,11 +69,11 @@ public class CustomSharedRefEnforcementByProject implements SharedRefEnforcement
    */
   @Override
   public Policy getPolicy(String projectName) {
-    Map<String, Policy> policiesForProject =
-        predefEnforcements
-            .get()
-            .getOrDefault(
-                projectName, predefEnforcements.get().getOrDefault(ALL, ImmutableMap.of()));
-    return policiesForProject.getOrDefault(ALL, Policy.INCLUDE);
+    for (Rule rule : enforcementRules) {
+      if (rule.matches(projectName, "*")) {
+        return rule.getPolicy();
+      }
+    }
+    return Policy.INCLUDE;
   }
 }
