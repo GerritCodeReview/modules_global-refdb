@@ -26,7 +26,6 @@ import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.RefDatabase;
 import org.eclipse.jgit.lib.RefRename;
 import org.eclipse.jgit.lib.RefUpdate;
-import org.eclipse.jgit.lib.ReflogReader;
 
 /**
  * Wraps an instance of {@link RefDatabase} with the intent of wrapping {@link RefUpdate} operations
@@ -168,11 +167,6 @@ public class SharedRefDbRefDatabase extends RefDatabase {
   @Override
   public List<Ref> getRefsByPrefix(String prefix) throws IOException {
     return refDatabase.getRefsByPrefix(prefix);
-  }
-
-  @Override
-  public ReflogReader getReflogReader(Ref ref) throws IOException {
-    return refDatabase.getReflogReader(ref);
   }
 
   @Override

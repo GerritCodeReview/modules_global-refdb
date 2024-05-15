@@ -14,10 +14,9 @@
 
 package com.gerritforge.gerrit.globalrefdb.validation;
 
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.CustomSharedRefEnforcementByProject;
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.DefaultSharedRefEnforcement;
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacySharedRefEnforcement;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.OutOfSyncException;
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement;
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement.Policy;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.flogger.FluentLogger;
 import com.google.inject.Inject;
@@ -54,9 +53,7 @@ public class BatchRefUpdateValidator extends RefUpdateValidator {
    *
    * @param sharedRefDb an instance of the global refdb to check for out-of-sync refs.
    * @param validationMetrics to update validation results, such as split-brains.
-   * @param refEnforcement Specific ref enforcements for this project. Either a {@link
-   *     CustomSharedRefEnforcementByProject} when custom policies are provided via configuration *
-   *     file or a {@link DefaultSharedRefEnforcement} for defaults.
+   * @param refEnforcement Specific ref enforcements for this project.
    * @param lockWrapperFactory factory providing a {@link LockWrapper}
    * @param projectsFilter filter to match whether the project being updated should be validated
    *     against global refdb
@@ -69,7 +66,7 @@ public class BatchRefUpdateValidator extends RefUpdateValidator {
   public BatchRefUpdateValidator(
       SharedRefDatabaseWrapper sharedRefDb,
       ValidationMetrics validationMetrics,
-      LegacySharedRefEnforcement refEnforcement,
+      SharedRefEnforcement refEnforcement,
       LockWrapper.Factory lockWrapperFactory,
       ProjectsFilter projectsFilter,
       @Assisted String projectName,
@@ -96,7 +93,7 @@ public class BatchRefUpdateValidator extends RefUpdateValidator {
    * <ul>
    *   <li>The project being updated is a global project ({@link
    *       RefUpdateValidator#isGlobalProject(String)}
-   *   <li>The enforcement policy for the project being updated is {@link EnforcePolicy#IGNORED}
+   *   <li>The enforcement policy for the project being updated is {@link Policy#EXCLUDE}
    * </ul>
    *
    * @param batchRefUpdate batchRefUpdate object
@@ -111,8 +108,7 @@ public class BatchRefUpdateValidator extends RefUpdateValidator {
       NoParameterVoidFunction batchRefUpdateFunction,
       OneParameterVoidFunction<List<ReceiveCommand>> batchRefUpdateRollbackFunction)
       throws IOException {
-    if (refEnforcement.getPolicy(projectName) == LegacySharedRefEnforcement.Policy.EXCLUDE
-        || !isGlobalProject(projectName)) {
+    if (refEnforcement.getPolicy(projectName) == Policy.EXCLUDE || !isGlobalProject(projectName)) {
       batchRefUpdateFunction.invoke();
       return;
     }
@@ -122,7 +118,7 @@ public class BatchRefUpdateValidator extends RefUpdateValidator {
     } catch (IOException e) {
       logger.atWarning().withCause(e).log(
           "Failed to execute Batch Update on project %s", projectName);
-      if (refEnforcement.getPolicy(projectName) == LegacySharedRefEnforcement.Policy.INCLUDE) {
+      if (refEnforcement.getPolicy(projectName) == Policy.INCLUDE) {
         throw e;
       }
     }
@@ -177,8 +173,7 @@ public class BatchRefUpdateValidator extends RefUpdateValidator {
     } catch (OutOfSyncException e) {
       List<ReceiveCommand> receiveCommands = batchRefUpdate.getCommands();
       logger.atWarning().withCause(e).log(
-          "Batch ref-update failing because node is out of sync with the shared ref-db. Set all"
-              + " commands Result to LOCK_FAILURE [%d]",
+          "Batch ref-update failing because node is out of sync with the shared ref-db. Set all commands Result to LOCK_FAILURE [%d]",
           receiveCommands.size());
       receiveCommands.forEach((command) -> command.setResult(ReceiveCommand.Result.LOCK_FAILURE));
     }
