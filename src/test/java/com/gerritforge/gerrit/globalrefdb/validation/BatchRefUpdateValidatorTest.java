@@ -30,7 +30,6 @@ import static org.mockito.Mockito.when;
 
 import com.gerritforge.gerrit.globalrefdb.GlobalRefDbSystemError;
 import com.gerritforge.gerrit.globalrefdb.validation.RefUpdateValidator.OneParameterVoidFunction;
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.DefaultSharedRefEnforcement;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.RefFixture;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement;
 import com.google.common.collect.ImmutableSet;
@@ -258,7 +257,9 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
   }
 
   private BatchRefUpdateValidator newDefaultValidator(String projectName) {
-    return getRefValidatorForEnforcement(projectName, new DefaultSharedRefEnforcement());
+    return getRefValidatorForEnforcement(
+        projectName,
+        new SharedRefEnforcement(new SharedRefDbConfiguration(new Config(), "testplugin")));
   }
 
   private BatchRefUpdateValidator getRefValidatorForEnforcement(
