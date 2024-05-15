@@ -16,8 +16,6 @@ package com.gerritforge.gerrit.globalrefdb.validation;
 
 import com.gerritforge.gerrit.globalrefdb.GlobalRefDbLockException;
 import com.gerritforge.gerrit.globalrefdb.GlobalRefDbSystemError;
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.CustomSharedRefEnforcementByProject;
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.DefaultSharedRefEnforcement;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.OutOfSyncException;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedDbSplitBrainException;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement;
@@ -87,9 +85,7 @@ public class RefUpdateValidator {
    *
    * @param sharedRefDb an instance of the global refdb to check for out-of-sync refs.
    * @param validationMetrics to update validation results, such as split-brains.
-   * @param refEnforcement Specific ref enforcements for this project. Either a {@link
-   *     CustomSharedRefEnforcementByProject} when custom policies are provided via configuration
-   *     file or a {@link DefaultSharedRefEnforcement} for defaults.
+   * @param refEnforcement Specific ref enforcements for this project.
    * @param lockWrapperFactory factory providing a {@link LockWrapper}
    * @param projectsFilter filter to match whether the project being updated should be validated
    *     against global refdb
@@ -225,7 +221,8 @@ public class RefUpdateValidator {
               Project.nameKey(projectName), refSnapshot.getRef(), refSnapshot.getNewValue());
     } catch (GlobalRefDbSystemError e) {
       logger.atWarning().withCause(e).log(
-          "Not able to persist the data in global-refdb for project '%s', ref '%s' and value %s, message: %s",
+          "Not able to persist the data in global-refdb for project '%s', ref '%s' and value %s,"
+              + " message: %s",
           projectName, refSnapshot.getName(), refSnapshot.getNewValue(), e.getMessage());
       throw e;
     }

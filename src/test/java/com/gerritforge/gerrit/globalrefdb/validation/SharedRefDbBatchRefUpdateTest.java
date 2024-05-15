@@ -26,11 +26,12 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.DefaultSharedRefEnforcement;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.RefFixture;
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement;
 import com.google.common.collect.ImmutableSet;
 import java.io.IOException;
 import org.eclipse.jgit.lib.BatchRefUpdate;
+import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectIdRef;
 import org.eclipse.jgit.lib.ProgressMonitor;
@@ -174,7 +175,7 @@ public class SharedRefDbBatchRefUpdateTest implements RefFixture {
             return new BatchRefUpdateValidator(
                 sharedRefDb,
                 validationMetrics,
-                new DefaultSharedRefEnforcement(),
+                new SharedRefEnforcement(new SharedRefDbConfiguration(new Config(), "testplugin")),
                 new DummyLockWrapper(),
                 projectsFilter,
                 projectName,

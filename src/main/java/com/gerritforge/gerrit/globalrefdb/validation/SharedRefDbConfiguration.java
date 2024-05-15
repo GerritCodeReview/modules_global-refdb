@@ -17,12 +17,12 @@ package com.gerritforge.gerrit.globalrefdb.validation;
 import static com.google.common.base.Suppliers.memoize;
 import static com.google.common.base.Suppliers.ofInstance;
 
+import com.gerritforge.gerrit.globalrefdb.validation.SharedRefDbConfiguration.Projects;
+import com.gerritforge.gerrit.globalrefdb.validation.SharedRefDbConfiguration.SharedRefDatabase;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement;
 import com.google.common.base.Supplier;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Multimap;
-import com.google.common.collect.MultimapBuilder;
 import java.io.IOException;
 import java.util.List;
 import org.eclipse.jgit.errors.ConfigInvalidException;
@@ -64,12 +64,16 @@ public class SharedRefDbConfiguration {
     return sharedRefDb.get();
   }
 
-  /** @return Getter of projects checked against the global refdb */
+  /**
+   * @return Getter of projects checked against the global refdb
+   */
   public Projects projects() {
     return projects.get();
   }
 
-  /** @return name of the libModule consuming this library */
+  /**
+   * @return name of the libModule consuming this library
+   */
   public String pluginName() {
     return pluginName;
   }
@@ -101,21 +105,17 @@ public class SharedRefDbConfiguration {
   public static class SharedRefDatabase {
     public static final String SECTION = "ref-database";
     public static final String ENABLE_KEY = "enabled";
-    public static final String SUBSECTION_ENFORCEMENT_RULES = "enforcementRules";
+    public static final String STORE_ALL_REFS_KEY = "storeAllRefs";
     public static final String IGNORED_REFS_PREFIXES = "ignoredRefsPrefixes";
+    public static final String RULE = "rule";
 
     private final boolean enabled;
-    private final Multimap<SharedRefEnforcement.Policy, String> enforcementRules;
+    private final boolean storeAllRefs;
     private final ImmutableSet<String> ignoredRefsPrefixes;
 
     private SharedRefDatabase(Supplier<Config> cfg) {
       enabled = getBoolean(cfg, SECTION, null, ENABLE_KEY, false);
-      enforcementRules = MultimapBuilder.hashKeys().arrayListValues().build();
-      for (SharedRefEnforcement.Policy policy : SharedRefEnforcement.Policy.values()) {
-        enforcementRules.putAll(
-            policy, getList(cfg, SECTION, SUBSECTION_ENFORCEMENT_RULES, policy.name()));
-      }
-
+      storeAllRefs = getBoolean(cfg, SECTION, null, STORE_ALL_REFS_KEY, false);
       ignoredRefsPrefixes = ImmutableSet.copyOf(getList(cfg, SECTION, null, IGNORED_REFS_PREFIXES));
     }
 
@@ -129,25 +129,12 @@ public class SharedRefDbConfiguration {
     }
 
     /**
-     * Getter for the map of {@link SharedRefEnforcement.Policy} to a specific "project:refs". Each
-     * entry can be either be {@link SharedRefEnforcement.Policy#EXCLUDE} or {@link
-     * SharedRefEnforcement.Policy#INCLUDE} and it represents the level of consistency enforcements
-     * for that specific "project:refs". If the project or ref is omitted, apply the policy to all
-     * projects or all refs.
+     * Whether or not to store all refs. Defaults 'false'
      *
-     * <p>The projec/ref will not be validated against the global refdb if it one to be ignored by
-     * default ({@link SharedRefEnforcement#isRefToBeIgnoredBySharedRefDb(String)} or if it has been
-     * configured so, for example:
-     *
-     * <pre>
-     *     [ref-database "enforcementRules"]
-     *    IGNORED = AProject:/refs/heads/feature
-     * </pre>
-     *
-     * @return Map of "project:refs" policies
+     * @return true when storing all refs, false otherwise
      */
-    public Multimap<SharedRefEnforcement.Policy, String> getEnforcementRules() {
-      return enforcementRules;
+    public boolean isStoringAllRefs() {
+      return storeAllRefs;
     }
 
     /**

@@ -16,8 +16,6 @@ package com.gerritforge.gerrit.globalrefdb.validation;
 
 import static java.util.Collections.EMPTY_SET;
 
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.DefaultSharedRefEnforcement;
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement;
 import com.google.common.collect.ImmutableSet;
 import com.google.gerrit.acceptance.LightweightPluginDaemonTest;
 import com.google.gerrit.acceptance.TestPlugin;
@@ -106,7 +104,6 @@ public class ValidationModuleTest extends LightweightPluginDaemonTest {
       bind(ValidationMetrics.class);
 
       bind(SharedRefDbGitRepositoryManager.class);
-      bind(SharedRefEnforcement.class).to(DefaultSharedRefEnforcement.class).in(Scopes.SINGLETON);
     }
   }
 }
