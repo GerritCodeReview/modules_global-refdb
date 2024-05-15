@@ -27,10 +27,11 @@ import static org.mockito.Mockito.when;
 
 import com.gerritforge.gerrit.globalrefdb.GlobalRefDbSystemError;
 import com.gerritforge.gerrit.globalrefdb.validation.RefUpdateValidator.OneParameterFunction;
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.DefaultSharedRefEnforcement;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.RefFixture;
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement;
 import com.google.common.collect.ImmutableSet;
 import com.google.gerrit.entities.Project;
+import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.RefDatabase;
@@ -44,8 +45,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class RefUpdateValidatorTest implements RefFixture {
-  private static final DefaultSharedRefEnforcement defaultRefEnforcement =
-      new DefaultSharedRefEnforcement();
+  private static final SharedRefEnforcement defaultRefEnforcement =
+      new SharedRefEnforcement(new SharedRefDbConfiguration(new Config(), "testplugin"));
 
   @Mock SharedRefDatabaseWrapper sharedRefDb;
 

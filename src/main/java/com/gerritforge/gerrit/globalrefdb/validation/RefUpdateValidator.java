@@ -16,11 +16,10 @@ package com.gerritforge.gerrit.globalrefdb.validation;
 
 import com.gerritforge.gerrit.globalrefdb.GlobalRefDbLockException;
 import com.gerritforge.gerrit.globalrefdb.GlobalRefDbSystemError;
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.CustomSharedRefEnforcementByProject;
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.DefaultSharedRefEnforcement;
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacySharedRefEnforcement;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.OutOfSyncException;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedDbSplitBrainException;
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement;
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement.Policy;
 import com.google.common.base.MoreObjects;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.flogger.FluentLogger;
@@ -46,7 +45,7 @@ public class RefUpdateValidator {
   protected final String projectName;
   private final LockWrapper.Factory lockWrapperFactory;
   protected final RefDatabase refDb;
-  protected final LegacySharedRefEnforcement refEnforcement;
+  protected final SharedRefEnforcement refEnforcement;
   protected final ProjectsFilter projectsFilter;
   private final ImmutableSet<String> ignoredRefs;
 
@@ -87,9 +86,7 @@ public class RefUpdateValidator {
    *
    * @param sharedRefDb an instance of the global refdb to check for out-of-sync refs.
    * @param validationMetrics to update validation results, such as split-brains.
-   * @param refEnforcement Specific ref enforcements for this project. Either a {@link
-   *     CustomSharedRefEnforcementByProject} when custom policies are provided via configuration
-   *     file or a {@link DefaultSharedRefEnforcement} for defaults.
+   * @param refEnforcement Whether or not a given ref should be stored
    * @param lockWrapperFactory factory providing a {@link LockWrapper}
    * @param projectsFilter filter to match whether the project being updated should be validated
    *     against global refdb
@@ -102,7 +99,7 @@ public class RefUpdateValidator {
   public RefUpdateValidator(
       SharedRefDatabaseWrapper sharedRefDb,
       ValidationMetrics validationMetrics,
-      LegacySharedRefEnforcement refEnforcement,
+      SharedRefEnforcement refEnforcement,
       LockWrapper.Factory lockWrapperFactory,
       ProjectsFilter projectsFilter,
       @Assisted String projectName,
@@ -132,8 +129,7 @@ public class RefUpdateValidator {
    *       RefUpdateValidator#isRefToBeIgnored(String)})
    *   <li>The project being updated is a global project ({@link
    *       RefUpdateValidator#isGlobalProject(String)}
-   *   <li>The enforcement policy for the project being updated is {@link
-   *       LegacySharedRefEnforcement.Policy#EXCLUDE}
+   *   <li>The enforcement policy for the project being updated is {@link Policy#EXCLUDE}
    * </ul>
    *
    * @param refUpdate the refUpdate command
@@ -150,7 +146,7 @@ public class RefUpdateValidator {
       throws IOException {
     if (isRefToBeIgnored(refUpdate.getName())
         || !isGlobalProject(projectName)
-        || refEnforcement.getPolicy(projectName) == LegacySharedRefEnforcement.Policy.EXCLUDE) {
+        || refEnforcement.getPolicy(projectName) == Policy.EXCLUDE) {
       return refUpdateFunction.invoke();
     }
 
@@ -162,16 +158,6 @@ public class RefUpdateValidator {
         ignoredRefs.stream().anyMatch(ignoredRefPrefix -> refName.startsWith(ignoredRefPrefix));
     logger.atFine().log("Is project version update? %b", isRefToBeIgnored);
     return isRefToBeIgnored;
-  }
-
-  private <T extends Throwable> void softFailBasedOnEnforcement(
-      T e, LegacySharedRefEnforcement.Policy policy) throws T {
-    logger.atWarning().withCause(e).log(
-        "Failure while running with policy enforcement %s. Error message: %s",
-        policy, e.getMessage());
-    if (policy == LegacySharedRefEnforcement.Policy.INCLUDE) {
-      throw e;
-    }
   }
 
   protected Boolean isGlobalProject(String projectName) {
@@ -214,9 +200,9 @@ public class RefUpdateValidator {
   protected void updateSharedDbOrThrowExceptionFor(RefUpdateSnapshot refSnapshot)
       throws IOException {
     // We are not checking refs that should be ignored
-    final LegacySharedRefEnforcement.Policy refEnforcementPolicy =
+    final Policy refEnforcementPolicy =
         refEnforcement.getPolicy(projectName, refSnapshot.getName());
-    if (refEnforcementPolicy == LegacySharedRefEnforcement.Policy.EXCLUDE) return;
+    if (refEnforcementPolicy == Policy.EXCLUDE) return;
 
     boolean succeeded;
     try {
@@ -246,9 +232,8 @@ public class RefUpdateValidator {
       RefUpdateSnapshot refUpdateSnapshot, CloseableSet<AutoCloseable> locks)
       throws GlobalRefDbLockException, OutOfSyncException, IOException {
     String refName = refUpdateSnapshot.getName();
-    LegacySharedRefEnforcement.Policy refEnforcementPolicy =
-        refEnforcement.getPolicy(projectName, refName);
-    if (refEnforcementPolicy == LegacySharedRefEnforcement.Policy.EXCLUDE) {
+    Policy refEnforcementPolicy = refEnforcement.getPolicy(projectName, refName);
+    if (refEnforcementPolicy == Policy.EXCLUDE) {
       return refUpdateSnapshot;
     }
 
@@ -267,9 +252,7 @@ public class RefUpdateValidator {
         || sharedRefDb.exists(Project.nameKey(projectName), refName)) {
       validationMetrics.incrementSplitBrainPrevention();
 
-      softFailBasedOnEnforcement(
-          new OutOfSyncException(projectName, latestRefUpdateSnapshot.getRef()),
-          refEnforcementPolicy);
+      throw new OutOfSyncException(projectName, latestRefUpdateSnapshot.getRef());
     }
 
     return latestRefUpdateSnapshot;

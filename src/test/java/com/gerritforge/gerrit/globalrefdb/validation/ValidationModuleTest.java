@@ -14,8 +14,18 @@
 
 package com.gerritforge.gerrit.globalrefdb.validation;
 
+<<<<<<< PATCH SET (b4ef11 Replace Custom EnforcementRules with storeAllRefs/storeNoRef)
+import static java.util.Collections.EMPTY_SET;
+
+||||||| BASE
+import static java.util.Collections.EMPTY_SET;
+
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.DefaultSharedRefEnforcement;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacySharedRefEnforcement;
+=======
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.DefaultSharedRefEnforcement;
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacySharedRefEnforcement;
+>>>>>>> BASE      (c2bf1c Deprecate SharedRefEnforcement)
 import com.google.common.collect.ImmutableSet;
 import com.google.gerrit.acceptance.LightweightPluginDaemonTest;
 import com.google.gerrit.acceptance.TestPlugin;
@@ -105,9 +115,6 @@ public class ValidationModuleTest extends LightweightPluginDaemonTest {
       bind(ValidationMetrics.class);
 
       bind(SharedRefDbGitRepositoryManager.class);
-      bind(LegacySharedRefEnforcement.class)
-          .to(DefaultSharedRefEnforcement.class)
-          .in(Scopes.SINGLETON);
     }
   }
 }

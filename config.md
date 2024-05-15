@@ -11,28 +11,19 @@ the libModule consuming this library.
 :   Enable the use of a global refdb
     Defaults: true
 
-```ref-database.enforcementRules.<policy>```
-:   Level of consistency enforcement across sites on a project:refs basis.
-    Supports two values for enforcing the policy on multiple projects or refs.
-    If the project or ref is omitted, apply the policy to all projects or all refs.
+```ref-database.storeAllRefs```
+:   Specifies which projects should have all refs stored, including refs which
+    are excluded by default. An asterisk can be used to match all projects.
 
-    The <policy> can have one of the following values:
+    The default behavior for non-specified projects is to exclude draft comments,
+    immutable non-meta refs, and cache-automerge refs. When listed under
+    `storeAllRefs` those refs will be included.
 
-    1. REQUIRED - Throw an exception if a git ref-update is processed against
-    a local ref not yet in sync with the global refdb.
-    The user transaction is cancelled.
-
-    2. IGNORED - Ignore any validation against the global refdb.
-
-    *Example:*
-    ```
-    [ref-database "enforcementRules"]
-       IGNORED = AProject:/refs/heads/feature
-    ```
-
-    Ignore the alignment with the global refdb for AProject on refs/heads/feature.
-
-    Defaults: No rules = All projects are REQUIRED to be consistent on all refs.
+```ref-database.storeNoRefs```
+:   Specifies which projects should not be stored in the global-refdb. No refs
+    from these projects will be stored. An asterisk can be used to match all
+    projects. If a project is in both storeNoRefs and storeAllRefs, it will not
+    be stored; the order of processing is storeNoRefs then storeAllRefs.
 
 ```projects.pattern```
 :   Specifies which projects should be validated against the global refdb.
