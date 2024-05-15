@@ -17,6 +17,8 @@ package com.gerritforge.gerrit.globalrefdb.validation;
 import static com.google.common.base.Suppliers.memoize;
 import static com.google.common.base.Suppliers.ofInstance;
 
+import com.gerritforge.gerrit.globalrefdb.validation.SharedRefDbConfiguration.Projects;
+import com.gerritforge.gerrit.globalrefdb.validation.SharedRefDbConfiguration.SharedRefDatabase;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacySharedRefEnforcement;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacySharedRefEnforcement.EnforcePolicy;
 import com.google.common.base.Supplier;
@@ -99,19 +101,24 @@ public class SharedRefDbConfiguration {
 
   /**
    * Represents the global refdb configuration, which is computed by reading the 'ref-database'
-   * section from the configuration file of this library's consumers. It allows to specify whether
-   * it is enabled, specific {@link LegacySharedRefEnforcement}s and to tune other parameters that define
-   * specific behaviours of the global refdb.
+   * section from the configuration file of this library's consumers. It allows specifying whether
+   * it is enabled, specific {@link LegacySharedRefEnforcement}s and to tune other parameters that
+   * define specific behaviours of the global refdb.
    */
   public static class SharedRefDatabase {
     public static final String SECTION = "ref-database";
     public static final String ENABLE_KEY = "enabled";
+    public static final String STORE_ALL_REFS_KEY = "storeAllRefs";
+    public static final String STORE_NO_REFS_KEY = "storeNoRefs";
     public static final String SUBSECTION_ENFORCEMENT_RULES = "enforcementRules";
     public static final String IGNORED_REFS_PREFIXES = "ignoredRefsPrefixes";
+    public static final String PROJECT = "project";
 
     private final boolean enabled;
     private final Multimap<EnforcePolicy, String> enforcementRules;
     private final ImmutableSet<String> ignoredRefsPrefixes;
+    private final ImmutableList<String> storeAllRefs;
+    private final ImmutableList<String> storeNoRefs;
 
     private SharedRefDatabase(Supplier<Config> cfg) {
       enabled = getBoolean(cfg, SECTION, null, ENABLE_KEY, false);
@@ -120,8 +127,9 @@ public class SharedRefDbConfiguration {
         enforcementRules.putAll(
             policy, getList(cfg, SECTION, SUBSECTION_ENFORCEMENT_RULES, policy.name()));
       }
-
       ignoredRefsPrefixes = ImmutableSet.copyOf(getList(cfg, SECTION, null, IGNORED_REFS_PREFIXES));
+      storeAllRefs = getList(cfg, SECTION, STORE_ALL_REFS_KEY, PROJECT);
+      storeNoRefs = getList(cfg, SECTION, STORE_NO_REFS_KEY, PROJECT);
     }
 
     /**
@@ -140,7 +148,7 @@ public class SharedRefDbConfiguration {
      * enforcements for that specific "project:refs". If the project or ref is omitted, apply the
      * policy to all projects or all refs.
      *
-     * <p>The projec/ref will not be validated against the global refdb if it one to be ignored by
+     * <p>The project/ref will not be validated against the global refdb if it is to be ignored by
      * default ({@link LegacySharedRefEnforcement#isRefToBeIgnoredBySharedRefDb(String)} or if it has been
      * configured so, for example:
      *
@@ -156,6 +164,24 @@ public class SharedRefDbConfiguration {
     }
 
     /**
+     * Returns the list of projects to store all refs for in the global-refdb
+     * 
+     * @return list of projects to store all refs for
+     */
+    public ImmutableList<String> getStoreAllRefs() {
+      return storeAllRefs;
+    }
+
+    /**
+     * Returns the list of projects to not store in the global-refdb
+     *
+     * @return list of projects to not store refs for
+     */
+    public ImmutableList<String> getStoreNoRefs() {
+      return storeNoRefs;
+    }
+
+    /**
      * Returns the set of refs prefixes that are ignored during the validation and enforcement of
      * the global refdb.
      *
@@ -165,7 +191,7 @@ public class SharedRefDbConfiguration {
       return ignoredRefsPrefixes;
     }
 
-    private List<String> getList(
+    private ImmutableList<String> getList(
         Supplier<Config> cfg, String section, String subsection, String name) {
       return ImmutableList.copyOf(cfg.get().getStringList(section, subsection, name));
     }
