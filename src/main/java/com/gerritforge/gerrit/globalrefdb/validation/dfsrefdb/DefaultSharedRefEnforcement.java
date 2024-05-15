@@ -14,16 +14,31 @@
 
 package com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb;
 
+import com.gerritforge.gerrit.globalrefdb.validation.SharedRefDbConfiguration;
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement.EnforcementRule.EnforcePolicy;
+import com.google.inject.Inject;
+
 /**
  * Default implementation of {@link SharedRefEnforcement}. This class provides the default
  * project/ref enforcement rules when no more specific rules have been configured for the libModule
  * consuming this library.
  */
 public class DefaultSharedRefEnforcement implements SharedRefEnforcement {
+  private final SharedRefDbConfiguration config;
 
   /**
-   * Returns {@link EnforcePolicy#IGNORED} for refs to be ignored {@link
-   * SharedRefEnforcement#isRefToBeIgnoredBySharedRefDb(String)}, {@link EnforcePolicy#REQUIRED}
+   * Constructs a {@code DefaultSharedRefEnforcement}
+   *
+   * @param config the libModule configuration
+   */
+  @Inject
+  public DefaultSharedRefEnforcement(SharedRefDbConfiguration config) {
+    this.config = config;
+  }
+
+  /**
+   * Returns {@link EnforcePolicy#EXCLUDE} for refs to be ignored {@link
+   * SharedRefEnforcement#isRefToBeIgnoredBySharedRefDb(String)}, {@link EnforcePolicy#INCLUDE}
    * otherwise
    *
    * @param projectName project to be enforced
@@ -31,18 +46,18 @@ public class DefaultSharedRefEnforcement implements SharedRefEnforcement {
    * @return the policy for this project/ref
    */
   @Override
-  public EnforcePolicy getPolicy(String projectName, String refName) {
-    return isRefToBeIgnoredBySharedRefDb(refName) ? EnforcePolicy.IGNORED : EnforcePolicy.REQUIRED;
+  public EnforcementRule.EnforcePolicy getPolicy(String projectName, String refName) {
+    return isRefToBeIgnoredBySharedRefDb(refName) ? EnforcePolicy.EXCLUDE : EnforcePolicy.INCLUDE;
   }
 
   /**
    * The global refdb validation policy for 'projectName'
    *
    * @param projectName project to be enforced
-   * @return always {@link EnforcePolicy#REQUIRED}
+   * @return always {@link EnforcePolicy#INCLUDE}
    */
   @Override
-  public EnforcePolicy getPolicy(String projectName) {
-    return EnforcePolicy.REQUIRED;
+  public EnforcementRule.EnforcePolicy getPolicy(String projectName) {
+    return EnforcePolicy.INCLUDE;
   }
 }
