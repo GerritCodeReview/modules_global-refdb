@@ -17,14 +17,18 @@ package com.gerritforge.gerrit.globalrefdb.validation;
 import static com.google.common.base.Suppliers.memoize;
 import static com.google.common.base.Suppliers.ofInstance;
 
+import com.gerritforge.gerrit.globalrefdb.validation.SharedRefDbConfiguration.Projects;
+import com.gerritforge.gerrit.globalrefdb.validation.SharedRefDbConfiguration.SharedRefDatabase;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement;
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement.EnforcePolicy;
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement.EnforcementRule;
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement.EnforcementRule.EnforcePolicy;
+import com.google.common.base.Splitter;
 import com.google.common.base.Supplier;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Multimap;
-import com.google.common.collect.MultimapBuilder;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.lib.Config;
@@ -104,18 +108,19 @@ public class SharedRefDbConfiguration {
     public static final String ENABLE_KEY = "enabled";
     public static final String SUBSECTION_ENFORCEMENT_RULES = "enforcementRules";
     public static final String IGNORED_REFS_PREFIXES = "ignoredRefsPrefixes";
+    public static final String RULE = "rule";
 
     private final boolean enabled;
-    private final Multimap<EnforcePolicy, String> enforcementRules;
     private final ImmutableSet<String> ignoredRefsPrefixes;
+    private final List<EnforcementRule> enforcementRules;
 
     private SharedRefDatabase(Supplier<Config> cfg) {
       enabled = getBoolean(cfg, SECTION, null, ENABLE_KEY, false);
-      enforcementRules = MultimapBuilder.hashKeys().arrayListValues().build();
-      for (EnforcePolicy policy : EnforcePolicy.values()) {
-        enforcementRules.putAll(
-            policy, getList(cfg, SECTION, SUBSECTION_ENFORCEMENT_RULES, policy.name()));
-      }
+
+      List<String> enforcementRulesList =
+          new ArrayList<String>(
+              Arrays.asList(cfg.get().getStringList(SECTION, SUBSECTION_ENFORCEMENT_RULES, RULE)));
+      enforcementRules = parseEnforcementRulesList(enforcementRulesList);
 
       ignoredRefsPrefixes = ImmutableSet.copyOf(getList(cfg, SECTION, null, IGNORED_REFS_PREFIXES));
     }
@@ -131,23 +136,22 @@ public class SharedRefDbConfiguration {
 
     /**
      * Getter for the map of {@link EnforcePolicy} to a specific "project:refs". Each entry can be
-     * either be {@link SharedRefEnforcement.EnforcePolicy#IGNORED} or {@link
-     * SharedRefEnforcement.EnforcePolicy#REQUIRED} and it represents the level of consistency
-     * enforcements for that specific "project:refs". If the project or ref is omitted, apply the
-     * policy to all projects or all refs.
+     * either be {@link SharedRefEnforcement.EnforcementRule.EnforcePolicy#INCLUDE} or {@link
+     * SharedRefEnforcement.EnforcementRule.EnforcePolicy#EXCLUDE} and it represents the level of
+     * consistency enforcements for that specific "project:refs".
      *
-     * <p>The projec/ref will not be validated against the global refdb if it one to be ignored by
+     * <p>The project/ref will not be validated against the global refdb if it is to be ignored by
      * default ({@link SharedRefEnforcement#isRefToBeIgnoredBySharedRefDb(String)} or if it has been
      * configured so, for example:
      *
      * <pre>
-     *     [ref-database "enforcementRules"]
-     *    IGNORED = AProject:/refs/heads/feature
+     * [ref-database "enforcementRules"]
+     *    rule = EXCLUDE:AProject:/refs/heads/feature
      * </pre>
      *
      * @return Map of "project:refs" policies
      */
-    public Multimap<EnforcePolicy, String> getEnforcementRules() {
+    public List<EnforcementRule> getEnforcementRules() {
       return enforcementRules;
     }
 
@@ -159,6 +163,43 @@ public class SharedRefDbConfiguration {
      */
     public ImmutableSet<String> getIgnoredRefsPrefixes() {
       return ignoredRefsPrefixes;
+    }
+
+    /**
+     * Parses the storage rules list into a list of map entries of INCLUDE and EXCLUDE rules which
+     * determine which refs to include or exclude from the global-refdb
+     *
+     * @return List of map entries of refs to include and exclude
+     */
+    private List<EnforcementRule> parseEnforcementRulesList(List<String> enforcementRulesList) {
+      List<EnforcementRule> calculatedRules = new ArrayList<>();
+
+      for (String item : enforcementRulesList) {
+        List<String> parts = ImmutableList.copyOf(Splitter.on(':').limit(3).split(item).iterator());
+        if (parts.size() == 3) {
+          String key = parts.get(0).toUpperCase();
+          String project = parts.get(1) != "" ? parts.get(1) : "*";
+          String ref = parts.get(2) != "" ? parts.get(2) : "*";
+          try {
+            calculatedRules.add(new EnforcementRule(EnforcePolicy.valueOf(key), project, ref));
+          } catch (IllegalArgumentException e) {
+            log.debug(
+                String.format(
+                    "%s %s is incorrectly formatted. Rule must begin with INCLUDE: or EXCLUDE:",
+                    SUBSECTION_ENFORCEMENT_RULES, item));
+          }
+        } else {
+          log.debug(
+              String.format(
+                  "%s %s is incorrectly formatted. Rule must be formatted as INCLUDE:project:ref,"
+                      + " EXCLUDE:project:ref. To apply a rule to all refs of a project, format as"
+                      + " INCLUDE:project: to apply a rule to refs of all projects, format as"
+                      + " INCLUDE::ref",
+                  SUBSECTION_ENFORCEMENT_RULES, item));
+        }
+      }
+
+      return calculatedRules;
     }
 
     private List<String> getList(

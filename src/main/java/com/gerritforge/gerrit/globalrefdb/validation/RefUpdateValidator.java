@@ -21,7 +21,7 @@ import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.DefaultSharedRefEn
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.OutOfSyncException;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedDbSplitBrainException;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement;
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement.EnforcePolicy;
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement.EnforcementRule.EnforcePolicy;
 import com.google.common.base.MoreObjects;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.flogger.FluentLogger;
@@ -133,14 +133,14 @@ public class RefUpdateValidator {
    *       RefUpdateValidator#isRefToBeIgnored(String)})
    *   <li>The project being updated is a global project ({@link
    *       RefUpdateValidator#isGlobalProject(String)}
-   *   <li>The enforcement policy for the project being updated is {@link EnforcePolicy#IGNORED}
+   *   <li>The enforcement policy for the project being updated is {@link EnforcePolicy#EXCLUDE}
    * </ul>
    *
    * @param refUpdate the refUpdate command
    * @param refUpdateFunction the refUpdate function to execute after validation
    * @param rollbackFunction function to invoke when the ref-update needs to be rolled back
    * @return the result of the update, or "null" in case a split brain was detected but the policy
-   *     enforcement was not REQUIRED
+   *     enforcement was not INCLUDE
    * @throws IOException Execution of ref update failed
    */
   public RefUpdate.Result executeRefUpdate(
@@ -150,7 +150,7 @@ public class RefUpdateValidator {
       throws IOException {
     if (isRefToBeIgnored(refUpdate.getName())
         || !isGlobalProject(projectName)
-        || refEnforcement.getPolicy(projectName) == EnforcePolicy.IGNORED) {
+        || refEnforcement.getPolicy(projectName) == EnforcePolicy.INCLUDE) {
       return refUpdateFunction.invoke();
     }
 
@@ -169,7 +169,7 @@ public class RefUpdateValidator {
     logger.atWarning().withCause(e).log(
         "Failure while running with policy enforcement %s. Error message: %s",
         policy, e.getMessage());
-    if (policy == EnforcePolicy.REQUIRED) {
+    if (policy == EnforcePolicy.INCLUDE) {
       throw e;
     }
   }
@@ -215,8 +215,13 @@ public class RefUpdateValidator {
       throws IOException {
     // We are not checking refs that should be ignored
     final EnforcePolicy refEnforcementPolicy =
+<<<<<<< PATCH SET (c52972 Enhance EnforcementRules to selectively store refs)
+        refEnforcement.getPolicy(projectName, refPair.getName());
+    if (refEnforcementPolicy == EnforcePolicy.EXCLUDE) return;
+=======
         refEnforcement.getPolicy(projectName, refSnapshot.getName());
     if (refEnforcementPolicy == EnforcePolicy.IGNORED) return;
+>>>>>>> BASE      (16249c Rename RefPair to RefUpdateSnapshot and clean it up)
 
     boolean succeeded;
     try {
@@ -246,8 +251,13 @@ public class RefUpdateValidator {
       throws GlobalRefDbLockException, OutOfSyncException, IOException {
     String refName = refUpdateSnapshot.getName();
     EnforcePolicy refEnforcementPolicy = refEnforcement.getPolicy(projectName, refName);
+<<<<<<< PATCH SET (c52972 Enhance EnforcementRules to selectively store refs)
+    if (refEnforcementPolicy == EnforcePolicy.EXCLUDE) {
+      return refPair;
+=======
     if (refEnforcementPolicy == EnforcePolicy.IGNORED) {
       return refUpdateSnapshot;
+>>>>>>> BASE      (16249c Rename RefPair to RefUpdateSnapshot and clean it up)
     }
 
     locks.addResourceIfNotExist(
