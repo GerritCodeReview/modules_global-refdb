@@ -13,7 +13,6 @@
 // limitations under the License.
 
 package com.gerritforge.gerrit.globalrefdb.validation;
-
 import com.gerritforge.gerrit.globalrefdb.GlobalRefDbLockException;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
