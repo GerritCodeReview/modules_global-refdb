@@ -18,9 +18,32 @@ import com.google.gerrit.entities.RefNames;
 
 /** Type of enforcement to implement between the local and shared RefDb. */
 public interface SharedRefEnforcement {
-  public enum EnforcePolicy {
-    IGNORED,
-    REQUIRED;
+  enum Policy {
+    INCLUDE,
+    EXCLUDE;
+  }
+
+  class Rule {
+    String projectName;
+    String refName;
+    SharedRefEnforcement.Policy ruleType;
+
+    public Rule(SharedRefEnforcement.Policy ruleType, String projectName, String refName) {
+      this.ruleType = ruleType;
+      this.projectName = projectName;
+      this.refName = refName;
+    }
+
+    public boolean matches(String projectName, String refName) {
+      return wildcardMatches(this.projectName, projectName)
+          && wildcardMatches(this.refName, refName);
+    }
+
+    private boolean wildcardMatches(String wildcardPattern, String value) {
+      return wildcardPattern.equals(value)
+          || (wildcardPattern.endsWith("*")
+              && value.startsWith(wildcardPattern.substring(0, wildcardPattern.length() - 1)));
+    }
   }
 
   /**
@@ -28,20 +51,21 @@ public interface SharedRefEnforcement {
    *
    * @param projectName project to be enforced
    * @param refName ref name to be enforced
-   * @return the {@link EnforcePolicy} value
+   * @return the {@link Policy} value
    */
-  public EnforcePolicy getPolicy(String projectName, String refName);
+  public Policy getPolicy(String projectName, String refName);
 
   /**
    * Get the enforcement policy for a project
    *
    * @param projectName the name of the project
-   * @return the {@link EnforcePolicy} value
+   * @return the {@link Policy} value
    */
-  public EnforcePolicy getPolicy(String projectName);
+  public Policy getPolicy(String projectName);
 
   /**
-   * Check if a refName should be ignored by global refdb. The Default behaviour is to ignore:
+   * Check if a refName should be ignored by global refdb. The default behaviour activates after any
+   * custom rules, if no matches for the custom rules are found or no custom rules are provided.
    *
    * <ul>
    *   <li>refs/draft-comments :user-specific temporary storage that does not need to be seen by
