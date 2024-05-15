@@ -19,13 +19,19 @@ import static com.google.common.base.Suppliers.ofInstance;
 
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement.EnforcePolicy;
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement.StorageRule;
 import com.google.common.base.Supplier;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.MultimapBuilder;
+import com.google.gerrit.entities.RefNames;
 import java.io.IOException;
+import java.util.AbstractMap;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.storage.file.FileBasedConfig;
@@ -104,10 +110,13 @@ public class SharedRefDbConfiguration {
     public static final String ENABLE_KEY = "enabled";
     public static final String SUBSECTION_ENFORCEMENT_RULES = "enforcementRules";
     public static final String IGNORED_REFS_PREFIXES = "ignoredRefsPrefixes";
+    public static final String SUBSECTION_STORAGE_RULES = "storageRules";
+    public static final String RULE = "rule";
 
     private final boolean enabled;
     private final Multimap<EnforcePolicy, String> enforcementRules;
     private final ImmutableSet<String> ignoredRefsPrefixes;
+    private final List<Map.Entry<String, String>> storageRules;
 
     private SharedRefDatabase(Supplier<Config> cfg) {
       enabled = getBoolean(cfg, SECTION, null, ENABLE_KEY, false);
@@ -116,7 +125,11 @@ public class SharedRefDbConfiguration {
         enforcementRules.putAll(
             policy, getList(cfg, SECTION, SUBSECTION_ENFORCEMENT_RULES, policy.name()));
       }
+      List<String> storageRulesList =
+          new ArrayList<String>(
+              Arrays.asList(cfg.get().getStringList(SECTION, SUBSECTION_STORAGE_RULES, RULE)));
 
+      storageRules = parseStorageRulesList(storageRulesList);
       ignoredRefsPrefixes = ImmutableSet.copyOf(getList(cfg, SECTION, null, IGNORED_REFS_PREFIXES));
     }
 
@@ -152,6 +165,19 @@ public class SharedRefDbConfiguration {
     }
 
     /**
+     * Getter for the map of {@link StorageRule} to a specific ref. Each entry can be either be
+     * {@link SharedRefEnforcement.StorageRule#INCLUDE} or {@link
+     * SharedRefEnforcement.StorageRule#EXCLUDE}. Included refs will be included in the global refdb
+     * storage, excluded ones will not. First rule to match the given ref applies. Default rules are
+     * applied last.
+     *
+     * @return Map of refs storage rules
+     */
+    public List<Map.Entry<String, String>> getStorageRules() {
+      return storageRules;
+    }
+
+    /**
      * Returns the set of refs prefixes that are ignored during the validation and enforcement of
      * the global refdb.
      *
@@ -159,6 +185,50 @@ public class SharedRefDbConfiguration {
      */
     public ImmutableSet<String> getIgnoredRefsPrefixes() {
       return ignoredRefsPrefixes;
+    }
+
+    /**
+     * Parses the storage rules list into a list of map entries of INCLUDE and EXCLUDE rules which
+     * determine which refs to include or exclude from the global-refdb
+     *
+     * @return List of map entries of refs to include and exclude
+     */
+    private List<Map.Entry<String, String>> parseStorageRulesList(List<String> storageRulesList) {
+      List<Map.Entry<String, String>> calculatedRules = new ArrayList<>();
+      for (String item : storageRulesList) {
+        String[] parts = item.split("\\s*:\\s*", 2);
+        if (parts.length == 2) {
+          String key = parts[0].toUpperCase();
+          String value = parts[1];
+          try {
+            calculatedRules.add(
+                new AbstractMap.SimpleEntry<>(StorageRule.valueOf(key).name(), value));
+          } catch (IllegalArgumentException e) {
+            log.debug(
+                String.format(
+                    "%s %s is incorrectly formatted. Rule must begin with INCLUDE: or EXCLUDE:",
+                    SUBSECTION_STORAGE_RULES, item));
+          }
+        } else {
+          log.debug(
+              String.format(
+                  "%s %s is incorrectly formatted. Rule must be INCLUDE:regex or EXCLUDE:regex",
+                  SUBSECTION_STORAGE_RULES, item));
+        }
+      }
+
+      // Append the default storage rules to the storage rules list
+
+      List<String> defaultRules =
+          Arrays.asList(
+              "^refs/draft-comments.*",
+              "^refs/cache-automerge.*",
+              String.format(
+                  "^refs/changes(?!.*\\/meta)(?!.*%s).*$", RefNames.ROBOT_COMMENTS_SUFFIX));
+      for (String defaultRule : defaultRules) {
+        calculatedRules.add(new AbstractMap.SimpleEntry<>(StorageRule.EXCLUDE.name(), defaultRule));
+      }
+      return calculatedRules;
     }
 
     private List<String> getList(
