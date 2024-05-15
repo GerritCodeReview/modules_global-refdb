@@ -41,12 +41,13 @@ public class SharedRefDbGitRepositoryManager implements GitRepositoryManager {
    * define refs that should not be validated against the global refdb. For example:
    *
    * <pre>
-   *         bind(new TypeLiteral&lt;ImmutableSet&lt;String&gt;&gt;() {})
-   *         .annotatedWith(Names.named(SharedRefDbGitRepositoryManager.IGNORED_REFS))
-   *         .toInstance(
-   *             ImmutableSet.of(
-   *                 "refs/foo/bar",
-   *                 "refs/foo/baz"));
+   * bind(new TypeLiteral&lt;ImmutableSet&lt;String&gt;&gt;() {
+   * })
+   *     .annotatedWith(Names.named(SharedRefDbGitRepositoryManager.IGNORED_REFS))
+   *     .toInstance(
+   *         ImmutableSet.of(
+   *             "refs/foo/bar",
+   *             "refs/foo/baz"));
    * </pre>
    */
   public static final String IGNORED_REFS = "ignored_refs";
