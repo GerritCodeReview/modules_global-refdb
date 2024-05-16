@@ -43,6 +43,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b3a5493f_f7e45e0c",
+        "filename": "config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-05-16T08:37:07Z",
+      "side": 1,
+      "message": "This line shows a disadvantage of the design proposed by this change. Since the usage of this config section entirely replaces the default behavior, this complex regex, which includes negative lookahead `?!` twice, is needed to replace a default which was simpler to express in Java code:\n```\n  refName.startsWith(\"refs/changes\")\n  \u0026\u0026 !refName.endsWith(\"/meta\")\n  \u0026\u0026 !refName.endsWith(RefNames.ROBOT_COMMENTS_SUFFIX)\n```\n\nI think that my original proposal:\n* *interpret ref-enforcements top-down, the first rule that matches is applied*\n* *the default rules shall be evaluated when no other explicit rules match*\n\nwould lead to a cleaner configuration.\nLet me compare the configuration changes necessary to require storing of patch-set refs with the approach in this change and the original proposal.\n\n### This change\nFirst convert the defaults from code to config:\n```\n[ref-database \"ignoredRefPatterns\"]\n  pattern \u003d ^refs/draft-comments.*\n  pattern \u003d ^refs/changes(?!.*\\\\/meta)(?!.*ROBOT_COMMENTS_SUFFIX).*$\n  pattern \u003d ^refs/cache-automerge.*\n```\n\nthen keep the defaults which we still want to ignore:\n```\n[ref-database \"ignoredRefPatterns\"]\n  pattern \u003d ^refs/draft-comments.*\n  pattern \u003d ^refs/cache-automerge.*\n```\n\n### Original proposal\n\nSimply add a rule to require all refs under `refs/changes/*` for all projects:\n```\n[ref-database \"enforcementRules\"]\n  REQUIRED \u003d *:refs/changes/*\n```\n\nThe defaults still apply for those refs not matched by the explicit rules in the configuration.",
+      "revId": "17b65738fbc2a547fc245a1c28604e2a46c2365c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d9606e14_fbcb0286",
         "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbConfiguration.java",
         "patchSetId": 1
