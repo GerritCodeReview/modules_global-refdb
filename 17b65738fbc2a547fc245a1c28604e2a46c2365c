@@ -41,6 +41,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f96d6b4d_652ac18a",
+        "filename": "config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-05-16T13:41:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f3911ab_5c22a7ac",
+      "range": {
+        "startLine": 42,
+        "startChar": 7,
+        "endLine": 42,
+        "endChar": 36
+      },
+      "revId": "17b65738fbc2a547fc245a1c28604e2a46c2365c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b3a5493f_f7e45e0c",
@@ -78,6 +102,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "66ac085d_edbbcd92",
+        "filename": "config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-05-16T13:41:44Z",
+      "side": 1,
+      "message": "Since we can\u0027t guarantee top down matching with the above, the alternative we discussed and chose:\n\n```\n[ref-database \"storageRules\"]\n  rule \u003d INCLUDE:^refs/draft-comments/.*\n  rule \u003d EXCLUDE:^refs/cache-automerge.*\n```\nPutting the include/exclude in the value and parse it out in code. This retains order of rules. Tested with a local multisite setup connected to spanner. Used test rules:\n```\n[ref-database \"storageRules\"]\n        rule \u003d EXCLUDE:.*test.*\n        rule \u003d INCLUDE:.*\n```\n\u0026 confirmed refs containing the string \u0027test\u0027 would not be included, while all other refs (including draft comments etc) were included.",
+      "parentUuid": "728f39c7_3e449874",
+      "revId": "17b65738fbc2a547fc245a1c28604e2a46c2365c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d9606e14_fbcb0286",
         "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbConfiguration.java",
         "patchSetId": 1
@@ -89,6 +131,30 @@
       "writtenOn": "2024-05-15T15:31:18Z",
       "side": 1,
       "message": "No Ref pattern to ignore configured, storing all refs",
+      "range": {
+        "startLine": 126,
+        "startChar": 19,
+        "endLine": 126,
+        "endChar": 66
+      },
+      "revId": "17b65738fbc2a547fc245a1c28604e2a46c2365c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2296762e_2b8e8584",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-05-16T13:41:44Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d9606e14_fbcb0286",
       "range": {
         "startLine": 126,
         "startChar": 19,
