@@ -60,6 +60,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "728f39c7_3e449874",
+        "filename": "config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-05-16T09:42:34Z",
+      "side": 1,
+      "message": "`include/exclude`\n`stored/unstored`\n\nTo store draft-comments but ignore cache-automerge:\n```\n[ref-database \"storageRules\"]\n  INCLUDE \u003d ^refs/draft-comments/.*\n  EXCLUDE \u003d ^refs/cache-automerge.*\n```\n\nFirst matching pattern applies\nIf no matching patterns apply to given ref, default patterns apply\nIf no patterns (and no default patterns) apply, ref is included by default\n\ne.g. To store all patchset refs:\n```\n[ref-database \"storageRules\"]\n  INCLUDE \u003d ^refs/changes/.*\n```",
+      "parentUuid": "b3a5493f_f7e45e0c",
+      "revId": "17b65738fbc2a547fc245a1c28604e2a46c2365c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d9606e14_fbcb0286",
         "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbConfiguration.java",
         "patchSetId": 1
