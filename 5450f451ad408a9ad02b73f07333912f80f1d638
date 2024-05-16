@@ -1,0 +1,256 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93e1df42_e211f5b2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-05-16T14:37:06Z",
+      "side": 1,
+      "message": "Before explaining the details, first add a paragraph about what the new feature provides, why it was needed and how does it relate (or doesn\u0027t relate) to the REQUIRED/IGNORED rules in the `[ref-database \"enforcementRules\"]` section.",
+      "revId": "5450f451ad408a9ad02b73f07333912f80f1d638",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16309001_94af57ff",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-05-16T14:37:06Z",
+      "side": 1,
+      "message": "Traditionally, we start all regexes in Gerrit config files with the `^` character, so this shoudl be `^.*`. The reason for that is to allow support of both regex format and wildcard format which (wildcard only support a `*` at the end which matched anything).",
+      "range": {
+        "startLine": 15,
+        "startChar": 59,
+        "endLine": 15,
+        "endChar": 61
+      },
+      "revId": "5450f451ad408a9ad02b73f07333912f80f1d638",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "735d5992_d11808b1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-05-16T14:37:06Z",
+      "side": 1,
+      "message": "If we would support also wildcards, which we can do in a follow-up change, then this example could be also simplified:\n```\n  rule \u003d INCLUDE:refs/draft-comments/*\n```",
+      "revId": "5450f451ad408a9ad02b73f07333912f80f1d638",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73f07ef0_51afc3c7",
+        "filename": "config.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-05-16T14:37:06Z",
+      "side": 1,
+      "message": "We don\u0027t need to explain that here",
+      "range": {
+        "startLine": 43,
+        "startChar": 30,
+        "endLine": 43,
+        "endChar": 61
+      },
+      "revId": "5450f451ad408a9ad02b73f07333912f80f1d638",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfd10e30_69ea7636",
+        "filename": "config.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-05-16T14:37:06Z",
+      "side": 1,
+      "message": "stored in the global refdb\n\nHowever, all of 1, 2 and 3 are not stored, so this comment is redundant.",
+      "range": {
+        "startLine": 45,
+        "startChar": 50,
+        "endLine": 45,
+        "endChar": 60
+      },
+      "revId": "5450f451ad408a9ad02b73f07333912f80f1d638",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a54672d6_ffa7bf7a",
+        "filename": "config.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-05-16T14:37:06Z",
+      "side": 1,
+      "message": "override",
+      "range": {
+        "startLine": 47,
+        "startChar": 31,
+        "endLine": 47,
+        "endChar": 38
+      },
+      "revId": "5450f451ad408a9ad02b73f07333912f80f1d638",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5a3b64f_ee09e6c1",
+        "filename": "config.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-05-16T14:37:06Z",
+      "side": 1,
+      "message": "```\n  rule \u003d INCLUDE:^.*\n```",
+      "revId": "5450f451ad408a9ad02b73f07333912f80f1d638",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63cc9c9f_2a2e0cf8",
+        "filename": "config.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-05-16T14:37:06Z",
+      "side": 1,
+      "message": "```suggestion\n      rule \u003d INCLUDE:^refs/draft-comments/.*\n      rule \u003d EXCLUDE:^.*test.*\n```",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 24
+      },
+      "revId": "5450f451ad408a9ad02b73f07333912f80f1d638",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c1cd6f1_9e2f3839",
+        "filename": "config.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-05-16T14:37:06Z",
+      "side": 1,
+      "message": "```suggestion\n      rule \u003d EXCLUDE:^.*test.*\n      rule \u003d INCLUDE:^refs/draft-comments/.*\n```",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 39
+      },
+      "revId": "5450f451ad408a9ad02b73f07333912f80f1d638",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85f27cfb_73fa8798",
+        "filename": "config.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-05-16T14:37:06Z",
+      "side": 1,
+      "message": "and also do not match the default exclusion patterns.",
+      "revId": "5450f451ad408a9ad02b73f07333912f80f1d638",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce85a46c_7c04f3d5",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbConfiguration.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-05-16T14:37:06Z",
+      "side": 1,
+      "message": "While this is correct, it is now more complex than in the base version where the complexity was expressed with Java code and not with regexes. I would propose to introduce a `StorageRule` interface which is responsible for deciding if a ref shall be stored or not. There should be two implementations of that rule:\n* `ConfigBasedStorageRule` - this one interpretes rules from the config file\n* `DefaultStorageRule` - this is the old code from the `SharedRefEnforcement` interface.\n\nThe two implementations are chained via a 3rd implementation `StorageRuleImpl` which checks first with the `ConfigBasedStorageRule` and, if it cannot provide a decision, with the `DefaultStorageRule`.",
+      "range": {
+        "startLine": 222,
+        "startChar": 1,
+        "endLine": 227,
+        "endChar": 92
+      },
+      "revId": "5450f451ad408a9ad02b73f07333912f80f1d638",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2b257bd_2c29e002",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/SharedRefEnforcement.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-05-16T14:37:06Z",
+      "side": 1,
+      "message": "I propose to move this code outside of this interface, into own class. There we can then also inject the `SharedRefDbConfiguration` and woudn\u0027t need to pass it as method parameter.",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 17
+      },
+      "revId": "5450f451ad408a9ad02b73f07333912f80f1d638",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
