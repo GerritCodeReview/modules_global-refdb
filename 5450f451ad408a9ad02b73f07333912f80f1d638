@@ -41,6 +41,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "11542771_1baa3376",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-05-17T08:08:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16309001_94af57ff",
+      "range": {
+        "startLine": 15,
+        "startChar": 59,
+        "endLine": 15,
+        "endChar": 61
+      },
+      "revId": "5450f451ad408a9ad02b73f07333912f80f1d638",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "735d5992_d11808b1",
@@ -216,6 +240,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "24de4b16_83a6077c",
+        "filename": "config.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-05-17T08:08:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5a3b64f_ee09e6c1",
+      "revId": "5450f451ad408a9ad02b73f07333912f80f1d638",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "63cc9c9f_2a2e0cf8",
@@ -358,6 +400,30 @@
       "writtenOn": "2024-05-16T14:37:06Z",
       "side": 1,
       "message": "While this is correct, it is now more complex than in the base version where the complexity was expressed with Java code and not with regexes. I would propose to introduce a `StorageRule` interface which is responsible for deciding if a ref shall be stored or not. There should be two implementations of that rule:\n* `ConfigBasedStorageRule` - this one interpretes rules from the config file\n* `DefaultStorageRule` - this is the old code from the `SharedRefEnforcement` interface.\n\nThe two implementations are chained via a 3rd implementation `StorageRuleImpl` which checks first with the `ConfigBasedStorageRule` and, if it cannot provide a decision, with the `DefaultStorageRule`.",
+      "range": {
+        "startLine": 222,
+        "startChar": 1,
+        "endLine": 227,
+        "endChar": 92
+      },
+      "revId": "5450f451ad408a9ad02b73f07333912f80f1d638",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5fc8af8_8212874a",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbConfiguration.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-05-17T08:08:01Z",
+      "side": 1,
+      "message": "I believe doing this means we would have to add bindings to the plugins that consume global-refdb. For instance right now in the multi-site ValidationModule.java: \n```\nif (cfg.getSharedRefDbConfiguration().getSharedRefDb().getEnforcementRules().isEmpty()) { \n  bind(SharedRefEnforcement.class).to(DefaultSharedRefEnforcement.class).in(Scopes.SINGLETON);\n    } else {\n      bind(SharedRefEnforcement.class)\n          .to(CustomSharedRefEnforcementByProject.class)\n          .in(Scopes.SINGLETON);\n    }\n```\n\nHaving to add this for *StorageRule would be bothersome to those consumers, so I propose an alternative, which is separating out the \u0027default\u0027 with the \u0027custom\u0027 storage rule behavior. Restored the default rules impl in https://gerrit-review.googlesource.com/c/modules/global-refdb/+/425506/12/src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/SharedRefEnforcement.java#77",
+      "parentUuid": "ce85a46c_7c04f3d5",
       "range": {
         "startLine": 222,
         "startChar": 1,
