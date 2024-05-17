@@ -587,6 +587,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f998b94_810adb12",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbConfiguration.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2024-05-17T12:45:56Z",
+      "side": 1,
+      "message": "done for now using slf4j, you can port the plugin to use flogger in another change",
+      "parentUuid": "44b35a65_4d8817f2",
+      "revId": "abcbe0cf195a96c1cba7c44f5c0be2d5126d7c02",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "32987084_75a2da45",
@@ -618,6 +636,24 @@
       "side": 1,
       "message": "Ack - will do in followup change, requires updating pre-existing logging for whole file",
       "parentUuid": "32987084_75a2da45",
+      "revId": "abcbe0cf195a96c1cba7c44f5c0be2d5126d7c02",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5be51ae2_33636c92",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbConfiguration.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2024-05-17T12:45:56Z",
+      "side": 1,
+      "message": "done for now using slf4j",
+      "parentUuid": "ae7e2e06_b54581b0",
       "revId": "abcbe0cf195a96c1cba7c44f5c0be2d5126d7c02",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
