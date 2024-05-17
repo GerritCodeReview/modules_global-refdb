@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6aa4a435_8f679604",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-05-17T08:21:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93e1df42_e211f5b2",
+      "revId": "5450f451ad408a9ad02b73f07333912f80f1d638",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "16309001_94af57ff",
@@ -447,6 +465,30 @@
       "writtenOn": "2024-05-16T14:37:06Z",
       "side": 1,
       "message": "I propose to move this code outside of this interface, into own class. There we can then also inject the `SharedRefDbConfiguration` and woudn\u0027t need to pass it as method parameter.",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 17
+      },
+      "revId": "5450f451ad408a9ad02b73f07333912f80f1d638",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16455f91_323d7530",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/SharedRefEnforcement.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-05-17T08:21:36Z",
+      "side": 1,
+      "message": "Acknowledged - responded to in your other comment with counterproposal.",
+      "parentUuid": "c2b257bd_2c29e002",
       "range": {
         "startLine": 64,
         "startChar": 0,
