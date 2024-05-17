@@ -16,6 +16,29 @@
       "message": "- rebased the change\n- fixed logging in SharedRefDbConfiguration\n- fixed some warnings",
       "revId": "38cbc5f9fe834a2fa2fca2ab4f1fae56ffb30692",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ac158ca_e933065c",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/SharedRefEnforcement.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-05-17T13:15:34Z",
+      "side": 1,
+      "message": "This looks difficult to read and complex.\n\n\n\n```suggestion\n        return rule.ruleType.equals(StorageRule.StorageRuleType.EXCLUDE);\n```",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 21
+      },
+      "revId": "38cbc5f9fe834a2fa2fca2ab4f1fae56ffb30692",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
