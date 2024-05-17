@@ -71,6 +71,23 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6238c53_0834e0e6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2024-05-17T14:00:38Z",
+      "side": 1,
+      "message": "we agreed discussing this with Luca to\n- replace regex rules by wildcard rules\n- multiple inclusion and exclusion rules evaluated top down\n- remove enforcement rules in another change, they were used only in global-refdb\u0027s infancy",
+      "revId": "38cbc5f9fe834a2fa2fca2ab4f1fae56ffb30692",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6ac158ca_e933065c",
