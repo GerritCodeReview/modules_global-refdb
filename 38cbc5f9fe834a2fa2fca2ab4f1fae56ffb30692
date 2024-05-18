@@ -1,6 +1,121 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "c670ba5e_5b095a3b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-05-18T11:37:09Z",
+      "side": 1,
+      "message": "I don\u0027t believe we need this complexity: if a ref is included then it is REQUIRED, if excluded, then it is IGNORED.\n\nAs we are on master, we should remove them and document the behaviour.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 0
+      },
+      "revId": "38cbc5f9fe834a2fa2fca2ab4f1fae56ffb30692",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41c90f46_a8ee46fe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-05-18T11:37:09Z",
+      "side": 1,
+      "message": "Draft comments shouldn\u0027t be ignored anymore: but this should be addressed as a separate change.",
+      "range": {
+        "startLine": 19,
+        "startChar": 51,
+        "endLine": 19,
+        "endChar": 65
+      },
+      "revId": "38cbc5f9fe834a2fa2fca2ab4f1fae56ffb30692",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7df89682_8abd5d44",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-05-18T11:37:09Z",
+      "side": 1,
+      "message": "We do not need regex, they are slow and may impact also ignored refs because of the cost of evaluating them.\n\nIn Gerrit it is well down the massive degradation of performance whenever a ACL with regex is used. In my experience, a regex in the ACL can also cause production outages, when applied to repos with huge workload.",
+      "range": {
+        "startLine": 22,
+        "startChar": 59,
+        "endLine": 22,
+        "endChar": 61
+      },
+      "revId": "38cbc5f9fe834a2fa2fca2ab4f1fae56ffb30692",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "deadf6de_ca705917",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-05-18T11:37:09Z",
+      "side": 1,
+      "message": "We should not encourage the use of regex, they would introduce a potentially considerable overhead.",
+      "range": {
+        "startLine": 29,
+        "startChar": 16,
+        "endLine": 29,
+        "endChar": 39
+      },
+      "revId": "38cbc5f9fe834a2fa2fca2ab4f1fae56ffb30692",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d02d92a_18603572",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-05-18T11:37:09Z",
+      "side": 1,
+      "message": "Do we need all these complexity?\nWhat you want to achieve is to include everything *but* `refs/cache-automerge`?\n\n```\n[ref-database \"enforcementRules\"]\n  include \u003d *\n  exclude \u003d refs/cache-automerge/*\n```\n\nIf there is no `include` or `exclude`, then the current code and behaviour is preserved.",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 63
+      },
+      "revId": "38cbc5f9fe834a2fa2fca2ab4f1fae56ffb30692",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "aacac302_3c2b1c74",
@@ -84,6 +199,46 @@
       "writtenOn": "2024-05-17T14:00:38Z",
       "side": 1,
       "message": "we agreed discussing this with Luca to\n- replace regex rules by wildcard rules\n- multiple inclusion and exclusion rules evaluated top down\n- remove enforcement rules in another change, they were used only in global-refdb\u0027s infancy",
+      "revId": "38cbc5f9fe834a2fa2fca2ab4f1fae56ffb30692",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3733c8d8_603968ca",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-05-18T11:37:09Z",
+      "side": 1,
+      "message": "As discussed during the hackathon, this change is *way too invasive* and introduce too much complexity.\n\nI am in favour of allowing you to store all refs (configurable) but also killing complexity.\n\nSee my comments, possibly this need to be achieved as intermediate steps, as suggested. Feel free to also organise a follow-up call if needed.",
+      "revId": "38cbc5f9fe834a2fa2fca2ab4f1fae56ffb30692",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8084c2c6_ad9d7a2f",
+        "filename": "config.md",
+        "patchSetId": 17
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-05-18T11:37:09Z",
+      "side": 1,
+      "message": "That is way too complex for what you want to achieve: we want to kill complexity not adding new one.",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 0
+      },
       "revId": "38cbc5f9fe834a2fa2fca2ab4f1fae56ffb30692",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
