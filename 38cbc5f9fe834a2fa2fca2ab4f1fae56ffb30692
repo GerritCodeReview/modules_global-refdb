@@ -116,6 +116,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "db1cd471_01060f8b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-05-18T11:52:39Z",
+      "side": 1,
+      "message": "Actually, we need to keep also the project scope.\n\nSo the example should be:\n\n```\n[ref-database \"enforcementRules\"]\n  include \u003d *:*\n  exclude \u003d *:refs/cache-automerge/*\n  exclude \u003d my-local-repo:*\n```\n\nThe above would include by default all refs from all projects, with the exception of:\n- `refs/change-automerge/*` of all repos\n- all the refs of `my-local-repo`\n\nDoes the above make sense?",
+      "parentUuid": "5d02d92a_18603572",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 63
+      },
+      "revId": "38cbc5f9fe834a2fa2fca2ab4f1fae56ffb30692",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "aacac302_3c2b1c74",
