@@ -443,6 +443,30 @@
       },
       "revId": "38cbc5f9fe834a2fa2fca2ab4f1fae56ffb30692",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3545cca_3291cacf",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/SharedRefEnforcement.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-06-27T09:03:20Z",
+      "side": 1,
+      "message": "ack, no longer applicable due to latest changes removing this code",
+      "parentUuid": "6ac158ca_e933065c",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 21
+      },
+      "revId": "38cbc5f9fe834a2fa2fca2ab4f1fae56ffb30692",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
