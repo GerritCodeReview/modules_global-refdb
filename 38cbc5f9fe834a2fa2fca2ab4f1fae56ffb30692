@@ -260,6 +260,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f0dd581_7969dfd6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-06-27T09:44:48Z",
+      "side": 1,
+      "message": "IMHO, top-down rules evaluation brings clarity and simplicity: the first rule that matches (top-down) applies. Easy to understand and easy to follow. Taking your example, if we want to include everything but cache-automerge then the configuration would be:\n```\n[ref-database \"enforcementRules\"]\n  exclude \u003d refs/cache-automerge/*\n  include \u003d *\n```",
+      "parentUuid": "9a4d1588_f3fbbc1a",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 63
+      },
+      "revId": "38cbc5f9fe834a2fa2fca2ab4f1fae56ffb30692",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "aacac302_3c2b1c74",

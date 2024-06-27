@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfcc0fec_b5ff7da0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-06-27T09:44:48Z",
+      "side": 1,
+      "message": "I believe this commit message should explicitly say that, with this change, the storage of refs is coupled to the EnforcementRules",
+      "revId": "fea11df7e7b38ce5269e84d0b496c26eb75d6f40",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b78d7d5b_b439a081",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbConfiguration.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-06-27T09:44:48Z",
+      "side": 1,
+      "message": "Use `ImmutableList` ?",
+      "range": {
+        "startLine": 115,
+        "startChar": 18,
+        "endLine": 115,
+        "endChar": 22
+      },
+      "revId": "fea11df7e7b38ce5269e84d0b496c26eb75d6f40",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4858e8fa_7990025c",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/SharedRefEnforcement.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-06-27T09:44:48Z",
+      "side": 1,
+      "message": "Since this is an inner type of the `EnforcementRule` there is no need to repeat the `Enforcement` part of the name: rename to just `Policy`. Then it is also easier to read `EnforcementRule.Policy`\n\nThe same could be said for the outer type `EnforcementRule`: if it is inner class of the `SharedRefEnforcement` then it could be named just `Rule`. Then we have:\n`SharedRefEnforcement.Rule`\n`SharedRefEnforcement.Rule.Policy`",
+      "range": {
+        "startLine": 23,
+        "startChar": 16,
+        "endLine": 23,
+        "endChar": 29
+      },
+      "revId": "fea11df7e7b38ce5269e84d0b496c26eb75d6f40",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1babf7c1_220534a9",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/SharedRefEnforcement.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-06-27T09:44:48Z",
+      "side": 1,
+      "message": "Does it make sense to have a public member inside package-private class?",
+      "range": {
+        "startLine": 23,
+        "startChar": 4,
+        "endLine": 23,
+        "endChar": 10
+      },
+      "revId": "fea11df7e7b38ce5269e84d0b496c26eb75d6f40",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
