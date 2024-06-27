@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "688c110e_cec42b33",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-06-27T09:00:36Z",
+      "side": 1,
+      "message": "Done - all behavior moved into enforcementRules alone",
+      "parentUuid": "c670ba5e_5b095a3b",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 0
+      },
+      "revId": "38cbc5f9fe834a2fa2fca2ab4f1fae56ffb30692",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "41c90f46_a8ee46fe",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-05-18T11:37:09Z",
       "side": 1,
       "message": "Draft comments shouldn\u0027t be ignored anymore: but this should be addressed as a separate change.",
+      "range": {
+        "startLine": 19,
+        "startChar": 51,
+        "endLine": 19,
+        "endChar": 65
+      },
+      "revId": "38cbc5f9fe834a2fa2fca2ab4f1fae56ffb30692",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a25bac6_d4f25525",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-06-27T09:00:36Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "41c90f46_a8ee46fe",
       "range": {
         "startLine": 19,
         "startChar": 51,
@@ -70,6 +118,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "16b3f8cc_68724e53",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-06-27T09:00:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7df89682_8abd5d44",
+      "range": {
+        "startLine": 22,
+        "startChar": 59,
+        "endLine": 22,
+        "endChar": 61
+      },
+      "revId": "38cbc5f9fe834a2fa2fca2ab4f1fae56ffb30692",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "deadf6de_ca705917",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-05-18T11:37:09Z",
       "side": 1,
       "message": "We should not encourage the use of regex, they would introduce a potentially considerable overhead.",
+      "range": {
+        "startLine": 29,
+        "startChar": 16,
+        "endLine": 29,
+        "endChar": 39
+      },
+      "revId": "38cbc5f9fe834a2fa2fca2ab4f1fae56ffb30692",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1b33383_7dc2cdde",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-06-27T09:00:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "deadf6de_ca705917",
       "range": {
         "startLine": 29,
         "startChar": 16,
@@ -130,6 +226,30 @@
       "side": 1,
       "message": "Actually, we need to keep also the project scope.\n\nSo the example should be:\n\n```\n[ref-database \"enforcementRules\"]\n  include \u003d *:*\n  exclude \u003d *:refs/cache-automerge/*\n  exclude \u003d my-local-repo:*\n```\n\nThe above would include by default all refs from all projects, with the exception of:\n- `refs/change-automerge/*` of all repos\n- all the refs of `my-local-repo`\n\nDoes the above make sense?",
       "parentUuid": "5d02d92a_18603572",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 63
+      },
+      "revId": "38cbc5f9fe834a2fa2fca2ab4f1fae56ffb30692",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a4d1588_f3fbbc1a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-06-27T09:00:36Z",
+      "side": 1,
+      "message": "re: complexity\n\nI discussed with Sasa originally and we came to that (top down rule ordering) choice to deal with rules which could be in conflict, or differ depending on what order they are read.",
+      "parentUuid": "db1cd471_01060f8b",
       "range": {
         "startLine": 32,
         "startChar": 0,
