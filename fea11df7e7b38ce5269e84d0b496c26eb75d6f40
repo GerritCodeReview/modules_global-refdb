@@ -20,6 +20,63 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5a795d42_9f4fff11",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-06-27T13:20:42Z",
+      "side": 1,
+      "message": "Btw, is the top-down policy covered by a test?",
+      "revId": "fea11df7e7b38ce5269e84d0b496c26eb75d6f40",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdd2c04c_85eee620",
+        "filename": "config.md",
+        "patchSetId": 26
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-06-27T13:20:42Z",
+      "side": 1,
+      "message": "nit: remove trailing whitespace",
+      "revId": "fea11df7e7b38ce5269e84d0b496c26eb75d6f40",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fbe044d_dfbab3e5",
+        "filename": "config.md",
+        "patchSetId": 26
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-06-27T13:20:42Z",
+      "side": 1,
+      "message": "effective",
+      "range": {
+        "startLine": 52,
+        "startChar": 17,
+        "endLine": 52,
+        "endChar": 39
+      },
+      "revId": "fea11df7e7b38ce5269e84d0b496c26eb75d6f40",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b78d7d5b_b439a081",
         "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbConfiguration.java",
         "patchSetId": 26
@@ -37,6 +94,74 @@
         "endLine": 115,
         "endChar": 22
       },
+      "revId": "fea11df7e7b38ce5269e84d0b496c26eb75d6f40",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91591b13_8114fbbe",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbConfiguration.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-06-27T13:20:42Z",
+      "side": 1,
+      "message": "```suggestion\n        List\u003cString\u003e parts \u003d Splitter.on(\u0027:\u0027).limit(3).splitToList(item);\n```",
+      "revId": "fea11df7e7b38ce5269e84d0b496c26eb75d6f40",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f1187d2_5fc4b4e9",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbConfiguration.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-06-27T13:20:42Z",
+      "side": 1,
+      "message": "This could silently ignore parsing errors. At least we should log with the `ERROR` level.\n\nFurther, do we want to actually ignore any parsing errors here? I think that it is safer to fail-fast i.e. throw an exception in this case.",
+      "revId": "fea11df7e7b38ce5269e84d0b496c26eb75d6f40",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d221471_feaf20f2",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/CustomSharedRefEnforcementByProject.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-06-27T13:20:42Z",
+      "side": 1,
+      "message": "Note that this is now `List`, while it was a `Map` before this change.\nWe always iterate through the whole list even if we know the project name and could eliminate rules from other projects immediately.\nIn case we expect a low number of rules then the `List` can work well.\n\nIf we would expect a large number of rules then a `Map\u003cProject, EnforcementRule\u003e` would be better as it would provide much faster access to the project specific rules.\n\nMy guess is that there will only be a few rules ever defined and that we can keep the `List` for now. However, you may want to add a comment here with that remark.",
+      "revId": "fea11df7e7b38ce5269e84d0b496c26eb75d6f40",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "511bb76d_4c820e7c",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/CustomSharedRefEnforcementByProject.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-06-27T13:20:42Z",
+      "side": 1,
+      "message": "nit: keep the order here the same as the order of assignments in the contructor.",
       "revId": "fea11df7e7b38ce5269e84d0b496c26eb75d6f40",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -82,6 +207,52 @@
         "startChar": 4,
         "endLine": 23,
         "endChar": 10
+      },
+      "revId": "fea11df7e7b38ce5269e84d0b496c26eb75d6f40",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "357f8c22_9ec4fe01",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/SharedRefEnforcement.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-06-27T13:20:42Z",
+      "side": 1,
+      "message": "`wildcard` as `pattern` is too broad and could also mean regex pattern.",
+      "range": {
+        "startLine": 42,
+        "startChar": 40,
+        "endLine": 42,
+        "endChar": 47
+      },
+      "revId": "fea11df7e7b38ce5269e84d0b496c26eb75d6f40",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a94960bd_93d57c64",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/SharedRefEnforcement.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-06-27T13:20:42Z",
+      "side": 1,
+      "message": "A more precise name would be `wildcardMatches`.",
+      "range": {
+        "startLine": 42,
+        "startChar": 20,
+        "endLine": 42,
+        "endChar": 32
       },
       "revId": "fea11df7e7b38ce5269e84d0b496c26eb75d6f40",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
