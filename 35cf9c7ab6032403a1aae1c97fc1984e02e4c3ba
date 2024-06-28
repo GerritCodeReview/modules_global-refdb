@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2635676f_3fc96139",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbConfiguration.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-06-28T14:44:29Z",
+      "side": 1,
+      "message": "This should rather not be imported. Instead we should use `SharedRefEnforcement.Rule`.",
+      "revId": "35cf9c7ab6032403a1aae1c97fc1984e02e4c3ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60124db8_56d12020",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/SharedRefEnforcement.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-06-28T14:44:29Z",
+      "side": 1,
+      "message": "these are not always names, in general they are wildcards",
+      "range": {
+        "startLine": 31,
+        "startChar": 54,
+        "endLine": 31,
+        "endChar": 88
+      },
+      "revId": "35cf9c7ab6032403a1aae1c97fc1984e02e4c3ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9cba778_6bff6677",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/SharedRefEnforcement.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-06-28T14:44:29Z",
+      "side": 1,
+      "message": "looking at this method call it is not clear which parameter is pattern and which is value. I would rather name `this.projectName` as `this.projectWildcard` and `this.refName` as `this.refWildcard`",
+      "revId": "35cf9c7ab6032403a1aae1c97fc1984e02e4c3ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b5dd9a6_fb68ed32",
+        "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/CustomSharedRefEnforcementByProjectTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-06-28T14:44:29Z",
+      "side": 1,
+      "message": "Test also with these two rules in the opposite order.",
+      "revId": "35cf9c7ab6032403a1aae1c97fc1984e02e4c3ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
