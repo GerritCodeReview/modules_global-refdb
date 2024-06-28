@@ -40,6 +40,46 @@
       },
       "revId": "c16bb6379eb1f7269b4aed0fcd12b9d9468e15a2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79929265_8441209e",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/SharedRefEnforcement.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-06-28T15:08:08Z",
+      "side": 1,
+      "message": "This is not wildcard this is concrete project name",
+      "revId": "c16bb6379eb1f7269b4aed0fcd12b9d9468e15a2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd17c5fa_6a8c672b",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/SharedRefEnforcement.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-06-28T15:08:08Z",
+      "side": 1,
+      "message": "this is also not wildcard but a conrete refname",
+      "range": {
+        "startLine": 39,
+        "startChar": 47,
+        "endLine": 39,
+        "endChar": 58
+      },
+      "revId": "c16bb6379eb1f7269b4aed0fcd12b9d9468e15a2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
