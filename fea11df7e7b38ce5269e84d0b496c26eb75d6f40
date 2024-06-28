@@ -252,6 +252,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2899d92d_40ad9ac5",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbConfiguration.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-06-28T13:22:23Z",
+      "side": 1,
+      "message": "Done \u0026 added tests for invalid rules",
+      "parentUuid": "2f1187d2_5fc4b4e9",
+      "revId": "fea11df7e7b38ce5269e84d0b496c26eb75d6f40",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6d221471_feaf20f2",
