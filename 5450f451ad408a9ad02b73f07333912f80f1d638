@@ -470,6 +470,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a704d39f_06bdf592",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbConfiguration.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-06-28T13:24:07Z",
+      "side": 1,
+      "message": "(inapplicable with removal of StorageRule)",
+      "parentUuid": "a5fc8af8_8212874a",
+      "range": {
+        "startLine": 222,
+        "startChar": 1,
+        "endLine": 227,
+        "endChar": 92
+      },
+      "revId": "5450f451ad408a9ad02b73f07333912f80f1d638",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c2b257bd_2c29e002",
