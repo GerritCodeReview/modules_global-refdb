@@ -18,6 +18,42 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f744e74_516ff756",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbConfiguration.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-06-28T14:51:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2635676f_3fc96139",
+      "revId": "35cf9c7ab6032403a1aae1c97fc1984e02e4c3ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4df0de9_bcbb1422",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbConfiguration.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-06-28T14:51:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2635676f_3fc96139",
+      "revId": "35cf9c7ab6032403a1aae1c97fc1984e02e4c3ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "60124db8_56d12020",
@@ -31,6 +67,54 @@
       "writtenOn": "2024-06-28T14:44:29Z",
       "side": 1,
       "message": "these are not always names, in general they are wildcards",
+      "range": {
+        "startLine": 31,
+        "startChar": 54,
+        "endLine": 31,
+        "endChar": 88
+      },
+      "revId": "35cf9c7ab6032403a1aae1c97fc1984e02e4c3ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2e57b80_014c0f84",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/SharedRefEnforcement.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-06-28T14:51:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "60124db8_56d12020",
+      "range": {
+        "startLine": 31,
+        "startChar": 54,
+        "endLine": 31,
+        "endChar": 88
+      },
+      "revId": "35cf9c7ab6032403a1aae1c97fc1984e02e4c3ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50112aff_2a89ef8e",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/SharedRefEnforcement.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-06-28T14:51:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "60124db8_56d12020",
       "range": {
         "startLine": 31,
         "startChar": 54,
@@ -58,6 +142,42 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc1d23b6_4b0b5d99",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/SharedRefEnforcement.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-06-28T14:51:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9cba778_6bff6677",
+      "revId": "35cf9c7ab6032403a1aae1c97fc1984e02e4c3ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf1ff281_59374367",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/SharedRefEnforcement.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-06-28T14:51:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9cba778_6bff6677",
+      "revId": "35cf9c7ab6032403a1aae1c97fc1984e02e4c3ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1b5dd9a6_fb68ed32",
@@ -71,6 +191,24 @@
       "writtenOn": "2024-06-28T14:44:29Z",
       "side": 1,
       "message": "Test also with these two rules in the opposite order.",
+      "revId": "35cf9c7ab6032403a1aae1c97fc1984e02e4c3ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63a237b1_23ce250b",
+        "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/CustomSharedRefEnforcementByProjectTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-06-28T14:51:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b5dd9a6_fb68ed32",
       "revId": "35cf9c7ab6032403a1aae1c97fc1984e02e4c3ba",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
