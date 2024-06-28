@@ -42,6 +42,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8130bc0d_4249f848",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/SharedRefEnforcement.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-06-28T15:11:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7470c44_cb4d7f5c",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 41
+      },
+      "revId": "c16bb6379eb1f7269b4aed0fcd12b9d9468e15a2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "79929265_8441209e",
@@ -59,6 +83,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ddecf14_c83afc0e",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/SharedRefEnforcement.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-06-28T15:11:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79929265_8441209e",
+      "revId": "c16bb6379eb1f7269b4aed0fcd12b9d9468e15a2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cd17c5fa_6a8c672b",
@@ -72,6 +114,30 @@
       "writtenOn": "2024-06-28T15:08:08Z",
       "side": 1,
       "message": "this is also not wildcard but a conrete refname",
+      "range": {
+        "startLine": 39,
+        "startChar": 47,
+        "endLine": 39,
+        "endChar": 58
+      },
+      "revId": "c16bb6379eb1f7269b4aed0fcd12b9d9468e15a2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27a7122f_88cb7fad",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/SharedRefEnforcement.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-06-28T15:11:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd17c5fa_6a8c672b",
       "range": {
         "startLine": 39,
         "startChar": 47,
