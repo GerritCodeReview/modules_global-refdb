@@ -18,7 +18,6 @@ import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.CustomSharedRefEnf
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.DefaultSharedRefEnforcement;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.OutOfSyncException;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement;
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement.EnforcePolicy;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.flogger.FluentLogger;
 import com.google.inject.Inject;
@@ -97,7 +96,7 @@ public class BatchRefUpdateValidator extends RefUpdateValidator {
    * <ul>
    *   <li>The project being updated is a global project ({@link
    *       RefUpdateValidator#isGlobalProject(String)}
-   *   <li>The enforcement policy for the project being updated is {@link EnforcePolicy#EXCLUDE}
+   *   <li>The enforcement policy for the project being updated is {@link Policy#EXCLUDE}
    * </ul>
    *
    * @param batchRefUpdate batchRefUpdate object
@@ -112,7 +111,7 @@ public class BatchRefUpdateValidator extends RefUpdateValidator {
       NoParameterVoidFunction batchRefUpdateFunction,
       OneParameterVoidFunction<List<ReceiveCommand>> batchRefUpdateRollbackFunction)
       throws IOException {
-    if (refEnforcement.getPolicy(projectName) == EnforcePolicy.EXCLUDE
+    if (refEnforcement.getPolicy(projectName) == SharedRefEnforcement.Policy.EXCLUDE
         || !isGlobalProject(projectName)) {
       batchRefUpdateFunction.invoke();
       return;
@@ -123,7 +122,7 @@ public class BatchRefUpdateValidator extends RefUpdateValidator {
     } catch (IOException e) {
       logger.atWarning().withCause(e).log(
           "Failed to execute Batch Update on project %s", projectName);
-      if (refEnforcement.getPolicy(projectName) == EnforcePolicy.INCLUDE) {
+      if (refEnforcement.getPolicy(projectName) == SharedRefEnforcement.Policy.INCLUDE) {
         throw e;
       }
     }
