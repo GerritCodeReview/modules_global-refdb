@@ -70,6 +70,23 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9bab7f5b_546ea519",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 32
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-07-01T21:38:40Z",
+      "side": 1,
+      "message": "Here is my overall reasons for a -1:\n- The change contains a mix of *valid* cleanups and refactoring, but they should be decoupled from features (done as I2eceefd, I2551dc4 and I60157ac)\n- Previously the custom rules were indexed by project but now they are evaluated sequentially, with a potential risk in terms of runtime performance\n- There are some code-style issues and unused variables, more clean-up is needed\n- This represents a breaking change: can be deprecate the old format and use the new one by injection? We can then in v3.12 remove the deprecated format. We typically deprecate first and then remove",
+      "revId": "adee59cc0dfcc3bc8a4debeec4476763392a5b2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "40862ae2_5e30180b",
