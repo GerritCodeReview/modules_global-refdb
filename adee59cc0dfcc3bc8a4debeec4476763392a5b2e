@@ -72,6 +72,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "40862ae2_5e30180b",
+        "filename": "config.md",
+        "patchSetId": 32
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-07-01T21:11:17Z",
+      "side": 1,
+      "message": "Looking at the code, the custom rules are applied *on top* of the default behaviour and, if matches, take precedence.\n\nIf you define custom rules but they do not match, the default behaviour is preserved.",
+      "range": {
+        "startLine": 27,
+        "startChar": 24,
+        "endLine": 27,
+        "endChar": 57
+      },
+      "revId": "adee59cc0dfcc3bc8a4debeec4476763392a5b2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c18639a5_137d5abf",
         "filename": "config.md",
         "patchSetId": 32
