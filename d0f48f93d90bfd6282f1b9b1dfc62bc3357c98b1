@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fc5d957_fb6a1934",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-07-01T20:59:29Z",
+      "side": 1,
+      "message": "INCLUDE",
+      "range": {
+        "startLine": 143,
+        "startChar": 29,
+        "endLine": 143,
+        "endChar": 37
+      },
+      "revId": "d0f48f93d90bfd6282f1b9b1dfc62bc3357c98b1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
