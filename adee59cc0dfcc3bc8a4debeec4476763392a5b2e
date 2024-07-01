@@ -193,6 +193,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6a484661_f9ec68a8",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/CustomSharedRefEnforcementByProject.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-07-01T21:17:37Z",
+      "side": 1,
+      "message": "Previously this was a map indexed by project, which means that if you have 10k projects and rules for 5k of them, the other 5k project would have not been affected from a performance standpoint.\n\nNow, one project that isn\u0027t impacted by the rules is *still* going to through the look of all rules, to find out that none of them are matching.\n\nCan we preserve the multi-map by project? Is there any value in making it a flat list?\n\nP.S. We have over 50k projects on GerritHub.io, so avoiding a loop would help us.",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 5
+      },
+      "revId": "adee59cc0dfcc3bc8a4debeec4476763392a5b2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8329c76a_63b4b77b",
         "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/CustomSharedRefEnforcementByProject.java",
         "patchSetId": 32
