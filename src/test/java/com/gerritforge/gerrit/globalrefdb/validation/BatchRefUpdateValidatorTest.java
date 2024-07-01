@@ -104,7 +104,7 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
     BatchRefUpdateValidator batchRefUpdateValidator =
         getRefValidatorForEnforcement(A_TEST_PROJECT_NAME, tmpRefEnforcement);
 
-    doReturn(SharedRefEnforcement.EnforcePolicy.INCLUDE)
+    doReturn(SharedRefEnforcement.Policy.INCLUDE)
         .when(batchRefUpdateValidator.refEnforcement)
         .getPolicy(A_TEST_PROJECT_NAME, REF_NAME_A);
 
@@ -162,7 +162,7 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
     BatchRefUpdateValidator batchRefUpdateValidator =
         getRefValidatorForEnforcement(A_TEST_PROJECT_NAME, tmpRefEnforcement);
 
-    doReturn(SharedRefEnforcement.EnforcePolicy.INCLUDE)
+    doReturn(SharedRefEnforcement.Policy.INCLUDE)
         .when(batchRefUpdateValidator.refEnforcement)
         .getPolicy(A_TEST_PROJECT_NAME, AN_OUT_OF_SYNC_REF);
     lenient()
@@ -190,7 +190,7 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
     BatchRefUpdateValidator batchRefUpdateValidator =
         getRefValidatorForEnforcement(A_TEST_PROJECT_NAME, tmpRefEnforcement);
 
-    doReturn(SharedRefEnforcement.EnforcePolicy.INCLUDE)
+    doReturn(SharedRefEnforcement.Policy.INCLUDE)
         .when(batchRefUpdateValidator.refEnforcement)
         .getPolicy(A_TEST_PROJECT_NAME, REF_NAME);
     doReturn(true).when(sharedRefDatabase).isUpToDate(any(), any());
@@ -218,7 +218,7 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
     BatchRefUpdateValidator batchRefUpdateValidator =
         getRefValidatorForEnforcement(A_TEST_PROJECT_NAME, tmpRefEnforcement);
 
-    doReturn(SharedRefEnforcement.EnforcePolicy.INCLUDE)
+    doReturn(SharedRefEnforcement.Policy.INCLUDE)
         .when(batchRefUpdateValidator.refEnforcement)
         .getPolicy(A_TEST_PROJECT_NAME, REF_NAME);
 
