@@ -1,6 +1,121 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "85655ec4_17babbf5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 32
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-07-01T14:47:33Z",
+      "side": 1,
+      "message": "You should also specify that is the limited wildcard matching logic that is available in JGit, that means it can be used between refs fragments",
+      "range": {
+        "startLine": 12,
+        "startChar": 13,
+        "endLine": 12,
+        "endChar": 30
+      },
+      "revId": "adee59cc0dfcc3bc8a4debeec4476763392a5b2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e587b227_f658aa41",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 32
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-07-01T14:47:33Z",
+      "side": 1,
+      "message": "I would simply rephrase as: _\"This changes allows to override the default hardcoded rules\"_",
+      "range": {
+        "startLine": 13,
+        "startChar": 39,
+        "endLine": 14,
+        "endChar": 36
+      },
+      "revId": "adee59cc0dfcc3bc8a4debeec4476763392a5b2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fbc97382_d92763a3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 32
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-07-01T14:47:33Z",
+      "side": 1,
+      "message": "All keys under this section are `rule` therefore their meaning isn\u0027t used. I would simply do:\n```\ninclude \u003d *:*\nexclude \u003d *:refs/draft/comments/*\n```",
+      "range": {
+        "startLine": 19,
+        "startChar": 44,
+        "endLine": 19,
+        "endChar": 62
+      },
+      "revId": "adee59cc0dfcc3bc8a4debeec4476763392a5b2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c18639a5_137d5abf",
+        "filename": "config.md",
+        "patchSetId": 32
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-07-01T14:47:33Z",
+      "side": 1,
+      "message": "```suggestion\n      include \u003d *:*\n```",
+      "range": {
+        "startLine": 33,
+        "startChar": 6,
+        "endLine": 33,
+        "endChar": 24
+      },
+      "revId": "adee59cc0dfcc3bc8a4debeec4476763392a5b2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4882142_019c2cc3",
+        "filename": "config.md",
+        "patchSetId": 32
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-07-01T14:47:33Z",
+      "side": 1,
+      "message": "```suggestion\n      exclude \u003d my-repo:refs/draft-comments/*\n```",
+      "range": {
+        "startLine": 38,
+        "startChar": 7,
+        "endLine": 38,
+        "endChar": 50
+      },
+      "revId": "adee59cc0dfcc3bc8a4debeec4476763392a5b2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "eccb4ae1_38e4c5ee",

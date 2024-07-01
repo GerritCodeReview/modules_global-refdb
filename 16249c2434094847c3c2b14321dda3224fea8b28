@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e872e46e_416c7329",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/BatchRefUpdateValidator.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-07-01T14:47:33Z",
+      "side": 0,
+      "message": "This refactoring should not be part of the changes, done with I60157ac8",
+      "range": {
+        "startLine": 21,
+        "startChar": 83,
+        "endLine": 21,
+        "endChar": 96
+      },
+      "revId": "16249c2434094847c3c2b14321dda3224fea8b28",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9bf29f08_5dfb51d7",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/BatchRefUpdateValidator.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-07-01T14:47:33Z",
+      "side": 0,
+      "message": "This rename is a refactoring that should be separate from this change, done with I2eceefd4",
+      "range": {
+        "startLine": 115,
+        "startChar": 63,
+        "endLine": 115,
+        "endChar": 70
+      },
+      "revId": "16249c2434094847c3c2b14321dda3224fea8b28",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
