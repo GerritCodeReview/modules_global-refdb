@@ -97,7 +97,7 @@ public class BatchRefUpdateValidator extends RefUpdateValidator {
    * <ul>
    *   <li>The project being updated is a global project ({@link
    *       RefUpdateValidator#isGlobalProject(String)}
-   *   <li>The enforcement policy for the project being updated is {@link EnforcePolicy#IGNORED}
+   *   <li>The enforcement policy for the project being updated is {@link EnforcePolicy#EXCLUDE}
    * </ul>
    *
    * @param batchRefUpdate batchRefUpdate object
@@ -112,7 +112,7 @@ public class BatchRefUpdateValidator extends RefUpdateValidator {
       NoParameterVoidFunction batchRefUpdateFunction,
       OneParameterVoidFunction<List<ReceiveCommand>> batchRefUpdateRollbackFunction)
       throws IOException {
-    if (refEnforcement.getPolicy(projectName) == EnforcePolicy.IGNORED
+    if (refEnforcement.getPolicy(projectName) == EnforcePolicy.EXCLUDE
         || !isGlobalProject(projectName)) {
       batchRefUpdateFunction.invoke();
       return;
@@ -123,7 +123,7 @@ public class BatchRefUpdateValidator extends RefUpdateValidator {
     } catch (IOException e) {
       logger.atWarning().withCause(e).log(
           "Failed to execute Batch Update on project %s", projectName);
-      if (refEnforcement.getPolicy(projectName) == EnforcePolicy.REQUIRED) {
+      if (refEnforcement.getPolicy(projectName) == EnforcePolicy.INCLUDE) {
         throw e;
       }
     }

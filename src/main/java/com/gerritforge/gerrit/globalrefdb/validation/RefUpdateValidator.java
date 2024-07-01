@@ -133,7 +133,7 @@ public class RefUpdateValidator {
    *       RefUpdateValidator#isRefToBeIgnored(String)})
    *   <li>The project being updated is a global project ({@link
    *       RefUpdateValidator#isGlobalProject(String)}
-   *   <li>The enforcement policy for the project being updated is {@link EnforcePolicy#IGNORED}
+   *   <li>The enforcement policy for the project being updated is {@link EnforcePolicy#EXCLUDE}
    * </ul>
    *
    * @param refUpdate the refUpdate command
@@ -150,7 +150,7 @@ public class RefUpdateValidator {
       throws IOException {
     if (isRefToBeIgnored(refUpdate.getName())
         || !isGlobalProject(projectName)
-        || refEnforcement.getPolicy(projectName) == EnforcePolicy.IGNORED) {
+        || refEnforcement.getPolicy(projectName) == EnforcePolicy.EXCLUDE) {
       return refUpdateFunction.invoke();
     }
 
@@ -169,7 +169,7 @@ public class RefUpdateValidator {
     logger.atWarning().withCause(e).log(
         "Failure while running with policy enforcement %s. Error message: %s",
         policy, e.getMessage());
-    if (policy == EnforcePolicy.REQUIRED) {
+    if (policy == EnforcePolicy.INCLUDE) {
       throw e;
     }
   }
@@ -216,7 +216,7 @@ public class RefUpdateValidator {
     // We are not checking refs that should be ignored
     final EnforcePolicy refEnforcementPolicy =
         refEnforcement.getPolicy(projectName, refSnapshot.getName());
-    if (refEnforcementPolicy == EnforcePolicy.IGNORED) return;
+    if (refEnforcementPolicy == EnforcePolicy.EXCLUDE) return;
 
     boolean succeeded;
     try {
@@ -246,7 +246,7 @@ public class RefUpdateValidator {
       throws GlobalRefDbLockException, OutOfSyncException, IOException {
     String refName = refUpdateSnapshot.getName();
     EnforcePolicy refEnforcementPolicy = refEnforcement.getPolicy(projectName, refName);
-    if (refEnforcementPolicy == EnforcePolicy.IGNORED) {
+    if (refEnforcementPolicy == EnforcePolicy.EXCLUDE) {
       return refUpdateSnapshot;
     }
 
