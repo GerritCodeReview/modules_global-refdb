@@ -44,8 +44,8 @@ public class DefaultSharedRefEnforcement implements SharedRefEnforcement {
   }
 
   /**
-   * Returns {@link EnforcePolicy#IGNORED} for refs to be ignored {@link
-   * SharedRefEnforcement#isRefToBeIgnoredBySharedRefDb(String)}, {@link EnforcePolicy#REQUIRED}
+   * Returns {@link EnforcePolicy#EXCLUDE} for refs to be ignored {@link
+   * SharedRefEnforcement#isRefToBeIgnoredBySharedRefDb(String)}, {@link EnforcePolicy#INCLUDE}
    * otherwise
    *
    * @param projectName project to be enforced
@@ -54,18 +54,18 @@ public class DefaultSharedRefEnforcement implements SharedRefEnforcement {
    */
   @Override
   public EnforcePolicy getPolicy(String projectName, String refName) {
-    return isRefToBeIgnoredBySharedRefDb(refName) ? EnforcePolicy.IGNORED : EnforcePolicy.REQUIRED;
+    return isRefToBeIgnoredBySharedRefDb(refName) ? EnforcePolicy.EXCLUDE : EnforcePolicy.INCLUDE;
   }
 
   /**
    * The global refdb validation policy for 'projectName'
    *
    * @param projectName project to be enforced
-   * @return always {@link EnforcePolicy#REQUIRED}
+   * @return always {@link EnforcePolicy#INCLUDE}
    */
   @Override
   public EnforcePolicy getPolicy(String projectName) {
-    return EnforcePolicy.REQUIRED;
+    return EnforcePolicy.INCLUDE;
   }
 
   @Override

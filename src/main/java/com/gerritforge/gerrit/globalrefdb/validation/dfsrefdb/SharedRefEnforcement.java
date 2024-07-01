@@ -19,8 +19,8 @@ import com.google.gerrit.entities.RefNames;
 /** Type of enforcement to implement between the local and shared RefDb. */
 public interface SharedRefEnforcement {
   public enum EnforcePolicy {
-    IGNORED,
-    REQUIRED;
+    EXCLUDE,
+    INCLUDE;
   }
 
   /**
