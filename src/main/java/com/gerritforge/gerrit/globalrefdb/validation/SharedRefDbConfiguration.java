@@ -18,7 +18,7 @@ import static com.google.common.base.Suppliers.memoize;
 import static com.google.common.base.Suppliers.ofInstance;
 
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement;
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement.EnforcePolicy;
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement.Policy;
 import com.google.common.base.Supplier;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
@@ -106,13 +106,13 @@ public class SharedRefDbConfiguration {
     public static final String IGNORED_REFS_PREFIXES = "ignoredRefsPrefixes";
 
     private final boolean enabled;
-    private final Multimap<EnforcePolicy, String> enforcementRules;
+    private final Multimap<Policy, String> enforcementRules;
     private final ImmutableSet<String> ignoredRefsPrefixes;
 
     private SharedRefDatabase(Supplier<Config> cfg) {
       enabled = getBoolean(cfg, SECTION, null, ENABLE_KEY, false);
       enforcementRules = MultimapBuilder.hashKeys().arrayListValues().build();
-      for (EnforcePolicy policy : EnforcePolicy.values()) {
+      for (Policy policy : Policy.values()) {
         enforcementRules.putAll(
             policy, getList(cfg, SECTION, SUBSECTION_ENFORCEMENT_RULES, policy.name()));
       }
@@ -130,11 +130,10 @@ public class SharedRefDbConfiguration {
     }
 
     /**
-     * Getter for the map of {@link EnforcePolicy} to a specific "project:refs". Each entry can be
-     * either be {@link SharedRefEnforcement.EnforcePolicy#EXCLUDE} or {@link
-     * SharedRefEnforcement.EnforcePolicy#INCLUDE} and it represents the level of consistency
-     * enforcements for that specific "project:refs". If the project or ref is omitted, apply the
-     * policy to all projects or all refs.
+     * Getter for the map of {@link Policy} to a specific "project:refs". Each entry can be either
+     * be {@link Policy#EXCLUDE} or {@link Policy#INCLUDE} and it represents the level of
+     * consistency enforcements for that specific "project:refs". If the project or ref is omitted,
+     * apply the policy to all projects or all refs.
      *
      * <p>The projec/ref will not be validated against the global refdb if it one to be ignored by
      * default ({@link SharedRefEnforcement#isRefToBeIgnoredBySharedRefDb(String)} or if it has been
@@ -147,7 +146,7 @@ public class SharedRefDbConfiguration {
      *
      * @return Map of "project:refs" policies
      */
-    public Multimap<EnforcePolicy, String> getEnforcementRules() {
+    public Multimap<Policy, String> getEnforcementRules() {
       return enforcementRules;
     }
 

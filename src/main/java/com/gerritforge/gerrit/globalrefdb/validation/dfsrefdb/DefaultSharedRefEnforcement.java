@@ -22,27 +22,26 @@ package com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb;
 public class DefaultSharedRefEnforcement implements SharedRefEnforcement {
 
   /**
-   * Returns {@link EnforcePolicy#EXCLUDE} for refs to be ignored {@link
-   * SharedRefEnforcement#isRefToBeIgnoredBySharedRefDb(String)}, {@link EnforcePolicy#INCLUDE}
-   * otherwise
+   * Returns {@link Policy#EXCLUDE} for refs to be ignored {@link
+   * SharedRefEnforcement#isRefToBeIgnoredBySharedRefDb(String)}, {@link Policy#INCLUDE} otherwise
    *
    * @param projectName project to be enforced
    * @param refName ref name to be enforced
    * @return the policy for this project/ref
    */
   @Override
-  public EnforcePolicy getPolicy(String projectName, String refName) {
-    return isRefToBeIgnoredBySharedRefDb(refName) ? EnforcePolicy.EXCLUDE : EnforcePolicy.INCLUDE;
+  public Policy getPolicy(String projectName, String refName) {
+    return isRefToBeIgnoredBySharedRefDb(refName) ? Policy.EXCLUDE : Policy.INCLUDE;
   }
 
   /**
    * The global refdb validation policy for 'projectName'
    *
    * @param projectName project to be enforced
-   * @return always {@link EnforcePolicy#INCLUDE}
+   * @return always {@link Policy#INCLUDE}
    */
   @Override
-  public EnforcePolicy getPolicy(String projectName) {
-    return EnforcePolicy.INCLUDE;
+  public Policy getPolicy(String projectName) {
+    return Policy.INCLUDE;
   }
 }
