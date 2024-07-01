@@ -18,7 +18,7 @@ import com.google.gerrit.entities.RefNames;
 
 /** Type of enforcement to implement between the local and shared RefDb. */
 public interface SharedRefEnforcement {
-  public enum EnforcePolicy {
+  enum EnforcePolicy {
     EXCLUDE,
     INCLUDE;
   }
@@ -30,7 +30,7 @@ public interface SharedRefEnforcement {
    * @param refName ref name to be enforced
    * @return the {@link EnforcePolicy} value
    */
-  public EnforcePolicy getPolicy(String projectName, String refName);
+  EnforcePolicy getPolicy(String projectName, String refName);
 
   /**
    * Get the enforcement policy for a project
@@ -38,7 +38,7 @@ public interface SharedRefEnforcement {
    * @param projectName the name of the project
    * @return the {@link EnforcePolicy} value
    */
-  public EnforcePolicy getPolicy(String projectName);
+  EnforcePolicy getPolicy(String projectName);
 
   /**
    * Check if a refName should be ignored by global refdb. The Default behaviour is to ignore:
