@@ -131,8 +131,8 @@ public class SharedRefDbConfiguration {
 
     /**
      * Getter for the map of {@link EnforcePolicy} to a specific "project:refs". Each entry can be
-     * either be {@link SharedRefEnforcement.EnforcePolicy#IGNORED} or {@link
-     * SharedRefEnforcement.EnforcePolicy#REQUIRED} and it represents the level of consistency
+     * either be {@link SharedRefEnforcement.EnforcePolicy#EXCLUDE} or {@link
+     * SharedRefEnforcement.EnforcePolicy#INCLUDE} and it represents the level of consistency
      * enforcements for that specific "project:refs". If the project or ref is omitted, apply the
      * policy to all projects or all refs.
      *

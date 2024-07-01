@@ -85,7 +85,7 @@ public class CustomSharedRefEnforcementByProject implements SharedRefEnforcement
    * The enforcement policy for 'refName' in 'projectName' as computed from the libModule's
    * configuration file.
    *
-   * <p>By default all projects are REQUIRED to be consistent on all refs.
+   * <p>By default all projects are INCLUDE to be consistent on all refs.
    *
    * @param projectName project to be enforced
    * @param refName ref name to be enforced
@@ -94,7 +94,7 @@ public class CustomSharedRefEnforcementByProject implements SharedRefEnforcement
   @Override
   public EnforcePolicy getPolicy(String projectName, String refName) {
     if (isRefToBeIgnoredBySharedRefDb(refName)) {
-      return EnforcePolicy.IGNORED;
+      return EnforcePolicy.EXCLUDE;
     }
 
     return getRefEnforcePolicy(projectName, refName);
@@ -108,13 +108,13 @@ public class CustomSharedRefEnforcementByProject implements SharedRefEnforcement
                 projectName, predefEnforcements.get().getOrDefault(ALL, ImmutableMap.of()));
 
     return MoreObjects.firstNonNull(
-        orDefault.getOrDefault(refName, orDefault.get(ALL)), EnforcePolicy.REQUIRED);
+        orDefault.getOrDefault(refName, orDefault.get(ALL)), EnforcePolicy.INCLUDE);
   }
 
   /**
    * The enforcement policy for 'projectName' as computed from the libModule's configuration file.
    *
-   * <p>By default all projects are REQUIRED to be consistent on all refs.
+   * <p>By default all projects are INCLUDE to be consistent on all refs.
    *
    * @param projectName the name of the project to get the policy for
    * @return the enforcement policy for the project
@@ -126,6 +126,6 @@ public class CustomSharedRefEnforcementByProject implements SharedRefEnforcement
             .get()
             .getOrDefault(
                 projectName, predefEnforcements.get().getOrDefault(ALL, ImmutableMap.of()));
-    return policiesForProject.getOrDefault(ALL, EnforcePolicy.REQUIRED);
+    return policiesForProject.getOrDefault(ALL, EnforcePolicy.INCLUDE);
   }
 }
