@@ -33,7 +33,7 @@ import java.util.Map;
 public class CustomSharedRefEnforcementByProject implements SharedRefEnforcement {
   private static final String ALL = ".*";
 
-  private final Supplier<Map<String, Map<String, EnforcePolicy>>> predefEnforcements;
+  private final Supplier<Map<String, Map<String, Policy>>> predefEnforcements;
 
   /**
    * Constructs a {@code CustomSharedRefEnforcementByProject} with the values specified in the
@@ -46,11 +46,11 @@ public class CustomSharedRefEnforcementByProject implements SharedRefEnforcement
     this.predefEnforcements = memoize(() -> parseDryRunEnforcementsToMap(config));
   }
 
-  private static Map<String, Map<String, EnforcePolicy>> parseDryRunEnforcementsToMap(
+  private static Map<String, Map<String, Policy>> parseDryRunEnforcementsToMap(
       SharedRefDbConfiguration config) {
-    Map<String, Map<String, EnforcePolicy>> enforcementMap = new HashMap<>();
+    Map<String, Map<String, Policy>> enforcementMap = new HashMap<>();
 
-    for (Map.Entry<EnforcePolicy, String> enforcementEntry :
+    for (Map.Entry<Policy, String> enforcementEntry :
         config.getSharedRefDb().getEnforcementRules().entries()) {
       parseEnforcementEntry(enforcementMap, enforcementEntry);
     }
@@ -59,16 +59,15 @@ public class CustomSharedRefEnforcementByProject implements SharedRefEnforcement
   }
 
   private static void parseEnforcementEntry(
-      Map<String, Map<String, EnforcePolicy>> enforcementMap,
-      Map.Entry<EnforcePolicy, String> enforcementEntry) {
+      Map<String, Map<String, Policy>> enforcementMap, Map.Entry<Policy, String> enforcementEntry) {
     Iterator<String> projectAndRef = Splitter.on(':').split(enforcementEntry.getValue()).iterator();
-    EnforcePolicy enforcementPolicy = enforcementEntry.getKey();
+    Policy enforcementPolicy = enforcementEntry.getKey();
 
     if (projectAndRef.hasNext()) {
       String projectName = emptyToAll(projectAndRef.next());
       String refName = emptyToAll(projectAndRef.hasNext() ? projectAndRef.next() : ALL);
 
-      Map<String, EnforcePolicy> existingOrDefaultRef =
+      Map<String, Policy> existingOrDefaultRef =
           enforcementMap.getOrDefault(projectName, new HashMap<>());
 
       existingOrDefaultRef.put(refName, enforcementPolicy);
@@ -92,23 +91,23 @@ public class CustomSharedRefEnforcementByProject implements SharedRefEnforcement
    * @return the enforcement policy for this project/ref
    */
   @Override
-  public EnforcePolicy getPolicy(String projectName, String refName) {
+  public Policy getPolicy(String projectName, String refName) {
     if (isRefToBeIgnoredBySharedRefDb(refName)) {
-      return EnforcePolicy.EXCLUDE;
+      return Policy.EXCLUDE;
     }
 
-    return getRefEnforcePolicy(projectName, refName);
+    return getRefPolicy(projectName, refName);
   }
 
-  private EnforcePolicy getRefEnforcePolicy(String projectName, String refName) {
-    Map<String, EnforcePolicy> orDefault =
+  private Policy getRefPolicy(String projectName, String refName) {
+    Map<String, Policy> orDefault =
         predefEnforcements
             .get()
             .getOrDefault(
                 projectName, predefEnforcements.get().getOrDefault(ALL, ImmutableMap.of()));
 
     return MoreObjects.firstNonNull(
-        orDefault.getOrDefault(refName, orDefault.get(ALL)), EnforcePolicy.INCLUDE);
+        orDefault.getOrDefault(refName, orDefault.get(ALL)), Policy.INCLUDE);
   }
 
   /**
@@ -120,12 +119,12 @@ public class CustomSharedRefEnforcementByProject implements SharedRefEnforcement
    * @return the enforcement policy for the project
    */
   @Override
-  public EnforcePolicy getPolicy(String projectName) {
-    Map<String, EnforcePolicy> policiesForProject =
+  public Policy getPolicy(String projectName) {
+    Map<String, Policy> policiesForProject =
         predefEnforcements
             .get()
             .getOrDefault(
                 projectName, predefEnforcements.get().getOrDefault(ALL, ImmutableMap.of()));
-    return policiesForProject.getOrDefault(ALL, EnforcePolicy.INCLUDE);
+    return policiesForProject.getOrDefault(ALL, Policy.INCLUDE);
   }
 }
