@@ -70,6 +70,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a100e3b_bf764ac9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 32
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-07-02T09:30:25Z",
+      "side": 1,
+      "message": "As far as I could tell, jgit\u0027s API for reading config files doesn\u0027t expose the ability to read all items for all keys in order. My original plan was your suggested syntax as well, but the only way to acquire those values seems to be getting all \u0027include\u0027 and \u0027exclude\u0027 items in two separate groups -- which would ruin the top-down rules evaluation as it doesn\u0027t maintain ordering (which could be problematic if people interleave the rules). I agree this syntax of `rule \u003d INCLUDE:` is not pleasant but I don\u0027t have an alternative idea that preserves the rule ordering capability, do you know of some way?",
+      "parentUuid": "fbc97382_d92763a3",
+      "range": {
+        "startLine": 19,
+        "startChar": 44,
+        "endLine": 19,
+        "endChar": 62
+      },
+      "revId": "adee59cc0dfcc3bc8a4debeec4476763392a5b2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "9bab7f5b_546ea519",
