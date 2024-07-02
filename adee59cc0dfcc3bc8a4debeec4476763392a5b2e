@@ -94,6 +94,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "f33c271e_460de007",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 32
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-07-02T11:26:08Z",
+      "side": 1,
+      "message": "I found misleading to have these rules produce different results based on the order of having the `include` and `exclude` rule.\n\nFor instance, by having the ordering logic between include and exclude, the one below would not exclude anything.\n```\nrule \u003d include:*:refs/*\nrule \u003d exclude:*:refs/tags/*\n```\n\nHowever, by flipping them you would exclude the tags.\n```\nrule \u003d exclude:*:refs/tags/*\nrule \u003d include:*:refs/*\n```\n\nI thought you wanted to simply include all refs, excluding the ones starting with a prefix. Why not just implementing that? Or do you have more complex use-cases that must be implemented with a generic rule-based system that is sensitive to the ordering?",
+      "parentUuid": "2a100e3b_bf764ac9",
+      "range": {
+        "startLine": 19,
+        "startChar": 44,
+        "endLine": 19,
+        "endChar": 62
+      },
+      "revId": "adee59cc0dfcc3bc8a4debeec4476763392a5b2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "9bab7f5b_546ea519",
