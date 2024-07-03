@@ -166,6 +166,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "52e63578_3e426c85",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 32
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-07-03T10:44:17Z",
+      "side": 1,
+      "message": "Looks like we are discussing it we need support for include/exclude rules at all?\n\nWe would most likely include all refs.\n\n1. If the default would be changed to include everything then we would probably run without any custom include/exclude rules.\n\n2. If the default of excluding some refs stays, then we need at least one include rule to include all refs. We could live without exclude rule type in this case.\n\n3. If we are going to support both include and exclude rules then we must define how conflicting rules are resolved. We proposed top-down strategy as it is, in our opinion, simple to understand and implement.",
+      "parentUuid": "cf5f1d96_4d2df6bc",
+      "range": {
+        "startLine": 19,
+        "startChar": 44,
+        "endLine": 19,
+        "endChar": 62
+      },
+      "revId": "adee59cc0dfcc3bc8a4debeec4476763392a5b2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "9bab7f5b_546ea519",
