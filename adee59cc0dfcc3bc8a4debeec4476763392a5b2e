@@ -238,6 +238,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5b161fa_70308e9f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 32
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-07-03T12:56:47Z",
+      "side": 1,
+      "message": "\u003e OK, so how should Wendy proceed with this change?\n\nThere are a few points to address for making this change work, see the other 17 comments I\u0027ve posted.\n\n\u003e How shall the feature-switch work? A Java system-property?\n\nThat would be a much easier and safer solution IMHO, but I\u0027ll leave it to you guys to decide which way to go.\n\nRemember that if we make a breaking change we need to still support the earlier settings for one version (and deprecated them). So, a feature-switch (config?) would be a quick win if I were you.",
+      "parentUuid": "d44ab2c0_3374ce3a",
+      "range": {
+        "startLine": 19,
+        "startChar": 44,
+        "endLine": 19,
+        "endChar": 62
+      },
+      "revId": "adee59cc0dfcc3bc8a4debeec4476763392a5b2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "9bab7f5b_546ea519",
