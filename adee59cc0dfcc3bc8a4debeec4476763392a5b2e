@@ -142,6 +142,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf5f1d96_4d2df6bc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 32
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-07-03T10:16:56Z",
+      "side": 1,
+      "message": "\u003e Yes, the conflict exists regardless of ordering though. \n\u003e \n\u003e There could always be rules where more than one rule matches the same ref. If the matching rules contradict, like with your given example, how do we otherwise resolve it? Our proposal is to resolve it top-down. If we do not do that, how else can we resolve conflicting rules?\n\nFocusing on your use-case, what are the rules you are planning to use?\nI\u0027d like to focus on what you guys need and what\u0027s the easiest and most compatible way to achieve it.",
+      "parentUuid": "da47911f_70a2096c",
+      "range": {
+        "startLine": 19,
+        "startChar": 44,
+        "endLine": 19,
+        "endChar": 62
+      },
+      "revId": "adee59cc0dfcc3bc8a4debeec4476763392a5b2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "9bab7f5b_546ea519",
