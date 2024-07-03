@@ -262,6 +262,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "86110ea2_5be20bb2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 32
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-07-03T13:26:08Z",
+      "side": 1,
+      "message": "If we only wanted a quick win, then we could also just do what we need in our internal fork. However, this is not how usually open source projects work.\nThe intention here was that we together provide a design and implementation that is useful for everyone.\n\nWe went through several iterations, from very complex design (separated inclusion and enforcement rules all regex based) to a much simplified design where enforcement and inclusion are merged and regexes are dropped in favour of wildcards. We discussed that during the last hackathon day. We agreed that everything that is enforced should also be stored and vice versa.\nLooks like this is still not a satisfying solution from your perspective?\n\nIf we keep the current logic as-is, then we still have decoupled inclusion and enforcement rules. If the design proposed by this change is too complex, then the existing enforcement rules are also too complex by the same line of argument.",
+      "parentUuid": "d5b161fa_70308e9f",
+      "range": {
+        "startLine": 19,
+        "startChar": 44,
+        "endLine": 19,
+        "endChar": 62
+      },
+      "revId": "adee59cc0dfcc3bc8a4debeec4476763392a5b2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "9bab7f5b_546ea519",
