@@ -470,6 +470,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "23b28d73_2b4b4472",
+        "filename": "config.md",
+        "patchSetId": 17
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-07-04T10:39:12Z",
+      "side": 1,
+      "message": "Acknowledged (discussion continues in https://gerrit-review.googlesource.com/c/modules/global-refdb/+/425506/comment/fbc97382_d92763a3/)",
+      "parentUuid": "8084c2c6_ad9d7a2f",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 0
+      },
+      "revId": "38cbc5f9fe834a2fa2fca2ab4f1fae56ffb30692",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6ac158ca_e933065c",
