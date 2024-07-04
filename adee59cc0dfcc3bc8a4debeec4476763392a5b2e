@@ -389,6 +389,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed1a68d7_3b2ab2ad",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/BatchRefUpdateValidator.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-07-04T09:25:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb03f89b_56c0342c",
+      "revId": "adee59cc0dfcc3bc8a4debeec4476763392a5b2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "28da6f6e_b1dad98f",
@@ -402,6 +420,24 @@
       "writtenOn": "2024-07-01T20:51:33Z",
       "side": 1,
       "message": "This import is unused.",
+      "revId": "adee59cc0dfcc3bc8a4debeec4476763392a5b2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbd159b3_3c862764",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-07-04T09:25:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "28da6f6e_b1dad98f",
       "revId": "adee59cc0dfcc3bc8a4debeec4476763392a5b2e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -470,6 +506,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b016508_961d5796",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/CustomSharedRefEnforcementByProject.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-07-04T09:25:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8329c76a_63b4b77b",
+      "range": {
+        "startLine": 60,
+        "startChar": 10,
+        "endLine": 60,
+        "endChar": 30
+      },
+      "revId": "adee59cc0dfcc3bc8a4debeec4476763392a5b2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4d6ecbba_919bdd7a",
@@ -483,6 +543,30 @@
       "writtenOn": "2024-07-01T20:39:38Z",
       "side": 1,
       "message": "This full qualifier isn\u0027t needed because this class extends `SharedRefEnforcement`",
+      "range": {
+        "startLine": 61,
+        "startChar": 10,
+        "endLine": 61,
+        "endChar": 26
+      },
+      "revId": "adee59cc0dfcc3bc8a4debeec4476763392a5b2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64f66dc6_134a137a",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/CustomSharedRefEnforcementByProject.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-07-04T09:25:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d6ecbba_919bdd7a",
       "range": {
         "startLine": 61,
         "startChar": 10,
@@ -516,6 +600,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7cdfab4e_d25beb72",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/CustomSharedRefEnforcementByProject.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-07-04T09:25:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc2a424c_3b7c3721",
+      "range": {
+        "startLine": 73,
+        "startChar": 9,
+        "endLine": 73,
+        "endChar": 29
+      },
+      "revId": "adee59cc0dfcc3bc8a4debeec4476763392a5b2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "da2e763a_3b8db5eb",
@@ -539,6 +647,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "44c06e7c_a6405b7f",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/CustomSharedRefEnforcementByProject.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-07-04T09:25:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da2e763a_3b8db5eb",
+      "range": {
+        "startLine": 79,
+        "startChar": 11,
+        "endLine": 79,
+        "endChar": 31
+      },
+      "revId": "adee59cc0dfcc3bc8a4debeec4476763392a5b2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fa07ece9_8ec4026f",
@@ -552,6 +684,30 @@
       "writtenOn": "2024-07-01T21:19:01Z",
       "side": 1,
       "message": "The `config` field is unused: why do we need to inject and store it?",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 3
+      },
+      "revId": "adee59cc0dfcc3bc8a4debeec4476763392a5b2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae1a59a5_40dc9c57",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/DefaultSharedRefEnforcement.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-07-04T09:25:12Z",
+      "side": 1,
+      "message": "Done (we don\u0027t; my mistake, I use it for the custom shared ref enforcement but it\u0027s not needed for default)",
+      "parentUuid": "fa07ece9_8ec4026f",
       "range": {
         "startLine": 26,
         "startChar": 0,
