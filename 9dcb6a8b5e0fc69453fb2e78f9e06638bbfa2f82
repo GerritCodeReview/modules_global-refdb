@@ -16,6 +16,24 @@
       "message": "[nit] antonyms",
       "revId": "9dcb6a8b5e0fc69453fb2e78f9e06638bbfa2f82",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1dd5593b_52aba382",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-07-05T20:44:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0339e8d_58a2169d",
+      "revId": "9dcb6a8b5e0fc69453fb2e78f9e06638bbfa2f82",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
