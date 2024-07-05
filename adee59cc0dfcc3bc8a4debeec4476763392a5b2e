@@ -334,6 +334,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf838255_de9137b7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 32
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-07-05T20:54:10Z",
+      "side": 1,
+      "message": "\u003e If we only wanted a quick win, then we could also just do what we need in our internal fork. However, this is not how usually open source projects work.\n\u003e The intention here was that we together provide a design and implementation that is useful for everyone.\n\nSure, but you should also not add unneeded flexibility, as it would increase complexity and runtime overhead. It is always a complex trade-off between them.\n\n\u003e We went through several iterations, from very complex design (separated inclusion and enforcement rules all regex based) to a much simplified design where enforcement and inclusion are merged and regexes are dropped in favour of wildcards. We discussed that during the last hackathon day. We agreed that everything that is enforced should also be stored and vice versa.\n\u003e Looks like this is still not a satisfying solution from your perspective?\n\nI reviewed the code again and found some performance issues: mainly the switch from a hashtable (indexed by project name) to a linear list (not indexed and to be scanned linearly).\n\n\u003e If we keep the current logic as-is, then we still have decoupled inclusion and enforcement rules. If the design proposed by this change is too complex, then the existing enforcement rules are also too complex by the same line of argument.\n\nI would agree that the existing enforcement rules are also too complex, that I am in favour of removing code and simplifying the one left.\n\nI see two settings for refs:\n- Store everything (your preference)\n- Store only mutable refs (GerritForge\u0027s settings and current default)\n\nI do not see the reason why someone should exclude anything else.\n\nAlso, with regards to projects, there are only two options:\n- Track the project on global-refdb\n- Do not track the project on global-refdb\n\nDid anyone request the extra flexibility? One of the main evil of software is over-engineering for solving a problem that you don\u0027t have and we don\u0027t have either and nobody asked for.",
+      "parentUuid": "86110ea2_5be20bb2",
+      "range": {
+        "startLine": 19,
+        "startChar": 44,
+        "endLine": 19,
+        "endChar": 62
+      },
+      "revId": "adee59cc0dfcc3bc8a4debeec4476763392a5b2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "9bab7f5b_546ea519",
