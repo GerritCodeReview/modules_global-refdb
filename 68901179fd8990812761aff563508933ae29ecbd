@@ -1,11 +1,12 @@
 {
   "checks": {
     "gerritforge:global-refdb-59a34d6c50367a468c810e28d733855abc059f13": {
-      "state": "RUNNING",
+      "state": "SUCCESSFUL",
       "url": "https://gerrit-ci.gerritforge.com/job/module-global-refdb-verifier/job/58%252F432058%252F9/1/console",
       "started": "2024-07-05T20:55:25Z",
+      "finished": "2024-07-05T20:57:32Z",
       "created": "2024-07-05T20:55:25Z",
-      "updated": "2024-07-05T20:55:25Z"
+      "updated": "2024-07-05T20:57:33Z"
     },
     "gerritforge:global-refdb-format-59a34d6c50367a468c810e28d733855abc059f13": {
       "state": "SUCCESSFUL",
