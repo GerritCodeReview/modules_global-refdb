@@ -358,6 +358,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "704a2f47_deb19392",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 32
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-07-06T16:07:19Z",
+      "side": 1,
+      "message": "\u003eI reviewed the code again and found some performance issues: mainly the switch from a hashtable (indexed by project name) to a linear list (not indexed and to be scanned linearly).\n\nThis has been changed in the latest patch set by the way. The hash map used now is still indexed by project name but contains a list of rules (the rules are scanned linearly but only after checking the project name).",
+      "parentUuid": "cf838255_de9137b7",
+      "range": {
+        "startLine": 19,
+        "startChar": 44,
+        "endLine": 19,
+        "endChar": 62
+      },
+      "revId": "adee59cc0dfcc3bc8a4debeec4476763392a5b2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "9bab7f5b_546ea519",
