@@ -384,6 +384,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "4a12f091_f7d81864",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 32
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-07-09T09:40:37Z",
+      "side": 1,
+      "message": "I have significantly pared down the code now to remove EnforcementRules in favor of a storeAllRefs boolean \u0026 updated the commit message accordingly. Global-refdb users can now either store everything or store only mutable refs.",
+      "parentUuid": "704a2f47_deb19392",
+      "range": {
+        "startLine": 19,
+        "startChar": 44,
+        "endLine": 19,
+        "endChar": 62
+      },
+      "revId": "adee59cc0dfcc3bc8a4debeec4476763392a5b2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "9bab7f5b_546ea519",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 32
@@ -469,6 +493,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "39b6a5dc_ac89bd26",
+        "filename": "config.md",
+        "patchSetId": 32
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-07-09T09:40:37Z",
+      "side": 1,
+      "message": "ack - change no longer requires rules",
+      "parentUuid": "c18639a5_137d5abf",
+      "range": {
+        "startLine": 33,
+        "startChar": 6,
+        "endLine": 33,
+        "endChar": 24
+      },
+      "revId": "adee59cc0dfcc3bc8a4debeec4476763392a5b2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c4882142_019c2cc3",
@@ -482,6 +530,30 @@
       "writtenOn": "2024-07-01T14:47:33Z",
       "side": 1,
       "message": "```suggestion\n      exclude \u003d my-repo:refs/draft-comments/*\n```",
+      "range": {
+        "startLine": 38,
+        "startChar": 7,
+        "endLine": 38,
+        "endChar": 50
+      },
+      "revId": "adee59cc0dfcc3bc8a4debeec4476763392a5b2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aadcabe6_ac7d165f",
+        "filename": "config.md",
+        "patchSetId": 32
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-07-09T09:40:37Z",
+      "side": 1,
+      "message": "ack - change no longer requires rules",
+      "parentUuid": "c4882142_019c2cc3",
       "range": {
         "startLine": 38,
         "startChar": 7,
