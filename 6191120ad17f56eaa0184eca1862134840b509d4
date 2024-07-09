@@ -94,6 +94,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9f55c3e_1891385f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 42
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-07-09T22:07:06Z",
+      "side": 1,
+      "message": "\u003e What is the advantage of postponing this removal of unnecessary complexity to one release later ? \n\nWe typically keep compatibility between a release R and its successor R+1 for two reasons:\n- Apply Gerrit compatibility policy to this module as well\n- Allowing smooth rolling upgrades (on multi-site we typically keep two versions active at the same time)\n\n\u003e IIRC you said this complexity isn\u0027t needed and nobody should be using it.\n\nCorrect, but I\u0027m not 100% sure that nobody has ever used it.\n\n\u003e So why not ship this unconditionally with 3.11 ?\n\nWe could, of course, but I believe having a _emergency legacy mode_ won\u0027t hurt. We could just keep the legacy class with deprecation annotations, similar to what I did for the replication plugin at .https://gerrit-review.googlesource.com/c/plugins/replication/+/429897/14/src/main/java/com/googlesource/gerrit/plugins/replication/LegacyCredentialsFactory.java.\n\n\u003e Looking at release notes it seems we have breaking changes in every release.\n\nI believe we made mistakes, that doesn\u0027t mean they must become the norm, hopefully they won\u0027t.\n\n\u003e AFAICS this requires at most a configuration change.\n\u003e Or do I miss something ?\n\nYes, requires a configuration change and we won\u0027t support anymore generic refs exclusion.",
+      "parentUuid": "c6ad38e3_d2b1c1ce",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 19
+      },
+      "revId": "6191120ad17f56eaa0184eca1862134840b509d4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "cf37d69f_b740c0e5",
@@ -148,6 +172,30 @@
       "side": 1,
       "message": "So `project.pattern` should be handled in the same way it was before this change ?",
       "parentUuid": "2b407e44_7a600ecd",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 18
+      },
+      "revId": "6191120ad17f56eaa0184eca1862134840b509d4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67e06c51_3ed2dd28",
+        "filename": "config.md",
+        "patchSetId": 42
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-07-09T22:07:06Z",
+      "side": 1,
+      "message": "\u003e So `project.pattern` should be handled in the same way it was before this change ?\n\nI don\u0027t believe we want to manage all the different flavours as it was before.\nWhat I know we have preserve is the ability (used by multi-site) to have _global projects_ (tracked on the global-refdb) and _local projects_ (not tracked on the global-refdb). That means we would also need to have a similar _\"storeNoRefs\"_ with a set of projects defined.\n\nHaving a set of projects would allow a fast lookup rather than listing and matching with a regex.",
+      "parentUuid": "f3f10744_e4c482c4",
       "range": {
         "startLine": 14,
         "startChar": 0,
