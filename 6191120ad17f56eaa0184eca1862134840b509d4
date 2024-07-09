@@ -70,6 +70,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6ad38e3_d2b1c1ce",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 42
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2024-07-09T11:26:41Z",
+      "side": 1,
+      "message": "What is the advantage of postponing this removal of unnecessary complexity to one release later ? \n\nIIRC you said this complexity isn\u0027t needed and nobody should be using it. So why not ship this unconditionally with 3.11 ?\nLooking at release notes it seems we have breaking changes in every release.\n\nAFAICS this requires at most a configuration change.\nOr do I miss something ?",
+      "parentUuid": "2a0717ae_91f9a846",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 19
+      },
+      "revId": "6191120ad17f56eaa0184eca1862134840b509d4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "cf37d69f_b740c0e5",
@@ -100,6 +124,30 @@
       "writtenOn": "2024-07-09T10:02:16Z",
       "side": 1,
       "message": "This should be on a per-project basis.\n\nExample:\n\n```\n[ref-database \"storeAllRefs\"]\n   projects \u003d foo\n   projects \u003d bar\n```\n\nOr any variation of the above would also work.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 18
+      },
+      "revId": "6191120ad17f56eaa0184eca1862134840b509d4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3f10744_e4c482c4",
+        "filename": "config.md",
+        "patchSetId": 42
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2024-07-09T11:26:41Z",
+      "side": 1,
+      "message": "So `project.pattern` should be handled in the same way it was before this change ?",
+      "parentUuid": "2b407e44_7a600ecd",
       "range": {
         "startLine": 14,
         "startChar": 0,
