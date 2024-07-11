@@ -278,6 +278,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae8bdda3_4ce64fe7",
+        "filename": "config.md",
+        "patchSetId": 42
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-07-11T21:41:00Z",
+      "side": 1,
+      "message": "IMHO your Examples 1. 2. and 3. make sense to me.\nWhen using HA or Multi-Site, storing and checking refs on the global-refdb for all projects should be the _normal_ scenario, whilst having some exclusions is the *exception*.\n\nWhen you want to store all refs (including the immutable one), then you add the section as in your Example 2.\n\n```\n[ref-database \"storeAllRefs\"]\n  project \u003d *\n```\n\nThe Example 5. isn\u0027t a valid one IMHO, unless you need it and therefore I would be happy to understand the use-case before judging it.\n\n**Bottom line**: if we consider the _\"storeNoRefs\"_ first (if any project name matches) and then the _\"storeAllRefs\"_ next should be always the correct thing to do.",
+      "parentUuid": "46e4b14d_ee72fc2a",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 18
+      },
+      "revId": "6191120ad17f56eaa0184eca1862134840b509d4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "4ce75b22_fc84ddd2",
