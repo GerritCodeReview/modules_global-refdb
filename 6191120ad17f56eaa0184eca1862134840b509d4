@@ -254,6 +254,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "46e4b14d_ee72fc2a",
+        "filename": "config.md",
+        "patchSetId": 42
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-07-11T11:59:48Z",
+      "side": 1,
+      "message": "I think we now agree on what we want to achieve, namely: we can define on project basis whether no-refs, default-refs or all-refs are stored. The default-refs is what is currently defined as default in the source code.\n\nIIUC Luca\u0027s last proposal, we could get rid of the `[project]` section completely by introducing a \"storeNoRefs\" project list. I like that idea but I must add that we most likely cannot avoid resolving conflicting configurations e.g. where a project is both in storeAllRefs and storeNoRefs list.\n\nTo bring this discussion forward I would post here a couple of example scenarios and how we could achieve them with the proposed configuration style(s). I believe that this will make the discussion easier.\n\nExample 1:\nproject A - no refs stored\nproject B - default refs stored\nproject C - all refs stored\n\npossible configuration style:\n```\n[ref-database \"storeNoRefs\"]\n  project \u003d A\n[ref-database \"storeAllRefs\"]\n  project \u003d C\n```\n\n\nExample 2:\nStore all refs for all projects\n```\n[ref-database \"storeAllRefs\"]\n  project \u003d *\n```\n\nExample 3: \nStore all refs for all projects except for projects X and Y were we store no refs\n```\n[ref-database \"storeAllRefs\"]\n  project \u003d *\n[ref-database \"storeNoRefs\"]\n  project \u003d X\n  project \u003d Y\n```\n\nAn important aspect of this example is that `X` and `Y` are matched for both subsections. Basically we have a conflicting configuration which should be resolved so that no refs are stored for the `X` and `Y` projects. Maybe we can say that we always first process `storeNoRefs` and then `storeAllRefs` and the first match wins?\n\nExample 5:\nStore no refs for all projects except for projects X and Y were we store all refs.\nThis example is opposite of the example 4 and it shows that the policy of first processing `storeNoRefs` and then `storeAllRefs` doesn\u0027t universally work:\n\n```\n[ref-database \"storeNoRefs\"]\n  project \u003d *\n[ref-database \"storeAllRefs\"]\n  project \u003d X\n  project \u003d Y\n```\n\nWe could say that we process the configuration (sub)sections in the top-down order and that the first matching rule wins. I don\u0027t know if JGit provides the feature of processing all (subsections) in the order they are given in the config file?\n\nPlease comment on the proposed config styles and propose new config styles and/or new examples.",
+      "parentUuid": "24ecf99f_e0851465",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 18
+      },
+      "revId": "6191120ad17f56eaa0184eca1862134840b509d4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "4ce75b22_fc84ddd2",
