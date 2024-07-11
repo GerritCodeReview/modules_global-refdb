@@ -206,6 +206,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "a880b215_f4917512",
+        "filename": "config.md",
+        "patchSetId": 42
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2024-07-11T09:27:02Z",
+      "side": 1,
+      "message": "We track global projects and local projects here: https://gerrit.googlesource.com/modules/global-refdb/+/refs/heads/master/src/main/java/com/gerritforge/gerrit/globalrefdb/validation/ProjectsFilter.java#74, that isn\u0027t something I was going to touch with this change.\n\nThe two locations in the code where this is used check if the project was (not) global, and if the project policy is to ignore refs from it. If either of those conditions are met, it does not update the global-refdb. I think that if we keep the current behavior of `project.pattern` to handle the global/local project lists, we don\u0027t need the \"*storeNoRefs*\", as that would be redundant given the `isGlobalProject` check (and we can remove the `getPolicy(projectName)` checks altogether). \n\nhttps://gerrit.googlesource.com/modules/global-refdb/+/refs/heads/master/src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java#151\n\nhttps://gerrit.googlesource.com/modules/global-refdb/+/refs/heads/master/src/main/java/com/gerritforge/gerrit/globalrefdb/validation/BatchRefUpdateValidator.java#115\n\nI also think being global/local is a different condition from wanting to store immutable refs or not. The former supersedes the latter. This option is really actually *storeImmutableRefsAlso* (though that is not a great name, maybe just *storeImmutableRefs* suffices?). We would filter global projects out before checking whether immutable refs should be stored \u0027too\u0027. So, do we still need per-project discrimination?",
+      "parentUuid": "67e06c51_3ed2dd28",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 18
+      },
+      "revId": "6191120ad17f56eaa0184eca1862134840b509d4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "4ce75b22_fc84ddd2",
