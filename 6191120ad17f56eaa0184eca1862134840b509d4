@@ -302,6 +302,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "e27e8475_f000ff50",
+        "filename": "config.md",
+        "patchSetId": 42
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-07-12T08:50:59Z",
+      "side": 1,
+      "message": "I agree that some examples are a bit artificial. Their only purpose was to show that we need a policy how to automatically resolve conflicting configurations, because conflicting configurations are possible.\nI think I am find with the proposed bottom line from Luca.",
+      "parentUuid": "ae8bdda3_4ce64fe7",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 18
+      },
+      "revId": "6191120ad17f56eaa0184eca1862134840b509d4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "4ce75b22_fc84ddd2",
