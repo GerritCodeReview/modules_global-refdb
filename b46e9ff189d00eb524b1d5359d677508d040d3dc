@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4a68b6e_047c26f3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-07-17T15:06:27Z",
+      "side": 1,
+      "message": "Considering that at the end of this series the `SharedRefEnforcement` becomes a `class`, this change is unnecessary and practically reverted and the end of the series. I suggest to abandon it.",
+      "revId": "b46e9ff189d00eb524b1d5359d677508d040d3dc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
