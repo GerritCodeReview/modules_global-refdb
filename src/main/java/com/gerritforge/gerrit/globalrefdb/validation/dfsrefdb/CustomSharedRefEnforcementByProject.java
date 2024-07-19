@@ -27,10 +27,10 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * Implementation of the {@link SharedRefEnforcement} interface which derives project and
+ * Implementation of the {@link LegacySharedRefEnforcement} interface which derives project and
  * project/ref enforcement policy from the configuration of the libModule consuming this library
  */
-public class CustomSharedRefEnforcementByProject implements SharedRefEnforcement {
+public class CustomSharedRefEnforcementByProject implements LegacySharedRefEnforcement {
   private static final String ALL = ".*";
 
   private final Supplier<Map<String, Map<String, Policy>>> predefEnforcements;

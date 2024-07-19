@@ -16,8 +16,13 @@ package com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb;
 
 import com.google.gerrit.entities.RefNames;
 
-/** Type of enforcement to implement between the local and shared RefDb. */
-public interface SharedRefEnforcement {
+/**
+ * Type of enforcement to implement between the local and shared RefDb.
+ *
+ * @deprecated enforcement rules in favor of storeAllRefs/storeNoRefs
+ */
+@Deprecated(forRemoval = true)
+public interface LegacySharedRefEnforcement {
   enum Policy {
     EXCLUDE,
     INCLUDE;
