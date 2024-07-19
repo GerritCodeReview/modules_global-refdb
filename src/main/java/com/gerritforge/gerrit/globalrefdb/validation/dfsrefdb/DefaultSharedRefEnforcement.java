@@ -19,11 +19,11 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.inject.Inject;
 
 /**
- * Default implementation of {@link SharedRefEnforcement}. This class provides the default
+ * Default implementation of {@link LegacySharedRefEnforcement}. This class provides the default
  * project/ref enforcement rules when no more specific rules have been configured for the libModule
  * consuming this library.
  */
-public class DefaultSharedRefEnforcement implements SharedRefEnforcement {
+public class DefaultSharedRefEnforcement implements LegacySharedRefEnforcement {
 
   private final Boolean enableDraftCommentEvents;
 
@@ -44,8 +44,8 @@ public class DefaultSharedRefEnforcement implements SharedRefEnforcement {
   }
 
   /**
-   * Returns {@link EnforcePolicy#IGNORED} for refs to be ignored {@link
-   * SharedRefEnforcement#isRefToBeIgnoredBySharedRefDb(String)}, {@link EnforcePolicy#REQUIRED}
+   * Returns {@link Policy#EXCLUDE} for refs to be ignored {@link
+   * LegacySharedRefEnforcement#isRefToBeIgnoredBySharedRefDb(String)}, {@link Policy#INCLUDE}
    * otherwise
    *
    * @param projectName project to be enforced
