@@ -18,10 +18,16 @@ import com.gerritforge.gerrit.globalrefdb.GlobalRefDbLockException;
 import com.gerritforge.gerrit.globalrefdb.GlobalRefDbSystemError;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.CustomSharedRefEnforcementByProject;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.DefaultSharedRefEnforcement;
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacySharedRefEnforcement;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.OutOfSyncException;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedDbSplitBrainException;
+<<<<<<< PATCH SET (a29b75 Deprecate SharedRefEnforcement)
+||||||| BASE
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement;
+=======
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement.EnforcePolicy;
+>>>>>>> BASE      (d4e251 Suppress unused parameter warning)
 import com.google.common.base.MoreObjects;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.flogger.FluentLogger;
@@ -47,7 +53,7 @@ public class RefUpdateValidator {
   protected final String projectName;
   private final LockWrapper.Factory lockWrapperFactory;
   protected final RefDatabase refDb;
-  protected final SharedRefEnforcement refEnforcement;
+  protected final LegacySharedRefEnforcement refEnforcement;
   protected final ProjectsFilter projectsFilter;
   private final ImmutableSet<String> ignoredRefs;
 
@@ -103,7 +109,7 @@ public class RefUpdateValidator {
   public RefUpdateValidator(
       SharedRefDatabaseWrapper sharedRefDb,
       ValidationMetrics validationMetrics,
-      SharedRefEnforcement refEnforcement,
+      LegacySharedRefEnforcement refEnforcement,
       LockWrapper.Factory lockWrapperFactory,
       ProjectsFilter projectsFilter,
       @Assisted String projectName,
@@ -133,7 +139,15 @@ public class RefUpdateValidator {
    *       RefUpdateValidator#isRefToBeIgnored(String)})
    *   <li>The project being updated is a global project ({@link
    *       RefUpdateValidator#isGlobalProject(String)}
+<<<<<<< PATCH SET (a29b75 Deprecate SharedRefEnforcement)
+   *   <li>The enforcement policy for the project being updated is {@link
+   *       LegacySharedRefEnforcement.Policy#EXCLUDE}
+||||||| BASE
+   *   <li>The enforcement policy for the project being updated is {@link
+   *       SharedRefEnforcement.Policy#EXCLUDE}
+=======
    *   <li>The enforcement policy for the project being updated is {@link EnforcePolicy#IGNORED}
+>>>>>>> BASE      (d4e251 Suppress unused parameter warning)
    * </ul>
    *
    * @param refUpdate the refUpdate command
@@ -150,7 +164,13 @@ public class RefUpdateValidator {
       throws IOException {
     if (isRefToBeIgnored(refUpdate.getName())
         || !isGlobalProject(projectName)
+<<<<<<< PATCH SET (a29b75 Deprecate SharedRefEnforcement)
+        || refEnforcement.getPolicy(projectName) == LegacySharedRefEnforcement.Policy.EXCLUDE) {
+||||||| BASE
+        || refEnforcement.getPolicy(projectName) == SharedRefEnforcement.Policy.EXCLUDE) {
+=======
         || refEnforcement.getPolicy(projectName) == EnforcePolicy.IGNORED) {
+>>>>>>> BASE      (d4e251 Suppress unused parameter warning)
       return refUpdateFunction.invoke();
     }
 
@@ -164,12 +184,26 @@ public class RefUpdateValidator {
     return isRefToBeIgnored;
   }
 
+<<<<<<< PATCH SET (a29b75 Deprecate SharedRefEnforcement)
+  private <T extends Throwable> void softFailBasedOnEnforcement(
+      T e, LegacySharedRefEnforcement.Policy policy) throws T {
+||||||| BASE
+  private <T extends Throwable> void softFailBasedOnEnforcement(
+      T e, SharedRefEnforcement.Policy policy) throws T {
+=======
   private <T extends Throwable> void softFailBasedOnEnforcement(T e, EnforcePolicy policy)
       throws T {
+>>>>>>> BASE      (d4e251 Suppress unused parameter warning)
     logger.atWarning().withCause(e).log(
         "Failure while running with policy enforcement %s. Error message: %s",
         policy, e.getMessage());
+<<<<<<< PATCH SET (a29b75 Deprecate SharedRefEnforcement)
+    if (policy == LegacySharedRefEnforcement.Policy.INCLUDE) {
+||||||| BASE
+    if (policy == SharedRefEnforcement.Policy.INCLUDE) {
+=======
     if (policy == EnforcePolicy.REQUIRED) {
+>>>>>>> BASE      (d4e251 Suppress unused parameter warning)
       throw e;
     }
   }
@@ -214,9 +248,21 @@ public class RefUpdateValidator {
   protected void updateSharedDbOrThrowExceptionFor(RefUpdateSnapshot refSnapshot)
       throws IOException {
     // We are not checking refs that should be ignored
+<<<<<<< PATCH SET (a29b75 Deprecate SharedRefEnforcement)
+    final LegacySharedRefEnforcement.Policy refEnforcementPolicy =
+||||||| BASE
+    final SharedRefEnforcement.Policy refEnforcementPolicy =
+=======
     final EnforcePolicy refEnforcementPolicy =
+>>>>>>> BASE      (d4e251 Suppress unused parameter warning)
         refEnforcement.getPolicy(projectName, refSnapshot.getName());
+<<<<<<< PATCH SET (a29b75 Deprecate SharedRefEnforcement)
+    if (refEnforcementPolicy == LegacySharedRefEnforcement.Policy.EXCLUDE) return;
+||||||| BASE
+    if (refEnforcementPolicy == SharedRefEnforcement.Policy.EXCLUDE) return;
+=======
     if (refEnforcementPolicy == EnforcePolicy.IGNORED) return;
+>>>>>>> BASE      (d4e251 Suppress unused parameter warning)
 
     boolean succeeded;
     try {
@@ -246,8 +292,18 @@ public class RefUpdateValidator {
       RefUpdateSnapshot refUpdateSnapshot, CloseableSet<AutoCloseable> locks)
       throws GlobalRefDbLockException, OutOfSyncException, IOException {
     String refName = refUpdateSnapshot.getName();
+<<<<<<< PATCH SET (a29b75 Deprecate SharedRefEnforcement)
+    LegacySharedRefEnforcement.Policy refEnforcementPolicy =
+        refEnforcement.getPolicy(projectName, refName);
+    if (refEnforcementPolicy == LegacySharedRefEnforcement.Policy.EXCLUDE) {
+||||||| BASE
+    SharedRefEnforcement.Policy refEnforcementPolicy =
+        refEnforcement.getPolicy(projectName, refName);
+    if (refEnforcementPolicy == SharedRefEnforcement.Policy.EXCLUDE) {
+=======
     EnforcePolicy refEnforcementPolicy = refEnforcement.getPolicy(projectName, refName);
     if (refEnforcementPolicy == EnforcePolicy.IGNORED) {
+>>>>>>> BASE      (d4e251 Suppress unused parameter warning)
       return refUpdateSnapshot;
     }
 

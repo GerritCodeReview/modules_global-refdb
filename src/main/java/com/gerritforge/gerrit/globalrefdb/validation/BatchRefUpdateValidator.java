@@ -16,9 +16,15 @@ package com.gerritforge.gerrit.globalrefdb.validation;
 
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.CustomSharedRefEnforcementByProject;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.DefaultSharedRefEnforcement;
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacySharedRefEnforcement;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.OutOfSyncException;
+<<<<<<< PATCH SET (a29b75 Deprecate SharedRefEnforcement)
+||||||| BASE
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement;
+=======
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement.EnforcePolicy;
+>>>>>>> BASE      (d4e251 Suppress unused parameter warning)
 import com.google.common.collect.ImmutableSet;
 import com.google.common.flogger.FluentLogger;
 import com.google.inject.Inject;
@@ -70,7 +76,7 @@ public class BatchRefUpdateValidator extends RefUpdateValidator {
   public BatchRefUpdateValidator(
       SharedRefDatabaseWrapper sharedRefDb,
       ValidationMetrics validationMetrics,
-      SharedRefEnforcement refEnforcement,
+      LegacySharedRefEnforcement refEnforcement,
       LockWrapper.Factory lockWrapperFactory,
       ProjectsFilter projectsFilter,
       @Assisted String projectName,
@@ -112,7 +118,13 @@ public class BatchRefUpdateValidator extends RefUpdateValidator {
       NoParameterVoidFunction batchRefUpdateFunction,
       OneParameterVoidFunction<List<ReceiveCommand>> batchRefUpdateRollbackFunction)
       throws IOException {
+<<<<<<< PATCH SET (a29b75 Deprecate SharedRefEnforcement)
+    if (refEnforcement.getPolicy(projectName) == LegacySharedRefEnforcement.Policy.EXCLUDE
+||||||| BASE
+    if (refEnforcement.getPolicy(projectName) == SharedRefEnforcement.Policy.EXCLUDE
+=======
     if (refEnforcement.getPolicy(projectName) == EnforcePolicy.IGNORED
+>>>>>>> BASE      (d4e251 Suppress unused parameter warning)
         || !isGlobalProject(projectName)) {
       batchRefUpdateFunction.invoke();
       return;
@@ -123,7 +135,13 @@ public class BatchRefUpdateValidator extends RefUpdateValidator {
     } catch (IOException e) {
       logger.atWarning().withCause(e).log(
           "Failed to execute Batch Update on project %s", projectName);
+<<<<<<< PATCH SET (a29b75 Deprecate SharedRefEnforcement)
+      if (refEnforcement.getPolicy(projectName) == LegacySharedRefEnforcement.Policy.INCLUDE) {
+||||||| BASE
+      if (refEnforcement.getPolicy(projectName) == SharedRefEnforcement.Policy.INCLUDE) {
+=======
       if (refEnforcement.getPolicy(projectName) == EnforcePolicy.REQUIRED) {
+>>>>>>> BASE      (d4e251 Suppress unused parameter warning)
         throw e;
       }
     }

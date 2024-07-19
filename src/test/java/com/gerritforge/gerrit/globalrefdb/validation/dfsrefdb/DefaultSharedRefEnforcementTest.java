@@ -23,20 +23,32 @@ import org.junit.Test;
 
 public class DefaultSharedRefEnforcementTest implements RefFixture {
 
-  SharedRefEnforcement refEnforcement = new DefaultSharedRefEnforcement();
+  LegacySharedRefEnforcement refEnforcement = new DefaultSharedRefEnforcement();
 
   @Test
   public void anImmutableChangeShouldBeIgnored() {
     Ref immutableChangeRef = newRef(A_REF_NAME_OF_A_PATCHSET, AN_OBJECT_ID_1);
     assertThat(refEnforcement.getPolicy(A_TEST_PROJECT_NAME, immutableChangeRef.getName()))
+<<<<<<< PATCH SET (a29b75 Deprecate SharedRefEnforcement)
+        .isEqualTo(LegacySharedRefEnforcement.Policy.EXCLUDE);
+||||||| BASE
+        .isEqualTo(SharedRefEnforcement.Policy.EXCLUDE);
+=======
         .isEqualTo(EnforcePolicy.IGNORED);
+>>>>>>> BASE      (d4e251 Suppress unused parameter warning)
   }
 
   @Test
   public void aChangeMetaShouldNotBeIgnored() {
     Ref immutableChangeRef = newRef("refs/changes/01/1/meta", AN_OBJECT_ID_1);
     assertThat(refEnforcement.getPolicy(A_TEST_PROJECT_NAME, immutableChangeRef.getName()))
+<<<<<<< PATCH SET (a29b75 Deprecate SharedRefEnforcement)
+        .isEqualTo(LegacySharedRefEnforcement.Policy.INCLUDE);
+||||||| BASE
+        .isEqualTo(SharedRefEnforcement.Policy.INCLUDE);
+=======
         .isEqualTo(EnforcePolicy.REQUIRED);
+>>>>>>> BASE      (d4e251 Suppress unused parameter warning)
   }
 
   @Test
@@ -44,41 +56,76 @@ public class DefaultSharedRefEnforcementTest implements RefFixture {
     Ref robotCommentsMutableRef =
         newRef("refs/changes/01/1" + RefNames.ROBOT_COMMENTS_SUFFIX, AN_OBJECT_ID_1);
     assertThat(refEnforcement.getPolicy(A_TEST_PROJECT_NAME, robotCommentsMutableRef.getName()))
+<<<<<<< PATCH SET (a29b75 Deprecate SharedRefEnforcement)
+        .isEqualTo(LegacySharedRefEnforcement.Policy.INCLUDE);
+||||||| BASE
+        .isEqualTo(SharedRefEnforcement.Policy.INCLUDE);
+=======
         .isEqualTo(EnforcePolicy.REQUIRED);
+>>>>>>> BASE      (d4e251 Suppress unused parameter warning)
   }
 
   @Test
   public void aCacheAutomergeShouldBeIgnored() {
     Ref immutableChangeRef = newRef("refs/cache-automerge/01/1/1000000", AN_OBJECT_ID_1);
     assertThat(refEnforcement.getPolicy(A_TEST_PROJECT_NAME, immutableChangeRef.getName()))
+<<<<<<< PATCH SET (a29b75 Deprecate SharedRefEnforcement)
+        .isEqualTo(LegacySharedRefEnforcement.Policy.EXCLUDE);
+||||||| BASE
+        .isEqualTo(SharedRefEnforcement.Policy.EXCLUDE);
+=======
         .isEqualTo(EnforcePolicy.IGNORED);
+>>>>>>> BASE      (d4e251 Suppress unused parameter warning)
   }
 
   @Test
   public void aDraftCommentsShouldBeIgnored() {
     Ref immutableChangeRef = newRef("refs/draft-comments/01/1/1000000", AN_OBJECT_ID_1);
     assertThat(refEnforcement.getPolicy(A_TEST_PROJECT_NAME, immutableChangeRef.getName()))
+<<<<<<< PATCH SET (a29b75 Deprecate SharedRefEnforcement)
+        .isEqualTo(LegacySharedRefEnforcement.Policy.EXCLUDE);
+||||||| BASE
+        .isEqualTo(SharedRefEnforcement.Policy.EXCLUDE);
+=======
         .isEqualTo(EnforcePolicy.IGNORED);
+>>>>>>> BASE      (d4e251 Suppress unused parameter warning)
   }
 
   @Test
   public void regularRefHeadsMasterShouldNotBeIgnored() {
     Ref immutableChangeRef = newRef("refs/heads/master", AN_OBJECT_ID_1);
     assertThat(refEnforcement.getPolicy(A_TEST_PROJECT_NAME, immutableChangeRef.getName()))
+<<<<<<< PATCH SET (a29b75 Deprecate SharedRefEnforcement)
+        .isEqualTo(LegacySharedRefEnforcement.Policy.INCLUDE);
+||||||| BASE
+        .isEqualTo(SharedRefEnforcement.Policy.INCLUDE);
+=======
         .isEqualTo(EnforcePolicy.REQUIRED);
+>>>>>>> BASE      (d4e251 Suppress unused parameter warning)
   }
 
   @Test
   public void regularCommitShouldNotBeIgnored() {
     Ref immutableChangeRef = newRef("refs/heads/stable-2.16", AN_OBJECT_ID_1);
     assertThat(refEnforcement.getPolicy(A_TEST_PROJECT_NAME, immutableChangeRef.getName()))
+<<<<<<< PATCH SET (a29b75 Deprecate SharedRefEnforcement)
+        .isEqualTo(LegacySharedRefEnforcement.Policy.INCLUDE);
+||||||| BASE
+        .isEqualTo(SharedRefEnforcement.Policy.INCLUDE);
+=======
         .isEqualTo(EnforcePolicy.REQUIRED);
+>>>>>>> BASE      (d4e251 Suppress unused parameter warning)
   }
 
   @Test
   public void allUsersExternalIdsRefShouldBeRequired() {
     Ref refOne = newRef("refs/meta/external-ids", AN_OBJECT_ID_1);
     assertThat(refEnforcement.getPolicy("All-Users", refOne.getName()))
+<<<<<<< PATCH SET (a29b75 Deprecate SharedRefEnforcement)
+        .isEqualTo(LegacySharedRefEnforcement.Policy.INCLUDE);
+||||||| BASE
+        .isEqualTo(SharedRefEnforcement.Policy.INCLUDE);
+=======
         .isEqualTo(EnforcePolicy.REQUIRED);
   }
 
@@ -89,6 +136,7 @@ public class DefaultSharedRefEnforcementTest implements RefFixture {
     Ref draftCommentRef = newRef("refs/draft-comments/01/1/1000000", AN_OBJECT_ID_1);
     assertThat(refEnforcement.getPolicy(A_TEST_PROJECT_NAME, draftCommentRef.getName()))
         .isEqualTo(EnforcePolicy.REQUIRED);
+>>>>>>> BASE      (d4e251 Suppress unused parameter warning)
   }
 
   @Override

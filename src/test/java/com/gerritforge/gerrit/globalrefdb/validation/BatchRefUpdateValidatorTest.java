@@ -31,8 +31,8 @@ import static org.mockito.Mockito.when;
 import com.gerritforge.gerrit.globalrefdb.GlobalRefDbSystemError;
 import com.gerritforge.gerrit.globalrefdb.validation.RefUpdateValidator.OneParameterVoidFunction;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.DefaultSharedRefEnforcement;
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacySharedRefEnforcement;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.RefFixture;
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement;
 import com.google.common.collect.ImmutableSet;
 import com.google.gerrit.entities.Project;
 import com.google.gerrit.metrics.DisabledMetricMaker;
@@ -72,7 +72,7 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
 
   @Mock SharedRefDatabaseWrapper sharedRefDatabase;
 
-  @Mock SharedRefEnforcement tmpRefEnforcement;
+  @Mock LegacySharedRefEnforcement tmpRefEnforcement;
   @Mock ProjectsFilter projectsFilter;
   @Mock OneParameterVoidFunction<List<ReceiveCommand>> rollbackFunction;
 
@@ -104,7 +104,13 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
     BatchRefUpdateValidator batchRefUpdateValidator =
         getRefValidatorForEnforcement(A_TEST_PROJECT_NAME, tmpRefEnforcement);
 
+<<<<<<< PATCH SET (a29b75 Deprecate SharedRefEnforcement)
+    doReturn(LegacySharedRefEnforcement.Policy.INCLUDE)
+||||||| BASE
+    doReturn(SharedRefEnforcement.Policy.INCLUDE)
+=======
     doReturn(SharedRefEnforcement.EnforcePolicy.REQUIRED)
+>>>>>>> BASE      (d4e251 Suppress unused parameter warning)
         .when(batchRefUpdateValidator.refEnforcement)
         .getPolicy(A_TEST_PROJECT_NAME, REF_NAME_A);
 
@@ -162,7 +168,13 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
     BatchRefUpdateValidator batchRefUpdateValidator =
         getRefValidatorForEnforcement(A_TEST_PROJECT_NAME, tmpRefEnforcement);
 
+<<<<<<< PATCH SET (a29b75 Deprecate SharedRefEnforcement)
+    doReturn(LegacySharedRefEnforcement.Policy.INCLUDE)
+||||||| BASE
+    doReturn(SharedRefEnforcement.Policy.INCLUDE)
+=======
     doReturn(SharedRefEnforcement.EnforcePolicy.REQUIRED)
+>>>>>>> BASE      (d4e251 Suppress unused parameter warning)
         .when(batchRefUpdateValidator.refEnforcement)
         .getPolicy(A_TEST_PROJECT_NAME, AN_OUT_OF_SYNC_REF);
     lenient()
@@ -190,7 +202,13 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
     BatchRefUpdateValidator batchRefUpdateValidator =
         getRefValidatorForEnforcement(A_TEST_PROJECT_NAME, tmpRefEnforcement);
 
+<<<<<<< PATCH SET (a29b75 Deprecate SharedRefEnforcement)
+    doReturn(LegacySharedRefEnforcement.Policy.INCLUDE)
+||||||| BASE
+    doReturn(SharedRefEnforcement.Policy.INCLUDE)
+=======
     doReturn(SharedRefEnforcement.EnforcePolicy.REQUIRED)
+>>>>>>> BASE      (d4e251 Suppress unused parameter warning)
         .when(batchRefUpdateValidator.refEnforcement)
         .getPolicy(A_TEST_PROJECT_NAME, REF_NAME);
     doReturn(true).when(sharedRefDatabase).isUpToDate(any(), any());
@@ -218,7 +236,13 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
     BatchRefUpdateValidator batchRefUpdateValidator =
         getRefValidatorForEnforcement(A_TEST_PROJECT_NAME, tmpRefEnforcement);
 
+<<<<<<< PATCH SET (a29b75 Deprecate SharedRefEnforcement)
+    doReturn(LegacySharedRefEnforcement.Policy.INCLUDE)
+||||||| BASE
+    doReturn(SharedRefEnforcement.Policy.INCLUDE)
+=======
     doReturn(SharedRefEnforcement.EnforcePolicy.REQUIRED)
+>>>>>>> BASE      (d4e251 Suppress unused parameter warning)
         .when(batchRefUpdateValidator.refEnforcement)
         .getPolicy(A_TEST_PROJECT_NAME, REF_NAME);
 
@@ -262,7 +286,7 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
   }
 
   private BatchRefUpdateValidator getRefValidatorForEnforcement(
-      String projectName, SharedRefEnforcement sharedRefEnforcement) {
+      String projectName, LegacySharedRefEnforcement sharedRefEnforcement) {
     return new BatchRefUpdateValidator(
         sharedRefDatabase,
         new ValidationMetrics(
