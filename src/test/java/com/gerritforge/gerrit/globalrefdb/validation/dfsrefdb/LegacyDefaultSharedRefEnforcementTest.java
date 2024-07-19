@@ -16,14 +16,14 @@ package com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement.EnforcePolicy;
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacySharedRefEnforcement.EnforcePolicy;
 import com.google.gerrit.entities.RefNames;
 import org.eclipse.jgit.lib.Ref;
 import org.junit.Test;
 
-public class DefaultSharedRefEnforcementTest implements RefFixture {
+public class LegacyDefaultSharedRefEnforcementTest implements RefFixture {
 
-  SharedRefEnforcement refEnforcement = new DefaultSharedRefEnforcement();
+  LegacySharedRefEnforcement refEnforcement = new LegacyDefaultSharedRefEnforcement();
 
   @Test
   public void anImmutableChangeShouldBeIgnored() {
@@ -84,7 +84,7 @@ public class DefaultSharedRefEnforcementTest implements RefFixture {
 
   @Test
   public void draftCommentsShouldBeRequiredWhenDraftCommentEventsEnabled() {
-    SharedRefEnforcement refEnforcement = new DefaultSharedRefEnforcement(true);
+    LegacySharedRefEnforcement refEnforcement = new LegacyDefaultSharedRefEnforcement(true);
 
     Ref draftCommentRef = newRef("refs/draft-comments/01/1/1000000", AN_OBJECT_ID_1);
     assertThat(refEnforcement.getPolicy(A_TEST_PROJECT_NAME, draftCommentRef.getName()))
