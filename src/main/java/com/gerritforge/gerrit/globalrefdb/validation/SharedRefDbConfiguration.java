@@ -17,8 +17,7 @@ package com.gerritforge.gerrit.globalrefdb.validation;
 import static com.google.common.base.Suppliers.memoize;
 import static com.google.common.base.Suppliers.ofInstance;
 
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement;
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement.EnforcePolicy;
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacySharedRefEnforcement;
 import com.google.common.base.Supplier;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
@@ -100,8 +99,8 @@ public class SharedRefDbConfiguration {
   /**
    * Represents the global refdb configuration, which is computed by reading the 'ref-database'
    * section from the configuration file of this library's consumers. It allows to specify whether
-   * it is enabled, specific {@link SharedRefEnforcement}s and to tune other parameters that define
-   * specific behaviours of the global refdb.
+   * it is enabled, specific {@link LegacySharedRefEnforcement}s and to tune other parameters that
+   * define specific behaviours of the global refdb.
    */
   public static class SharedRefDatabase {
     public static final String SECTION = "ref-database";
@@ -110,13 +109,13 @@ public class SharedRefDbConfiguration {
     public static final String IGNORED_REFS_PREFIXES = "ignoredRefsPrefixes";
 
     private final boolean enabled;
-    private final Multimap<EnforcePolicy, String> enforcementRules;
+    private final Multimap<LegacySharedRefEnforcement.Policy, String> enforcementRules;
     private final ImmutableSet<String> ignoredRefsPrefixes;
 
     private SharedRefDatabase(Supplier<Config> cfg) {
       enabled = getBoolean(cfg, SECTION, null, ENABLE_KEY, false);
       enforcementRules = MultimapBuilder.hashKeys().arrayListValues().build();
-      for (EnforcePolicy policy : EnforcePolicy.values()) {
+      for (LegacySharedRefEnforcement.Policy policy : LegacySharedRefEnforcement.Policy.values()) {
         enforcementRules.putAll(
             policy, getList(cfg, SECTION, SUBSECTION_ENFORCEMENT_RULES, policy.name()));
       }
@@ -134,15 +133,15 @@ public class SharedRefDbConfiguration {
     }
 
     /**
-     * Getter for the map of {@link EnforcePolicy} to a specific "project:refs". Each entry can be
-     * either be {@link SharedRefEnforcement.EnforcePolicy#IGNORED} or {@link
-     * SharedRefEnforcement.EnforcePolicy#REQUIRED} and it represents the level of consistency
+     * Getter for the map of {@link LegacySharedRefEnforcement.Policy} to a specific "project:refs".
+     * Each entry can be either be {@link LegacySharedRefEnforcement.Policy#EXCLUDE} or {@link
+     * LegacySharedRefEnforcement.Policy#INCLUDE} and it represents the level of consistency
      * enforcements for that specific "project:refs". If the project or ref is omitted, apply the
      * policy to all projects or all refs.
      *
      * <p>The projec/ref will not be validated against the global refdb if it one to be ignored by
-     * default ({@link SharedRefEnforcement#isRefToBeIgnoredBySharedRefDb(String)} or if it has been
-     * configured so, for example:
+     * default ({@link LegacySharedRefEnforcement#isRefToBeIgnoredBySharedRefDb(String)} or if it
+     * has been configured so, for example:
      *
      * <pre>
      *     [ref-database "enforcementRules"]
@@ -151,7 +150,7 @@ public class SharedRefDbConfiguration {
      *
      * @return Map of "project:refs" policies
      */
-    public Multimap<EnforcePolicy, String> getEnforcementRules() {
+    public Multimap<LegacySharedRefEnforcement.Policy, String> getEnforcementRules() {
       return enforcementRules;
     }
 
