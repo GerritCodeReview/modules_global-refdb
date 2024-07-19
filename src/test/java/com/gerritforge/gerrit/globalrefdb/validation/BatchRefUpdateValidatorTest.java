@@ -17,27 +17,27 @@ package com.gerritforge.gerrit.globalrefdb.validation;
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.gerrit.testing.GerritJUnit.assertThrows;
 import static java.util.Collections.singletonList;
+import static org.eclipse.jgit.transport.ReceiveCommand.Type.CREATE;
 import static org.eclipse.jgit.transport.ReceiveCommand.Type.UPDATE;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.gerritforge.gerrit.globalrefdb.GlobalRefDbSystemError;
 import com.gerritforge.gerrit.globalrefdb.validation.RefUpdateValidator.OneParameterVoidFunction;
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.DefaultSharedRefEnforcement;
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacyDefaultSharedRefEnforcement;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.RefFixture;
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement;
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacySharedRefEnforcement;
 import com.google.common.collect.ImmutableSet;
 import com.google.gerrit.entities.Project;
 import com.google.gerrit.metrics.DisabledMetricMaker;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import org.eclipse.jgit.internal.storage.file.RefDirectory;
 import org.eclipse.jgit.junit.LocalDiskRepositoryTestCase;
@@ -47,6 +47,7 @@ import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.NullProgressMonitor;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Ref;
+import org.eclipse.jgit.lib.RefUpdate;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevWalk;
@@ -62,6 +63,9 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase implements RefFixture {
+  private static final String A_REF_NAME_1 = "refs/heads/a-ref-name-1";
+  private static final String A_REF_NAME_2 = "refs/heads/a-ref-name-2";
+
   @Rule public TestName nameRule = new TestName();
 
   private Repository diskRepo;
@@ -72,14 +76,14 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
 
   @Mock SharedRefDatabaseWrapper sharedRefDatabase;
 
-  @Mock SharedRefEnforcement tmpRefEnforcement;
+  @Mock LegacySharedRefEnforcement tmpRefEnforcement;
   @Mock ProjectsFilter projectsFilter;
   @Mock OneParameterVoidFunction<List<ReceiveCommand>> rollbackFunction;
 
   @Before
   public void setup() throws Exception {
     super.setUp();
-    doReturn(false).when(sharedRefDatabase).isUpToDate(any(), any());
+    lenient().doReturn(false).when(sharedRefDatabase).isUpToDate(any(), any());
     when(projectsFilter.matches(anyString())).thenReturn(true);
     gitRepoSetup();
   }
@@ -89,27 +93,26 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
     refdir = (RefDirectory) diskRepo.getRefDatabase();
     repo = new TestRepository<>(diskRepo);
     A = repo.commit().create();
+    updateRef(A_REF_NAME_1, A.getId());
+    updateRef(A_REF_NAME_2, A.getId());
     B = repo.commit(repo.getRevWalk().parseCommit(A));
   }
 
   @Test
   public void shouldUpdateSharedRefDbForAllRefUpdates() throws IOException {
-    String REF_NAME_A = "refs/changes/01/1/1";
-    String REF_NAME_B = "refs/changes/02/1/1";
     BatchRefUpdate batchRefUpdate =
         newBatchUpdate(
             List.of(
-                new ReceiveCommand(A, B, REF_NAME_A, UPDATE),
-                new ReceiveCommand(A, B, REF_NAME_B, UPDATE)));
+                new ReceiveCommand(A, B, A_REF_NAME_1, UPDATE),
+                new ReceiveCommand(A, B, A_REF_NAME_2, UPDATE)));
     BatchRefUpdateValidator batchRefUpdateValidator =
-        getRefValidatorForEnforcement(A_TEST_PROJECT_NAME, tmpRefEnforcement);
+        getRefValidatorForEnforcement(tmpRefEnforcement);
 
-    doReturn(SharedRefEnforcement.EnforcePolicy.REQUIRED)
+    doReturn(LegacySharedRefEnforcement.EnforcePolicy.REQUIRED)
         .when(batchRefUpdateValidator.refEnforcement)
-        .getPolicy(A_TEST_PROJECT_NAME, REF_NAME_A);
+        .getPolicy(A_TEST_PROJECT_NAME, A_REF_NAME_1);
 
     doReturn(true).when(sharedRefDatabase).isUpToDate(any(), any());
-
     doReturn(true).when(sharedRefDatabase).compareAndPut(any(), any(), any());
 
     batchRefUpdateValidator.executeBatchUpdateWithValidation(
@@ -127,72 +130,67 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
   public void immutableChangeShouldNotBeWrittenIntoSharedRefDb() throws Exception {
     String AN_IMMUTABLE_REF = "refs/changes/01/1/1";
 
-    List<ReceiveCommand> cmds = Arrays.asList(new ReceiveCommand(A, B, AN_IMMUTABLE_REF, UPDATE));
+    ReceiveCommand receiveCommand =
+        new ReceiveCommand(ObjectId.zeroId(), B, AN_IMMUTABLE_REF, CREATE);
+    BatchRefUpdate batchRefUpdate = newBatchUpdate(List.of(receiveCommand));
 
-    BatchRefUpdate batchRefUpdate = newBatchUpdate(cmds);
-    BatchRefUpdateValidator BatchRefUpdateValidator = newDefaultValidator(A_TEST_PROJECT_NAME);
-
+    BatchRefUpdateValidator BatchRefUpdateValidator = newDefaultValidator();
     BatchRefUpdateValidator.executeBatchUpdateWithValidation(
         batchRefUpdate, () -> execute(batchRefUpdate), this::defaultRollback);
 
     verify(sharedRefDatabase, never())
         .compareAndPut(any(Project.NameKey.class), any(Ref.class), any(ObjectId.class));
+    assertThatReceiveCommandIsSuccessful(receiveCommand);
   }
 
   @Test
   public void compareAndPutShouldAlwaysIngoreAlwaysDraftCommentsEvenOutOfOrder() throws Exception {
     String DRAFT_COMMENT = "refs/draft-comments/56/450756/1013728";
-    List<ReceiveCommand> cmds = Arrays.asList(new ReceiveCommand(A, B, DRAFT_COMMENT, UPDATE));
+    ReceiveCommand receiveCommand = new ReceiveCommand(ObjectId.zeroId(), B, DRAFT_COMMENT, CREATE);
 
-    BatchRefUpdate batchRefUpdate = newBatchUpdate(cmds);
-    BatchRefUpdateValidator BatchRefUpdateValidator = newDefaultValidator(A_TEST_PROJECT_NAME);
+    BatchRefUpdate batchRefUpdate = newBatchUpdate(List.of(receiveCommand));
+    BatchRefUpdateValidator BatchRefUpdateValidator = newDefaultValidator();
 
     BatchRefUpdateValidator.executeBatchUpdateWithValidation(
         batchRefUpdate, () -> execute(batchRefUpdate), this::defaultRollback);
 
     verify(sharedRefDatabase, never())
         .compareAndPut(A_TEST_PROJECT_NAME_KEY, newRef(DRAFT_COMMENT, A.getId()), B.getId());
+    assertThatReceiveCommandIsSuccessful(receiveCommand);
   }
 
   @Test
   public void validationShouldFailWhenLocalRefDbIsOutOfSync() throws Exception {
-    String AN_OUT_OF_SYNC_REF = "refs/changes/01/1/1";
-    BatchRefUpdate batchRefUpdate =
-        newBatchUpdate(singletonList(new ReceiveCommand(A, B, AN_OUT_OF_SYNC_REF, UPDATE)));
+    ReceiveCommand receiveCommand = new ReceiveCommand(A, B, A_REF_NAME_1, UPDATE);
+    BatchRefUpdate batchRefUpdate = newBatchUpdate(singletonList(receiveCommand));
     BatchRefUpdateValidator batchRefUpdateValidator =
-        getRefValidatorForEnforcement(A_TEST_PROJECT_NAME, tmpRefEnforcement);
+        getRefValidatorForEnforcement(tmpRefEnforcement);
 
-    doReturn(SharedRefEnforcement.EnforcePolicy.REQUIRED)
+    doReturn(LegacySharedRefEnforcement.EnforcePolicy.REQUIRED)
         .when(batchRefUpdateValidator.refEnforcement)
-        .getPolicy(A_TEST_PROJECT_NAME, AN_OUT_OF_SYNC_REF);
-    lenient()
-        .doReturn(false)
-        .when(sharedRefDatabase)
-        .isUpToDate(A_TEST_PROJECT_NAME_KEY, newRef(AN_OUT_OF_SYNC_REF, AN_OBJECT_ID_1));
+        .getPolicy(A_TEST_PROJECT_NAME, A_REF_NAME_1);
+    doReturn(false).when(sharedRefDatabase).isUpToDate(eq(A_TEST_PROJECT_NAME_KEY), any());
+    doReturn(true).when(sharedRefDatabase).exists(eq(A_TEST_PROJECT_NAME_KEY), any());
 
     batchRefUpdateValidator.executeBatchUpdateWithValidation(
         batchRefUpdate, () -> execute(batchRefUpdate), rollbackFunction);
 
     verify(rollbackFunction, never()).invoke(any());
 
-    final List<ReceiveCommand> commands = batchRefUpdate.getCommands();
-    assertThat(commands.size()).isEqualTo(1);
-    commands.forEach(
-        (command) -> assertThat(command.getResult()).isEqualTo(ReceiveCommand.Result.LOCK_FAILURE));
+    assertThat(receiveCommand.getResult()).isEqualTo(Result.LOCK_FAILURE);
   }
 
   @Test
   public void shouldRollbackWhenSharedRefUpdateCompareAndPutThrowsUncaughtThrowable()
       throws Exception {
-    String REF_NAME = "refs/changes/01/1/meta";
-    BatchRefUpdate batchRefUpdate =
-        newBatchUpdate(singletonList(new ReceiveCommand(A, B, REF_NAME, UPDATE)));
+    ReceiveCommand receiveCommand = new ReceiveCommand(A, B, A_REF_NAME_1, UPDATE);
+    BatchRefUpdate batchRefUpdate = newBatchUpdate(singletonList(receiveCommand));
     BatchRefUpdateValidator batchRefUpdateValidator =
-        getRefValidatorForEnforcement(A_TEST_PROJECT_NAME, tmpRefEnforcement);
+        getRefValidatorForEnforcement(tmpRefEnforcement);
 
-    doReturn(SharedRefEnforcement.EnforcePolicy.REQUIRED)
+    doReturn(LegacySharedRefEnforcement.EnforcePolicy.REQUIRED)
         .when(batchRefUpdateValidator.refEnforcement)
-        .getPolicy(A_TEST_PROJECT_NAME, REF_NAME);
+        .getPolicy(A_TEST_PROJECT_NAME, A_REF_NAME_1);
     doReturn(true).when(sharedRefDatabase).isUpToDate(any(), any());
 
     doThrow(TestError.class).when(sharedRefDatabase).compareAndPut(any(), any(), any());
@@ -204,23 +202,19 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
                 batchRefUpdate, () -> execute(batchRefUpdate), rollbackFunction));
 
     verify(rollbackFunction).invoke(any());
-    List<ReceiveCommand> commands = batchRefUpdate.getCommands();
-    assertThat(commands.size()).isEqualTo(1);
-    commands.forEach(
-        (command) -> assertThat(command.getResult()).isEqualTo(ReceiveCommand.Result.LOCK_FAILURE));
+    assertThat(receiveCommand.getResult()).isEqualTo(ReceiveCommand.Result.LOCK_FAILURE);
   }
 
   @Test
   public void shouldRollbackRefUpdateWhenRefDbIsNotUpdated() throws Exception {
-    String REF_NAME = "refs/changes/01/1/meta";
-    BatchRefUpdate batchRefUpdate =
-        newBatchUpdate(singletonList(new ReceiveCommand(A, B, REF_NAME, UPDATE)));
+    ReceiveCommand receiveCommand = new ReceiveCommand(A, B, A_REF_NAME_1, UPDATE);
+    BatchRefUpdate batchRefUpdate = newBatchUpdate(singletonList(receiveCommand));
     BatchRefUpdateValidator batchRefUpdateValidator =
-        getRefValidatorForEnforcement(A_TEST_PROJECT_NAME, tmpRefEnforcement);
+        getRefValidatorForEnforcement(tmpRefEnforcement);
 
-    doReturn(SharedRefEnforcement.EnforcePolicy.REQUIRED)
+    doReturn(LegacySharedRefEnforcement.EnforcePolicy.REQUIRED)
         .when(batchRefUpdateValidator.refEnforcement)
-        .getPolicy(A_TEST_PROJECT_NAME, REF_NAME);
+        .getPolicy(A_TEST_PROJECT_NAME, A_REF_NAME_1);
 
     doReturn(true).when(sharedRefDatabase).isUpToDate(any(), any());
 
@@ -232,23 +226,18 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
     batchRefUpdateValidator.executeBatchUpdateWithValidation(
         batchRefUpdate, () -> execute(batchRefUpdate), rollbackFunction);
 
-    verify(rollbackFunction, times(1)).invoke(any());
-
-    final List<ReceiveCommand> commands = batchRefUpdate.getCommands();
-    assertThat(commands.size()).isEqualTo(1);
-    commands.forEach(
-        (command) -> assertThat(command.getResult()).isEqualTo(ReceiveCommand.Result.LOCK_FAILURE));
+    verify(rollbackFunction).invoke(any());
+    assertThat(receiveCommand.getResult()).isEqualTo(ReceiveCommand.Result.LOCK_FAILURE);
   }
 
   @Test
   public void shouldNotUpdateSharedRefDbWhenProjectIsLocal() throws Exception {
     when(projectsFilter.matches(anyString())).thenReturn(false);
 
-    String AN_OUT_OF_SYNC_REF = "refs/changes/01/1/1";
     BatchRefUpdate batchRefUpdate =
-        newBatchUpdate(singletonList(new ReceiveCommand(A, B, AN_OUT_OF_SYNC_REF, UPDATE)));
+        newBatchUpdate(singletonList(new ReceiveCommand(A, B, A_REF_NAME_1, UPDATE)));
     BatchRefUpdateValidator batchRefUpdateValidator =
-        getRefValidatorForEnforcement(A_TEST_PROJECT_NAME, tmpRefEnforcement);
+        getRefValidatorForEnforcement(tmpRefEnforcement);
 
     batchRefUpdateValidator.executeBatchUpdateWithValidation(
         batchRefUpdate, () -> execute(batchRefUpdate), this::defaultRollback);
@@ -257,35 +246,43 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
         .compareAndPut(any(Project.NameKey.class), any(Ref.class), any(ObjectId.class));
   }
 
-  private BatchRefUpdateValidator newDefaultValidator(String projectName) {
-    return getRefValidatorForEnforcement(projectName, new DefaultSharedRefEnforcement());
+  private void updateRef(String refName, ObjectId sha1) throws IOException {
+    RefUpdate refUpdate = refdir.newUpdate(refName, false);
+    refUpdate.setNewObjectId(sha1);
+    refUpdate.update();
+  }
+
+  private static void assertThatReceiveCommandIsSuccessful(ReceiveCommand receiveCommand) {
+    assertThat(receiveCommand.getResult()).isEqualTo(Result.OK);
+  }
+
+  private BatchRefUpdateValidator newDefaultValidator() {
+    return getRefValidatorForEnforcement(new LegacyDefaultSharedRefEnforcement());
   }
 
   private BatchRefUpdateValidator getRefValidatorForEnforcement(
-      String projectName, SharedRefEnforcement sharedRefEnforcement) {
+      LegacySharedRefEnforcement LegacySharedRefEnforcement) {
     return new BatchRefUpdateValidator(
         sharedRefDatabase,
         new ValidationMetrics(
             new DisabledMetricMaker(), new SharedRefDbConfiguration(new Config(), "testplugin")),
-        sharedRefEnforcement,
-        new DummyLockWrapper(),
+        LegacySharedRefEnforcement,
         projectsFilter,
-        projectName,
+        RefFixture.A_TEST_PROJECT_NAME,
         diskRepo.getRefDatabase(),
         ImmutableSet.of());
   }
 
-  private Void execute(BatchRefUpdate u) throws IOException {
+  private void execute(BatchRefUpdate u) throws IOException {
     try (RevWalk rw = new RevWalk(diskRepo)) {
       u.execute(rw, NullProgressMonitor.INSTANCE);
     }
-    return null;
   }
 
   private BatchRefUpdate newBatchUpdate(List<ReceiveCommand> cmds) {
     BatchRefUpdate u = refdir.newBatchUpdate();
     u.addCommand(cmds);
-    cmds.forEach(c -> c.setResult(Result.OK));
+    cmds.forEach(c -> c.setResult(Result.NOT_ATTEMPTED));
     return u;
   }
 

@@ -14,6 +14,8 @@
 
 package com.gerritforge.gerrit.globalrefdb.validation;
 
+import static org.mockito.Mockito.verify;
+
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.RefFixture;
 import com.google.gerrit.extensions.api.changes.NotifyHandling;
 import com.google.gerrit.extensions.events.ProjectDeletedListener;
@@ -22,7 +24,6 @@ import org.junit.Test;
 import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -53,6 +54,6 @@ public class ProjectDeletedSharedDbCleanupTest implements RefFixture {
 
     projectDeletedSharedDbCleanup.onProjectDeleted(event);
 
-    Mockito.verify(sharedRefDatabase, Mockito.times(1)).remove(A_TEST_PROJECT_NAME_KEY);
+    verify(sharedRefDatabase).remove(A_TEST_PROJECT_NAME_KEY);
   }
 }

@@ -22,15 +22,17 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.DefaultSharedRefEnforcement;
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacyDefaultSharedRefEnforcement;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.RefFixture;
 import com.google.common.collect.ImmutableSet;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.List;
 import org.eclipse.jgit.lib.BatchRefUpdate;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectIdRef;
@@ -108,7 +110,12 @@ public class SharedRefDbBatchRefUpdateTest implements RefFixture {
         .thenReturn(asList(receiveCommandBeforeExecution))
         .thenReturn(asList(successReceiveCommandAfterExecution));
 
-    doReturn(oldRef).when(refDatabase).exactRef(A_TEST_REF_NAME);
+    // Only needed to prevent NPEs should a rollback happen on the global-refdb updates
+    // and not supposed to be used if all tests are successful.
+    lenient().when(batchRefUpdate.addCommand(any(List.class))).thenReturn(batchRefUpdate);
+
+    lenient().when(refDatabase.exactRef(A_TEST_REF_NAME)).thenReturn(oldRef).thenReturn(newRef);
+    lenient().when(refDatabase.findRef(A_TEST_REF_NAME)).thenReturn(oldRef).thenReturn(newRef);
 
     sharedRefDbRefUpdate = getSharedRefDbBatchRefUpdateWithDefaultPolicyEnforcement();
 
@@ -173,8 +180,7 @@ public class SharedRefDbBatchRefUpdateTest implements RefFixture {
             return new BatchRefUpdateValidator(
                 sharedRefDb,
                 validationMetrics,
-                new DefaultSharedRefEnforcement(),
-                new DummyLockWrapper(),
+                new LegacyDefaultSharedRefEnforcement(),
                 projectsFilter,
                 projectName,
                 refDb,
