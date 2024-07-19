@@ -27,7 +27,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.DefaultSharedRefEnforcement;
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacyDefaultSharedRefEnforcement;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.RefFixture;
 import com.google.common.collect.ImmutableSet;
 import java.io.IOException;
@@ -180,7 +180,14 @@ public class SharedRefDbBatchRefUpdateTest implements RefFixture {
             return new BatchRefUpdateValidator(
                 sharedRefDb,
                 validationMetrics,
+<<<<<<< PATCH SET (bab382 Deprecate SharedRefEnforcement)
+                new LegacyDefaultSharedRefEnforcement(),
+||||||| BASE
                 new DefaultSharedRefEnforcement(),
+                new DummyLockWrapper(),
+=======
+                new DefaultSharedRefEnforcement(),
+>>>>>>> BASE      (200492 Merge branch 'stable-3.11')
                 projectsFilter,
                 projectName,
                 refDb,

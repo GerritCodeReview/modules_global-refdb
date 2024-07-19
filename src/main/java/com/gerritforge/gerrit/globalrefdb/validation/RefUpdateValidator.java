@@ -17,12 +17,19 @@ package com.gerritforge.gerrit.globalrefdb.validation;
 import com.gerritforge.gerrit.globalrefdb.GlobalRefDbLockException;
 import com.gerritforge.gerrit.globalrefdb.GlobalRefDbSystemError;
 import com.gerritforge.gerrit.globalrefdb.RefDbLockException;
+<<<<<<< PATCH SET (bab382 Deprecate SharedRefEnforcement)
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacyCustomSharedRefEnforcementByProject;
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacyDefaultSharedRefEnforcement;
+||||||| BASE
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.DefaultSharedRefEnforcement;
+=======
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.CustomSharedRefEnforcementByProject;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.DefaultSharedRefEnforcement;
+>>>>>>> BASE      (200492 Merge branch 'stable-3.11')
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.OutOfSyncException;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedDbSplitBrainException;
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement;
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement.EnforcePolicy;
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacySharedRefEnforcement;
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacySharedRefEnforcement.EnforcePolicy;
 import com.google.common.base.MoreObjects;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.flogger.FluentLogger;
@@ -48,7 +55,7 @@ public class RefUpdateValidator {
 
   protected final String projectName;
   protected final RefDatabase refDb;
-  protected final SharedRefEnforcement refEnforcement;
+  protected final LegacySharedRefEnforcement refEnforcement;
   protected final ProjectsFilter projectsFilter;
   private final ImmutableSet<String> ignoredRefs;
 
@@ -90,8 +97,17 @@ public class RefUpdateValidator {
    * @param sharedRefDb an instance of the global refdb to check for out-of-sync refs.
    * @param validationMetrics to update validation results, such as split-brains.
    * @param refEnforcement Specific ref enforcements for this project. Either a {@link
+<<<<<<< PATCH SET (bab382 Deprecate SharedRefEnforcement)
+   *     LegacyCustomSharedRefEnforcementByProject} when custom policies are provided via configuration
+   *     file or a {@link LegacyDefaultSharedRefEnforcement} for defaults.
+||||||| BASE
    *     CustomSharedRefEnforcementByProject} when custom policies are provided via configuration
    *     file or a {@link DefaultSharedRefEnforcement} for defaults.
+   * @param lockWrapperFactory factory providing a {@link LockWrapper}
+=======
+   *     CustomSharedRefEnforcementByProject} when custom policies are provided via configuration
+   *     file or a {@link DefaultSharedRefEnforcement} for defaults.
+>>>>>>> BASE      (200492 Merge branch 'stable-3.11')
    * @param projectsFilter filter to match whether the project being updated should be validated
    *     against global refdb
    * @param projectName the name of the project being updated.
@@ -103,7 +119,14 @@ public class RefUpdateValidator {
   public RefUpdateValidator(
       SharedRefDatabaseWrapper sharedRefDb,
       ValidationMetrics validationMetrics,
+<<<<<<< PATCH SET (bab382 Deprecate SharedRefEnforcement)
+      LegacySharedRefEnforcement refEnforcement,
+||||||| BASE
       SharedRefEnforcement refEnforcement,
+      LockWrapper.Factory lockWrapperFactory,
+=======
+      SharedRefEnforcement refEnforcement,
+>>>>>>> BASE      (200492 Merge branch 'stable-3.11')
       ProjectsFilter projectsFilter,
       @Assisted String projectName,
       @Assisted RefDatabase refDb,
