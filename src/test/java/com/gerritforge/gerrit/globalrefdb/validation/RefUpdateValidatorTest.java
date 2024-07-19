@@ -28,7 +28,7 @@ import static org.mockito.Mockito.when;
 import com.gerritforge.gerrit.globalrefdb.GlobalRefDbSystemError;
 import com.gerritforge.gerrit.globalrefdb.RefDbLockException;
 import com.gerritforge.gerrit.globalrefdb.validation.RefUpdateValidator.OneParameterFunction;
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.DefaultSharedRefEnforcement;
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacyDefaultSharedRefEnforcement;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.RefFixture;
 import com.google.common.collect.ImmutableSet;
 import com.google.gerrit.entities.Project;
@@ -47,8 +47,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class RefUpdateValidatorTest implements RefFixture {
-  private static final DefaultSharedRefEnforcement defaultRefEnforcement =
-      new DefaultSharedRefEnforcement();
+  private static final LegacyDefaultSharedRefEnforcement defaultRefEnforcement =
+      new LegacyDefaultSharedRefEnforcement();
 
   @Mock SharedRefDatabaseWrapper sharedRefDb;
 

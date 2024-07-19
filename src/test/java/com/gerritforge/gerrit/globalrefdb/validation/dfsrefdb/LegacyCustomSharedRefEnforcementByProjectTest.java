@@ -19,16 +19,16 @@ import static com.google.common.truth.Truth.assertThat;
 import com.gerritforge.gerrit.globalrefdb.DraftCommentEventsEnabledProvider;
 import com.gerritforge.gerrit.globalrefdb.validation.SharedRefDbConfiguration;
 import com.gerritforge.gerrit.globalrefdb.validation.SharedRefDbConfiguration.SharedRefDatabase;
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement.EnforcePolicy;
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacySharedRefEnforcement.EnforcePolicy;
 import java.util.Arrays;
 import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.Ref;
 import org.junit.Before;
 import org.junit.Test;
 
-public class CustomSharedRefEnforcementByProjectTest implements RefFixture {
+public class LegacyCustomSharedRefEnforcementByProjectTest implements RefFixture {
 
-  SharedRefEnforcement refEnforcement;
+  LegacySharedRefEnforcement refEnforcement;
 
   @Before
   public void setUp() {
@@ -115,7 +115,7 @@ public class CustomSharedRefEnforcementByProjectTest implements RefFixture {
 
   @Test
   public void getProjectPolicyForNonListedProjectWhenSingleProject() {
-    SharedRefEnforcement customEnforcement =
+    LegacySharedRefEnforcement customEnforcement =
         newCustomRefEnforcementWithValue(EnforcePolicy.IGNORED, ":refs/heads/master");
 
     assertThat(customEnforcement.getPolicy("NonListedProject")).isEqualTo(EnforcePolicy.REQUIRED);
@@ -123,13 +123,13 @@ public class CustomSharedRefEnforcementByProjectTest implements RefFixture {
 
   @Test
   public void getANonListedProjectWhenOnlyOneProjectIsListedShouldReturnRequired() {
-    SharedRefEnforcement customEnforcement =
+    LegacySharedRefEnforcement customEnforcement =
         newCustomRefEnforcementWithValue(EnforcePolicy.IGNORED, "AProject:");
     assertThat(customEnforcement.getPolicy("NonListedProject", "refs/heads/master"))
         .isEqualTo(EnforcePolicy.REQUIRED);
   }
 
-  private SharedRefEnforcement newCustomRefEnforcementWithValue(
+  private LegacySharedRefEnforcement newCustomRefEnforcementWithValue(
       EnforcePolicy policy, String... projectAndRefs) {
     Config sharedRefDbConfiguration = new Config();
     sharedRefDbConfiguration.setStringList(
@@ -140,8 +140,8 @@ public class CustomSharedRefEnforcementByProjectTest implements RefFixture {
     return newCustomRefEnforcement(sharedRefDbConfiguration);
   }
 
-  private SharedRefEnforcement newCustomRefEnforcement(Config sharedRefDbConfig) {
-    return new CustomSharedRefEnforcementByProject(
+  private LegacySharedRefEnforcement newCustomRefEnforcement(Config sharedRefDbConfig) {
+    return new LegacyCustomSharedRefEnforcementByProject(
         new SharedRefDbConfiguration(sharedRefDbConfig, "testplugin"),
         new DraftCommentEventsEnabledProvider(new Config()));
   }
