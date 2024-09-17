@@ -82,6 +82,15 @@ public class DefaultSharedRefEnforcementTest implements RefFixture {
         .isEqualTo(EnforcePolicy.REQUIRED);
   }
 
+  @Test
+  public void draftCommentsShouldBeRequiredWhenDraftCommentEventsEnabled() {
+    SharedRefEnforcement refEnforcement = new DefaultSharedRefEnforcement(true);
+
+    Ref draftCommentRef = newRef("refs/draft-comments/01/1/1000000", AN_OBJECT_ID_1);
+    assertThat(refEnforcement.getPolicy(A_TEST_PROJECT_NAME, draftCommentRef.getName()))
+        .isEqualTo(EnforcePolicy.REQUIRED);
+  }
+
   @Override
   public String testBranch() {
     return "fooBranch";
