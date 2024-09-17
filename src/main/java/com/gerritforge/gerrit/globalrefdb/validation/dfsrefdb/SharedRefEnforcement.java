@@ -15,6 +15,7 @@
 package com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb;
 
 import com.google.gerrit.entities.RefNames;
+import org.eclipse.jgit.lib.Config;
 
 /** Type of enforcement to implement between the local and shared RefDb. */
 public interface SharedRefEnforcement {
@@ -41,11 +42,19 @@ public interface SharedRefEnforcement {
   public EnforcePolicy getPolicy(String projectName);
 
   /**
+   * Get the Gerrit configuration. All implementing classes must provide access to a Config object.
+   *
+   * @return the {@link org.eclipse.jgit.lib.Config} instance
+   */
+  public Config getGerritConfig();
+
+  /**
    * Check if a refName should be ignored by global refdb. The Default behaviour is to ignore:
    *
    * <ul>
-   *   <li>refs/draft-comments :user-specific temporary storage that does not need to be seen by
-   *       other users/sites
+   *   <li>refs/draft-comments :user-specific temporary storage that does need to be seen by other
+   *       users/sites only when their streaming is enabled via
+   *       event.stream-events.enableDraftCommentEvents.
    *   <li>refs/changes/&lt;non-meta&gt;: those refs are immutable
    *   <li>refs/cache-automerge: these refs would be never replicated anyway
    * </ul>
@@ -55,7 +64,9 @@ public interface SharedRefEnforcement {
    */
   default boolean isRefToBeIgnoredBySharedRefDb(String refName) {
     return refName == null
-        || refName.startsWith("refs/draft-comments")
+        || (refName.startsWith("refs/draft-comments")
+            && !getGerritConfig()
+                .getBoolean("event", "stream-events", "enableDraftCommentEvents", false))
         || (refName.startsWith("refs/changes")
             && !refName.endsWith("/meta")
             && !refName.endsWith(RefNames.ROBOT_COMMENTS_SUFFIX))

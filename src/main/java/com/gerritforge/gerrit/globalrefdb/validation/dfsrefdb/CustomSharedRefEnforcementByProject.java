@@ -21,10 +21,12 @@ import com.google.common.base.MoreObjects;
 import com.google.common.base.Splitter;
 import com.google.common.base.Supplier;
 import com.google.common.collect.ImmutableMap;
+import com.google.gerrit.server.config.GerritServerConfig;
 import com.google.inject.Inject;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import org.eclipse.jgit.lib.Config;
 
 /**
  * Implementation of the {@link SharedRefEnforcement} interface which derives project and
@@ -34,6 +36,7 @@ public class CustomSharedRefEnforcementByProject implements SharedRefEnforcement
   private static final String ALL = ".*";
 
   private final Supplier<Map<String, Map<String, EnforcePolicy>>> predefEnforcements;
+  private final Config gerritConfig;
 
   /**
    * Constructs a {@code CustomSharedRefEnforcementByProject} with the values specified in the
@@ -42,8 +45,10 @@ public class CustomSharedRefEnforcementByProject implements SharedRefEnforcement
    * @param config the libModule configuration
    */
   @Inject
-  public CustomSharedRefEnforcementByProject(SharedRefDbConfiguration config) {
+  public CustomSharedRefEnforcementByProject(
+      SharedRefDbConfiguration config, @GerritServerConfig Config gerritConfig) {
     this.predefEnforcements = memoize(() -> parseDryRunEnforcementsToMap(config));
+    this.gerritConfig = gerritConfig;
   }
 
   private static Map<String, Map<String, EnforcePolicy>> parseDryRunEnforcementsToMap(
@@ -127,5 +132,10 @@ public class CustomSharedRefEnforcementByProject implements SharedRefEnforcement
             .getOrDefault(
                 projectName, predefEnforcements.get().getOrDefault(ALL, ImmutableMap.of()));
     return policiesForProject.getOrDefault(ALL, EnforcePolicy.REQUIRED);
+  }
+
+  @Override
+  public Config getGerritConfig() {
+    return gerritConfig;
   }
 }
