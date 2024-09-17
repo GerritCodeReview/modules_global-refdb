@@ -18,12 +18,13 @@ import static com.google.common.truth.Truth.assertThat;
 
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement.EnforcePolicy;
 import com.google.gerrit.entities.RefNames;
+import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.lib.Ref;
 import org.junit.Test;
 
 public class DefaultSharedRefEnforcementTest implements RefFixture {
 
-  SharedRefEnforcement refEnforcement = new DefaultSharedRefEnforcement();
+  SharedRefEnforcement refEnforcement = new DefaultSharedRefEnforcement(new Config());
 
   @Test
   public void anImmutableChangeShouldBeIgnored() {
@@ -79,6 +80,17 @@ public class DefaultSharedRefEnforcementTest implements RefFixture {
   public void allUsersExternalIdsRefShouldBeRequired() {
     Ref refOne = newRef("refs/meta/external-ids", AN_OBJECT_ID_1);
     assertThat(refEnforcement.getPolicy("All-Users", refOne.getName()))
+        .isEqualTo(EnforcePolicy.REQUIRED);
+  }
+
+  @Test
+  public void draftCommentsShouldBeRequiredWhenDraftCommentEventsEnabled() {
+    Config gerritConfig = new Config();
+    gerritConfig.setBoolean("event", "stream-events", "enableDraftCommentEvents", true);
+    SharedRefEnforcement refEnforcement = new DefaultSharedRefEnforcement(gerritConfig);
+
+    Ref draftCommentRef = newRef("refs/draft-comments/01/1/1000000", AN_OBJECT_ID_1);
+    assertThat(refEnforcement.getPolicy(A_TEST_PROJECT_NAME, draftCommentRef.getName()))
         .isEqualTo(EnforcePolicy.REQUIRED);
   }
 

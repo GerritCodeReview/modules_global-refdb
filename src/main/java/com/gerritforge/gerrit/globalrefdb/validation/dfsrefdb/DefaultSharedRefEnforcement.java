@@ -14,12 +14,22 @@
 
 package com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb;
 
+import com.google.gerrit.server.config.GerritServerConfig;
+import com.google.inject.Inject;
+import org.eclipse.jgit.lib.Config;
+
 /**
  * Default implementation of {@link SharedRefEnforcement}. This class provides the default
  * project/ref enforcement rules when no more specific rules have been configured for the libModule
  * consuming this library.
  */
-public class DefaultSharedRefEnforcement implements SharedRefEnforcement {
+public class DefaultSharedRefEnforcement extends BaseRefEnforcement
+    implements SharedRefEnforcement {
+
+  @Inject
+  public DefaultSharedRefEnforcement(@GerritServerConfig Config gerritConfig) {
+    super(gerritConfig);
+  }
 
   /**
    * Returns {@link EnforcePolicy#IGNORED} for refs to be ignored {@link
@@ -44,5 +54,10 @@ public class DefaultSharedRefEnforcement implements SharedRefEnforcement {
   @Override
   public EnforcePolicy getPolicy(String projectName) {
     return EnforcePolicy.REQUIRED;
+  }
+
+  @Override
+  public Boolean isDraftCommentEventsEnabled() {
+    return enableDraftCommentEvents;
   }
 }

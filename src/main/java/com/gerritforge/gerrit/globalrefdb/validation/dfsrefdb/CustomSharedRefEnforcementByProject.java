@@ -21,16 +21,19 @@ import com.google.common.base.MoreObjects;
 import com.google.common.base.Splitter;
 import com.google.common.base.Supplier;
 import com.google.common.collect.ImmutableMap;
+import com.google.gerrit.server.config.GerritServerConfig;
 import com.google.inject.Inject;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import org.eclipse.jgit.lib.Config;
 
 /**
  * Implementation of the {@link SharedRefEnforcement} interface which derives project and
  * project/ref enforcement policy from the configuration of the libModule consuming this library
  */
-public class CustomSharedRefEnforcementByProject implements SharedRefEnforcement {
+public class CustomSharedRefEnforcementByProject extends BaseRefEnforcement
+    implements SharedRefEnforcement {
   private static final String ALL = ".*";
 
   private final Supplier<Map<String, Map<String, EnforcePolicy>>> predefEnforcements;
@@ -42,7 +45,9 @@ public class CustomSharedRefEnforcementByProject implements SharedRefEnforcement
    * @param config the libModule configuration
    */
   @Inject
-  public CustomSharedRefEnforcementByProject(SharedRefDbConfiguration config) {
+  public CustomSharedRefEnforcementByProject(
+      SharedRefDbConfiguration config, @GerritServerConfig Config gerritConfig) {
+    super(gerritConfig);
     this.predefEnforcements = memoize(() -> parseDryRunEnforcementsToMap(config));
   }
 
@@ -127,5 +132,9 @@ public class CustomSharedRefEnforcementByProject implements SharedRefEnforcement
             .getOrDefault(
                 projectName, predefEnforcements.get().getOrDefault(ALL, ImmutableMap.of()));
     return policiesForProject.getOrDefault(ALL, EnforcePolicy.REQUIRED);
+  }
+
+  public Boolean isDraftCommentEventsEnabled() {
+    return enableDraftCommentEvents;
   }
 }

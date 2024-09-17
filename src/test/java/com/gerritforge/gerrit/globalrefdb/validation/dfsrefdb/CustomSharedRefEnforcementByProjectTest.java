@@ -141,7 +141,7 @@ public class CustomSharedRefEnforcementByProjectTest implements RefFixture {
 
   private SharedRefEnforcement newCustomRefEnforcement(Config sharedRefDbConfig) {
     return new CustomSharedRefEnforcementByProject(
-        new SharedRefDbConfiguration(sharedRefDbConfig, "testplugin"));
+        new SharedRefDbConfiguration(sharedRefDbConfig, "testplugin"), new Config());
   }
 
   @Override
