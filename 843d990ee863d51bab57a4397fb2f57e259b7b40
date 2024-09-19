@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a236cde3_1d1db434",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2024-09-19T14:40:56Z",
+      "side": 1,
+      "message": "@luca.milanesio@gmail.com addressed your comments.\nTo DRY out the retrieving of `isDraftCommentEventsEnabled` I had to introduce a base class.\n\nWDYT?",
+      "revId": "843d990ee863d51bab57a4397fb2f57e259b7b40",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
