@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b41d6b49_2a237df1",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/SharedRefEnforcement.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-09-19T00:07:06Z",
+      "side": 1,
+      "message": "I don\u0027t believe we need to expose the whole config: we just need to know if the draft comments are generating stream events or not.\n\n\n\n```suggestion\n  public boolean isDraftCommentEventsEnabled();\n```",
+      "range": {
+        "startLine": 49,
+        "startChar": 9,
+        "endLine": 49,
+        "endChar": 34
+      },
+      "revId": "238a0ea1c54fc59cd4ef1aef1bd9822b6895d51f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4be37a66_e936b088",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/SharedRefEnforcement.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-09-19T00:07:06Z",
+      "side": 1,
+      "message": "```suggestion\n        || (refName.startsWith(\"refs/draft-comments\")\n            \u0026\u0026 !isDraftCommentEventsEnabled())\n```",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 89
+      },
+      "revId": "238a0ea1c54fc59cd4ef1aef1bd9822b6895d51f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
