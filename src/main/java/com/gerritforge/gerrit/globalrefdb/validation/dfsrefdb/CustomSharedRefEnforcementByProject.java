@@ -16,6 +16,7 @@ package com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb;
 
 import static com.google.common.base.Suppliers.memoize;
 
+import com.gerritforge.gerrit.globalrefdb.DraftCommentEventsEnabledProvider;
 import com.gerritforge.gerrit.globalrefdb.validation.SharedRefDbConfiguration;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Splitter;
@@ -34,6 +35,7 @@ public class CustomSharedRefEnforcementByProject implements SharedRefEnforcement
   private static final String ALL = ".*";
 
   private final Supplier<Map<String, Map<String, EnforcePolicy>>> predefEnforcements;
+  private final Boolean draftCommentEventsEnabled;
 
   /**
    * Constructs a {@code CustomSharedRefEnforcementByProject} with the values specified in the
@@ -42,8 +44,11 @@ public class CustomSharedRefEnforcementByProject implements SharedRefEnforcement
    * @param config the libModule configuration
    */
   @Inject
-  public CustomSharedRefEnforcementByProject(SharedRefDbConfiguration config) {
+  public CustomSharedRefEnforcementByProject(
+      SharedRefDbConfiguration config,
+      DraftCommentEventsEnabledProvider draftCommentEventsEnabledProvider) {
     this.predefEnforcements = memoize(() -> parseDryRunEnforcementsToMap(config));
+    this.draftCommentEventsEnabled = draftCommentEventsEnabledProvider.get();
   }
 
   private static Map<String, Map<String, EnforcePolicy>> parseDryRunEnforcementsToMap(
@@ -127,5 +132,10 @@ public class CustomSharedRefEnforcementByProject implements SharedRefEnforcement
             .getOrDefault(
                 projectName, predefEnforcements.get().getOrDefault(ALL, ImmutableMap.of()));
     return policiesForProject.getOrDefault(ALL, EnforcePolicy.REQUIRED);
+  }
+
+  @Override
+  public Boolean isDraftCommentEventsEnabled() {
+    return draftCommentEventsEnabled;
   }
 }
