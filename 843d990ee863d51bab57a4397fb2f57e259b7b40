@@ -170,6 +170,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "85207255_7c29dffe",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/CustomSharedRefEnforcementByProject.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2024-09-24T10:50:25Z",
+      "side": 1,
+      "message": "Ended up using a specific class rather than the annotated boolean",
+      "parentUuid": "5f1c536f_3a772224",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 24
+      },
+      "revId": "843d990ee863d51bab57a4397fb2f57e259b7b40",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a9caa784_1a9166d0",
@@ -183,6 +207,30 @@
       "writtenOn": "2024-09-23T21:30:47Z",
       "side": 1,
       "message": "```suggestion\n  public DefaultSharedRefEnforcement(@DraftCommentEventsEnabled Boolean draftCommentEventsEnabled) {\n    this.draftCommentEventsEnabled \u003d draftCommentEventsEnabled;\n  }\n```",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 3
+      },
+      "revId": "843d990ee863d51bab57a4397fb2f57e259b7b40",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43ea4f0a_3413c747",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/DefaultSharedRefEnforcement.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2024-09-24T10:50:25Z",
+      "side": 1,
+      "message": "Ended up using a specific class rather than the annotated boolean",
+      "parentUuid": "a9caa784_1a9166d0",
       "range": {
         "startLine": 30,
         "startChar": 0,
@@ -239,6 +287,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "28eafe0e_dd7db800",
+        "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/CustomSharedRefEnforcementByProjectTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2024-09-24T10:50:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "266515ef_6a715df4",
+      "range": {
+        "startLine": 144,
+        "startChar": 69,
+        "endLine": 144,
+        "endChar": 83
+      },
+      "revId": "843d990ee863d51bab57a4397fb2f57e259b7b40",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "97346861_afe16cd5",
@@ -262,6 +334,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9dd6d48_a0cb82e3",
+        "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/DefaultSharedRefEnforcementTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2024-09-24T10:50:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97346861_afe16cd5",
+      "range": {
+        "startLine": 27,
+        "startChar": 72,
+        "endLine": 27,
+        "endChar": 84
+      },
+      "revId": "843d990ee863d51bab57a4397fb2f57e259b7b40",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6f8e99fe_378c4e07",
@@ -275,6 +371,30 @@
       "writtenOn": "2024-09-23T21:30:47Z",
       "side": 1,
       "message": "```suggestion\n    SharedRefEnforcement refEnforcement \u003d new DefaultSharedRefEnforcement(true);\n```",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 88
+      },
+      "revId": "843d990ee863d51bab57a4397fb2f57e259b7b40",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fb0431d_a58a655e",
+        "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/DefaultSharedRefEnforcementTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2024-09-24T10:50:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f8e99fe_378c4e07",
       "range": {
         "startLine": 88,
         "startChar": 0,
