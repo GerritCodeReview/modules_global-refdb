@@ -52,6 +52,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e1462d8_5d5d5d6b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2024-09-24T10:50:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a236cde3_1d1db434",
+      "revId": "843d990ee863d51bab57a4397fb2f57e259b7b40",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "228d7f7e_c3fde47b",
@@ -113,6 +131,30 @@
       "side": 1,
       "message": "In that case is quite easy: just use a specific class instead of binding a Boolean with the `annotatedWith`. You won\u0027t need to change anything in the module binding then.",
       "parentUuid": "54e8cc3e_456a5014",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 1
+      },
+      "revId": "843d990ee863d51bab57a4397fb2f57e259b7b40",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb39a83e_ef4799f6",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/BaseRefEnforcement.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2024-09-24T10:50:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74845640_a32b8315",
       "range": {
         "startLine": 20,
         "startChar": 0,
@@ -254,6 +296,30 @@
       "writtenOn": "2024-09-23T21:30:47Z",
       "side": 1,
       "message": "Not needed, if we add an overloaded constructor.",
+      "range": {
+        "startLine": 262,
+        "startChar": 53,
+        "endLine": 262,
+        "endChar": 65
+      },
+      "revId": "843d990ee863d51bab57a4397fb2f57e259b7b40",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d34be0f9_f65f0ba3",
+        "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/BatchRefUpdateValidatorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2024-09-24T10:50:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77fbff2e_33e67243",
       "range": {
         "startLine": 262,
         "startChar": 53,
