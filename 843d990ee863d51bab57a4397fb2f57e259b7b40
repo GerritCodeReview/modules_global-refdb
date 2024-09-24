@@ -84,6 +84,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "74845640_a32b8315",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/BaseRefEnforcement.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-09-24T09:36:36Z",
+      "side": 1,
+      "message": "In that case is quite easy: just use a specific class instead of binding a Boolean with the `annotatedWith`. You won\u0027t need to change anything in the module binding then.",
+      "parentUuid": "54e8cc3e_456a5014",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 1
+      },
+      "revId": "843d990ee863d51bab57a4397fb2f57e259b7b40",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0b1d569a_6b542734",
         "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/CustomSharedRefEnforcementByProject.java",
         "patchSetId": 4
