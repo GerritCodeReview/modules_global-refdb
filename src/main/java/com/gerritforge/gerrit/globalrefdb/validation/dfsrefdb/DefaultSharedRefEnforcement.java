@@ -14,12 +14,34 @@
 
 package com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb;
 
+import com.gerritforge.gerrit.globalrefdb.DraftCommentEventsEnabledProvider;
+import com.google.common.annotations.VisibleForTesting;
+import com.google.inject.Inject;
+
 /**
  * Default implementation of {@link SharedRefEnforcement}. This class provides the default
  * project/ref enforcement rules when no more specific rules have been configured for the libModule
  * consuming this library.
  */
 public class DefaultSharedRefEnforcement implements SharedRefEnforcement {
+
+  private final Boolean enableDraftCommentEvents;
+
+  @Inject
+  public DefaultSharedRefEnforcement(
+      DraftCommentEventsEnabledProvider draftCommentEventsEnabledProvider) {
+    this.enableDraftCommentEvents = draftCommentEventsEnabledProvider.get();
+  }
+
+  @VisibleForTesting
+  public DefaultSharedRefEnforcement(boolean enableDraftCommentEvents) {
+    this.enableDraftCommentEvents = enableDraftCommentEvents;
+  }
+
+  @VisibleForTesting
+  public DefaultSharedRefEnforcement() {
+    this.enableDraftCommentEvents = false;
+  }
 
   /**
    * Returns {@link EnforcePolicy#IGNORED} for refs to be ignored {@link
@@ -44,5 +66,10 @@ public class DefaultSharedRefEnforcement implements SharedRefEnforcement {
   @Override
   public EnforcePolicy getPolicy(String projectName) {
     return EnforcePolicy.REQUIRED;
+  }
+
+  @Override
+  public Boolean isDraftCommentEventsEnabled() {
+    return enableDraftCommentEvents;
   }
 }

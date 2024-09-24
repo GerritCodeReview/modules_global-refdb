@@ -16,6 +16,7 @@ package com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb;
 
 import static com.google.common.truth.Truth.assertThat;
 
+import com.gerritforge.gerrit.globalrefdb.DraftCommentEventsEnabledProvider;
 import com.gerritforge.gerrit.globalrefdb.validation.SharedRefDbConfiguration;
 import com.gerritforge.gerrit.globalrefdb.validation.SharedRefDbConfiguration.SharedRefDatabase;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement.EnforcePolicy;
@@ -141,7 +142,8 @@ public class CustomSharedRefEnforcementByProjectTest implements RefFixture {
 
   private SharedRefEnforcement newCustomRefEnforcement(Config sharedRefDbConfig) {
     return new CustomSharedRefEnforcementByProject(
-        new SharedRefDbConfiguration(sharedRefDbConfig, "testplugin"));
+        new SharedRefDbConfiguration(sharedRefDbConfig, "testplugin"),
+        new DraftCommentEventsEnabledProvider(new Config()));
   }
 
   @Override
