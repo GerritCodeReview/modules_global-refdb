@@ -60,6 +60,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "54e8cc3e_456a5014",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/BaseRefEnforcement.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2024-09-24T08:59:35Z",
+      "side": 1,
+      "message": "Binding the annotation in `LibModule` [1] would not work\n\n```\n    bind(Boolean.class)\n        .annotatedWith(DraftCommentEventsEnabled.class)\n        .toProvider(DraftCommentEventsEnabledProvider.class);\n```\n\n\n```\nRequested by:\n1  : DefaultSharedRefEnforcement.\u003cinit\u003e(DefaultSharedRefEnforcement.java:33)\n      \\_ for 1st parameter draftCommentEventsEnabled\n     at ValidationModule.configure(ValidationModule.java:70)\n      \\_ installed by: GitModule -\u003e ValidationModule\n```\n\nI don\u0027t think there is any other way than binding the annotation in multi-site, as we do here [2].\n\nI think this is getting too complex?\n\n[1] https://gerrit.googlesource.com/modules/global-refdb/+/refs/heads/stable-3.9/src/main/java/com/gerritforge/gerrit/globalrefdb/validation/LibModule.java#26\n\n[2] https://gerrit.googlesource.com/plugins/multi-site/+/refs/heads/stable-3.9/src/main/java/com/googlesource/gerrit/plugins/multisite/validation/ValidationModule.java#70",
+      "parentUuid": "228d7f7e_c3fde47b",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 1
+      },
+      "revId": "843d990ee863d51bab57a4397fb2f57e259b7b40",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0b1d569a_6b542734",
         "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/CustomSharedRefEnforcementByProject.java",
         "patchSetId": 4
