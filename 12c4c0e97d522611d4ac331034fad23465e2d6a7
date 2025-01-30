@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c27b1ce0_6c688005",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-01-30T18:14:58Z",
+      "side": 1,
+      "message": "The purpose of this change is just to have the Code-Style passing: overriding then the Verified label.",
+      "revId": "12c4c0e97d522611d4ac331034fad23465e2d6a7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
