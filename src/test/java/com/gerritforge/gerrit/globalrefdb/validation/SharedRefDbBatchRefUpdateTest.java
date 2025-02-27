@@ -108,7 +108,6 @@ public class SharedRefDbBatchRefUpdateTest implements RefFixture {
         .thenReturn(asList(receiveCommandBeforeExecution))
         .thenReturn(asList(successReceiveCommandAfterExecution));
 
-    doReturn(oldRef).when(refDatabase).getRef(A_TEST_REF_NAME);
     doReturn(oldRef).when(refDatabase).exactRef(A_TEST_REF_NAME);
 
     sharedRefDbRefUpdate = getSharedRefDbBatchRefUpdateWithDefaultPolicyEnforcement();
