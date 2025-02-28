@@ -246,7 +246,7 @@ public class RefUpdateValidatorTest implements RefFixture {
         .compareAndPut(any(Project.NameKey.class), any(Ref.class), any(ObjectId.class));
   }
 
-  private Result defaultRollback(ObjectId objectId) {
+  private Result defaultRollback(@SuppressWarnings("unused") ObjectId objectId) {
     return Result.NO_CHANGE;
   }
 
