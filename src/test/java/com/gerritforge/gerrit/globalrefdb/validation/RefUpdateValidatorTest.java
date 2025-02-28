@@ -15,6 +15,7 @@
 package com.gerritforge.gerrit.globalrefdb.validation;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doReturn;
@@ -231,7 +232,7 @@ public class RefUpdateValidatorTest implements RefFixture {
 
     Result result =
         refUpdateValidator.executeRefUpdate(refUpdate, () -> Result.NEW, rollbackFunction);
-
+    assertEquals(Result.LOCK_FAILURE, result);
     verify(rollbackFunction, times(1)).invoke(any());
   }
 
