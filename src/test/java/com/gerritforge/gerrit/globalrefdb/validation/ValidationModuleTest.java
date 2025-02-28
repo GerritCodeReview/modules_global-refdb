@@ -14,7 +14,7 @@
 
 package com.gerritforge.gerrit.globalrefdb.validation;
 
-import static java.util.Collections.EMPTY_SET;
+import java.util.Collections;
 
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.DefaultSharedRefEnforcement;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement;
@@ -61,7 +61,7 @@ public class ValidationModuleTest extends LightweightPluginDaemonTest {
   public static class ValidationModuleWithEmptyIgnoredRefs extends ValidationModule {
     @Inject
     public ValidationModuleWithEmptyIgnoredRefs(@GerritServerConfig Config config) {
-      super(config, Optional.of(EMPTY_SET));
+      super(config, Optional.of(Collections.emptySet()));
     }
   }
 
