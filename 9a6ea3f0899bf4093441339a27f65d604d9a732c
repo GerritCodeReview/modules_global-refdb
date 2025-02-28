@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "170a21c2_76c92de3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2025-02-28T12:29:56Z",
+      "side": 1,
+      "message": "Hi @luca.milanesio@gmail.com I\u0027m taking a look at this series again to bring our internal changes from last year upstream replacing EnforcementRules with storeAllRefs/storeNoRefs, it has been working well for us. However, it looks like the series starts on your changes here. Would you like to fix it up or prefer to abandon and I will start a refreshed series? Thanks!",
+      "revId": "9a6ea3f0899bf4093441339a27f65d604d9a732c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
