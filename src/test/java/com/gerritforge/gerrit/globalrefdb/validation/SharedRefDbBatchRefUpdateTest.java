@@ -30,6 +30,7 @@ import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.DefaultSharedRefEn
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.RefFixture;
 import com.google.common.collect.ImmutableSet;
 import java.io.IOException;
+import java.util.Collections;
 import org.eclipse.jgit.lib.BatchRefUpdate;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectIdRef;
@@ -123,7 +124,7 @@ public class SharedRefDbBatchRefUpdateTest implements RefFixture {
     doReturn(true)
         .when(sharedRefDb)
         .compareAndPut(eq(A_TEST_PROJECT_NAME_KEY), refEquals(oldRef), eq(newRef.getObjectId()));
-    sharedRefDbRefUpdate.execute(revWalk, progressMonitor, EMPTY_LIST);
+    sharedRefDbRefUpdate.execute(revWalk, progressMonitor, Collections.emptyList());
     verify(sharedRefDb)
         .compareAndPut(eq(A_TEST_PROJECT_NAME_KEY), refEquals(oldRef), eq(newRef.getObjectId()));
   }
@@ -139,7 +140,7 @@ public class SharedRefDbBatchRefUpdateTest implements RefFixture {
         .when(batchRefUpdateValidator)
         .executeBatchUpdateWithValidation(any(), any(), any());
 
-    sharedRefDbRefUpdate.execute(revWalk, progressMonitor, EMPTY_LIST);
+    sharedRefDbRefUpdate.execute(revWalk, progressMonitor, Collections.emptyList());
   }
 
   @Test
@@ -148,7 +149,7 @@ public class SharedRefDbBatchRefUpdateTest implements RefFixture {
     doReturn(true).when(sharedRefDb).exists(A_TEST_PROJECT_NAME_KEY, A_TEST_REF_NAME);
     doReturn(false).when(sharedRefDb).isUpToDate(A_TEST_PROJECT_NAME_KEY, oldRef);
 
-    sharedRefDbRefUpdate.execute(revWalk, progressMonitor, EMPTY_LIST);
+    sharedRefDbRefUpdate.execute(revWalk, progressMonitor, Collections.emptyList());
 
     verify(validationMetrics).incrementSplitBrainPrevention();
   }
@@ -160,7 +161,7 @@ public class SharedRefDbBatchRefUpdateTest implements RefFixture {
 
     sharedRefDbRefUpdate = getSharedRefDbBatchRefUpdateWithDefaultPolicyEnforcement();
 
-    sharedRefDbRefUpdate.execute(revWalk, progressMonitor, EMPTY_LIST);
+    sharedRefDbRefUpdate.execute(revWalk, progressMonitor, Collections.emptyList());
   }
 
   private SharedRefDbBatchRefUpdate getSharedRefDbBatchRefUpdateWithDefaultPolicyEnforcement() {
