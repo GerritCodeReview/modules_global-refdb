@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "facb37d6_b843854b",
+        "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidatorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-03-01T01:32:28Z",
+      "side": 1,
+      "message": "```suggestion\n  private Result defaultRollback(ObjectId unused) {\n```",
+      "range": {
+        "startLine": 249,
+        "startChar": 70,
+        "endLine": 249,
+        "endChar": 78
+      },
+      "revId": "cb444331a70d56971695aa57de99123f295db1c8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
