@@ -18,3 +18,6 @@ Metrics
 
 * global_refdb/remove_latency
   : the latency in milliseconds of the remove operation.
+
+* global_refdb/operation_failures
+  : cumulative number of failures when attempting to perform an operation on global ref-db.

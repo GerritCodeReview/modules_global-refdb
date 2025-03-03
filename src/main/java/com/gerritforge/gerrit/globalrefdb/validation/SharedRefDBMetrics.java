@@ -14,6 +14,7 @@
 
 package com.gerritforge.gerrit.globalrefdb.validation;
 
+import com.google.gerrit.metrics.Counter0;
 import com.google.gerrit.metrics.Description;
 import com.google.gerrit.metrics.MetricMaker;
 import com.google.gerrit.metrics.Timer0;
@@ -27,6 +28,7 @@ public class SharedRefDBMetrics {
   private final Timer0 lockRefExecutionTime;
   private final Timer0 getOperationExecutionTime;
   private final Timer0 existsExecutionTime;
+  private final Counter0 operationFailures;
   private Timer0 compareAndPutExecutionTime;
   private Timer0 setExecutionTime;
   private Timer0 removeExecutionTime;
@@ -77,6 +79,13 @@ public class SharedRefDBMetrics {
             new Description("Time spent on checking in global ref-db if ref is up-to-date.")
                 .setCumulative()
                 .setUnit(Description.Units.MILLISECONDS));
+    operationFailures =
+        metricMaker.newCounter(
+            "global_refdb/operation_failures",
+            new Description(
+                    "Number of failures when attempting to perform an operation on global ref-db.")
+                .setCumulative()
+                .setUnit("failures"));
   }
 
   public Context startCompareAndPutExecutionTime() {
@@ -105,5 +114,9 @@ public class SharedRefDBMetrics {
 
   public Context startIsUpToDateExecutionTime() {
     return isUpToDateExecutionTime.start();
+  }
+
+  public void incrementOperationFailures() {
+    operationFailures.increment();
   }
 }
