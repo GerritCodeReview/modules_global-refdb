@@ -14,11 +14,16 @@
 
 package com.gerritforge.gerrit.globalrefdb.validation;
 
+import static com.google.gerrit.testing.GerritJUnit.assertThrows;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.gerritforge.gerrit.globalrefdb.GlobalRefDatabase;
 import com.gerritforge.gerrit.globalrefdb.GlobalRefDbLockException;
+import com.gerritforge.gerrit.globalrefdb.GlobalRefDbSystemError;
+import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.NoopSharedRefDatabase;
 import com.google.gerrit.entities.Project;
+import com.google.gerrit.extensions.registration.DynamicItem;
 import com.google.gerrit.metrics.Timer0.Context;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Ref;
@@ -93,5 +98,30 @@ public class SharedRefDatabaseWrapperTest {
     objectUnderTest.remove(projectName);
     verify(metrics).startRemoveExecutionTime();
     verify(context).close();
+  }
+
+  @Test
+  public void shouldIncreaseNumberOfFailuresWhenCompareAndPutThrows() throws Exception {
+    DynamicItem<GlobalRefDatabase> couldNotConnectGlobalRefDB =
+        DynamicItem.itemOf(
+            GlobalRefDatabase.class,
+            new NoopSharedRefDatabase() {
+              @Override
+              public boolean compareAndPut(
+                  Project.NameKey project, Ref currRef, ObjectId newRefValue)
+                  throws GlobalRefDbSystemError {
+                throw new GlobalRefDbSystemError(
+                    "Could not write to global-refdb", new Exception("Could not connect"));
+              }
+            });
+    objectUnderTest =
+        new SharedRefDatabaseWrapper(
+            couldNotConnectGlobalRefDB, new DisabledSharedRefLogger(), metrics);
+
+    assertThrows(
+        GlobalRefDbSystemError.class,
+        () -> objectUnderTest.compareAndPut(projectName, ref, ObjectId.zeroId()));
+
+    verify(metrics).incrementOperationFailures();
   }
 }

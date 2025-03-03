@@ -20,6 +20,7 @@ import com.gerritforge.gerrit.globalrefdb.GlobalRefDbLockException;
 import com.gerritforge.gerrit.globalrefdb.GlobalRefDbSystemError;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.NoopSharedRefDatabase;
 import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Supplier;
 import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.entities.Project;
 import com.google.gerrit.extensions.registration.DynamicItem;
@@ -69,35 +70,40 @@ public class SharedRefDatabaseWrapper implements ExtendedGlobalRefDatabase {
 
   @Override
   public boolean isUpToDate(Project.NameKey project, Ref ref) throws GlobalRefDbLockException {
-    try (Context context = metrics.startIsUpToDateExecutionTime()) {
-      return sharedRefDb().isUpToDate(project, ref);
-    }
+    return trackFailingOperation(
+        () -> sharedRefDb().isUpToDate(project, ref), metrics::startIsUpToDateExecutionTime);
   }
 
   /** {@inheritDoc}. The operation is logged upon success. */
   @Override
   public boolean compareAndPut(Project.NameKey project, Ref currRef, ObjectId newRefValue)
       throws GlobalRefDbSystemError {
-    try (Context context = metrics.startCompareAndPutExecutionTime()) {
-      boolean succeeded = sharedRefDb().compareAndPut(project, currRef, newRefValue);
-      if (succeeded) {
-        sharedRefLogger.logRefUpdate(project.get(), currRef, newRefValue);
-      }
-      return succeeded;
-    }
+
+    return trackFailingOperation(
+        () -> {
+          boolean succeeded = sharedRefDb().compareAndPut(project, currRef, newRefValue);
+          if (succeeded) {
+            sharedRefLogger.logRefUpdate(project.get(), currRef, newRefValue);
+          }
+          return succeeded;
+        },
+        metrics::startCompareAndPutExecutionTime);
   }
 
   /** {@inheritDoc} the operation is logged upon success. */
   @Override
   public <T> boolean compareAndPut(Project.NameKey project, String refName, T currValue, T newValue)
       throws GlobalRefDbSystemError {
-    try (Context context = metrics.startCompareAndPutExecutionTime()) {
-      boolean succeeded = sharedRefDb().compareAndPut(project, refName, currValue, newValue);
-      if (succeeded) {
-        sharedRefLogger.logRefUpdate(project.get(), refName, currValue, newValue);
-      }
-      return succeeded;
-    }
+
+    return trackFailingOperation(
+        () -> {
+          boolean succeeded = sharedRefDb().compareAndPut(project, refName, currValue, newValue);
+          if (succeeded) {
+            sharedRefLogger.logRefUpdate(project.get(), refName, currValue, newValue);
+          }
+          return succeeded;
+        },
+        metrics::startCompareAndPutExecutionTime);
   }
 
   @Override
@@ -107,10 +113,14 @@ public class SharedRefDatabaseWrapper implements ExtendedGlobalRefDatabase {
       throw new UnsupportedOperationException(
           "GlobalRefDb implementation doesn't support set operation");
     }
-    try (Context context = metrics.startSetExecutionTime()) {
-      ((ExtendedGlobalRefDatabase) sharedRefDb()).put(project, refName, newValue);
-      sharedRefLogger.logRefUpdate(project.get(), refName, newValue);
-    }
+
+    trackFailingOperation(
+        () -> {
+          ((ExtendedGlobalRefDatabase) sharedRefDb()).put(project, refName, newValue);
+          sharedRefLogger.logRefUpdate(project.get(), refName, newValue);
+          return null;
+        },
+        metrics::startSetExecutionTime);
   }
 
   public boolean isSetOperationSupported() {
@@ -121,35 +131,38 @@ public class SharedRefDatabaseWrapper implements ExtendedGlobalRefDatabase {
   @Override
   public AutoCloseable lockRef(Project.NameKey project, String refName)
       throws GlobalRefDbLockException {
-    try (Context context = metrics.startLockRefExecutionTime()) {
-      AutoCloseable locker = sharedRefDb().lockRef(project, refName);
-      sharedRefLogger.logLockAcquisition(project.get(), refName);
-      return locker;
-    }
+    return trackFailingOperation(
+        () -> {
+          AutoCloseable locker = sharedRefDb().lockRef(project, refName);
+          sharedRefLogger.logLockAcquisition(project.get(), refName);
+          return locker;
+        },
+        metrics::startLockRefExecutionTime);
   }
 
   @Override
   public boolean exists(Project.NameKey project, String refName) {
-    try (Context context = metrics.startExistsExecutionTime()) {
-      return sharedRefDb().exists(project, refName);
-    }
+    return trackFailingOperation(
+        () -> sharedRefDb().exists(project, refName), metrics::startExistsExecutionTime);
   }
 
   /** {@inheritDoc}. The operation is logged. */
   @Override
   public void remove(Project.NameKey project) throws GlobalRefDbSystemError {
-    try (Context context = metrics.startRemoveExecutionTime()) {
-      sharedRefDb().remove(project);
-      sharedRefLogger.logProjectDelete(project.get());
-    }
+    trackFailingOperation(
+        () -> {
+          sharedRefDb().remove(project);
+          sharedRefLogger.logProjectDelete(project.get());
+          return null;
+        },
+        metrics::startRemoveExecutionTime);
   }
 
   @Override
   public <T> Optional<T> get(Project.NameKey nameKey, String s, Class<T> clazz)
       throws GlobalRefDbSystemError {
-    try (Context context = metrics.startGetExecutionTime()) {
-      return sharedRefDb().get(nameKey, s, clazz);
-    }
+    return trackFailingOperation(
+        () -> sharedRefDb().get(nameKey, s, clazz), metrics::startGetExecutionTime);
   }
 
   private GlobalRefDatabase sharedRefDb() {
@@ -164,5 +177,25 @@ public class SharedRefDatabaseWrapper implements ExtendedGlobalRefDatabase {
               log.atWarning().log("Using NOOP_REFDB");
               return NOOP_REFDB;
             });
+  }
+
+  @FunctionalInterface
+  private interface ThrowingSupplier<T, E extends Exception> {
+    T get() throws E;
+  }
+
+  private <T, E extends Exception> T trackFailingOperation(
+      ThrowingSupplier<T, E> operation, Supplier<Context> metricTimer) throws E {
+
+    boolean completedWithoutExceptions = false;
+    try (Context ignore = metricTimer.get()) {
+      T result = operation.get();
+      completedWithoutExceptions = true;
+      return result;
+    } finally {
+      if (!completedWithoutExceptions) {
+        metrics.incrementOperationFailures();
+      }
+    }
   }
 }
