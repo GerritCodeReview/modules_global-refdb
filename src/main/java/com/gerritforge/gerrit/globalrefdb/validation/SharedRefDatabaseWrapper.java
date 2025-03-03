@@ -71,6 +71,9 @@ public class SharedRefDatabaseWrapper implements ExtendedGlobalRefDatabase {
   public boolean isUpToDate(Project.NameKey project, Ref ref) throws GlobalRefDbLockException {
     try (Context context = metrics.startIsUpToDateExecutionTime()) {
       return sharedRefDb().isUpToDate(project, ref);
+    } catch (GlobalRefDbLockException e) {
+      metrics.incrementOperationFailures();
+      throw e;
     }
   }
 
@@ -84,6 +87,9 @@ public class SharedRefDatabaseWrapper implements ExtendedGlobalRefDatabase {
         sharedRefLogger.logRefUpdate(project.get(), currRef, newRefValue);
       }
       return succeeded;
+    } catch (GlobalRefDbSystemError e) {
+      metrics.incrementOperationFailures();
+      throw e;
     }
   }
 
@@ -97,6 +103,9 @@ public class SharedRefDatabaseWrapper implements ExtendedGlobalRefDatabase {
         sharedRefLogger.logRefUpdate(project.get(), refName, currValue, newValue);
       }
       return succeeded;
+    } catch (GlobalRefDbSystemError e) {
+      metrics.incrementOperationFailures();
+      throw e;
     }
   }
 
@@ -110,6 +119,9 @@ public class SharedRefDatabaseWrapper implements ExtendedGlobalRefDatabase {
     try (Context context = metrics.startSetExecutionTime()) {
       ((ExtendedGlobalRefDatabase) sharedRefDb()).put(project, refName, newValue);
       sharedRefLogger.logRefUpdate(project.get(), refName, newValue);
+    } catch (GlobalRefDbSystemError e) {
+      metrics.incrementOperationFailures();
+      throw e;
     }
   }
 
@@ -125,6 +137,9 @@ public class SharedRefDatabaseWrapper implements ExtendedGlobalRefDatabase {
       AutoCloseable locker = sharedRefDb().lockRef(project, refName);
       sharedRefLogger.logLockAcquisition(project.get(), refName);
       return locker;
+    } catch (GlobalRefDbLockException e) {
+      metrics.incrementOperationFailures();
+      throw e;
     }
   }
 
@@ -141,6 +156,9 @@ public class SharedRefDatabaseWrapper implements ExtendedGlobalRefDatabase {
     try (Context context = metrics.startRemoveExecutionTime()) {
       sharedRefDb().remove(project);
       sharedRefLogger.logProjectDelete(project.get());
+    } catch (GlobalRefDbSystemError e) {
+      metrics.incrementOperationFailures();
+      throw e;
     }
   }
 
@@ -149,6 +167,9 @@ public class SharedRefDatabaseWrapper implements ExtendedGlobalRefDatabase {
       throws GlobalRefDbSystemError {
     try (Context context = metrics.startGetExecutionTime()) {
       return sharedRefDb().get(nameKey, s, clazz);
+    } catch (GlobalRefDbSystemError e) {
+      metrics.incrementOperationFailures();
+      throw e;
     }
   }
 
