@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "976c51e5_3e137069",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDBMetrics.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-03-05T07:58:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a1000e8_d5e4c552",
+      "range": {
+        "startLine": 86,
+        "startChar": 90,
+        "endLine": 86,
+        "endChar": 96
+      },
+      "revId": "c186bbe8205e7430ae3fed569f10d2c2929938eb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "439edf4d_d88da464",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-03-04T22:17:24Z",
       "side": 1,
       "message": "What if the operation throws another unchecked exception?",
+      "range": {
+        "startLine": 74,
+        "startChar": 13,
+        "endLine": 74,
+        "endChar": 37
+      },
+      "revId": "c186bbe8205e7430ae3fed569f10d2c2929938eb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b4332c9_29db2522",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDatabaseWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-03-05T07:58:03Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "439edf4d_d88da464",
       "range": {
         "startLine": 74,
         "startChar": 13,
@@ -70,6 +118,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d05c53a5_23f0469e",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDatabaseWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-03-05T07:58:03Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "7c140f66_bfa8e435",
+      "range": {
+        "startLine": 90,
+        "startChar": 13,
+        "endLine": 90,
+        "endChar": 35
+      },
+      "revId": "c186bbe8205e7430ae3fed569f10d2c2929938eb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "264a9ee8_a98f682a",
@@ -83,6 +155,30 @@
       "writtenOn": "2025-03-04T22:17:24Z",
       "side": 1,
       "message": "What if the operation throws another unchecked exception?",
+      "range": {
+        "startLine": 106,
+        "startChar": 13,
+        "endLine": 106,
+        "endChar": 35
+      },
+      "revId": "c186bbe8205e7430ae3fed569f10d2c2929938eb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e29290e2_0d372933",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDatabaseWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-03-05T07:58:03Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "264a9ee8_a98f682a",
       "range": {
         "startLine": 106,
         "startChar": 13,
@@ -116,6 +212,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "251d7752_12266bbc",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDatabaseWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-03-05T07:58:03Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "4a6862f6_0f3ba39b",
+      "range": {
+        "startLine": 122,
+        "startChar": 13,
+        "endLine": 122,
+        "endChar": 35
+      },
+      "revId": "c186bbe8205e7430ae3fed569f10d2c2929938eb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0f870b9c_a6cb247d",
@@ -129,6 +249,30 @@
       "writtenOn": "2025-03-04T22:17:24Z",
       "side": 1,
       "message": "What if the operation throws another unchecked exception?",
+      "range": {
+        "startLine": 140,
+        "startChar": 13,
+        "endLine": 140,
+        "endChar": 37
+      },
+      "revId": "c186bbe8205e7430ae3fed569f10d2c2929938eb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b644970d_f070315a",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDatabaseWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-03-05T07:58:03Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "0f870b9c_a6cb247d",
       "range": {
         "startLine": 140,
         "startChar": 13,
@@ -162,6 +306,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e090b17_fe6d3026",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDatabaseWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-03-05T07:58:03Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "1518a4da_b3befc99",
+      "range": {
+        "startLine": 159,
+        "startChar": 13,
+        "endLine": 159,
+        "endChar": 35
+      },
+      "revId": "c186bbe8205e7430ae3fed569f10d2c2929938eb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cdbfde1c_3695d4fb",
@@ -175,6 +343,30 @@
       "writtenOn": "2025-03-04T22:17:24Z",
       "side": 1,
       "message": "What if the operation throws another unchecked exception?",
+      "range": {
+        "startLine": 170,
+        "startChar": 13,
+        "endLine": 170,
+        "endChar": 35
+      },
+      "revId": "c186bbe8205e7430ae3fed569f10d2c2929938eb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef2bfb36_a22631e1",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDatabaseWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-03-05T07:58:03Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "cdbfde1c_3695d4fb",
       "range": {
         "startLine": 170,
         "startChar": 13,
