@@ -143,6 +143,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb8b850c_14d447fc",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDatabaseWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-03-05T11:33:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b94b888_e9a711ae",
+      "range": {
+        "startLine": 74,
+        "startChar": 13,
+        "endLine": 74,
+        "endChar": 37
+      },
+      "revId": "c186bbe8205e7430ae3fed569f10d2c2929938eb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "37feef52_80ba229d",
@@ -156,6 +180,30 @@
       "writtenOn": "2025-03-05T08:49:50Z",
       "side": 1,
       "message": "```suggestion\n    Optional\u003cBoolean\u003e upToDate \u003d Optional.empty();\n    try (Context context \u003d metrics.startIsUpToDateExecutionTime()) {\n      upToDate \u003d Optional.of(sharedRefDb().isUpToDate(project, ref));\n      return upToDate.get();\n    } finally {\n      upToDate.ifPresentOrElse(Runnables.doNothing(), () -\u003e metrics.incrementOperationFailures());\n    }\n```",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 5
+      },
+      "revId": "c186bbe8205e7430ae3fed569f10d2c2929938eb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7a15af7_1d4bf2c8",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDatabaseWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-03-05T11:33:36Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "37feef52_80ba229d",
       "range": {
         "startLine": 72,
         "startChar": 0,
