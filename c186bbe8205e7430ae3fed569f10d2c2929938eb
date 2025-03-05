@@ -121,6 +121,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1b94b888_e9a711ae",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDatabaseWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-03-05T09:08:32Z",
+      "side": 1,
+      "message": "My understanding is that not every runtime exception necessarily indicates a failure of the global-refdb operation.\n\nFor example, the write operation to global-refdb might succeed, but a subsequent NPE (or another unrelated error) could still occur due to an implementation-specific issue.\n\nHowever, if we want this metric to represent _any_ error risen by implementation, then yes your comment makes sense.\n\nLet me rework it.",
+      "parentUuid": "0c0a40cf_034d42af",
+      "range": {
+        "startLine": 74,
+        "startChar": 13,
+        "endLine": 74,
+        "endChar": 37
+      },
+      "revId": "c186bbe8205e7430ae3fed569f10d2c2929938eb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "37feef52_80ba229d",
         "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDatabaseWrapper.java",
         "patchSetId": 1
