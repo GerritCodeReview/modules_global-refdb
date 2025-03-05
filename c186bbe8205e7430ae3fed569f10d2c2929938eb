@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0c0a40cf_034d42af",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDatabaseWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-03-05T08:42:30Z",
+      "side": 1,
+      "message": "Also, catching `Exception` wouldn\u0027t solve the issue, as it may throw another runtime exception.\n\nWe don\u0027t really care about catching the exception, isn\u0027t it? Why don\u0027t we just increment the metric in the finally block if the method didn\u0027t return normally?",
+      "parentUuid": "9b4332c9_29db2522",
+      "range": {
+        "startLine": 74,
+        "startChar": 13,
+        "endLine": 74,
+        "endChar": 37
+      },
+      "revId": "c186bbe8205e7430ae3fed569f10d2c2929938eb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7c140f66_bfa8e435",
         "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDatabaseWrapper.java",
         "patchSetId": 1
