@@ -167,6 +167,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1aa9a55a_b4b95fd7",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDatabaseWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-03-05T14:13:10Z",
+      "side": 1,
+      "message": "\u003e For example, the write operation to global-refdb might succeed, but a subsequent NPE (or another unrelated error) could still occur due to an implementation-specific issue.\n\nYes, that\u0027s a possibility; however, I believe the Gerrit admin should be notified that something isn\u0027t quite right and have an alert raised anyway.",
+      "parentUuid": "eb8b850c_14d447fc",
+      "range": {
+        "startLine": 74,
+        "startChar": 13,
+        "endLine": 74,
+        "endChar": 37
+      },
+      "revId": "c186bbe8205e7430ae3fed569f10d2c2929938eb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "37feef52_80ba229d",
