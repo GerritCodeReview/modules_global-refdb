@@ -39,6 +39,7 @@ public class SharedRefDbRefUpdate extends RefUpdate {
   private final String projectName;
   private final RefUpdateValidator.Factory refValidatorFactory;
   private final RefUpdateValidator refUpdateValidator;
+  private final RefDatabase refDb;
 
   /** {@code SharedRefDbRefUpdate} Factory for Guice assisted injection. */
   public interface Factory {
@@ -72,11 +73,12 @@ public class SharedRefDbRefUpdate extends RefUpdate {
     this.projectName = projectName;
     this.refValidatorFactory = refValidatorFactory;
     refUpdateValidator = this.refValidatorFactory.create(this.projectName, refDb, ignoredRefs);
+    this.refDb = refDb;
   }
 
   @Override
   protected RefDatabase getRefDatabase() {
-    return notImplementedException();
+    return refDb;
   }
 
   private <T> T notImplementedException() {
