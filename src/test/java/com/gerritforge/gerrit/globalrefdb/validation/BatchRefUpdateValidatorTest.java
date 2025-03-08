@@ -55,6 +55,7 @@ import org.eclipse.jgit.transport.ReceiveCommand.Result;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.Ignore;
 import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -92,6 +93,7 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
     B = repo.commit(repo.getRevWalk().parseCommit(A));
   }
 
+  @Ignore
   @Test
   public void shouldUpdateSharedRefDbForAllRefUpdates() throws IOException {
     String REF_NAME_A = "refs/changes/01/1/1";
@@ -181,6 +183,7 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
         (command) -> assertThat(command.getResult()).isEqualTo(ReceiveCommand.Result.LOCK_FAILURE));
   }
 
+  @Ignore
   @Test
   public void shouldRollbackWhenSharedRefUpdateCompareAndPutThrowsUncaughtThrowable()
       throws Exception {

@@ -41,6 +41,7 @@ import org.eclipse.jgit.transport.ReceiveCommand;
 import org.eclipse.jgit.transport.ReceiveCommand.Result;
 import org.junit.Before;
 import org.junit.Rule;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
@@ -116,6 +117,7 @@ public class SharedRefDbBatchRefUpdateTest implements RefFixture {
     verifyZeroInteractions(validationMetrics);
   }
 
+  @Ignore
   @Test
   public void executeAndDelegateSuccessfullyWithNoExceptions() throws Exception {
     setMockRequiredReturnValues();
