@@ -22,6 +22,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
@@ -30,6 +31,7 @@ import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.DefaultSharedRefEn
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.RefFixture;
 import com.google.common.collect.ImmutableSet;
 import java.io.IOException;
+import java.util.List;
 import org.eclipse.jgit.lib.BatchRefUpdate;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectIdRef;
@@ -107,6 +109,10 @@ public class SharedRefDbBatchRefUpdateTest implements RefFixture {
     when(batchRefUpdate.getCommands())
         .thenReturn(asList(receiveCommandBeforeExecution))
         .thenReturn(asList(successReceiveCommandAfterExecution));
+
+    // Only needed to prevent NPEs should a rollback happen on the global-refdb updates
+    // and not supposed to be used if all tests are successful.
+    lenient().when(batchRefUpdate.addCommand(any(List.class))).thenReturn(batchRefUpdate);
 
     doReturn(oldRef).when(refDatabase).getRef(A_TEST_REF_NAME);
     doReturn(oldRef).when(refDatabase).exactRef(A_TEST_REF_NAME);
