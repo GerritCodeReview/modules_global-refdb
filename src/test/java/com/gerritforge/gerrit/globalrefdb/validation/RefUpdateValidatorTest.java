@@ -30,7 +30,9 @@ import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.DefaultSharedRefEn
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.RefFixture;
 import com.google.common.collect.ImmutableSet;
 import com.google.gerrit.entities.Project;
+import java.io.IOException;
 import org.eclipse.jgit.lib.ObjectId;
+import org.eclipse.jgit.lib.ObjectIdRef;
 import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.RefDatabase;
 import org.eclipse.jgit.lib.RefUpdate;
@@ -117,7 +119,8 @@ public class RefUpdateValidatorTest implements RefFixture {
         .compareAndPut(A_TEST_PROJECT_NAME_KEY, localRef, newUpdateRef.getObjectId());
 
     Result result =
-        refUpdateValidator.executeRefUpdate(refUpdate, () -> Result.NEW, this::defaultRollback);
+        refUpdateValidator.executeRefUpdate(
+            refUpdate, () -> doLocalRefUpdate(refName), this::defaultRollback);
 
     assertThat(result).isEqualTo(Result.NEW);
   }
@@ -190,12 +193,14 @@ public class RefUpdateValidatorTest implements RefFixture {
         .compareAndPut(any(Project.NameKey.class), any(Ref.class), any(ObjectId.class));
     doReturn(false)
         .when(sharedRefDb)
-        .compareAndPut(A_TEST_PROJECT_NAME_KEY, localRef, newUpdateRef.getObjectId());
+        .compareAndPut(A_TEST_PROJECT_NAME_KEY, localRef, AN_OBJECT_ID_2);
     doReturn(lock).when(sharedRefDb).lockRef(any(), anyString());
 
     Result result =
-        refUpdateValidator.executeRefUpdate(refUpdate, () -> Result.NEW, rollbackFunction);
+        refUpdateValidator.executeRefUpdate(
+            refUpdate, () -> doLocalRefUpdate(refName), rollbackFunction);
 
+    verify(sharedRefDb, times(1)).compareAndPut(A_TEST_PROJECT_NAME_KEY, localRef, AN_OBJECT_ID_2);
     verify(rollbackFunction, times(1)).invoke(any());
     assertThat(result).isEqualTo(Result.LOCK_FAILURE);
   }
@@ -230,7 +235,8 @@ public class RefUpdateValidatorTest implements RefFixture {
     when(rollbackFunction.invoke(any())).thenReturn(Result.LOCK_FAILURE);
 
     Result result =
-        refUpdateValidator.executeRefUpdate(refUpdate, () -> Result.NEW, rollbackFunction);
+        refUpdateValidator.executeRefUpdate(
+            refUpdate, () -> doLocalRefUpdate(localRef.getName()), rollbackFunction);
 
     verify(rollbackFunction, times(1)).invoke(any());
   }
@@ -247,6 +253,13 @@ public class RefUpdateValidatorTest implements RefFixture {
 
   private Result defaultRollback(ObjectId objectId) {
     return Result.NO_CHANGE;
+  }
+
+  private Result doLocalRefUpdate(String refName) throws IOException {
+    doReturn(new ObjectIdRef.Unpeeled(Ref.Storage.LOOSE, refName, AN_OBJECT_ID_2))
+        .when(localRefDb)
+        .findRef(refName);
+    return Result.NEW;
   }
 
   private RefUpdateValidator newRefUpdateValidator(SharedRefDatabaseWrapper refDbWrapper) {

@@ -152,6 +152,10 @@ public class SharedRefDatabaseWrapper implements ExtendedGlobalRefDatabase {
     }
   }
 
+  boolean isNoop() {
+    return sharedRefDbDynamicItem == null || sharedRefDbDynamicItem.get() == null;
+  }
+
   private GlobalRefDatabase sharedRefDb() {
     if (sharedRefDbDynamicItem == null) {
       log.atWarning().log("DynamicItem<GlobalRefDatabase> has not been injected");
