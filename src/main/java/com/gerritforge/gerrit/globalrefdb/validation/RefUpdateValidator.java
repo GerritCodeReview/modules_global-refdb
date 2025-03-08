@@ -225,7 +225,8 @@ public class RefUpdateValidator {
               Project.nameKey(projectName), refPair.compareRef, refPair.putValue);
     } catch (GlobalRefDbSystemError e) {
       logger.atWarning().withCause(e).log(
-          "Not able to persist the data in global-refdb for project '%s', ref '%s' and value %s, message: %s",
+          "Not able to persist the data in global-refdb for project '%s', ref '%s' and value %s,"
+              + " message: %s",
           projectName, refPair.getName(), refPair.putValue, e.getMessage());
       throw e;
     }
