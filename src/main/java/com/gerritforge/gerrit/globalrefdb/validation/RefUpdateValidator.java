@@ -30,6 +30,7 @@ import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Optional;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectIdRef;
 import org.eclipse.jgit.lib.Ref;
@@ -220,6 +221,25 @@ public class RefUpdateValidator {
 
     boolean succeeded;
     try {
+      if (!sharedRefDb.isNoop()) {
+        ObjectId localObjectId =
+            Optional.ofNullable(refDb.findRef(refPair.compareRef.getName()))
+                .map(Ref::getObjectId)
+                .orElse(ObjectId.zeroId());
+        if (!localObjectId.equals(refPair.putValue)) {
+          throw new IOException(
+              "Local operation of updating "
+                  + refPair.getName()
+                  + " from "
+                  + refPair.compareRef.getObjectId().name()
+                  + " to "
+                  + refPair.putValue
+                  + " has been aborted to avoid an out of sync: local object "
+                  + localObjectId.name()
+                  + " is different than the one expected after a successful update");
+        }
+      }
+
       succeeded =
           sharedRefDb.compareAndPut(
               Project.nameKey(projectName), refPair.compareRef, refPair.putValue);
