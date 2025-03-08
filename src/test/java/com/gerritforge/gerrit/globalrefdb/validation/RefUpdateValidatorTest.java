@@ -236,11 +236,24 @@ public class RefUpdateValidatorTest implements RefFixture {
   }
 
   @Test
-  public void shouldNotUpdateSharedRefDbWhenProjectIsLocal() throws Exception {
+  public void shouldSucceedButNotUpdateSharedRefDbWhenProjectIsLocal() throws Exception {
     when(projectsFilter.matches(anyString())).thenReturn(false);
 
-    refUpdateValidator.executeRefUpdate(refUpdate, () -> Result.NEW, this::defaultRollback);
+    Result result =
+        refUpdateValidator.executeRefUpdate(refUpdate, () -> Result.NEW, this::defaultRollback);
 
+    assertThat(result).isEqualTo(Result.NEW);
+    verify(sharedRefDb, never())
+        .compareAndPut(any(Project.NameKey.class), any(Ref.class), any(ObjectId.class));
+  }
+
+  @Test
+  public void shouldReturnLockFailureAndNotUpdateSharedRefDbWhenLocalRefUpdateNotExecuted()
+      throws Exception {
+    Result result =
+        refUpdateValidator.executeRefUpdate(refUpdate, () -> Result.NEW, this::defaultRollback);
+
+    assertThat(result).isEqualTo(Result.LOCK_FAILURE);
     verify(sharedRefDb, never())
         .compareAndPut(any(Project.NameKey.class), any(Ref.class), any(ObjectId.class));
   }
