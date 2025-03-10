@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc6f6e51_fa99d3e7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-03-10T13:00:32Z",
+      "side": 1,
+      "message": "\u003e I wonder if the term \"out-of-sync\" might be misleading in this context. The local refdb could have already moved by the time we perform the check,\n\nHow can this happen? The update is protected with a global-refdb lock, which freezes the ref-updates globally.\n\n\u003e What we are actually guarding against is ensuring that we never update the global refdb to a non-existent value—cases where a failure at the Git protocol level prevents the expected ref update from being written in the first place.\n\nThe Git protocol is not involved here: the operation may have done at the API level and without involving any remote protocol interaction at all.\n\n\u003e This isn\u0027t just about detecting divergence between the local and global refdb, but specifically preventing invalid updates caused by failed operations.\n\nThe explicitly failing operations were covered already, this is for preventing the \"implicitly failing\" operations to cause an update on the global-refdb.\n\nE.g. Before I1c05dc3d95, the tests were performing an implicitly failing ref-update and asserting that the global-refdb was updated anyway, which should have failed in the first place, but it didn\u0027t. \n\n\u003e I think you already explain this properly later on, perhaps we could do without this sentence?\n\nI believe the sentence should stay, I\u0027ll try to rephrase it.",
+      "parentUuid": "b5112fdd_b4717139",
+      "range": {
+        "startLine": 9,
+        "startChar": 48,
+        "endLine": 10,
+        "endChar": 40
+      },
+      "revId": "0d519db35ff87bcc9e99a8c43f66253f5cc4a334",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2cb15407_128aebbf",
