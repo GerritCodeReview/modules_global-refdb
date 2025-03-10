@@ -258,6 +258,30 @@
       },
       "revId": "0d519db35ff87bcc9e99a8c43f66253f5cc4a334",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "799f5732_b6bada58",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-03-10T13:52:36Z",
+      "side": 1,
+      "message": "I didn\u0027t mean to use the literal \"refPair.putValue\", but rather its value.\n\n```\nhas been aborted to avoid an out of sync: local object 123 is different than 456\n```\n\nJust a nit anway.",
+      "parentUuid": "deb2b7f7_417fbcef",
+      "range": {
+        "startLine": 239,
+        "startChar": 40,
+        "endLine": 239,
+        "endChar": 82
+      },
+      "revId": "0d519db35ff87bcc9e99a8c43f66253f5cc4a334",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
