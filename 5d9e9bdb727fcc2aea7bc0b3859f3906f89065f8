@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "40a912b0_8cb374a7",
+        "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/BatchRefUpdateValidatorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-03-10T12:35:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afb11aed_376c3a59",
+      "range": {
+        "startLine": 251,
+        "startChar": 14,
+        "endLine": 251,
+        "endChar": 21
+      },
+      "revId": "5d9e9bdb727fcc2aea7bc0b3859f3906f89065f8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "383c155b_dc00abbb",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-03-10T11:36:25Z",
       "side": 1,
       "message": "why `forceUpdate()`, an `update()` would suffice here, right?",
+      "range": {
+        "startLine": 253,
+        "startChar": 1,
+        "endLine": 253,
+        "endChar": 26
+      },
+      "revId": "5d9e9bdb727fcc2aea7bc0b3859f3906f89065f8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9559c2c4_19114a89",
+        "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/BatchRefUpdateValidatorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-03-10T12:35:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "383c155b_dc00abbb",
       "range": {
         "startLine": 253,
         "startChar": 1,
