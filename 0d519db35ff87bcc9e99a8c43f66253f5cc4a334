@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5112fdd_b4717139",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-03-10T12:00:08Z",
+      "side": 1,
+      "message": "I wonder if the term \"out-of-sync\" might be misleading in this context. The local refdb could have already moved by the time we perform the check, which means a simple out-of-sync state isn\u0027t necessarily the issue here.\n\nWhat we are actually guarding against is ensuring that we never update the global refdb to a non-existent value—cases where a failure at the Git protocol level prevents the expected ref update from being written in the first place.\n\nThis isn\u0027t just about detecting divergence between the local and global refdb, but specifically preventing invalid updates caused by failed operations.\n\nI think you already explain this properly later on, perhaps we could do without this sentence?",
+      "range": {
+        "startLine": 9,
+        "startChar": 48,
+        "endLine": 10,
+        "endChar": 40
+      },
+      "revId": "0d519db35ff87bcc9e99a8c43f66253f5cc4a334",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2cb15407_128aebbf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-03-10T12:00:08Z",
+      "side": 1,
+      "message": "```suggestion\nupdated as expected. Prevent nasty\nout of sync that would require a Gerrit admin to action and solve\nthem one-by-one.\n```",
+      "range": {
+        "startLine": 19,
+        "startChar": 21,
+        "endLine": 21,
+        "endChar": 16
+      },
+      "revId": "0d519db35ff87bcc9e99a8c43f66253f5cc4a334",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb2beedd_22b0fe48",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-03-10T12:00:08Z",
+      "side": 1,
+      "message": "Is this faster than \"exactRef\"?\nI guess the only question I have with this code is whether we have an idea of how much this extra check adds to the latency of the overall put operation.",
+      "range": {
+        "startLine": 226,
+        "startChar": 32,
+        "endLine": 226,
+        "endChar": 45
+      },
+      "revId": "0d519db35ff87bcc9e99a8c43f66253f5cc4a334",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f57a66ba_48a5cadc",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-03-10T12:00:08Z",
+      "side": 1,
+      "message": "```suggestion\n                  + \" is different than the one expected after a successful update\");\n```",
+      "range": {
+        "startLine": 239,
+        "startChar": 35,
+        "endLine": 239,
+        "endChar": 39
+      },
+      "revId": "0d519db35ff87bcc9e99a8c43f66253f5cc4a334",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "775099ab_a397c6b5",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-03-10T12:00:08Z",
+      "side": 1,
+      "message": "I find the sentence \"the one expected after a successful update\" a bit cryptic. Isn\u0027t that simply \"refPair.putValue\"?",
+      "range": {
+        "startLine": 239,
+        "startChar": 40,
+        "endLine": 239,
+        "endChar": 82
+      },
+      "revId": "0d519db35ff87bcc9e99a8c43f66253f5cc4a334",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
