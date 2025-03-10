@@ -30,6 +30,7 @@ import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Optional;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectIdRef;
 import org.eclipse.jgit.lib.Ref;
@@ -220,13 +221,30 @@ public class RefUpdateValidator {
 
     boolean succeeded;
     try {
+      if (!sharedRefDb.isNoop()) {
+        ObjectId localObjectId =
+            Optional.ofNullable(refDb.findRef(refPair.compareRef.getName()))
+                .map(Ref::getObjectId)
+                .orElse(ObjectId.zeroId());
+        if (!localObjectId.equals(refPair.putValue)) {
+          String error =
+              String.format(
+                  "Aborting the global-refdb update of %s = %s: local ref value is %s instead of"
+                      + " the expected value %s",
+                  refPair.getName(), refPair.putValue, localObjectId.name(), refPair.putValue);
+          logger.atSevere().log("%s", error);
+          throw new IOException(error);
+        }
+      }
+
       succeeded =
           sharedRefDb.compareAndPut(
               Project.nameKey(projectName), refSnapshot.getRef(), refSnapshot.getNewValue());
     } catch (GlobalRefDbSystemError e) {
       logger.atWarning().withCause(e).log(
-          "Not able to persist the data in global-refdb for project '%s', ref '%s' and value %s, message: %s",
-          projectName, refSnapshot.getName(), refSnapshot.getNewValue(), e.getMessage());
+          "Not able to persist the data in global-refdb for project '%s', ref '%s' and value %s,"
+              + " message: %s",
+          projectName, refSnapshot.getName(), refSnapshot.putValue, e.getMessage());
       throw e;
     }
 

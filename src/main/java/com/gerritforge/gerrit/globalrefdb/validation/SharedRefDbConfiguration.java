@@ -65,12 +65,16 @@ public class SharedRefDbConfiguration {
     return sharedRefDb.get();
   }
 
-  /** @return Getter of projects checked against the global refdb */
+  /**
+   * @return Getter of projects checked against the global refdb
+   */
   public Projects projects() {
     return projects.get();
   }
 
-  /** @return name of the libModule consuming this library */
+  /**
+   * @return name of the libModule consuming this library
+   */
   public String pluginName() {
     return pluginName;
   }
