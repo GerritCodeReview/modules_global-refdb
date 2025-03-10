@@ -118,6 +118,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "abda9f1b_2616333a",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-03-10T13:13:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb2beedd_22b0fe48",
+      "range": {
+        "startLine": 226,
+        "startChar": 32,
+        "endLine": 226,
+        "endChar": 45
+      },
+      "revId": "0d519db35ff87bcc9e99a8c43f66253f5cc4a334",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f57a66ba_48a5cadc",
@@ -159,6 +183,30 @@
         "startChar": 40,
         "endLine": 239,
         "endChar": 82
+      },
+      "revId": "0d519db35ff87bcc9e99a8c43f66253f5cc4a334",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50d4f17b_3535189a",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-03-10T13:13:27Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "f57a66ba_48a5cadc",
+      "range": {
+        "startLine": 239,
+        "startChar": 35,
+        "endLine": 239,
+        "endChar": 39
       },
       "revId": "0d519db35ff87bcc9e99a8c43f66253f5cc4a334",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
