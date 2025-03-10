@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "014733cd_5669ab87",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-03-10T11:36:25Z",
+      "side": 1,
+      "message": "nit: wrap long line",
+      "range": {
+        "startLine": 11,
+        "startChar": 69,
+        "endLine": 11,
+        "endChar": 75
+      },
+      "revId": "9ae7548eddf65e1232bf1c73f2500e815287ad5d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e036ae85_bb9e6313",
+        "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/BatchRefUpdateValidatorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-03-10T11:36:25Z",
+      "side": 1,
+      "message": "```suggestion\n    RefUpdate anUpdate \u003d refdir.newUpdate(refName, false);\n```",
+      "range": {
+        "startLine": 103,
+        "startChar": 14,
+        "endLine": 103,
+        "endChar": 21
+      },
+      "revId": "9ae7548eddf65e1232bf1c73f2500e815287ad5d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a47766f0_f1105c47",
         "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/BatchRefUpdateValidatorTest.java",
         "patchSetId": 1

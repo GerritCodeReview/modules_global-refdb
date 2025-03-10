@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afb11aed_376c3a59",
+        "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/BatchRefUpdateValidatorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-03-10T11:36:25Z",
+      "side": 1,
+      "message": "nit: anUpdate",
+      "range": {
+        "startLine": 251,
+        "startChar": 14,
+        "endLine": 251,
+        "endChar": 21
+      },
+      "revId": "5d9e9bdb727fcc2aea7bc0b3859f3906f89065f8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "383c155b_dc00abbb",
+        "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/BatchRefUpdateValidatorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-03-10T11:36:25Z",
+      "side": 1,
+      "message": "why `forceUpdate()`, an `update()` would suffice here, right?",
+      "range": {
+        "startLine": 253,
+        "startChar": 1,
+        "endLine": 253,
+        "endChar": 26
+      },
+      "revId": "5d9e9bdb727fcc2aea7bc0b3859f3906f89065f8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee1090ec_81ecf6b2",
+        "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidatorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-03-10T11:36:25Z",
+      "side": 1,
+      "message": "nit: `times(1)` is the default, no need to be explicit.",
+      "range": {
+        "startLine": 203,
+        "startChar": 22,
+        "endLine": 203,
+        "endChar": 32
+      },
+      "revId": "5d9e9bdb727fcc2aea7bc0b3859f3906f89065f8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
