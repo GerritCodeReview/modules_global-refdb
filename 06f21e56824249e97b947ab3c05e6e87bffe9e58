@@ -68,6 +68,29 @@
       },
       "revId": "06f21e56824249e97b947ab3c05e6e87bffe9e58",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12eed8b2_626adac5",
+        "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidatorTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1025452
+      },
+      "writtenOn": "2025-03-10T06:15:39Z",
+      "side": 1,
+      "message": "nit: it is repeated 3 times (1 time with different `ref name`) perhaps it could be enclosed in a function?",
+      "range": {
+        "startLine": 123,
+        "startChar": 12,
+        "endLine": 128,
+        "endChar": 14
+      },
+      "revId": "06f21e56824249e97b947ab3c05e6e87bffe9e58",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
