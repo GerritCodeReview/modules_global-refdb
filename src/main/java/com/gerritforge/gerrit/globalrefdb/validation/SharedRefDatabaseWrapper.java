@@ -27,7 +27,9 @@ import com.google.gerrit.extensions.registration.DynamicItem;
 import com.google.gerrit.metrics.Timer0.Context;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import java.util.Arrays;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Ref;
 
@@ -71,7 +73,10 @@ public class SharedRefDatabaseWrapper implements ExtendedGlobalRefDatabase {
   @Override
   public boolean isUpToDate(Project.NameKey project, Ref ref) throws GlobalRefDbLockException {
     return trackFailingOperation(
-        () -> sharedRefDb().isUpToDate(project, ref), metrics::startIsUpToDateExecutionTime);
+        () -> sharedRefDb().isUpToDate(project, ref),
+        metrics::startIsUpToDateExecutionTime,
+        () ->
+            toString(project, project::get) + ":" + toString(ref, ref::getName) + " is up-to-date");
   }
 
   /** {@inheritDoc}. The operation is logged upon success. */
@@ -87,7 +92,18 @@ public class SharedRefDatabaseWrapper implements ExtendedGlobalRefDatabase {
           }
           return succeeded;
         },
-        metrics::startCompareAndPutExecutionTime);
+        metrics::startCompareAndPutExecutionTime,
+        () ->
+            "compare "
+                + toString(project, project::get)
+                + ":"
+                + toString(currRef, currRef::getName)
+                + ":"
+                + toString(
+                    currRef,
+                    () -> toString(currRef.getObjectId(), () -> currRef.getObjectId().name()))
+                + " and put "
+                + toString(newRefValue, newRefValue::name));
   }
 
   /** {@inheritDoc} the operation is logged upon success. */
@@ -103,7 +119,16 @@ public class SharedRefDatabaseWrapper implements ExtendedGlobalRefDatabase {
           }
           return succeeded;
         },
-        metrics::startCompareAndPutExecutionTime);
+        metrics::startCompareAndPutExecutionTime,
+        () ->
+            "compare "
+                + toString(project, project::get)
+                + ":"
+                + toString(refName)
+                + ":"
+                + toString(currValue)
+                + " and put "
+                + toString(newValue));
   }
 
   @Override
@@ -120,7 +145,14 @@ public class SharedRefDatabaseWrapper implements ExtendedGlobalRefDatabase {
           sharedRefLogger.logRefUpdate(project.get(), refName, newValue);
           return null;
         },
-        metrics::startSetExecutionTime);
+        metrics::startSetExecutionTime,
+        () ->
+            "Put "
+                + toString(project, project::get)
+                + ":"
+                + toString(refName)
+                + " = "
+                + toString(newValue));
   }
 
   public boolean isSetOperationSupported() {
@@ -137,13 +169,16 @@ public class SharedRefDatabaseWrapper implements ExtendedGlobalRefDatabase {
           sharedRefLogger.logLockAcquisition(project.get(), refName);
           return locker;
         },
-        metrics::startLockRefExecutionTime);
+        metrics::startLockRefExecutionTime,
+        () -> "Lock " + toString(project, project::get) + ":" + toString(refName));
   }
 
   @Override
   public boolean exists(Project.NameKey project, String refName) {
     return trackFailingOperation(
-        () -> sharedRefDb().exists(project, refName), metrics::startExistsExecutionTime);
+        () -> sharedRefDb().exists(project, refName),
+        metrics::startExistsExecutionTime,
+        () -> toString(project, project::get) + ":" + toString(refName) + " exists");
   }
 
   /** {@inheritDoc}. The operation is logged. */
@@ -155,14 +190,23 @@ public class SharedRefDatabaseWrapper implements ExtendedGlobalRefDatabase {
           sharedRefLogger.logProjectDelete(project.get());
           return null;
         },
-        metrics::startRemoveExecutionTime);
+        metrics::startRemoveExecutionTime,
+        () -> "Remove " + toString(project, project::get));
   }
 
   @Override
   public <T> Optional<T> get(Project.NameKey nameKey, String s, Class<T> clazz)
       throws GlobalRefDbSystemError {
     return trackFailingOperation(
-        () -> sharedRefDb().get(nameKey, s, clazz), metrics::startGetExecutionTime);
+        () -> sharedRefDb().get(nameKey, s, clazz),
+        metrics::startGetExecutionTime,
+        () ->
+            "Get "
+                + toString(nameKey, nameKey::get)
+                + ":"
+                + toString(s)
+                + " of type "
+                + clazz.getSimpleName());
   }
 
   boolean isNoop() {
@@ -189,7 +233,10 @@ public class SharedRefDatabaseWrapper implements ExtendedGlobalRefDatabase {
   }
 
   private <T, E extends Exception> T trackFailingOperation(
-      ThrowingSupplier<T, E> operation, Supplier<Context> metricTimer) throws E {
+      ThrowingSupplier<T, E> operation,
+      Supplier<Context> metricTimer,
+      Supplier<String> operationDetails)
+      throws E {
 
     boolean completedWithoutExceptions = false;
     try (Context ignore = metricTimer.get()) {
@@ -198,8 +245,23 @@ public class SharedRefDatabaseWrapper implements ExtendedGlobalRefDatabase {
       return result;
     } finally {
       if (!completedWithoutExceptions) {
+        String callStack =
+            Arrays.stream(Thread.currentThread().getStackTrace())
+                .skip(2) /* Skip the getStackTrace() and trackFailingOperation() call stacks */
+                .map(StackTraceElement::toString)
+                .collect(Collectors.joining("\n   at "));
+        log.atWarning().log(
+            "Global-refdb operation '%s' failed\n%s", operationDetails.get(), callStack);
         metrics.incrementOperationFailures();
       }
     }
+  }
+
+  private static <T> String toString(T value) {
+    return String.valueOf(value);
+  }
+
+  private static <O, T> String toString(O object, Supplier<T> valueSupplier) {
+    return toString(object == null ? null : valueSupplier.get());
   }
 }
