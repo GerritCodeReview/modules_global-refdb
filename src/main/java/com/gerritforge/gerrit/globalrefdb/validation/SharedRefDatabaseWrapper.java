@@ -27,7 +27,9 @@ import com.google.gerrit.extensions.registration.DynamicItem;
 import com.google.gerrit.metrics.Timer0.Context;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import java.util.Arrays;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Ref;
 
@@ -198,6 +200,11 @@ public class SharedRefDatabaseWrapper implements ExtendedGlobalRefDatabase {
       return result;
     } finally {
       if (!completedWithoutExceptions) {
+        String callStack =
+            Arrays.stream(Thread.currentThread().getStackTrace())
+                .map(StackTraceElement::toString)
+                .collect(Collectors.joining("\n   at "));
+        log.atWarning().log("Global-refdb operation failed\n%s", callStack);
         metrics.incrementOperationFailures();
       }
     }
