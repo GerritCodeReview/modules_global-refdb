@@ -122,7 +122,6 @@ public class SharedRefDatabaseWrapper implements ExtendedGlobalRefDatabase {
   public AutoCloseable lockRef(Project.NameKey project, String refName)
       throws GlobalRefDbLockException {
     try (Context context = metrics.startLockRefExecutionTime()) {
-      sharedRefLogger.logLockAcquisition(project.get(), refName);
       return new LockWrapper(
           sharedRefLogger, project.get(), refName, sharedRefDb().lockRef(project, refName));
     }

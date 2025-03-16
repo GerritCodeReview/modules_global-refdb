@@ -51,6 +51,7 @@ public class LockWrapper implements AutoCloseable {
     this.sharedRefLogger = sharedRefLogger;
     this.project = project;
     this.refName = refName;
+    sharedRefLogger.logLockAcquisition(project, refName);
   }
 
   /**
