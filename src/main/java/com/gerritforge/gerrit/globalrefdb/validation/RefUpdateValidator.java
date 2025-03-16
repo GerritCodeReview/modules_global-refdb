@@ -269,9 +269,7 @@ public class RefUpdateValidator {
 
     locks.addResourceIfNotExist(
         String.format("%s-%s", projectName, refName),
-        () ->
-            lockWrapperFactory.create(
-                projectName, refName, sharedRefDb.lockRef(Project.nameKey(projectName), refName)));
+        () -> sharedRefDb.lockRef(Project.nameKey(projectName), refName));
 
     RefPair latestRefPair = getLatestLocalRef(refPair);
     if (sharedRefDb.isUpToDate(Project.nameKey(projectName), latestRefPair.compareRef)) {
