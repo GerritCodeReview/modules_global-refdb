@@ -15,6 +15,7 @@
 package com.gerritforge.gerrit.globalrefdb.validation;
 
 import com.gerritforge.gerrit.globalrefdb.GlobalRefDbSystemError;
+import com.gerritforge.gerrit.globalrefdb.RefDbLockException;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.CustomSharedRefEnforcementByProject;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.DefaultSharedRefEnforcement;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.OutOfSyncException;
@@ -202,6 +203,9 @@ public class RefUpdateValidator {
             e.getMessage());
       }
       return result;
+    } catch (RefDbLockException e) {
+      logger.atWarning().withCause(e).log("Unable to lock %s:%s", projectName, refUpdate.getName());
+      return Result.LOCK_FAILURE;
     } catch (OutOfSyncException e) {
       logger.atWarning().withCause(e).log(
           "Local node is out of sync with ref-db: %s", e.getMessage());
@@ -264,17 +268,18 @@ public class RefUpdateValidator {
       return refPair;
     }
 
-    locks.addResourceIfNotExist(
-        String.format("%s-%s", projectName, refName),
-        () -> sharedRefDb.lockRef(Project.nameKey(projectName), refName));
+    String sharedLockKey = String.format("%s:%s", projectName, refName);
+    String localLockKey = String.format("%s:local", sharedLockKey);
+    Project.NameKey projectKey = Project.nameKey(projectName);
+    locks.addResourceIfNotExist(localLockKey, () -> sharedRefDb.lockLocalRef(projectKey, refName));
+    locks.addResourceIfNotExist(sharedLockKey, () -> sharedRefDb.lockRef(projectKey, refName));
 
     RefPair latestRefPair = getLatestLocalRef(refPair);
-    if (sharedRefDb.isUpToDate(Project.nameKey(projectName), latestRefPair.compareRef)) {
+    if (sharedRefDb.isUpToDate(projectKey, latestRefPair.compareRef)) {
       return latestRefPair;
     }
 
-    if (isNullRef(latestRefPair.compareRef)
-        || sharedRefDb.exists(Project.nameKey(projectName), refName)) {
+    if (isNullRef(latestRefPair.compareRef) || sharedRefDb.exists(projectKey, refName)) {
       validationMetrics.incrementSplitBrainPrevention();
 
       softFailBasedOnEnforcement(
