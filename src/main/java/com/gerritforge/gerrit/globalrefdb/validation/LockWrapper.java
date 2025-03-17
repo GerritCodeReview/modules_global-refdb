@@ -14,14 +14,14 @@
 
 package com.gerritforge.gerrit.globalrefdb.validation;
 
-import com.google.inject.Inject;
-
 /** Wrapper around an {@link AutoCloseable} lock to allow logging of resource releasing. */
 public class LockWrapper implements AutoCloseable {
+
   private final String project;
   private final String refName;
   private final AutoCloseable lock;
   private final SharedRefLogger sharedRefLogger;
+  private final SharedRefLogger.Scope scope;
 
   /**
    * Constructs a {@code LockWrapper} object for a specific refName of a project, which wraps a held
@@ -33,12 +33,17 @@ public class LockWrapper implements AutoCloseable {
    * @param lock the acquired lock
    */
   public LockWrapper(
-      SharedRefLogger sharedRefLogger, String project, String refName, AutoCloseable lock) {
+      SharedRefLogger sharedRefLogger,
+      String project,
+      String refName,
+      AutoCloseable lock,
+      SharedRefLogger.Scope scope) {
     this.lock = lock;
     this.sharedRefLogger = sharedRefLogger;
     this.project = project;
     this.refName = refName;
-    sharedRefLogger.logLockAcquisition(project, refName);
+    this.scope = scope;
+    sharedRefLogger.logLockAcquisition(project, refName, scope);
   }
 
   /**
@@ -49,6 +54,6 @@ public class LockWrapper implements AutoCloseable {
   @Override
   public void close() throws Exception {
     lock.close();
-    sharedRefLogger.logLockRelease(project, refName);
+    sharedRefLogger.logLockRelease(project, refName, scope);
   }
 }
