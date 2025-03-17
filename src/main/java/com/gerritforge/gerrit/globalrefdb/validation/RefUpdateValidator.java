@@ -46,7 +46,6 @@ public class RefUpdateValidator {
   protected final ValidationMetrics validationMetrics;
 
   protected final String projectName;
-  private final LockWrapper.Factory lockWrapperFactory;
   protected final RefDatabase refDb;
   protected final SharedRefEnforcement refEnforcement;
   protected final ProjectsFilter projectsFilter;
@@ -105,14 +104,12 @@ public class RefUpdateValidator {
       SharedRefDatabaseWrapper sharedRefDb,
       ValidationMetrics validationMetrics,
       SharedRefEnforcement refEnforcement,
-      LockWrapper.Factory lockWrapperFactory,
       ProjectsFilter projectsFilter,
       @Assisted String projectName,
       @Assisted RefDatabase refDb,
       @Assisted ImmutableSet<String> ignoredRefs) {
     this.sharedRefDb = sharedRefDb;
     this.validationMetrics = validationMetrics;
-    this.lockWrapperFactory = lockWrapperFactory;
     this.refDb = refDb;
     this.ignoredRefs = ignoredRefs;
     this.projectName = projectName;
