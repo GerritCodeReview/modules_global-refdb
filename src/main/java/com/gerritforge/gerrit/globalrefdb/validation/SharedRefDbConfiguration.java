@@ -24,8 +24,10 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.MultimapBuilder;
+import com.google.gerrit.server.config.ConfigUtil;
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.lib.Config;
 import org.eclipse.jgit.storage.file.FileBasedConfig;
@@ -37,11 +39,16 @@ import org.slf4j.LoggerFactory;
  * configuration file of the libModule is consuming the library.
  */
 public class SharedRefDbConfiguration {
+  public static final String SECTION = "ref-database";
+  public static final long LOCAL_LOCK_TIMEOUT_DEFAULT_MSEC = 30000L;
+  public static final String LOCAL_LOCK_TIMEOUT = "localLockTimeout";
+
   private static final Logger log = LoggerFactory.getLogger(SharedRefDbConfiguration.class);
 
   private final Supplier<Projects> projects;
   private final Supplier<SharedRefDatabase> sharedRefDb;
   private final String pluginName;
+  private final Supplier<Long> localLockTimeoutMsec;
 
   /**
    * Constructs a {@code SharedRefDbConfiguration} by providing the libModule name and a 'config'
@@ -55,6 +62,16 @@ public class SharedRefDbConfiguration {
     projects = memoize(() -> new Projects(lazyCfg));
     sharedRefDb = memoize(() -> new SharedRefDatabase(lazyCfg));
     this.pluginName = pluginName;
+    localLockTimeoutMsec =
+        memoize(
+            () ->
+                ConfigUtil.getTimeUnit(
+                    lazyCfg.get(),
+                    SECTION,
+                    null,
+                    LOCAL_LOCK_TIMEOUT,
+                    LOCAL_LOCK_TIMEOUT_DEFAULT_MSEC,
+                    TimeUnit.MILLISECONDS));
   }
 
   /**
@@ -98,13 +115,22 @@ public class SharedRefDbConfiguration {
   }
 
   /**
+   * Returns the timeout waiting to acquire a lock for mutating for a local ref.
+   *
+   * @return local ref lock timeout in msec
+   */
+  public long getLocalLockTimeoutMsec() {
+    return localLockTimeoutMsec.get();
+  }
+
+  /**
    * Represents the global refdb configuration, which is computed by reading the 'ref-database'
    * section from the configuration file of this library's consumers. It allows to specify whether
    * it is enabled, specific {@link SharedRefEnforcement}s and to tune other parameters that define
    * specific behaviours of the global refdb.
    */
   public static class SharedRefDatabase {
-    public static final String SECTION = "ref-database";
+    public static final String SECTION = SharedRefDbConfiguration.SECTION;
     public static final String ENABLE_KEY = "enabled";
     public static final String SUBSECTION_ENFORCEMENT_RULES = "enforcementRules";
     public static final String IGNORED_REFS_PREFIXES = "ignoredRefsPrefixes";

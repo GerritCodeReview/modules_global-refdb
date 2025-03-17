@@ -32,4 +32,8 @@ public class GlobalRefDbLockException extends RuntimeException {
   public GlobalRefDbLockException(String project, String refName, Exception cause) {
     super(String.format("Unable to lock ref %s on project %s", refName, project), cause);
   }
+
+  public GlobalRefDbLockException(String project, String refName, String message) {
+    super(String.format("Unable to lock ref %s on project %s: %s", refName, project, message));
+  }
 }
