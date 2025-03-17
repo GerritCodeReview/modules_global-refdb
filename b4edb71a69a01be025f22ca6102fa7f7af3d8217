@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80594feb_e8987346",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-03-17T15:43:31Z",
+      "side": 1,
+      "message": "```suggestion\nThe logging of the acquired locks was performed well\n```",
+      "range": {
+        "startLine": 9,
+        "startChar": 34,
+        "endLine": 9,
+        "endChar": 38
+      },
+      "revId": "b4edb71a69a01be025f22ca6102fa7f7af3d8217",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96208ef1_8a4379f9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-03-17T15:43:31Z",
+      "side": 1,
+      "message": "```suggestion\nbefore the lock method call, causing misleading\n```",
+      "range": {
+        "startLine": 10,
+        "startChar": 27,
+        "endLine": 10,
+        "endChar": 41
+      },
+      "revId": "b4edb71a69a01be025f22ca6102fa7f7af3d8217",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20b36f43_c2847b2f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-03-17T15:43:31Z",
+      "side": 1,
+      "message": "```suggestion\noutput in the log and leading the reader to think\n```",
+      "range": {
+        "startLine": 11,
+        "startChar": 17,
+        "endLine": 11,
+        "endChar": 24
+      },
+      "revId": "b4edb71a69a01be025f22ca6102fa7f7af3d8217",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
