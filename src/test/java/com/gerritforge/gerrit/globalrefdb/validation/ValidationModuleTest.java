@@ -89,6 +89,7 @@ public class ValidationModuleTest extends LightweightPluginDaemonTest {
                   .annotatedWith(Names.named(SharedRefDbGitRepositoryManager.IGNORED_REFS))
                   .toInstance(ir));
 
+      bind(RefLocker.class).toInstance((project, refName) -> () -> {});
       bind(SharedRefDatabaseWrapper.class).in(Scopes.SINGLETON);
       bind(SharedRefLogger.class).to(Log4jSharedRefLogger.class);
 
