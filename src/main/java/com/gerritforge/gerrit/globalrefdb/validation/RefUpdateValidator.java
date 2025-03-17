@@ -46,7 +46,6 @@ public class RefUpdateValidator {
   protected final ValidationMetrics validationMetrics;
 
   protected final String projectName;
-  private final LockWrapper.Factory lockWrapperFactory;
   protected final RefDatabase refDb;
   protected final SharedRefEnforcement refEnforcement;
   protected final ProjectsFilter projectsFilter;
@@ -92,7 +91,6 @@ public class RefUpdateValidator {
    * @param refEnforcement Specific ref enforcements for this project. Either a {@link
    *     CustomSharedRefEnforcementByProject} when custom policies are provided via configuration
    *     file or a {@link DefaultSharedRefEnforcement} for defaults.
-   * @param lockWrapperFactory factory providing a {@link LockWrapper}
    * @param projectsFilter filter to match whether the project being updated should be validated
    *     against global refdb
    * @param projectName the name of the project being updated.
@@ -105,14 +103,12 @@ public class RefUpdateValidator {
       SharedRefDatabaseWrapper sharedRefDb,
       ValidationMetrics validationMetrics,
       SharedRefEnforcement refEnforcement,
-      LockWrapper.Factory lockWrapperFactory,
       ProjectsFilter projectsFilter,
       @Assisted String projectName,
       @Assisted RefDatabase refDb,
       @Assisted ImmutableSet<String> ignoredRefs) {
     this.sharedRefDb = sharedRefDb;
     this.validationMetrics = validationMetrics;
-    this.lockWrapperFactory = lockWrapperFactory;
     this.refDb = refDb;
     this.ignoredRefs = ignoredRefs;
     this.projectName = projectName;
