@@ -15,18 +15,9 @@
 package com.gerritforge.gerrit.globalrefdb.validation;
 
 import com.google.inject.Inject;
-import com.google.inject.assistedinject.Assisted;
 
 /** Wrapper around an {@link AutoCloseable} lock to allow logging of resource releasing. */
 public class LockWrapper implements AutoCloseable {
-  /** {@code LockWrapper} Factory for Guice assisted injection. */
-  public interface Factory {
-    LockWrapper create(
-        @Assisted("project") String project,
-        @Assisted("refName") String refName,
-        @Assisted AutoCloseable lock);
-  }
-
   private final String project;
   private final String refName;
   private final AutoCloseable lock;
@@ -43,10 +34,7 @@ public class LockWrapper implements AutoCloseable {
    */
   @Inject
   public LockWrapper(
-      SharedRefLogger sharedRefLogger,
-      @Assisted("project") String project,
-      @Assisted("refName") String refName,
-      @Assisted AutoCloseable lock) {
+      SharedRefLogger sharedRefLogger, String project, String refName, AutoCloseable lock) {
     this.lock = lock;
     this.sharedRefLogger = sharedRefLogger;
     this.project = project;

@@ -280,7 +280,6 @@ public class RefUpdateValidatorTest implements RefFixture {
         refDbWrapper,
         validationMetrics,
         defaultRefEnforcement,
-        new DummyLockWrapper(),
         projectsFilter,
         A_TEST_PROJECT_NAME,
         localRefDb,
