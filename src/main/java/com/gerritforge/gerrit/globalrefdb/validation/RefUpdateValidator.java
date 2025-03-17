@@ -264,17 +264,18 @@ public class RefUpdateValidator {
       return refPair;
     }
 
-    locks.addResourceIfNotExist(
-        String.format("%s-%s", projectName, refName),
-        () -> sharedRefDb.lockRef(Project.nameKey(projectName), refName));
+    String sharedLockKey = String.format("%s:%s", projectName, refName);
+    String localLockKey = String.format("%s:local", sharedLockKey);
+    Project.NameKey projectKey = Project.nameKey(projectName);
+    locks.addResourceIfNotExist(sharedLockKey, () -> sharedRefDb.lockRef(projectKey, refName));
+    locks.addResourceIfNotExist(localLockKey, () -> sharedRefDb.lockLocalRef(projectKey, refName));
 
     RefPair latestRefPair = getLatestLocalRef(refPair);
-    if (sharedRefDb.isUpToDate(Project.nameKey(projectName), latestRefPair.compareRef)) {
+    if (sharedRefDb.isUpToDate(projectKey, latestRefPair.compareRef)) {
       return latestRefPair;
     }
 
-    if (isNullRef(latestRefPair.compareRef)
-        || sharedRefDb.exists(Project.nameKey(projectName), refName)) {
+    if (isNullRef(latestRefPair.compareRef) || sharedRefDb.exists(projectKey, refName)) {
       validationMetrics.incrementSplitBrainPrevention();
 
       softFailBasedOnEnforcement(
