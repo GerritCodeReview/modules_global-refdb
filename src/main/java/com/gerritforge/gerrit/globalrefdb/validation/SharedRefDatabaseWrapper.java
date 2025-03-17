@@ -45,6 +45,7 @@ public class SharedRefDatabaseWrapper implements ExtendedGlobalRefDatabase {
 
   private final SharedRefLogger sharedRefLogger;
   private final SharedRefDBMetrics metrics;
+  private final RefLocker localRefDbLocker;
 
   /**
    * Constructs a {@code SharedRefDatabaseWrapper} wrapping an optional {@link GlobalRefDatabase},
@@ -53,17 +54,20 @@ public class SharedRefDatabaseWrapper implements ExtendedGlobalRefDatabase {
    * @param sharedRefLogger logger of shared ref-db operations.
    */
   @Inject
-  public SharedRefDatabaseWrapper(SharedRefLogger sharedRefLogger, SharedRefDBMetrics metrics) {
+  public SharedRefDatabaseWrapper(
+      SharedRefLogger sharedRefLogger, SharedRefDBMetrics metrics, RefLocker localRefDbLocker) {
     this.sharedRefLogger = sharedRefLogger;
     this.metrics = metrics;
+    this.localRefDbLocker = localRefDbLocker;
   }
 
   @VisibleForTesting
   public SharedRefDatabaseWrapper(
       DynamicItem<GlobalRefDatabase> sharedRefDbDynamicItem,
       SharedRefLogger sharedRefLogger,
-      SharedRefDBMetrics metrics) {
-    this(sharedRefLogger, metrics);
+      SharedRefDBMetrics metrics,
+      RefLocker localRefDbLocker) {
+    this(sharedRefLogger, metrics, localRefDbLocker);
     this.sharedRefDbDynamicItem = sharedRefDbDynamicItem;
   }
 
@@ -125,6 +129,12 @@ public class SharedRefDatabaseWrapper implements ExtendedGlobalRefDatabase {
       return new LockWrapper(
           sharedRefLogger, project.get(), refName, sharedRefDb().lockRef(project, refName));
     }
+  }
+
+  public AutoCloseable lockLocalRef(Project.NameKey project, String refName)
+      throws GlobalRefDbLockException {
+    return new LockWrapper(
+        sharedRefLogger, project.get(), refName, localRefDbLocker.lockRef(project, refName));
   }
 
   @Override
