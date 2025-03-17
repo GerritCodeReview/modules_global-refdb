@@ -23,6 +23,7 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.entities.Project;
 import com.google.gerrit.extensions.registration.DynamicItem;
+import com.google.gerrit.git.LockFailureException;
 import com.google.gerrit.metrics.Timer0.Context;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -45,6 +46,7 @@ public class SharedRefDatabaseWrapper implements ExtendedGlobalRefDatabase {
 
   private final SharedRefLogger sharedRefLogger;
   private final SharedRefDBMetrics metrics;
+  private final RefDbLocker refDbLocker;
 
   /**
    * Constructs a {@code SharedRefDatabaseWrapper} wrapping an optional {@link GlobalRefDatabase},
@@ -53,17 +55,20 @@ public class SharedRefDatabaseWrapper implements ExtendedGlobalRefDatabase {
    * @param sharedRefLogger logger of shared ref-db operations.
    */
   @Inject
-  public SharedRefDatabaseWrapper(SharedRefLogger sharedRefLogger, SharedRefDBMetrics metrics) {
+  public SharedRefDatabaseWrapper(
+      SharedRefLogger sharedRefLogger, SharedRefDBMetrics metrics, RefDbLocker refDbLocker) {
     this.sharedRefLogger = sharedRefLogger;
     this.metrics = metrics;
+    this.refDbLocker = refDbLocker;
   }
 
   @VisibleForTesting
   public SharedRefDatabaseWrapper(
       DynamicItem<GlobalRefDatabase> sharedRefDbDynamicItem,
       SharedRefLogger sharedRefLogger,
-      SharedRefDBMetrics metrics) {
-    this(sharedRefLogger, metrics);
+      SharedRefDBMetrics metrics,
+      RefDbLocker refDbLocker) {
+    this(sharedRefLogger, metrics, refDbLocker);
     this.sharedRefDbDynamicItem = sharedRefDbDynamicItem;
   }
 
@@ -125,6 +130,12 @@ public class SharedRefDatabaseWrapper implements ExtendedGlobalRefDatabase {
       return new LockWrapper(
           sharedRefLogger, project.get(), refName, sharedRefDb().lockRef(project, refName));
     }
+  }
+
+  public AutoCloseable lockLocalRef(Project.NameKey project, String refName)
+      throws LockFailureException {
+    return new LockWrapper(
+        sharedRefLogger, project.get(), refName, refDbLocker.lockRef(project, refName));
   }
 
   @Override
