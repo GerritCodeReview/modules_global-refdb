@@ -79,22 +79,26 @@ class SharedRefLogEntry {
   public static class LockAcquire extends SharedRefLogEntry {
 
     public String refName;
+    public SharedRefLogger.Scope scope;
 
-    LockAcquire(String projectName, String refName) {
+    LockAcquire(String projectName, String refName, SharedRefLogger.Scope scope) {
       this.type = Type.LOCK_ACQUIRE;
       this.projectName = projectName;
       this.refName = refName;
+      this.scope = scope;
     }
   }
 
   public static class LockRelease extends SharedRefLogEntry {
 
     public String refName;
+    public SharedRefLogger.Scope scope;
 
-    LockRelease(String projectName, String refName) {
+    LockRelease(String projectName, String refName, SharedRefLogger.Scope scope) {
       this.type = Type.LOCK_RELEASE;
       this.projectName = projectName;
       this.refName = refName;
+      this.scope = scope;
     }
   }
 }
