@@ -26,6 +26,46 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a01792eb_863d1920",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/RefDbLockException.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-03-18T20:51:17Z",
+      "side": 1,
+      "message": "RefDbLockException",
+      "range": {
+        "startLine": 22,
+        "startChar": 29,
+        "endLine": 22,
+        "endChar": 53
+      },
+      "revId": "aaa362853627005fd1817854facad43cb68d333c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b80b3bee_ca0587d0",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/LockWrapper.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-03-18T20:51:17Z",
+      "side": 1,
+      "message": "Unexpected formatting change?",
+      "revId": "aaa362853627005fd1817854facad43cb68d333c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d6a4826b_6e13030f",
         "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/Log4jSharedRefLogger.java",
         "patchSetId": 18
@@ -60,6 +100,29 @@
       "writtenOn": "2025-03-18T20:30:12Z",
       "side": 1,
       "message": "nit: this could simply be `new NoOpRefLocker()` now.",
+      "range": {
+        "startLine": 100,
+        "startChar": 49,
+        "endLine": 100,
+        "endChar": 82
+      },
+      "revId": "aaa362853627005fd1817854facad43cb68d333c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1e6bfb5_912863be",
+        "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidatorTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-03-18T20:51:17Z",
+      "side": 1,
+      "message": "Can this be replaced with the NoOpRefLocker?",
       "range": {
         "startLine": 100,
         "startChar": 49,
