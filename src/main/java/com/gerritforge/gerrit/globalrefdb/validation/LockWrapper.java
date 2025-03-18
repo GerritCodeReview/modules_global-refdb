@@ -32,7 +32,6 @@ public class LockWrapper implements AutoCloseable {
    * @param refName the refName the lock has been acquired for
    * @param lock the acquired lock
    */
-  @Inject
   public LockWrapper(
       SharedRefLogger sharedRefLogger, String project, String refName, AutoCloseable lock) {
     this.lock = lock;
