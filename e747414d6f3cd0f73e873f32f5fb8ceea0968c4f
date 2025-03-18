@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "055ef51f_50c6c814",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/BatchRefUpdateValidator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-03-18T08:12:23Z",
+      "side": 1,
+      "message": "This needs to be removed.",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 70
+      },
+      "revId": "e747414d6f3cd0f73e873f32f5fb8ceea0968c4f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40aac788_a75b6b27",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-03-18T08:12:23Z",
+      "side": 1,
+      "message": "This needs to be removed.",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 70
+      },
+      "revId": "e747414d6f3cd0f73e873f32f5fb8ceea0968c4f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
