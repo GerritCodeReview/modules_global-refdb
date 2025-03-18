@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c58b9be7_bd07dd15",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefLocker.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-03-18T08:46:12Z",
+      "side": 1,
+      "message": "Have you considered providing the Noop implementation as `default` for this interface?",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 91
+      },
+      "revId": "a89ecf19dbd582f54a5861dfcaf7ed9c7bd0a610",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7faee12b_62c662ce",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDatabaseWrapper.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-03-18T08:46:12Z",
+      "side": 1,
+      "message": "This is locking the ref _locally_, why does it throw a `GlobalRefDbLockException`?\nShould it not throw a `RefDbLockException` instead?",
+      "range": {
+        "startLine": 134,
+        "startChar": 0,
+        "endLine": 135,
+        "endChar": 39
+      },
+      "revId": "a89ecf19dbd582f54a5861dfcaf7ed9c7bd0a610",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c47e2437_96a1ba62",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDatabaseWrapper.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-03-18T08:46:12Z",
+      "side": 1,
+      "message": "I understand prefixing `refName` with `(local)` helps understand that the locking was just local, as opposed to on `global-refdb`.\n\nI think it is a misuse of the `refName` field of `LockWrapper`, which is supposed to be a `refName`, not an arbitrary string such as (local) `refs/foo/bar`.\n\nIf we need to differenciate between `global` and `local` locking we could perhaps subclass `LockWrapper` or even just add an optional `scope` field?",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 29
+      },
+      "revId": "a89ecf19dbd582f54a5861dfcaf7ed9c7bd0a610",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
