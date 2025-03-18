@@ -47,6 +47,54 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3080e16b_81a21319",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/RefDbLockException.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-03-18T21:02:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a01792eb_863d1920",
+      "range": {
+        "startLine": 22,
+        "startChar": 29,
+        "endLine": 22,
+        "endChar": 53
+      },
+      "revId": "aaa362853627005fd1817854facad43cb68d333c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eba2e761_19e0c2d4",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/RefDbLockException.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-03-18T21:02:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26ae43d0_d357ef88",
+      "range": {
+        "startLine": 22,
+        "startChar": 29,
+        "endLine": 22,
+        "endChar": 53
+      },
+      "revId": "aaa362853627005fd1817854facad43cb68d333c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b80b3bee_ca0587d0",
@@ -64,6 +112,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9722b2e4_2d9852ef",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/LockWrapper.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-03-18T21:02:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b80b3bee_ca0587d0",
+      "revId": "aaa362853627005fd1817854facad43cb68d333c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d6a4826b_6e13030f",
@@ -77,6 +143,30 @@
       "writtenOn": "2025-03-18T20:30:12Z",
       "side": 1,
       "message": "This is now changing the format of the logs, and it could break any existing parsing routine.\nShould this change be targeting `master` instead?",
+      "range": {
+        "startLine": 181,
+        "startChar": 0,
+        "endLine": 183,
+        "endChar": 3
+      },
+      "revId": "aaa362853627005fd1817854facad43cb68d333c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a58e4a0_0668d823",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/Log4jSharedRefLogger.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-03-18T21:02:35Z",
+      "side": 1,
+      "message": "This is adding an extra field on the current JSON and should not break anything.",
+      "parentUuid": "d6a4826b_6e13030f",
       "range": {
         "startLine": 181,
         "startChar": 0,
@@ -133,6 +223,54 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f367b6bb_6050ccf7",
+        "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidatorTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-03-18T21:02:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42d80094_2214eb6c",
+      "range": {
+        "startLine": 100,
+        "startChar": 49,
+        "endLine": 100,
+        "endChar": 82
+      },
+      "revId": "aaa362853627005fd1817854facad43cb68d333c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc24541a_893625a7",
+        "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidatorTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-03-18T21:02:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a1e6bfb5_912863be",
+      "range": {
+        "startLine": 100,
+        "startChar": 49,
+        "endLine": 100,
+        "endChar": 82
+      },
+      "revId": "aaa362853627005fd1817854facad43cb68d333c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "881e2c69_530863f9",
@@ -156,6 +294,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e87a3781_2f496679",
+        "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDatabaseWrapperTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-03-18T21:02:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "881e2c69_530863f9",
+      "range": {
+        "startLine": 51,
+        "startChar": 63,
+        "endLine": 51,
+        "endChar": 95
+      },
+      "revId": "aaa362853627005fd1817854facad43cb68d333c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "db9a1542_5eafa940",
@@ -169,6 +331,30 @@
       "writtenOn": "2025-03-18T20:30:12Z",
       "side": 1,
       "message": "is this still needed? We have a default implementation now.",
+      "range": {
+        "startLine": 92,
+        "startChar": 6,
+        "endLine": 92,
+        "endChar": 71
+      },
+      "revId": "aaa362853627005fd1817854facad43cb68d333c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b7ba215_06ede122",
+        "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/ValidationModuleTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-03-18T21:02:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db9a1542_5eafa940",
       "range": {
         "startLine": 92,
         "startChar": 6,
