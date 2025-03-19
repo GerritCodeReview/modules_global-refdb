@@ -16,9 +16,7 @@ package com.gerritforge.gerrit.globalrefdb.validation;
 
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Ref;
-import org.junit.Ignore;
 
-@Ignore
 public class DisabledSharedRefLogger implements SharedRefLogger {
 
   @Override
