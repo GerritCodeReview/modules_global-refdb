@@ -242,7 +242,6 @@ public class RefUpdateValidatorTest implements RefFixture {
         .when(sharedRefDb)
         .isUpToDate(any(Project.NameKey.class), any(Ref.class));
     doReturn(true).when(sharedRefDb).isUpToDate(A_TEST_PROJECT_NAME_KEY, localRef);
-
     when(sharedRefDb.compareAndPut(any(Project.NameKey.class), any(Ref.class), any(ObjectId.class)))
         .thenThrow(GlobalRefDbSystemError.class);
     when(rollbackFunction.invoke(any())).thenReturn(Result.LOCK_FAILURE);
