@@ -54,6 +54,7 @@ import org.eclipse.jgit.revwalk.RevWalk;
 import org.eclipse.jgit.transport.ReceiveCommand;
 import org.eclipse.jgit.transport.ReceiveCommand.Result;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestName;
@@ -98,6 +99,7 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
     B = repo.commit(repo.getRevWalk().parseCommit(A));
   }
 
+  @Ignore("This test will be enabled in stable-3.10")
   @Test
   public void shouldUpdateSharedRefDbForAllRefUpdates() throws IOException {
     BatchRefUpdate batchRefUpdate =
@@ -180,6 +182,7 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
     assertThat(receiveCommand.getResult()).isEqualTo(Result.LOCK_FAILURE);
   }
 
+  @Ignore("This test will be enabled in stable-3.10")
   @Test
   public void shouldRollbackWhenSharedRefUpdateCompareAndPutThrowsUncaughtThrowable()
       throws Exception {
