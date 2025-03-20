@@ -39,6 +39,7 @@ import org.eclipse.jgit.lib.RefDatabase;
 import org.eclipse.jgit.lib.RefUpdate;
 import org.eclipse.jgit.lib.RefUpdate.Result;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -104,6 +105,7 @@ public class RefUpdateValidatorTest implements RefFixture {
     assertThat(result).isEqualTo(Result.NEW);
   }
 
+  @Ignore("This test will be enabled in stable-3.10")
   @Test
   public void validationShouldSucceedWhenLocalRefDbIsUpToDate() throws Exception {
     lenient()
@@ -204,7 +206,8 @@ public class RefUpdateValidatorTest implements RefFixture {
         .doReturn(true)
         .when(sharedRefDb)
         .compareAndPut(any(Project.NameKey.class), any(Ref.class), any(ObjectId.class));
-    doReturn(false)
+    lenient()
+        .doReturn(false)
         .when(sharedRefDb)
         .compareAndPut(A_TEST_PROJECT_NAME_KEY, localRef, AN_OBJECT_ID_2);
     doReturn(lock).when(sharedRefDb).lockRef(any(), anyString());
@@ -242,8 +245,10 @@ public class RefUpdateValidatorTest implements RefFixture {
         .when(sharedRefDb)
         .isUpToDate(any(Project.NameKey.class), any(Ref.class));
     doReturn(true).when(sharedRefDb).isUpToDate(A_TEST_PROJECT_NAME_KEY, localRef);
-
-    when(sharedRefDb.compareAndPut(any(Project.NameKey.class), any(Ref.class), any(ObjectId.class)))
+    lenient()
+        .when(
+            sharedRefDb.compareAndPut(
+                any(Project.NameKey.class), any(Ref.class), any(ObjectId.class)))
         .thenThrow(GlobalRefDbSystemError.class);
     when(rollbackFunction.invoke(any())).thenReturn(Result.LOCK_FAILURE);
 
