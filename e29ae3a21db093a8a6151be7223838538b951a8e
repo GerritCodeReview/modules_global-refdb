@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc8836d0_d833a78e",
+        "filename": "Jenkinsfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-03-21T10:33:42Z",
+      "side": 1,
+      "message": "Unneded change",
+      "revId": "e29ae3a21db093a8a6151be7223838538b951a8e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef3d33e5_2fd0497a",
+        "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-03-21T10:33:42Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be needed anymore on stable-3.10",
+      "range": {
+        "startLine": 207,
+        "startChar": 4,
+        "endLine": 207,
+        "endChar": 13
+      },
+      "revId": "e29ae3a21db093a8a6151be7223838538b951a8e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9f1ba17_edb9ba8c",
+        "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-03-21T10:33:42Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be needed anymore on stable-3.10",
+      "range": {
+        "startLine": 246,
+        "startChar": 4,
+        "endLine": 246,
+        "endChar": 13
+      },
+      "revId": "e29ae3a21db093a8a6151be7223838538b951a8e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
