@@ -267,7 +267,6 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
         new ValidationMetrics(
             new DisabledMetricMaker(), new SharedRefDbConfiguration(new Config(), "testplugin")),
         sharedRefEnforcement,
-        new DummyLockWrapper(),
         projectsFilter,
         RefFixture.A_TEST_PROJECT_NAME,
         diskRepo.getRefDatabase(),

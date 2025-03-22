@@ -58,7 +58,6 @@ public class BatchRefUpdateValidator extends RefUpdateValidator {
    * @param refEnforcement Specific ref enforcements for this project. Either a {@link
    *     CustomSharedRefEnforcementByProject} when custom policies are provided via configuration *
    *     file or a {@link DefaultSharedRefEnforcement} for defaults.
-   * @param lockWrapperFactory factory providing a {@link LockWrapper}
    * @param projectsFilter filter to match whether the project being updated should be validated
    *     against global refdb
    * @param projectName the name of the project being updated.
@@ -71,7 +70,6 @@ public class BatchRefUpdateValidator extends RefUpdateValidator {
       SharedRefDatabaseWrapper sharedRefDb,
       ValidationMetrics validationMetrics,
       SharedRefEnforcement refEnforcement,
-      LockWrapper.Factory lockWrapperFactory,
       ProjectsFilter projectsFilter,
       @Assisted String projectName,
       @Assisted RefDatabase refDb,
@@ -80,7 +78,6 @@ public class BatchRefUpdateValidator extends RefUpdateValidator {
         sharedRefDb,
         validationMetrics,
         refEnforcement,
-        lockWrapperFactory,
         projectsFilter,
         projectName,
         refDb,

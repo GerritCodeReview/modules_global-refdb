@@ -168,8 +168,8 @@ public class Log4jSharedRefLogger extends LibModuleLogFile implements SharedRefL
    * <p>Logs Json serialization of {@link SharedRefLogEntry.LockAcquire}
    */
   @Override
-  public void logLockAcquisition(String project, String refName) {
-    sharedRefDBLog.info(gson.toJson(new SharedRefLogEntry.LockAcquire(project, refName)));
+  public void logLockAcquisition(String project, String refName, Scope scope) {
+    sharedRefDBLog.info(gson.toJson(new SharedRefLogEntry.LockAcquire(project, refName, scope)));
   }
 
   /**
@@ -178,8 +178,8 @@ public class Log4jSharedRefLogger extends LibModuleLogFile implements SharedRefL
    * <p>Logs Json serialization of {@link SharedRefLogEntry.LockRelease}
    */
   @Override
-  public void logLockRelease(String project, String refName) {
-    sharedRefDBLog.info(gson.toJson(new SharedRefLogEntry.LockRelease(project, refName)));
+  public void logLockRelease(String project, String refName, Scope scope) {
+    sharedRefDBLog.info(gson.toJson(new SharedRefLogEntry.LockRelease(project, refName, scope)));
   }
 
   @VisibleForTesting
