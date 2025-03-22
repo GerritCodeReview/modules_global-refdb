@@ -16,6 +16,7 @@ package com.gerritforge.gerrit.globalrefdb.validation;
 
 import com.gerritforge.gerrit.globalrefdb.GlobalRefDbLockException;
 import com.gerritforge.gerrit.globalrefdb.GlobalRefDbSystemError;
+import com.gerritforge.gerrit.globalrefdb.RefDbLockException;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.CustomSharedRefEnforcementByProject;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.DefaultSharedRefEnforcement;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.OutOfSyncException;
@@ -46,7 +47,6 @@ public class RefUpdateValidator {
   protected final ValidationMetrics validationMetrics;
 
   protected final String projectName;
-  private final LockWrapper.Factory lockWrapperFactory;
   protected final RefDatabase refDb;
   protected final SharedRefEnforcement refEnforcement;
   protected final ProjectsFilter projectsFilter;
@@ -92,7 +92,6 @@ public class RefUpdateValidator {
    * @param refEnforcement Specific ref enforcements for this project. Either a {@link
    *     CustomSharedRefEnforcementByProject} when custom policies are provided via configuration
    *     file or a {@link DefaultSharedRefEnforcement} for defaults.
-   * @param lockWrapperFactory factory providing a {@link LockWrapper}
    * @param projectsFilter filter to match whether the project being updated should be validated
    *     against global refdb
    * @param projectName the name of the project being updated.
@@ -105,14 +104,12 @@ public class RefUpdateValidator {
       SharedRefDatabaseWrapper sharedRefDb,
       ValidationMetrics validationMetrics,
       SharedRefEnforcement refEnforcement,
-      LockWrapper.Factory lockWrapperFactory,
       ProjectsFilter projectsFilter,
       @Assisted String projectName,
       @Assisted RefDatabase refDb,
       @Assisted ImmutableSet<String> ignoredRefs) {
     this.sharedRefDb = sharedRefDb;
     this.validationMetrics = validationMetrics;
-    this.lockWrapperFactory = lockWrapperFactory;
     this.refDb = refDb;
     this.ignoredRefs = ignoredRefs;
     this.projectName = projectName;
@@ -205,6 +202,9 @@ public class RefUpdateValidator {
             e.getMessage());
       }
       return result;
+    } catch (RefDbLockException e) {
+      logger.atWarning().withCause(e).log("Unable to lock %s:%s", projectName, refUpdate.getName());
+      return Result.LOCK_FAILURE;
     } catch (OutOfSyncException e) {
       logger.atWarning().withCause(e).log(
           "Local node is out of sync with ref-db: %s", e.getMessage());
@@ -271,19 +271,18 @@ public class RefUpdateValidator {
       return refUpdateSnapshot;
     }
 
-    locks.addResourceIfNotExist(
-        String.format("%s-%s", projectName, refName),
-        () ->
-            lockWrapperFactory.create(
-                projectName, refName, sharedRefDb.lockRef(Project.nameKey(projectName), refName)));
+    String sharedLockKey = String.format("%s:%s", projectName, refName);
+    String localLockKey = String.format("%s:local", sharedLockKey);
+    Project.NameKey projectKey = Project.nameKey(projectName);
+    locks.addResourceIfNotExist(localLockKey, () -> sharedRefDb.lockLocalRef(projectKey, refName));
+    locks.addResourceIfNotExist(sharedLockKey, () -> sharedRefDb.lockRef(projectKey, refName));
 
     RefUpdateSnapshot latestRefUpdateSnapshot = getLatestLocalRef(refUpdateSnapshot);
-    if (sharedRefDb.isUpToDate(Project.nameKey(projectName), latestRefUpdateSnapshot.getRef())) {
+    if (sharedRefDb.isUpToDate(projectKey, latestRefUpdateSnapshot.getRef())) {
       return latestRefUpdateSnapshot;
     }
 
-    if (isNullRef(latestRefUpdateSnapshot.getRef())
-        || sharedRefDb.exists(Project.nameKey(projectName), refName)) {
+    if (isNullRef(latestRefUpdateSnapshot.getRef()) || sharedRefDb.exists(projectKey, refName)) {
       validationMetrics.incrementSplitBrainPrevention();
 
       softFailBasedOnEnforcement(
@@ -351,8 +350,8 @@ public class RefUpdateValidator {
     }
 
     public void addResourceIfNotExist(
-        String key, ExceptionThrowingSupplier<T, GlobalRefDbLockException> resourceFactory)
-        throws GlobalRefDbLockException {
+        String key, ExceptionThrowingSupplier<T, RefDbLockException> resourceFactory)
+        throws RefDbLockException {
       if (!elements.containsKey(key)) {
         elements.put(key, resourceFactory.create());
       }
