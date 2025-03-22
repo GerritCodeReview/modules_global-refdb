@@ -14,23 +14,13 @@
 
 package com.gerritforge.gerrit.globalrefdb.validation;
 
-import com.google.inject.Inject;
-import com.google.inject.assistedinject.Assisted;
-
 /** Wrapper around an {@link AutoCloseable} lock to allow logging of resource releasing. */
 public class LockWrapper implements AutoCloseable {
-  /** {@code LockWrapper} Factory for Guice assisted injection. */
-  public interface Factory {
-    LockWrapper create(
-        @Assisted("project") String project,
-        @Assisted("refName") String refName,
-        @Assisted AutoCloseable lock);
-  }
-
   private final String project;
   private final String refName;
   private final AutoCloseable lock;
   private final SharedRefLogger sharedRefLogger;
+  private final SharedRefLogger.Scope scope;
 
   /**
    * Constructs a {@code LockWrapper} object for a specific refName of a project, which wraps a held
@@ -41,16 +31,18 @@ public class LockWrapper implements AutoCloseable {
    * @param refName the refName the lock has been acquired for
    * @param lock the acquired lock
    */
-  @Inject
   public LockWrapper(
       SharedRefLogger sharedRefLogger,
-      @Assisted("project") String project,
-      @Assisted("refName") String refName,
-      @Assisted AutoCloseable lock) {
+      String project,
+      String refName,
+      AutoCloseable lock,
+      SharedRefLogger.Scope scope) {
     this.lock = lock;
     this.sharedRefLogger = sharedRefLogger;
     this.project = project;
     this.refName = refName;
+    this.scope = scope;
+    sharedRefLogger.logLockAcquisition(project, refName, scope);
   }
 
   /**
@@ -61,6 +53,6 @@ public class LockWrapper implements AutoCloseable {
   @Override
   public void close() throws Exception {
     lock.close();
-    sharedRefLogger.logLockRelease(project, refName);
+    sharedRefLogger.logLockRelease(project, refName, scope);
   }
 }

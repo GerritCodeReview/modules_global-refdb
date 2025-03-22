@@ -1,4 +1,4 @@
-// Copyright (C) 2019 GerritForge Ltd
+// Copyright (C) 2025 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,23 +14,26 @@
 
 package com.gerritforge.gerrit.globalrefdb;
 
+import com.google.gerrit.git.LockFailureException;
 
-/**
- * {@code GlobalRefDbLockException} is an exception that can be thrown when interacting with the
- * global-refdb to represent the inability to lock or acquire a resource.
- */
-public class GlobalRefDbLockException extends RefDbLockException {
+/** {@code RefDbLockException} is an exception that can be thrown when trying to lock a ref. */
+public class RefDbLockException extends LockFailureException {
   private static final long serialVersionUID = 1L;
 
   /**
-   * Constructs a new {@code GlobalRefDbLockException} with the specified project, refName and
-   * cause.
+   * Constructs a new {@code RefDbLockException} with the specified project, refName and cause.
    *
    * @param project the project containing refName
    * @param refName the specific ref for which the locking failed
    * @param cause the cause of the locking failure
    */
-  public GlobalRefDbLockException(String project, String refName, Exception cause) {
-    super(project, refName, cause);
+  public RefDbLockException(String project, String refName, Exception cause) {
+    super(String.format("Unable to lock ref %s on project %s", refName, project), cause);
+  }
+
+  public RefDbLockException(String project, String refName, String message) {
+    super(
+        String.format("Unable to lock ref %s on project %s: %s", refName, project, message),
+        (Throwable) null);
   }
 }
