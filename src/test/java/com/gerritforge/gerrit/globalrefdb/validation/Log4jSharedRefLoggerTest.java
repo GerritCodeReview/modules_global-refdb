@@ -120,7 +120,7 @@ public class Log4jSharedRefLoggerTest extends AbstractDaemonTest {
   @Test
   public void shouldLogLockAcquisition() {
     String refName = "refs/foo/bar";
-    log4jSharedRefLogger.logLockAcquisition(project.get(), refName);
+    log4jSharedRefLogger.logLockAcquisition(project.get(), refName, SharedRefLogger.Scope.GLOBAL);
 
     SharedRefLogEntry.LockAcquire gotLogEntry =
         gson.fromJson(logWriter.toString(), SharedRefLogEntry.LockAcquire.class);
@@ -133,7 +133,7 @@ public class Log4jSharedRefLoggerTest extends AbstractDaemonTest {
   @Test
   public void shouldLogLockRelease() {
     String refName = "refs/foo/bar";
-    log4jSharedRefLogger.logLockRelease(project.get(), refName);
+    log4jSharedRefLogger.logLockRelease(project.get(), refName, SharedRefLogger.Scope.GLOBAL);
 
     SharedRefLogEntry.LockAcquire gotLogEntry =
         gson.fromJson(logWriter.toString(), SharedRefLogEntry.LockAcquire.class);
