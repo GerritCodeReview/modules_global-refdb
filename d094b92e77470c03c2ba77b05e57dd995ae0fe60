@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "73ee76e3_3827fcac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-03-24T11:51:19Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "d08dfbe2_e3dbdb2d",
+      "revId": "d094b92e77470c03c2ba77b05e57dd995ae0fe60",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "3cf63892_d66d3c78",
         "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/GlobalRefDbLockException.java",
         "patchSetId": 3
