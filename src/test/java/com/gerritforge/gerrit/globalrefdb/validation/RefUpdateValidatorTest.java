@@ -19,12 +19,14 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.gerritforge.gerrit.globalrefdb.GlobalRefDbSystemError;
+import com.gerritforge.gerrit.globalrefdb.RefDbLockException;
 import com.gerritforge.gerrit.globalrefdb.validation.RefUpdateValidator.OneParameterFunction;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.DefaultSharedRefEnforcement;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.RefFixture;
@@ -95,7 +97,7 @@ public class RefUpdateValidatorTest implements RefFixture {
   @Test
   public void validationShouldSucceedWhenSharedRefDbIsNoop() throws Exception {
     SharedRefDatabaseWrapper noopSharedRefDbWrapper =
-        new SharedRefDatabaseWrapper(sharedRefLogger, sharedRefDBMetrics);
+        new SharedRefDatabaseWrapper(sharedRefLogger, sharedRefDBMetrics, NoOpRefLocker.INSTANCE);
 
     Result result =
         newRefUpdateValidator(noopSharedRefDbWrapper)
@@ -180,6 +182,18 @@ public class RefUpdateValidatorTest implements RefFixture {
   }
 
   @Test
+  public void validationShouldFailWhenLocalRefDbIsLocked() throws Exception {
+    doThrow(RefDbLockException.class)
+        .when(sharedRefDb)
+        .lockLocalRef(A_TEST_PROJECT_NAME_KEY, refName);
+
+    Result result =
+        refUpdateValidator.executeRefUpdate(refUpdate, () -> Result.NEW, this::defaultRollback);
+
+    assertThat(result).isEqualTo(Result.LOCK_FAILURE);
+  }
+
+  @Test
   public void shouldRollbackWhenLocalRefDbIsUpToDateButFinalCompareAndPutIsFailing()
       throws Exception {
     lenient()
@@ -229,7 +243,6 @@ public class RefUpdateValidatorTest implements RefFixture {
         .when(sharedRefDb)
         .isUpToDate(any(Project.NameKey.class), any(Ref.class));
     doReturn(true).when(sharedRefDb).isUpToDate(A_TEST_PROJECT_NAME_KEY, localRef);
-
     when(sharedRefDb.compareAndPut(any(Project.NameKey.class), any(Ref.class), any(ObjectId.class)))
         .thenThrow(GlobalRefDbSystemError.class);
     when(rollbackFunction.invoke(any())).thenReturn(Result.LOCK_FAILURE);
@@ -282,7 +295,6 @@ public class RefUpdateValidatorTest implements RefFixture {
         refDbWrapper,
         validationMetrics,
         defaultRefEnforcement,
-        new DummyLockWrapper(),
         projectsFilter,
         A_TEST_PROJECT_NAME,
         localRefDb,

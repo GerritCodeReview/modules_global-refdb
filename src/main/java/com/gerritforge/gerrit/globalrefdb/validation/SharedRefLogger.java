@@ -21,6 +21,11 @@ import org.eclipse.jgit.lib.Ref;
 @ImplementedBy(Log4jSharedRefLogger.class)
 public interface SharedRefLogger {
 
+  enum Scope {
+    GLOBAL,
+    LOCAL
+  }
+
   /**
    * Log the update of currRef in project project to ref newRefValue
    *
@@ -63,14 +68,16 @@ public interface SharedRefLogger {
    *
    * @param project the project containing the ref
    * @param refName the name of the ref the lock is acquired for
+   * @param scope scope of the lock
    */
-  void logLockAcquisition(String project, String refName);
+  void logLockAcquisition(String project, String refName, Scope scope);
 
   /**
    * Log the releasing of a previously acquired lock for the 'refName' of 'project'
    *
    * @param project the project containing the ref
    * @param refName the name of the ref the lock is being releaed for
+   * @param scope scope of the lock
    */
-  void logLockRelease(String project, String refName);
+  void logLockRelease(String project, String refName, Scope scope);
 }

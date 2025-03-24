@@ -14,13 +14,26 @@
 
 package com.gerritforge.gerrit.globalrefdb.validation;
 
-import org.junit.Ignore;
+import org.eclipse.jgit.lib.ObjectId;
+import org.eclipse.jgit.lib.Ref;
 
-@Ignore
-public class DummyLockWrapper implements LockWrapper.Factory {
+public class DisabledSharedRefLogger implements SharedRefLogger {
 
   @Override
-  public LockWrapper create(String project, String refName, AutoCloseable lock) {
-    return new LockWrapper(new DisabledSharedRefLogger(), project, refName, lock);
-  }
+  public void logRefUpdate(String project, Ref currRef, ObjectId newRefValue) {}
+
+  @Override
+  public void logProjectDelete(String project) {}
+
+  @Override
+  public void logLockAcquisition(String project, String refName, Scope scope) {}
+
+  @Override
+  public void logLockRelease(String project, String refName, Scope scope) {}
+
+  @Override
+  public <T> void logRefUpdate(String project, String refName, T currRef, T newRefValue) {}
+
+  @Override
+  public <T> void logRefUpdate(String project, String refName, T newRefValue) {}
 }

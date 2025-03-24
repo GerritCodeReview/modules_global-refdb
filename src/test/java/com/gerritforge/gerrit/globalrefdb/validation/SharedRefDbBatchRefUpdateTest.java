@@ -181,7 +181,6 @@ public class SharedRefDbBatchRefUpdateTest implements RefFixture {
                 sharedRefDb,
                 validationMetrics,
                 new DefaultSharedRefEnforcement(),
-                new DummyLockWrapper(),
                 projectsFilter,
                 projectName,
                 refDb,

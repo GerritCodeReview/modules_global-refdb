@@ -18,6 +18,7 @@ import com.gerritforge.gerrit.globalrefdb.ExtendedGlobalRefDatabase;
 import com.gerritforge.gerrit.globalrefdb.GlobalRefDatabase;
 import com.gerritforge.gerrit.globalrefdb.GlobalRefDbLockException;
 import com.gerritforge.gerrit.globalrefdb.GlobalRefDbSystemError;
+import com.gerritforge.gerrit.globalrefdb.RefDbLockException;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.NoopSharedRefDatabase;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Supplier;
@@ -48,6 +49,7 @@ public class SharedRefDatabaseWrapper implements ExtendedGlobalRefDatabase {
 
   private final SharedRefLogger sharedRefLogger;
   private final SharedRefDBMetrics metrics;
+  private final RefLocker localRefDbLocker;
 
   /**
    * Constructs a {@code SharedRefDatabaseWrapper} wrapping an optional {@link GlobalRefDatabase},
@@ -56,17 +58,20 @@ public class SharedRefDatabaseWrapper implements ExtendedGlobalRefDatabase {
    * @param sharedRefLogger logger of shared ref-db operations.
    */
   @Inject
-  public SharedRefDatabaseWrapper(SharedRefLogger sharedRefLogger, SharedRefDBMetrics metrics) {
+  public SharedRefDatabaseWrapper(
+      SharedRefLogger sharedRefLogger, SharedRefDBMetrics metrics, RefLocker localRefDbLocker) {
     this.sharedRefLogger = sharedRefLogger;
     this.metrics = metrics;
+    this.localRefDbLocker = localRefDbLocker;
   }
 
   @VisibleForTesting
   public SharedRefDatabaseWrapper(
       DynamicItem<GlobalRefDatabase> sharedRefDbDynamicItem,
       SharedRefLogger sharedRefLogger,
-      SharedRefDBMetrics metrics) {
-    this(sharedRefLogger, metrics);
+      SharedRefDBMetrics metrics,
+      RefLocker localRefDbLocker) {
+    this(sharedRefLogger, metrics, localRefDbLocker);
     this.sharedRefDbDynamicItem = sharedRefDbDynamicItem;
   }
 
@@ -164,13 +169,25 @@ public class SharedRefDatabaseWrapper implements ExtendedGlobalRefDatabase {
   public AutoCloseable lockRef(Project.NameKey project, String refName)
       throws GlobalRefDbLockException {
     return trackFailingOperation(
-        () -> {
-          AutoCloseable locker = sharedRefDb().lockRef(project, refName);
-          sharedRefLogger.logLockAcquisition(project.get(), refName);
-          return locker;
-        },
+        () ->
+            new LockWrapper(
+                sharedRefLogger,
+                project.get(),
+                refName,
+                sharedRefDb().lockRef(project, refName),
+                SharedRefLogger.Scope.GLOBAL),
         metrics::startLockRefExecutionTime,
         () -> "Lock " + toString(project, project::get) + ":" + toString(refName));
+  }
+
+  public AutoCloseable lockLocalRef(Project.NameKey project, String refName)
+      throws RefDbLockException {
+    return new LockWrapper(
+        sharedRefLogger,
+        project.get(),
+        refName,
+        localRefDbLocker.lockRef(project, refName),
+        SharedRefLogger.Scope.LOCAL);
   }
 
   @Override

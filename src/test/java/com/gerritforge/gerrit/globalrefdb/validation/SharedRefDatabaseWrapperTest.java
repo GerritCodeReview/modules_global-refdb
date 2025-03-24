@@ -53,7 +53,8 @@ public class SharedRefDatabaseWrapperTest {
     when(metrics.startExistsExecutionTime()).thenReturn(context);
     when(metrics.startIsUpToDateExecutionTime()).thenReturn(context);
     when(metrics.startRemoveExecutionTime()).thenReturn(context);
-    objectUnderTest = new SharedRefDatabaseWrapper(sharedRefLogger, metrics);
+    objectUnderTest =
+        new SharedRefDatabaseWrapper(sharedRefLogger, metrics, NoOpRefLocker.INSTANCE);
   }
 
   @Test
@@ -116,7 +117,10 @@ public class SharedRefDatabaseWrapperTest {
             });
     objectUnderTest =
         new SharedRefDatabaseWrapper(
-            couldNotConnectGlobalRefDB, new DisabledSharedRefLogger(), metrics);
+            couldNotConnectGlobalRefDB,
+            new DisabledSharedRefLogger(),
+            metrics,
+            NoOpRefLocker.INSTANCE);
 
     assertThrows(
         GlobalRefDbSystemError.class,
