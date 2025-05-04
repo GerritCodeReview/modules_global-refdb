@@ -2,10 +2,10 @@
   "checks": {
     "gerritforge:global-refdb-59a34d6c50367a468c810e28d733855abc059f13": {
       "state": "FAILED",
-      "url": "https://gerrit-ci.gerritforge.com/job/module-global-refdb-verifier/job/06%252F425506%252F58/532/console",
-      "finished": "2025-05-04T22:55:02Z",
+      "url": "https://gerrit-ci.gerritforge.com/job/module-global-refdb-verifier/job/06%252F425506%252F58/533/console",
+      "finished": "2025-05-04T23:07:07Z",
       "created": "2025-04-30T13:03:52Z",
-      "updated": "2025-05-04T22:55:03Z"
+      "updated": "2025-05-04T23:07:07Z"
     }
   }
 }
