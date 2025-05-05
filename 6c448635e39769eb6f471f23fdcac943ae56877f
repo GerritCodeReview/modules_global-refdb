@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50b398ce_9d05b655",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2025-05-05T14:02:44Z",
+      "side": 1,
+      "message": "Explain in the commit message why this class needs to be renamed ?\nDigging this up from the hundreds of comments in the referenced change is cumbersome.",
+      "revId": "6c448635e39769eb6f471f23fdcac943ae56877f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
