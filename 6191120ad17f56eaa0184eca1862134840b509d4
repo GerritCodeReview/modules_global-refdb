@@ -144,6 +144,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "e072a02b_9b346197",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 42
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2025-05-05T12:51:15Z",
+      "side": 1,
+      "message": "The original implementation of EnforcementRules has been marked deprecated and noted in the config.md.",
+      "parentUuid": "c9f55c3e_1891385f",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 19
+      },
+      "revId": "6191120ad17f56eaa0184eca1862134840b509d4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "cf37d69f_b740c0e5",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 42
