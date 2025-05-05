@@ -21,6 +21,7 @@ import com.google.gerrit.acceptance.PushOneCommit;
 import com.google.gerrit.entities.RefNames;
 import com.google.gerrit.json.OutputFormat;
 import com.google.gerrit.server.Sequence;
+import com.google.gerrit.server.config.LogConfig;
 import com.google.gerrit.server.config.SitePaths;
 import com.google.gerrit.server.util.SystemLog;
 import com.google.gson.Gson;
@@ -145,7 +146,9 @@ public class Log4jSharedRefLoggerTest extends AbstractDaemonTest {
 
   private Log4jSharedRefLogger newLog4jSharedRefLogger() throws IOException {
     final Log4jSharedRefLogger log4jSharedRefLogger =
-        new Log4jSharedRefLogger(new SystemLog(new SitePaths(newPath()), baseConfig), repoManager);
+        new Log4jSharedRefLogger(
+            new SystemLog(new SitePaths(newPath()), baseConfig, new LogConfig(baseConfig)),
+            repoManager);
     log4jSharedRefLogger.setLogger(logWriterLogger());
     return log4jSharedRefLogger;
   }
