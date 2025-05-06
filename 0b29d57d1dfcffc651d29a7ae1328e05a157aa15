@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fadb170f_8ceb5042",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2025-05-06T07:58:43Z",
+      "side": 1,
+      "message": "```suggestion\nAccording to discussion in [1].\n```",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 73
+      },
+      "revId": "0b29d57d1dfcffc651d29a7ae1328e05a157aa15",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81d5cc33_251effbc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2025-05-06T07:58:43Z",
+      "side": 1,
+      "message": "```suggestion\nUsing [2] as reference where the old deprecated implementation CredentialsFactory was moved to LegacyCredentialsFactory we move the old deprecated implementation to LegacySharedRefEnforcement to enable implementing the new simplified policy in SharedRefEnforcement in the next change.\n\n[1] https://gerrit-review.googlesource.com/c/modules/global-refdb/+/425506/47\n[2] https://gerrit-review.googlesource.com/c/plugins/replication/+/429897\n```",
+      "revId": "0b29d57d1dfcffc651d29a7ae1328e05a157aa15",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
