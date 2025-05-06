@@ -16,6 +16,24 @@
       "message": "Explain in the commit message why this class needs to be renamed ?\nDigging this up from the hundreds of comments in the referenced change is cumbersome.",
       "revId": "6c448635e39769eb6f471f23fdcac943ae56877f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbadf4e9_5f4aa024",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2025-05-06T07:25:54Z",
+      "side": 1,
+      "message": "I did so based on the change referenced by Luca as a proper implementation of deprecating code: https://gerrit-review.googlesource.com/c/plugins/replication/+/429897/14/src/main/java/com/googlesource/gerrit/plugins/replication/LegacyCredentialsFactory.java - added reference to commit message",
+      "parentUuid": "50b398ce_9d05b655",
+      "revId": "6c448635e39769eb6f471f23fdcac943ae56877f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
