@@ -1,0 +1,262 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ae0cdd1_cf41e2cf",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 66
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-05-07T07:28:44Z",
+      "side": 1,
+      "message": "```suggestion\n    if (refEnforcementPolicy \u003d\u003d Policy.EXCLUDE || legacyRefEnforcementPolicy \u003d\u003d EnforcePolicy.IGNORED) {\n    return;\n    }\n```",
+      "range": {
+        "startLine": 228,
+        "startChar": 0,
+        "endLine": 229,
+        "endChar": 68
+      },
+      "revId": "ff9e765d76c5fd4528b3f3f8cf634185077756e9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b7fb962_bcdb19df",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbConfiguration.java",
+        "patchSetId": 66
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-05-07T07:28:44Z",
+      "side": 1,
+      "message": "```suggestion\n    private final ImmutableSet\u003cString\u003e storeAllRefs;\n    private final ImmutableSet\u003cString\u003e storeNoRefs;\n```",
+      "range": {
+        "startLine": 120,
+        "startChar": 0,
+        "endLine": 121,
+        "endChar": 52
+      },
+      "revId": "ff9e765d76c5fd4528b3f3f8cf634185077756e9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f70513c8_4ebdecde",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbConfiguration.java",
+        "patchSetId": 66
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-05-07T07:28:44Z",
+      "side": 1,
+      "message": "```suggestion\n      storeAllRefs \u003d getSet(cfg, SECTION, STORE_ALL_REFS_KEY, PROJECT);\n```",
+      "range": {
+        "startLine": 131,
+        "startChar": 21,
+        "endLine": 131,
+        "endChar": 28
+      },
+      "revId": "ff9e765d76c5fd4528b3f3f8cf634185077756e9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0cd182fa_873503ee",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbConfiguration.java",
+        "patchSetId": 66
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-05-07T07:28:44Z",
+      "side": 1,
+      "message": "```suggestion\n      storeNoRefs \u003d getSet(cfg, SECTION, STORE_NO_REFS_KEY, PROJECT);\n```",
+      "range": {
+        "startLine": 132,
+        "startChar": 20,
+        "endLine": 132,
+        "endChar": 27
+      },
+      "revId": "ff9e765d76c5fd4528b3f3f8cf634185077756e9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b564ea4c_ee5a9553",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbConfiguration.java",
+        "patchSetId": 66
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-05-07T07:28:44Z",
+      "side": 1,
+      "message": "```suggestion\n    public ImmutableSet\u003cString\u003e getStoreAllRefs() {\n```",
+      "range": {
+        "startLine": 171,
+        "startChar": 11,
+        "endLine": 171,
+        "endChar": 24
+      },
+      "revId": "ff9e765d76c5fd4528b3f3f8cf634185077756e9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "656b5551_efcafcac",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbConfiguration.java",
+        "patchSetId": 66
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-05-07T07:28:44Z",
+      "side": 1,
+      "message": "```suggestion\n    public ImmutableSet\u003cString\u003e getStoreNoRefs() {\n```",
+      "range": {
+        "startLine": 180,
+        "startChar": 11,
+        "endLine": 180,
+        "endChar": 24
+      },
+      "revId": "ff9e765d76c5fd4528b3f3f8cf634185077756e9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6804afad_761b72ba",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbConfiguration.java",
+        "patchSetId": 66
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-05-07T07:28:44Z",
+      "side": 1,
+      "message": "```suggestion\n    private ImmutableList\u003cString\u003e getList(\n        Supplier\u003cConfig\u003e cfg, String section, String subsection, String name) {\n      return ImmutableList.copyOf(cfg.get().getStringList(section, subsection, name));\n    }\n    \n    private ImmutableList\u003cString\u003e getSet(\n        Supplier\u003cConfig\u003e cfg, String section, String subsection, String name) {\n      return ImmutableSet.copyOf(cfg.get().getStringList(section, subsection, name));\n    }    \n```",
+      "range": {
+        "startLine": 194,
+        "startChar": 0,
+        "endLine": 197,
+        "endChar": 5
+      },
+      "revId": "ff9e765d76c5fd4528b3f3f8cf634185077756e9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96508f3f_e127a09c",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/SharedRefEnforcement.java",
+        "patchSetId": 66
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-05-07T07:28:44Z",
+      "side": 1,
+      "message": "```suggestion\n  private final ImmutableSet\u003cString\u003e storeAllRefs;\n```",
+      "range": {
+        "startLine": 32,
+        "startChar": 16,
+        "endLine": 32,
+        "endChar": 29
+      },
+      "revId": "ff9e765d76c5fd4528b3f3f8cf634185077756e9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1eb870f6_9388e81d",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/SharedRefEnforcement.java",
+        "patchSetId": 66
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-05-07T07:28:44Z",
+      "side": 1,
+      "message": "```suggestion\n  private final ImmutableSet\u003cString\u003e storeNoRefs;\n```",
+      "range": {
+        "startLine": 33,
+        "startChar": 16,
+        "endLine": 33,
+        "endChar": 29
+      },
+      "revId": "ff9e765d76c5fd4528b3f3f8cf634185077756e9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "501682d9_399d60da",
+        "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/BatchRefUpdateValidatorTest.java",
+        "patchSetId": 66
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-05-07T07:28:44Z",
+      "side": 1,
+      "message": "Instead of adding new tests for the new policy, you are amending the existing ones for the legacy policy, which means the legacy policy is losing coverage test.\n\nEven if the legacy policy is deprecated for removal, it is still supported and therefore should keep its test coverage.",
+      "revId": "ff9e765d76c5fd4528b3f3f8cf634185077756e9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a772693_723cf487",
+        "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/BatchRefUpdateValidatorTest.java",
+        "patchSetId": 66
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-05-07T07:28:44Z",
+      "side": 1,
+      "message": "nit: unrelated change",
+      "revId": "ff9e765d76c5fd4528b3f3f8cf634185077756e9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5f09779_35dbb1cd",
+        "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/BatchRefUpdateValidatorTest.java",
+        "patchSetId": 66
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-05-07T07:28:44Z",
+      "side": 1,
+      "message": "nit: unrelated change",
+      "revId": "ff9e765d76c5fd4528b3f3f8cf634185077756e9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
