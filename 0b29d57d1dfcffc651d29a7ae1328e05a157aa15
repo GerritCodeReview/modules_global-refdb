@@ -24,6 +24,72 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7868f4eb_90993e53",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2025-05-07T06:12:37Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "fadb170f_8ceb5042",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 73
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "1af23a64_c3c82eab",
+          "description": "User suggestion",
+          "replacements": [
+            {
+              "path": "/COMMIT_MSG",
+              "range": {
+                "startLine": 9,
+                "startChar": 0,
+                "endLine": 10,
+                "endChar": 73
+              },
+              "replacement": "According to discussion in [1]."
+            }
+          ]
+        }
+      ],
+      "revId": "0b29d57d1dfcffc651d29a7ae1328e05a157aa15",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb9f29e4_15f25903",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2025-05-07T06:12:37Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "fadb170f_8ceb5042",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 73
+      },
+      "revId": "0b29d57d1dfcffc651d29a7ae1328e05a157aa15",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "81d5cc33_251effbc",
@@ -37,6 +103,60 @@
       "writtenOn": "2025-05-06T07:58:43Z",
       "side": 1,
       "message": "```suggestion\nUsing [2] as reference where the old deprecated implementation CredentialsFactory was moved to LegacyCredentialsFactory we move the old deprecated implementation to LegacySharedRefEnforcement to enable implementing the new simplified policy in SharedRefEnforcement in the next change.\n\n[1] https://gerrit-review.googlesource.com/c/modules/global-refdb/+/425506/47\n[2] https://gerrit-review.googlesource.com/c/plugins/replication/+/429897\n```",
+      "revId": "0b29d57d1dfcffc651d29a7ae1328e05a157aa15",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0134247c_0ee076e2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2025-05-07T06:12:37Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "81d5cc33_251effbc",
+      "fixSuggestions": [
+        {
+          "fixId": "76af8158_ec34d980",
+          "description": "User suggestion",
+          "replacements": [
+            {
+              "path": "/COMMIT_MSG",
+              "range": {
+                "startLine": 12,
+                "startChar": 0,
+                "endLine": 12,
+                "endChar": 180
+              },
+              "replacement": "Using [2] as reference where the old deprecated implementation CredentialsFactory was moved to LegacyCredentialsFactory we move the old deprecated implementation to LegacySharedRefEnforcement to enable implementing the new simplified policy in SharedRefEnforcement in the next change.\n\n[1] https://gerrit-review.googlesource.com/c/modules/global-refdb/+/425506/47\n[2] https://gerrit-review.googlesource.com/c/plugins/replication/+/429897"
+            }
+          ]
+        }
+      ],
+      "revId": "0b29d57d1dfcffc651d29a7ae1328e05a157aa15",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e26f56e_503f06bf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2025-05-07T06:12:37Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "81d5cc33_251effbc",
       "revId": "0b29d57d1dfcffc651d29a7ae1328e05a157aa15",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
