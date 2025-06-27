@@ -16,6 +16,23 @@
       "message": "would be CR+2 but I am not really familiar with the code and would prefer to get one more review",
       "revId": "705d25ebca6819f0994848c947025c98034a33e4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cea3d09d_5b0b1603",
+        "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidatorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2025-06-27T11:16:03Z",
+      "side": 1,
+      "message": "This is likely wrong. We are creating a patchset ref, which doesn\u0027t exist before and thus should not exist in the refdb yet. However, there is a check that leads to an exception, if the ref is null. Not yet sure why.",
+      "revId": "705d25ebca6819f0994848c947025c98034a33e4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
