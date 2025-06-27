@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68c17164_a132e4a7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2025-06-27T09:42:35Z",
+      "side": 1,
+      "message": "would be CR+2 but I am not really familiar with the code and would prefer to get one more review",
+      "revId": "705d25ebca6819f0994848c947025c98034a33e4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
