@@ -18,6 +18,7 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.lenient;
@@ -29,6 +30,7 @@ import com.gerritforge.gerrit.globalrefdb.DraftCommentEventsEnabledProvider;
 import com.gerritforge.gerrit.globalrefdb.GlobalRefDbSystemError;
 import com.gerritforge.gerrit.globalrefdb.RefDbLockException;
 import com.gerritforge.gerrit.globalrefdb.validation.RefUpdateValidator.OneParameterFunction;
+import com.gerritforge.gerrit.globalrefdb.validation.SharedRefDbConfiguration.SharedRefDatabase;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacyDefaultSharedRefEnforcement;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.RefFixture;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement;
@@ -283,6 +285,50 @@ public class RefUpdateValidatorTest implements RefFixture {
 
     assertThat(result).isEqualTo(Result.LOCK_FAILURE);
     verify(sharedRefDb, never())
+        .compareAndPut(any(Project.NameKey.class), any(Ref.class), any(ObjectId.class));
+  }
+
+  @Test
+  public void shouldValidateIfOnlyRequiredByNonLegacyRefEnforcement() throws Exception {
+    refName = "ref/changes/00/100400/1";
+    oldUpdateRef = newRef(refName, AN_OBJECT_ID_1);
+    newUpdateRef = newRef(refName, AN_OBJECT_ID_2);
+    localRef = newRef(refName, AN_OBJECT_ID_3);
+
+    lenient().doReturn(localRef).when(localRefDb).findRef(refName);
+    doReturn(localRef).when(localRefDb).exactRef(refName);
+    doReturn(newUpdateRef.getObjectId()).when(refUpdate).getNewObjectId();
+    doReturn(refName).when(refUpdate).getName();
+    lenient().doReturn(oldUpdateRef.getObjectId()).when(refUpdate).getOldObjectId();
+    doReturn(newUpdateRef).when(localRefDb).findRef(refName);
+    lenient()
+        .doReturn(true)
+        .when(sharedRefDb)
+        .compareAndPut(any(Project.NameKey.class), any(Ref.class), any(ObjectId.class));
+
+    Config cfg = new Config();
+    cfg.setString(
+        SharedRefDatabase.SECTION,
+        SharedRefDatabase.STORE_ALL_REFS_KEY,
+        SharedRefDatabase.PROJECT,
+        "*");
+    SharedRefEnforcement refEnforcement =
+        new SharedRefEnforcement(
+            new SharedRefDbConfiguration(cfg, "testplugin"),
+            new DraftCommentEventsEnabledProvider(new Config()));
+    RefUpdateValidator validator =
+        new RefUpdateValidator(
+            sharedRefDb,
+            validationMetrics,
+            refEnforcement,
+            legacyDefaultRefEnforcement,
+            projectsFilter,
+            A_TEST_PROJECT_NAME,
+            localRefDb,
+            ImmutableSet.of());
+    Result result = validator.executeRefUpdate(refUpdate, () -> Result.NEW, this::defaultRollback);
+    assertThat(result).isEqualTo(Result.NEW);
+    verify(sharedRefDb, atLeastOnce())
         .compareAndPut(any(Project.NameKey.class), any(Ref.class), any(ObjectId.class));
   }
 

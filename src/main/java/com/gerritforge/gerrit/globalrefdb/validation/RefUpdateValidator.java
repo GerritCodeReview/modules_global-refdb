@@ -226,7 +226,7 @@ public class RefUpdateValidator {
     final EnforcePolicy legacyRefEnforcementPolicy =
         legacyRefEnforcement.getPolicy(projectName, refSnapshot.getName());
     if (refEnforcementPolicy == Policy.EXCLUDE
-        || legacyRefEnforcementPolicy == EnforcePolicy.IGNORED) {
+        && legacyRefEnforcementPolicy == EnforcePolicy.IGNORED) {
       return;
     }
 
@@ -278,12 +278,9 @@ public class RefUpdateValidator {
       throws GlobalRefDbLockException, OutOfSyncException, IOException {
     String refName = refUpdateSnapshot.getName();
     Policy refEnforcementPolicy = refEnforcement.getPolicy(projectName, refName);
-    if (refEnforcementPolicy == Policy.EXCLUDE) {
-      return refUpdateSnapshot;
-    }
-
     EnforcePolicy legacyRefEnforcementPolicy = legacyRefEnforcement.getPolicy(projectName, refName);
-    if (legacyRefEnforcementPolicy == EnforcePolicy.IGNORED) {
+    if (refEnforcementPolicy == Policy.EXCLUDE
+        && legacyRefEnforcementPolicy == EnforcePolicy.IGNORED) {
       return refUpdateSnapshot;
     }
 

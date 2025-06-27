@@ -114,11 +114,8 @@ public class BatchRefUpdateValidator extends RefUpdateValidator {
       NoParameterVoidFunction batchRefUpdateFunction,
       OneParameterVoidFunction<List<ReceiveCommand>> batchRefUpdateRollbackFunction)
       throws IOException {
-    if (refEnforcement.getPolicy(projectName) == Policy.EXCLUDE || !isGlobalProject(projectName)) {
-      batchRefUpdateFunction.invoke();
-      return;
-    }
-    if (legacyRefEnforcement.getPolicy(projectName) == EnforcePolicy.IGNORED
+    if ((refEnforcement.getPolicy(projectName) == Policy.EXCLUDE
+            && legacyRefEnforcement.getPolicy(projectName) == EnforcePolicy.IGNORED)
         || !isGlobalProject(projectName)) {
       batchRefUpdateFunction.invoke();
       return;
@@ -129,10 +126,8 @@ public class BatchRefUpdateValidator extends RefUpdateValidator {
     } catch (IOException e) {
       logger.atWarning().withCause(e).log(
           "Failed to execute Batch Update on project %s", projectName);
-      if (refEnforcement.getPolicy(projectName) == Policy.INCLUDE) {
-        throw e;
-      }
-      if (legacyRefEnforcement.getPolicy(projectName) == EnforcePolicy.REQUIRED) {
+      if (refEnforcement.getPolicy(projectName) == Policy.INCLUDE
+          || legacyRefEnforcement.getPolicy(projectName) == EnforcePolicy.REQUIRED) {
         throw e;
       }
     }
