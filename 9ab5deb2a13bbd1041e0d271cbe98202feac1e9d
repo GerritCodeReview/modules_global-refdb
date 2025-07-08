@@ -120,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f3f915bc_1c13871e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2025-07-08T17:03:52Z",
+      "side": 1,
+      "message": "but the global-refdb per-se still does the check if it\u0027s null or not no? I think this part is still valid.",
+      "parentUuid": "22b26bff_a9baa8f9",
+      "range": {
+        "startLine": 10,
+        "startChar": 53,
+        "endLine": 11,
+        "endChar": 59
+      },
+      "revId": "9ab5deb2a13bbd1041e0d271cbe98202feac1e9d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0c108303_b2a557f3",
         "filename": "/COMMIT_MSG",
         "patchSetId": 4
@@ -235,6 +259,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "40672367_a0dfceb7",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2025-07-08T17:03:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34f46742_acbe1a3f",
+      "range": {
+        "startLine": 229,
+        "startChar": 17,
+        "endLine": 229,
+        "endChar": 36
+      },
+      "revId": "9ab5deb2a13bbd1041e0d271cbe98202feac1e9d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bb42bbb2_c4bcbeee",
@@ -248,6 +296,30 @@
       "writtenOn": "2025-07-08T16:40:55Z",
       "side": 1,
       "message": "nit: the `zeroId` normalization is the same at L225-228 and 229-231. Perhaps you could DRY this out?",
+      "range": {
+        "startLine": 229,
+        "startChar": 8,
+        "endLine": 231,
+        "endChar": 43
+      },
+      "revId": "9ab5deb2a13bbd1041e0d271cbe98202feac1e9d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0617f03_6dd9155d",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2025-07-08T17:03:52Z",
+      "side": 1,
+      "message": "Not quite, there is that `map(Ref::getObjectId)` that made me wonder if it\u0027s worth actually DRY-ing this or not. For now I\u0027m thinking not, wdyt?",
+      "parentUuid": "bb42bbb2_c4bcbeee",
       "range": {
         "startLine": 229,
         "startChar": 8,
