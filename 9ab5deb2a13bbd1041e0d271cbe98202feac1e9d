@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2414dcf_f1f22f6a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-07-08T16:40:55Z",
+      "side": 1,
+      "message": "```suggestion\nHandle null putValue in global refdb comparison\n```",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 48
+      },
+      "revId": "9ab5deb2a13bbd1041e0d271cbe98202feac1e9d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20656528_37111ac4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-07-08T16:40:55Z",
+      "side": 1,
+      "message": "```suggestion\nPreviously, it was assumed that, upon ref deletion, a `refPair.putValue` would default to the zero object ID when null, but this was not the case. Even\n```",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 52
+      },
+      "revId": "9ab5deb2a13bbd1041e0d271cbe98202feac1e9d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22b26bff_a9baa8f9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-07-08T16:40:55Z",
+      "side": 1,
+      "message": "This is up to the implementation flavour, for example _zookeeper_ deals with this, not the global-refdb per-se.",
+      "range": {
+        "startLine": 10,
+        "startChar": 53,
+        "endLine": 11,
+        "endChar": 59
+      },
+      "revId": "9ab5deb2a13bbd1041e0d271cbe98202feac1e9d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c108303_b2a557f3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-07-08T16:40:55Z",
+      "side": 1,
+      "message": "```suggestion\nEnsure that the sentinel expands a null ref.putValue to all 0 so that\n```",
+      "range": {
+        "startLine": 14,
+        "startChar": 16,
+        "endLine": 14,
+        "endChar": 23
+      },
+      "revId": "9ab5deb2a13bbd1041e0d271cbe98202feac1e9d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02b1bf44_8e1e9998",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-07-08T16:40:55Z",
+      "side": 1,
+      "message": "```suggestion\nEnsure that the sentile expands a null refPair.putValue to the Zero object ID so that\n```",
+      "range": {
+        "startLine": 14,
+        "startChar": 39,
+        "endLine": 14,
+        "endChar": 42
+      },
+      "revId": "9ab5deb2a13bbd1041e0d271cbe98202feac1e9d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34f46742_acbe1a3f",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-07-08T16:40:55Z",
+      "side": 1,
+      "message": "This is not the `globalRefDbObjectId` (yet). This is the value that we want to update the ref to. How about a different name, such as `newValue` or `candidateValue` or something along those lines?",
+      "range": {
+        "startLine": 229,
+        "startChar": 17,
+        "endLine": 229,
+        "endChar": 36
+      },
+      "revId": "9ab5deb2a13bbd1041e0d271cbe98202feac1e9d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb42bbb2_c4bcbeee",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-07-08T16:40:55Z",
+      "side": 1,
+      "message": "nit: the `zeroId` normalization is the same at L225-228 and 229-231. Perhaps you could DRY this out?",
+      "range": {
+        "startLine": 229,
+        "startChar": 8,
+        "endLine": 231,
+        "endChar": 43
+      },
+      "revId": "9ab5deb2a13bbd1041e0d271cbe98202feac1e9d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42da8319_6e881b1d",
+        "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidatorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-07-08T16:40:55Z",
+      "side": 1,
+      "message": "```suggestion\n  public void shouldHandleDeletedRefsWhenExecutingRefUpdate() throws Exception {\n```",
+      "range": {
+        "startLine": 281,
+        "startChar": 26,
+        "endLine": 281,
+        "endChar": 50
+      },
+      "revId": "9ab5deb2a13bbd1041e0d271cbe98202feac1e9d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
