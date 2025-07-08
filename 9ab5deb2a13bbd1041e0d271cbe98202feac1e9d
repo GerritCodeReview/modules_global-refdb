@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a56e174_4ff82d96",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2025-07-08T16:59:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2414dcf_f1f22f6a",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 48
+      },
+      "revId": "9ab5deb2a13bbd1041e0d271cbe98202feac1e9d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "20656528_37111ac4",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-07-08T16:40:55Z",
       "side": 1,
       "message": "```suggestion\nPreviously, it was assumed that, upon ref deletion, a `refPair.putValue` would default to the zero object ID when null, but this was not the case. Even\n```",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 52
+      },
+      "revId": "9ab5deb2a13bbd1041e0d271cbe98202feac1e9d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "498eb68c_d82dcf2f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2025-07-08T16:59:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20656528_37111ac4",
       "range": {
         "startLine": 9,
         "startChar": 0,
@@ -116,6 +164,54 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7497593e_c7560375",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2025-07-08T16:59:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c108303_b2a557f3",
+      "range": {
+        "startLine": 14,
+        "startChar": 16,
+        "endLine": 14,
+        "endChar": 23
+      },
+      "revId": "9ab5deb2a13bbd1041e0d271cbe98202feac1e9d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45115eaa_be888535",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2025-07-08T16:59:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02b1bf44_8e1e9998",
+      "range": {
+        "startLine": 14,
+        "startChar": 39,
+        "endLine": 14,
+        "endChar": 42
+      },
+      "revId": "9ab5deb2a13bbd1041e0d271cbe98202feac1e9d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "34f46742_acbe1a3f",
@@ -175,6 +271,30 @@
       "writtenOn": "2025-07-08T16:40:55Z",
       "side": 1,
       "message": "```suggestion\n  public void shouldHandleDeletedRefsWhenExecutingRefUpdate() throws Exception {\n```",
+      "range": {
+        "startLine": 281,
+        "startChar": 26,
+        "endLine": 281,
+        "endChar": 50
+      },
+      "revId": "9ab5deb2a13bbd1041e0d271cbe98202feac1e9d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6648212_94b41f73",
+        "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidatorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2025-07-08T16:59:36Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "42da8319_6e881b1d",
       "range": {
         "startLine": 281,
         "startChar": 26,
