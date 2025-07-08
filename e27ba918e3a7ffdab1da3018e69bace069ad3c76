@@ -2,11 +2,11 @@
   "checks": {
     "gerritforge:global-refdb-59a34d6c50367a468c810e28d733855abc059f13": {
       "state": "RUNNING",
-      "url": "https://gerrit-ci.gerritforge.com/job/module-global-refdb-verifier/job/02%252F489202%252F7/6/console",
-      "started": "2025-07-08T20:51:21Z",
+      "url": "https://gerrit-ci.gerritforge.com/job/module-global-refdb-verifier/job/02%252F489202%252F7/7/console",
+      "started": "2025-07-08T20:52:14Z",
       "finished": "2025-07-08T20:50:05Z",
       "created": "2025-07-08T20:34:40Z",
-      "updated": "2025-07-08T20:51:21Z"
+      "updated": "2025-07-08T20:52:15Z"
     },
     "gerritforge:global-refdb-format-59a34d6c50367a468c810e28d733855abc059f13": {
       "state": "FAILED",
