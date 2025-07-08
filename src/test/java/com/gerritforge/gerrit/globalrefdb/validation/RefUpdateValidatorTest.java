@@ -15,8 +15,7 @@
 package com.gerritforge.gerrit.globalrefdb.validation;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.lenient;
@@ -274,6 +273,20 @@ public class RefUpdateValidatorTest implements RefFixture {
     assertThat(result).isEqualTo(Result.LOCK_FAILURE);
     verify(sharedRefDb, never())
         .compareAndPut(any(Project.NameKey.class), any(Ref.class), any(ObjectId.class));
+  }
+
+  @Test
+  public void shouldHandleNullPutValueInComparison() throws Exception {
+    doReturn(null).when(refUpdate).getNewObjectId();
+    doReturn(null).when(localRefDb).findRef(refName);
+    doReturn(false).when(sharedRefDb).isUpToDate(any(Project.NameKey.class), any(Ref.class));
+
+    when(sharedRefDb.compareAndPut(eq(A_TEST_PROJECT_NAME_KEY), any(), any())).thenReturn(true);
+
+    Result result =
+        refUpdateValidator.executeRefUpdate(refUpdate, () -> Result.NEW, this::defaultRollback);
+
+    assertThat(result).isEqualTo(Result.NEW);
   }
 
   private Result defaultRollback(ObjectId objectId) {
