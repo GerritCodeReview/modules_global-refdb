@@ -32,6 +32,7 @@ import com.google.inject.assistedinject.Assisted;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Optional;
+
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectIdRef;
 import org.eclipse.jgit.lib.Ref;
@@ -226,7 +227,10 @@ public class RefUpdateValidator {
             Optional.ofNullable(refDb.findRef(refPair.compareRef.getName()))
                 .map(Ref::getObjectId)
                 .orElse(ObjectId.zeroId());
-        if (!localObjectId.equals(refPair.putValue)) {
+        ObjectId globalRefDbObjectId =
+            Optional.ofNullable(refPair.putValue)
+                .orElse(ObjectId.zeroId());
+        if (!localObjectId.equals(globalRefDbObjectId)) {
           String error =
               String.format(
                   "Aborting the global-refdb update of %s = %s: local ref value is %s instead of"
