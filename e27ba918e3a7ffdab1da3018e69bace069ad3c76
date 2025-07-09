@@ -18,6 +18,23 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f8a5337_4c2f0aa6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-07-09T22:38:59Z",
+      "side": 1,
+      "message": "@danielesassoli@gmail.com see an alternative sanitisation with I272f0637a",
+      "revId": "e27ba918e3a7ffdab1da3018e69bace069ad3c76",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "845c274b_03453f0b",
