@@ -3,6 +3,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "13288429_68736369",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-07-09T22:03:23Z",
+      "side": 1,
+      "message": "I believe this is the wrong level of the fix. Yes, normalisation is needed, but all across the board, not just in that piece of code.\n\nSee my comments and suggestions on where the normalisation should be added.",
+      "revId": "e27ba918e3a7ffdab1da3018e69bace069ad3c76",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "845c274b_03453f0b",
         "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
         "patchSetId": 7
@@ -338,6 +355,30 @@
       "writtenOn": "2025-07-09T04:46:19Z",
       "side": 1,
       "message": "I am puzzled about how `refPair.putValue` could be null, though.\nThe `localObjectId` is clear: the ref isn\u0027t present in the local refdb. However, for `refPair.putValue` is what we are about to store; for deleted refs, it should be a set of zeros.\n\nDo we have the same issue in master? How can we reproduce it? What is the issue id?",
+      "range": {
+        "startLine": 230,
+        "startChar": 12,
+        "endLine": 230,
+        "endChar": 49
+      },
+      "revId": "e27ba918e3a7ffdab1da3018e69bace069ad3c76",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56845342_35fd8f19",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-07-09T22:03:23Z",
+      "side": 1,
+      "message": "By analysing the code in Gerrit, the `putValue` should have been set to zeros. However, in some code paths, the _normalisation_ is missing and therefore the `null` value is propagated downstream.\n\nI believe we should operate in two ways:\n\n1. Copy the defensive replacement of `null` to `ObjectId.zeros()` into the `SharedRefDbRefUpdate` and `SharedRefDbBatchRefUpdate`, so that regardless of Gerrit missing normalisations, the global-refdb would still behave correctly.\n\n2. Add the correct normalisation also in the code that deletes change edits in Gerrit (maybe from master onwards).",
+      "parentUuid": "61d81dcf_103ebcd8",
       "range": {
         "startLine": 230,
         "startChar": 12,
