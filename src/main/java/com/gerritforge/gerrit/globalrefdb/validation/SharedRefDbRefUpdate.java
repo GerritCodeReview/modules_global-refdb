@@ -16,9 +16,12 @@ package com.gerritforge.gerrit.globalrefdb.validation;
 
 import com.gerritforge.gerrit.globalrefdb.validation.RefUpdateValidator.NoParameterFunction;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.flogger.FluentLogger;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 import org.eclipse.jgit.lib.AnyObjectId;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.PersonIdent;
@@ -34,6 +37,7 @@ import org.eclipse.jgit.transport.PushCertificate;
  * against the global refdb.
  */
 public class SharedRefDbRefUpdate extends RefUpdate {
+  private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
   protected final RefUpdate refUpdateBase;
   private final String projectName;
@@ -123,6 +127,7 @@ public class SharedRefDbRefUpdate extends RefUpdate {
    */
   @Override
   public Result update() throws IOException {
+    normalizeNullsToZerosObjectIds(refUpdateBase);
     return refUpdateValidator.executeRefUpdate(
         refUpdateBase,
         refUpdateBase::update,
@@ -141,6 +146,7 @@ public class SharedRefDbRefUpdate extends RefUpdate {
    */
   @Override
   public Result update(RevWalk rev) throws IOException {
+    normalizeNullsToZerosObjectIds(refUpdateBase);
     return refUpdateValidator.executeRefUpdate(
         refUpdateBase,
         () -> refUpdateBase.update(rev),
@@ -157,6 +163,7 @@ public class SharedRefDbRefUpdate extends RefUpdate {
    */
   @Override
   public Result delete() throws IOException {
+    normalizeNullsToZerosObjectIds(refUpdateBase);
     return refUpdateValidator.executeRefUpdate(
         refUpdateBase,
         refUpdateBase::delete,
@@ -173,6 +180,7 @@ public class SharedRefDbRefUpdate extends RefUpdate {
    */
   @Override
   public Result delete(RevWalk walk) throws IOException {
+    normalizeNullsToZerosObjectIds(refUpdateBase);
     return refUpdateValidator.executeRefUpdate(
         refUpdateBase,
         () -> refUpdateBase.delete(walk),
@@ -291,6 +299,7 @@ public class SharedRefDbRefUpdate extends RefUpdate {
 
   @Override
   public Result forceUpdate() throws IOException {
+    normalizeNullsToZerosObjectIds(refUpdateBase);
     return refUpdateValidator.executeRefUpdate(
         refUpdateBase,
         refUpdateBase::forceUpdate,
@@ -312,5 +321,23 @@ public class SharedRefDbRefUpdate extends RefUpdate {
     refUpdateBase.setExpectedOldObjectId(refUpdateBase.getNewObjectId());
     refUpdateBase.setNewObjectId(objectId);
     return updateFunction.invoke();
+  }
+
+  private static void normalizeNullsToZerosObjectIds(RefUpdate refUpdate) {
+    if (refUpdate.getOldObjectId() == null) {
+      logger.atWarning().log("Detected oldObjectId = null in call stack %s", getCallStack());
+      refUpdate.setExpectedOldObjectId(ObjectId.zeroId());
+    }
+
+    if (refUpdate.getNewObjectId() == null) {
+      logger.atWarning().log("Detected newbjectId = null in call stack %s", getCallStack());
+      refUpdate.setNewObjectId(ObjectId.zeroId());
+    }
+  }
+
+  private static String getCallStack() {
+    return Arrays.stream(Thread.currentThread().getStackTrace())
+        .map(StackTraceElement::toString)
+        .collect(Collectors.joining("called from \n"));
   }
 }
