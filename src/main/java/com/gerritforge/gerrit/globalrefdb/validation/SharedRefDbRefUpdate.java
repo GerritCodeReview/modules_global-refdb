@@ -123,6 +123,7 @@ public class SharedRefDbRefUpdate extends RefUpdate {
    */
   @Override
   public Result update() throws IOException {
+    normalizeNullsToZerosObjectIds(refUpdateBase);
     return refUpdateValidator.executeRefUpdate(
         refUpdateBase,
         refUpdateBase::update,
@@ -141,6 +142,7 @@ public class SharedRefDbRefUpdate extends RefUpdate {
    */
   @Override
   public Result update(RevWalk rev) throws IOException {
+    normalizeNullsToZerosObjectIds(refUpdateBase);
     return refUpdateValidator.executeRefUpdate(
         refUpdateBase,
         () -> refUpdateBase.update(rev),
@@ -157,6 +159,7 @@ public class SharedRefDbRefUpdate extends RefUpdate {
    */
   @Override
   public Result delete() throws IOException {
+    normalizeNullsToZerosObjectIds(refUpdateBase);
     return refUpdateValidator.executeRefUpdate(
         refUpdateBase,
         refUpdateBase::delete,
@@ -173,6 +176,7 @@ public class SharedRefDbRefUpdate extends RefUpdate {
    */
   @Override
   public Result delete(RevWalk walk) throws IOException {
+    normalizeNullsToZerosObjectIds(refUpdateBase);
     return refUpdateValidator.executeRefUpdate(
         refUpdateBase,
         () -> refUpdateBase.delete(walk),
@@ -291,6 +295,7 @@ public class SharedRefDbRefUpdate extends RefUpdate {
 
   @Override
   public Result forceUpdate() throws IOException {
+    normalizeNullsToZerosObjectIds(refUpdateBase);
     return refUpdateValidator.executeRefUpdate(
         refUpdateBase,
         refUpdateBase::forceUpdate,
@@ -312,5 +317,15 @@ public class SharedRefDbRefUpdate extends RefUpdate {
     refUpdateBase.setExpectedOldObjectId(refUpdateBase.getNewObjectId());
     refUpdateBase.setNewObjectId(objectId);
     return updateFunction.invoke();
+  }
+
+  private static void normalizeNullsToZerosObjectIds(RefUpdate refUpdate) {
+    if (refUpdate.getOldObjectId() == null) {
+      refUpdate.setExpectedOldObjectId(ObjectId.zeroId());
+    }
+
+    if (refUpdate.getNewObjectId() == null) {
+      refUpdate.setNewObjectId(ObjectId.zeroId());
+    }
   }
 }
