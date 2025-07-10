@@ -40,7 +40,7 @@ class RefUpdateSnapshot {
       throw new IllegalArgumentException("RefUpdateSnapshot cannot be created for null Ref");
     }
     this.ref = ref;
-    this.newValue = newRefValue;
+    this.newValue = (newRefValue != null) ? newRefValue : ObjectId.zeroId();
     this.exception = null;
   }
 
