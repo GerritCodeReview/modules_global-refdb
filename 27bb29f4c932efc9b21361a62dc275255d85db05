@@ -33,6 +33,24 @@
       "message": "This seems very error prone to me, should the normalisation not live in the constructor of `RefUpdateSnapshot`? So that not every code path needs to normalize it by itself?\n\nDoing it in the constructor would ensure that no code path ever misses normalising the values.",
       "revId": "27bb29f4c932efc9b21361a62dc275255d85db05",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e58cc95a_ca47261a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2025-07-10T12:34:49Z",
+      "side": 1,
+      "message": "I second this approach - normalisation in the constructor. Unless there is a reason we might want `RefUpdateSnapshot` to ever have null values.",
+      "parentUuid": "0cde02eb_659dbfcb",
+      "revId": "27bb29f4c932efc9b21361a62dc275255d85db05",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
