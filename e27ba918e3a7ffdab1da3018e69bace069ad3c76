@@ -37,6 +37,42 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "d1644b58_ea3bb776",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2025-07-10T08:38:44Z",
+      "side": 1,
+      "message": "See reply in above comment.",
+      "parentUuid": "9f8a5337_4c2f0aa6",
+      "revId": "e27ba918e3a7ffdab1da3018e69bace069ad3c76",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4dbbef67_71313862",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2025-07-10T08:38:44Z",
+      "side": 1,
+      "message": "So, the fix you propose at I272f0637a to me seems pretty much the same thing but done in 4 different places rather than 1. All the methods there end up calling this method here, so not sure why we\u0027d move the normalisation one level above.\n\nAnother option could be to normalise newValue in refPair constructor, WDYT?",
+      "parentUuid": "13288429_68736369",
+      "revId": "e27ba918e3a7ffdab1da3018e69bace069ad3c76",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "845c274b_03453f0b",
         "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
         "patchSetId": 7
@@ -396,6 +432,30 @@
       "side": 1,
       "message": "By analysing the code in Gerrit, the `putValue` should have been set to zeros. However, in some code paths, the _normalisation_ is missing and therefore the `null` value is propagated downstream.\n\nI believe we should operate in two ways:\n\n1. Copy the defensive replacement of `null` to `ObjectId.zeros()` into the `SharedRefDbRefUpdate` and `SharedRefDbBatchRefUpdate`, so that regardless of Gerrit missing normalisations, the global-refdb would still behave correctly.\n\n2. Add the correct normalisation also in the code that deletes change edits in Gerrit (maybe from master onwards).",
       "parentUuid": "61d81dcf_103ebcd8",
+      "range": {
+        "startLine": 230,
+        "startChar": 12,
+        "endLine": 230,
+        "endChar": 49
+      },
+      "revId": "e27ba918e3a7ffdab1da3018e69bace069ad3c76",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8279dc1_fcad2bf7",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2025-07-10T08:38:44Z",
+      "side": 1,
+      "message": "Points 2 has already been done with I0602aa0, point 1 we\u0027re discussing above.",
+      "parentUuid": "56845342_35fd8f19",
       "range": {
         "startLine": 230,
         "startChar": 12,
