@@ -16,6 +16,23 @@
       "message": "Verified E2E that:\n- Before this change, I cannot remove an online edit\n- After this change, I can remove an online edit",
       "revId": "27bb29f4c932efc9b21361a62dc275255d85db05",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cde02eb_659dbfcb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2025-07-10T07:54:37Z",
+      "side": 1,
+      "message": "This seems very error prone to me, should the normalisation not live in the constructor of `RefUpdateSnapshot`? So that not every code path needs to normalize it by itself?\n\nDoing it in the constructor would ensure that no code path ever misses normalising the values.",
+      "revId": "27bb29f4c932efc9b21361a62dc275255d85db05",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
