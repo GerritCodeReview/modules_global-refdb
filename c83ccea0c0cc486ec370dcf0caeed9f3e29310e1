@@ -63,6 +63,30 @@
       },
       "revId": "c83ccea0c0cc486ec370dcf0caeed9f3e29310e1",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a28daf8_f653ee03",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateSnapshot.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-07-11T20:51:56Z",
+      "side": 1,
+      "message": "\u003e So the initial issue we\u0027re trying to resolve is not an NPE, it\u0027s rather a comparison of a sha1 vs null.\n\u003e This said, trying to prevent NPEs everywhere RefUpdate is used seems pointless? If we care so much about this then we should change `RefUpdate` directly to return `Object.zeroId` when a value isn\u0027t set.\n\nI don\u0027t believe we have an issue anymore: this is more a sentinel for preventing *future* bugs in Gerrit from propagating to unexpected behaviour in global-refdb.\n\nChanging it in JGit is an option, but still won\u0027t address the concern of adding a sentinel in global-refdb, that\u0027s the concern of this change.\n\n\u003e My worry is that now that we\u0027re looking into this we do this sanitaziation everywhere, only for someone in a months time to forget it needs to be sanitised and reintroduce the same problem.\n\nNope, if we add the sanitisation/check before the execution of *ALL* global-refdb API at the beginning of the interface. \nThis change is adding it when creating the RefUpdateSnapshot, which *is useful* but, as mentioned, not enough and too silently.",
+      "parentUuid": "67743e52_7edfe94e",
+      "range": {
+        "startLine": 43,
+        "startChar": 20,
+        "endLine": 43,
+        "endChar": 75
+      },
+      "revId": "c83ccea0c0cc486ec370dcf0caeed9f3e29310e1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
