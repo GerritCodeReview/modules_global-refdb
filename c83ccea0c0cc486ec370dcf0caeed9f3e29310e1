@@ -39,6 +39,30 @@
       },
       "revId": "c83ccea0c0cc486ec370dcf0caeed9f3e29310e1",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67743e52_7edfe94e",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateSnapshot.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2025-07-11T13:16:06Z",
+      "side": 1,
+      "message": "So the initial issue we\u0027re trying to resolve is not an NPE, it\u0027s rather a comparison of a sha1 vs null.\nThis said, trying to prevent NPEs everywhere RefUpdate is used seems pointless? If we care so much about this then we should change `RefUpdate` directly to return `Object.zeroId` when a value isn\u0027t set.\n\nMy worry is that now that we\u0027re looking into this we do this sanitaziation everywhere, only for someone in a months time to forget it needs to be sanitised and reintroduce the same problem.\n\nI agree that we should probably log something, at least at debug level, that we\u0027re modifying a null ref value to zero.",
+      "parentUuid": "b621bd31_23f0dca4",
+      "range": {
+        "startLine": 43,
+        "startChar": 20,
+        "endLine": 43,
+        "endChar": 75
+      },
+      "revId": "c83ccea0c0cc486ec370dcf0caeed9f3e29310e1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
