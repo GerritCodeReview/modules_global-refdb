@@ -107,6 +107,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "7262e9ce_9fe548cd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2025-07-11T13:15:41Z",
+      "side": 1,
+      "message": "Acknowledged\n\nThe same question here: does this fix protected all access paths in the global-refdb?",
+      "parentUuid": "2d8a42cc_fb946525",
+      "revId": "e27ba918e3a7ffdab1da3018e69bace069ad3c76",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "845c274b_03453f0b",
