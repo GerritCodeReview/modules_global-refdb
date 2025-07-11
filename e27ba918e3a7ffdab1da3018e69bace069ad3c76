@@ -71,6 +71,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "173b8c36_222db2a9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2025-07-11T12:00:37Z",
+      "side": 1,
+      "message": "I tend to agree with Dani that a fix is needed in the global-refdb: if it is legal to create `RefUpdate`, set only the expected old value and then call `RefUpdate.delete()` then it should also work in global-refdb.\n\nAn alternative fix, also in global-refdb, may be done in the `RefUpdateSnapshot` constructor where the `newValue` passed as `null` shall be converted into `zeroId()`. I didn\u0027t test that but I believe that would be even more basic fix than the one proposed with this change.",
+      "parentUuid": "4dbbef67_71313862",
+      "revId": "e27ba918e3a7ffdab1da3018e69bace069ad3c76",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "845c274b_03453f0b",
