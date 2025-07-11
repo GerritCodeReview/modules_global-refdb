@@ -16,6 +16,29 @@
       "message": "third proposal after:\nhttps://gerrit-review.googlesource.com/c/modules/global-refdb/+/489323\nhttps://gerrit-review.googlesource.com/c/modules/global-refdb/+/489202",
       "revId": "c83ccea0c0cc486ec370dcf0caeed9f3e29310e1",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b621bd31_23f0dca4",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateSnapshot.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-07-11T05:18:09Z",
+      "side": 1,
+      "message": "This would sanitise a `null` found in the `RefUpdate` when performing validation, however, NPEs may happen elsewhere when the non-sanitised `RefUpdate` nulls will be used in other parts of the library.\n\nThe Issue 430336832 is fixed with I0602aa007 where Gerrit was passing nulls as the new object id, so this isn\u0027t necessarily needed.\n\nHowever, I agree that it would be best to have sentinels in place to detect such situations, but they should be:\n\n1. At the beginning of the interface entering the global-refdb\n2. They should also report the anomaly as a warning before the sanitisation\n\nThis adaptation is both partial and too silent.",
+      "range": {
+        "startLine": 43,
+        "startChar": 20,
+        "endLine": 43,
+        "endChar": 75
+      },
+      "revId": "c83ccea0c0cc486ec370dcf0caeed9f3e29310e1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
