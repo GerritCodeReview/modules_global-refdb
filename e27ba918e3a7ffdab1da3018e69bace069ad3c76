@@ -89,6 +89,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d8a42cc_fb946525",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2025-07-11T12:16:43Z",
+      "side": 1,
+      "message": "@sasa.zivkov@sap.com, the constructor approach has also been  this has also been proposed at I0a7cd5, see Luca\u0027s object to that at [1].\n\nhttps://gerrit-review.googlesource.com/c/modules/global-refdb/+/489582/comment/b621bd31_23f0dca4/",
+      "parentUuid": "173b8c36_222db2a9",
+      "revId": "e27ba918e3a7ffdab1da3018e69bace069ad3c76",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "845c274b_03453f0b",
