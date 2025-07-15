@@ -20,16 +20,17 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableSet;
 import com.google.gerrit.entities.RefNames;
 import com.google.inject.Inject;
-import java.util.Optional;
 
 /** Type of enforcement to implement between the local and shared RefDb. */
 public class SharedRefEnforcement {
   public enum Policy {
     EXCLUDE,
+    INCLUDE_MUTABLE,
     INCLUDE;
   }
 
   private final ImmutableSet<String> storeAllRefs;
+  private final ImmutableSet<String> storeMutableRefs;
   private final ImmutableSet<String> storeNoRefs;
   private final Boolean enableDraftCommentEvents;
   private final String ALL = "*";
@@ -39,6 +40,7 @@ public class SharedRefEnforcement {
       SharedRefDbConfiguration config,
       DraftCommentEventsEnabledProvider draftCommentEventsEnabledProvider) {
     this.storeAllRefs = config.getSharedRefDb().getStoreAllRefs();
+    this.storeMutableRefs = config.getSharedRefDb().getStoreMutableRefs();
     this.storeNoRefs = config.getSharedRefDb().getStoreNoRefs();
     this.enableDraftCommentEvents = draftCommentEventsEnabledProvider.get();
   }
@@ -46,9 +48,11 @@ public class SharedRefEnforcement {
   @VisibleForTesting
   public SharedRefEnforcement(
       ImmutableSet<String> storeAllRefs,
+      ImmutableSet<String> storeMutableRefs,
       ImmutableSet<String> storeNoRefs,
       boolean enableDraftCommentEvents) {
     this.storeAllRefs = storeAllRefs;
+    this.storeMutableRefs = storeMutableRefs;
     this.storeNoRefs = storeNoRefs;
     this.enableDraftCommentEvents = enableDraftCommentEvents;
   }
@@ -56,6 +60,7 @@ public class SharedRefEnforcement {
   @VisibleForTesting
   public SharedRefEnforcement() {
     this.storeAllRefs = ImmutableSet.of();
+    this.storeMutableRefs = ImmutableSet.of();
     this.storeNoRefs = ImmutableSet.of();
     this.enableDraftCommentEvents = false;
   }
@@ -68,8 +73,11 @@ public class SharedRefEnforcement {
    * @return the enforcement policy for this project/ref
    */
   public Policy getPolicy(String projectName, String refName) {
-    return getConfiguredPolicy(projectName)
-        .orElse(isRefToBeIgnoredBySharedRefDb(refName) ? Policy.EXCLUDE : Policy.INCLUDE);
+    Policy configuredPolicy = getPolicy(projectName);
+    if (configuredPolicy == Policy.INCLUDE_MUTABLE) {
+      return isRefToBeIgnoredBySharedRefDb(refName) ? Policy.EXCLUDE : Policy.INCLUDE;
+    }
+    return configuredPolicy;
   }
 
   /**
@@ -80,7 +88,16 @@ public class SharedRefEnforcement {
    * @return the enforcement policy for the project
    */
   public Policy getPolicy(String projectName) {
-    return getConfiguredPolicy(projectName).orElse(Policy.INCLUDE);
+    if (storeMutableRefs.contains(ALL) || storeMutableRefs.contains(projectName)) {
+      return Policy.INCLUDE_MUTABLE;
+    }
+    if (storeNoRefs.contains(ALL) || storeNoRefs.contains(projectName)) {
+      return Policy.EXCLUDE;
+    }
+    if (storeAllRefs.contains(ALL) || storeAllRefs.contains(projectName)) {
+      return Policy.INCLUDE;
+    }
+    return Policy.INCLUDE_MUTABLE;
   }
 
   /**
@@ -90,16 +107,6 @@ public class SharedRefEnforcement {
    */
   public Boolean isDraftCommentEventsEnabled() {
     return enableDraftCommentEvents;
-  }
-
-  Optional<Policy> getConfiguredPolicy(String projectName) {
-    if (storeNoRefs.contains(ALL) || storeNoRefs.contains(projectName)) {
-      return Optional.of(Policy.EXCLUDE);
-    }
-    if (storeAllRefs.contains(ALL) || storeAllRefs.contains(projectName)) {
-      return Optional.of(Policy.INCLUDE);
-    }
-    return Optional.empty();
   }
 
   /**
