@@ -100,6 +100,27 @@ public class SharedRefEnforcementTest implements RefFixture {
   }
 
   @Test
+  public void shouldExcludePatchSetRefWhenStoringMutableRefs() {
+    Config sharedRefDbConfig = new Config();
+    sharedRefDbConfig.setStringList(
+        SharedRefDatabase.SECTION,
+        SharedRefDatabase.STORE_MUTABLE_REFS_KEY,
+        SharedRefDatabase.PROJECT,
+        Arrays.asList(A_TEST_PROJECT_NAME));
+    sharedRefDbConfig.setStringList(
+        SharedRefDatabase.SECTION,
+        SharedRefDatabase.STORE_ALL_REFS_KEY,
+        SharedRefDatabase.PROJECT,
+        Arrays.asList("*"));
+
+    SharedRefEnforcement refEnforcement = newRefEnforcement(sharedRefDbConfig);
+    Ref changeRef = newRef(A_REF_NAME_OF_A_PATCHSET, AN_OBJECT_ID_1);
+
+    assertThat(refEnforcement.getPolicy(A_TEST_PROJECT_NAME, changeRef.getName()))
+        .isEqualTo(SharedRefEnforcement.Policy.EXCLUDE);
+  }
+
+  @Test
   public void patchSetRefIsExcludedByDefault() {
     Ref changeRef = newRef(A_REF_NAME_OF_A_PATCHSET, AN_OBJECT_ID_1);
     assertThat(refEnforcement.getPolicy(A_TEST_PROJECT_NAME, changeRef.getName()))
@@ -158,7 +179,7 @@ public class SharedRefEnforcementTest implements RefFixture {
   @Test
   public void draftCommentsIncludedWhenDraftCommentEventsEnabled() {
     SharedRefEnforcement refEnforcement =
-        new SharedRefEnforcement(ImmutableSet.of(), ImmutableSet.of(), true);
+        new SharedRefEnforcement(ImmutableSet.of(), ImmutableSet.of(), ImmutableSet.of(), true);
     Ref draftCommentRef = newRef("refs/draft-comments/01/1/1000000", AN_OBJECT_ID_1);
     assertThat(refEnforcement.getPolicy(A_TEST_PROJECT_NAME, draftCommentRef.getName()))
         .isEqualTo(Policy.INCLUDE);
