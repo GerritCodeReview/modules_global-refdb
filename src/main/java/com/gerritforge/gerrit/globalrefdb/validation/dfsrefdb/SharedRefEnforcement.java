@@ -30,6 +30,7 @@ public class SharedRefEnforcement {
   }
 
   private final ImmutableSet<String> storeAllRefs;
+  private final ImmutableSet<String> storeMutableRefs;
   private final ImmutableSet<String> storeNoRefs;
   private final Boolean enableDraftCommentEvents;
   private final String ALL = "*";
@@ -39,6 +40,7 @@ public class SharedRefEnforcement {
       SharedRefDbConfiguration config,
       DraftCommentEventsEnabledProvider draftCommentEventsEnabledProvider) {
     this.storeAllRefs = config.getSharedRefDb().getStoreAllRefs();
+    this.storeMutableRefs = config.getSharedRefDb().getStoreMutableRefs();
     this.storeNoRefs = config.getSharedRefDb().getStoreNoRefs();
     this.enableDraftCommentEvents = draftCommentEventsEnabledProvider.get();
   }
@@ -46,9 +48,11 @@ public class SharedRefEnforcement {
   @VisibleForTesting
   public SharedRefEnforcement(
       ImmutableSet<String> storeAllRefs,
+      ImmutableSet<String> storeMutableRefs,
       ImmutableSet<String> storeNoRefs,
       boolean enableDraftCommentEvents) {
     this.storeAllRefs = storeAllRefs;
+    this.storeMutableRefs = storeMutableRefs;
     this.storeNoRefs = storeNoRefs;
     this.enableDraftCommentEvents = enableDraftCommentEvents;
   }
@@ -56,6 +60,7 @@ public class SharedRefEnforcement {
   @VisibleForTesting
   public SharedRefEnforcement() {
     this.storeAllRefs = ImmutableSet.of();
+    this.storeMutableRefs = ImmutableSet.of();
     this.storeNoRefs = ImmutableSet.of();
     this.enableDraftCommentEvents = false;
   }

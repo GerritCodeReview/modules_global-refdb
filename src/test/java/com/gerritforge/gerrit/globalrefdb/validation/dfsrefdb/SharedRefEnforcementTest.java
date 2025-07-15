@@ -158,7 +158,7 @@ public class SharedRefEnforcementTest implements RefFixture {
   @Test
   public void draftCommentsIncludedWhenDraftCommentEventsEnabled() {
     SharedRefEnforcement refEnforcement =
-        new SharedRefEnforcement(ImmutableSet.of(), ImmutableSet.of(), true);
+        new SharedRefEnforcement(ImmutableSet.of(), ImmutableSet.of(), ImmutableSet.of(), true);
     Ref draftCommentRef = newRef("refs/draft-comments/01/1/1000000", AN_OBJECT_ID_1);
     assertThat(refEnforcement.getPolicy(A_TEST_PROJECT_NAME, draftCommentRef.getName()))
         .isEqualTo(Policy.INCLUDE);
