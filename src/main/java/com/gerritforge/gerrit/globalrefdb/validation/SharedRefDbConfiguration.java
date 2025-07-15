@@ -109,6 +109,7 @@ public class SharedRefDbConfiguration {
     public static final String SECTION = "ref-database";
     public static final String ENABLE_KEY = "enabled";
     public static final String STORE_ALL_REFS_KEY = "storeAllRefs";
+    public static final String STORE_MUTABLE_REFS_KEY = "storeMutableRefs";
     public static final String STORE_NO_REFS_KEY = "storeNoRefs";
     public static final String SUBSECTION_ENFORCEMENT_RULES = "enforcementRules";
     public static final String IGNORED_REFS_PREFIXES = "ignoredRefsPrefixes";
@@ -118,6 +119,7 @@ public class SharedRefDbConfiguration {
     private final Multimap<EnforcePolicy, String> enforcementRules;
     private final ImmutableSet<String> ignoredRefsPrefixes;
     private final ImmutableSet<String> storeAllRefs;
+    private final ImmutableSet<String> storeMutableRefs;
     private final ImmutableSet<String> storeNoRefs;
 
     private SharedRefDatabase(Supplier<Config> cfg) {
@@ -129,6 +131,7 @@ public class SharedRefDbConfiguration {
       }
       ignoredRefsPrefixes = ImmutableSet.copyOf(getList(cfg, SECTION, null, IGNORED_REFS_PREFIXES));
       storeAllRefs = getSet(cfg, SECTION, STORE_ALL_REFS_KEY, PROJECT);
+      storeMutableRefs = getSet(cfg, SECTION, STORE_MUTABLE_REFS_KEY, PROJECT);
       storeNoRefs = getSet(cfg, SECTION, STORE_NO_REFS_KEY, PROJECT);
     }
 
@@ -170,6 +173,15 @@ public class SharedRefDbConfiguration {
      */
     public ImmutableSet<String> getStoreAllRefs() {
       return storeAllRefs;
+    }
+
+    /**
+     * Returns the set of projects to store mutable refs for in the global-refdb
+     *
+     * @return set of projects to store only mutable refs for
+     */
+    public ImmutableSet<String> getStoreMutableRefs() {
+      return storeMutableRefs;
     }
 
     /**
