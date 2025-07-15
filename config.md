@@ -38,13 +38,17 @@ the libModule consuming this library.
     storeNoRefs described below. Existing configured enforcementRules will work,
     but not in tandem with the storeAllRefs/storeNoRefs paradigm.
 
+```ref-database.storeMutableRefs```
+:   Specifies which projects should have mutable refs stored. An asterisk can be
+    used to match all projects. This is the default behavior for all projects not
+    specified under storeAllRefs or storeNoRefs.
+
+    Excludes draft comments, immutable non-meta refs, and cache-automerge refs.
+
 ```ref-database.storeAllRefs```
 :   Specifies which projects should have all refs stored, including refs which
-    are excluded by default. An asterisk can be used to match all projects.
-
-    The default behavior for non-specified projects is to exclude draft comments,
-    immutable non-meta refs, and cache-automerge refs. When listed under
-    `storeAllRefs` those refs will be included.
+    are excluded by default (draft comments, immutable non-meta refs, and cache-
+    automerge refs). An asterisk can be used to match all projects.
 
 ```ref-database.storeNoRefs```
 :   Specifies which projects should not be stored in the global-refdb. No refs
