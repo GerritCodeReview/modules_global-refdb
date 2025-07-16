@@ -32,8 +32,6 @@ import static org.mockito.Mockito.when;
 import com.gerritforge.gerrit.globalrefdb.DraftCommentEventsEnabledProvider;
 import com.gerritforge.gerrit.globalrefdb.GlobalRefDbSystemError;
 import com.gerritforge.gerrit.globalrefdb.validation.RefUpdateValidator.OneParameterVoidFunction;
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacyDefaultSharedRefEnforcement;
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacySharedRefEnforcement;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.RefFixture;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement;
 import com.google.common.collect.ImmutableSet;
@@ -79,7 +77,6 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
   @Mock SharedRefDatabaseWrapper sharedRefDatabase;
 
   @Mock SharedRefEnforcement tmpRefEnforcement;
-  @Mock LegacySharedRefEnforcement legacyTmpRefEnforcement;
   @Mock ProjectsFilter projectsFilter;
   @Mock OneParameterVoidFunction<List<ReceiveCommand>> rollbackFunction;
 
@@ -109,14 +106,10 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
                 new ReceiveCommand(A, B, A_REF_NAME_1, UPDATE),
                 new ReceiveCommand(A, B, A_REF_NAME_2, UPDATE)));
     BatchRefUpdateValidator batchRefUpdateValidator =
-        getRefValidatorForEnforcement(tmpRefEnforcement, legacyTmpRefEnforcement);
+        getRefValidatorForEnforcement(tmpRefEnforcement);
 
     doReturn(SharedRefEnforcement.Policy.INCLUDE)
         .when(batchRefUpdateValidator.refEnforcement)
-        .getPolicy(A_TEST_PROJECT_NAME, A_REF_NAME_1);
-
-    doReturn(LegacySharedRefEnforcement.EnforcePolicy.REQUIRED)
-        .when(batchRefUpdateValidator.legacyRefEnforcement)
         .getPolicy(A_TEST_PROJECT_NAME, A_REF_NAME_1);
 
     doReturn(true).when(sharedRefDatabase).isUpToDate(any(), any());
@@ -171,14 +164,10 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
     ReceiveCommand receiveCommand = new ReceiveCommand(A, B, A_REF_NAME_1, UPDATE);
     BatchRefUpdate batchRefUpdate = newBatchUpdate(singletonList(receiveCommand));
     BatchRefUpdateValidator batchRefUpdateValidator =
-        getRefValidatorForEnforcement(tmpRefEnforcement, legacyTmpRefEnforcement);
+        getRefValidatorForEnforcement(tmpRefEnforcement);
 
     doReturn(SharedRefEnforcement.Policy.INCLUDE)
         .when(batchRefUpdateValidator.refEnforcement)
-        .getPolicy(A_TEST_PROJECT_NAME, A_REF_NAME_1);
-
-    doReturn(LegacySharedRefEnforcement.EnforcePolicy.REQUIRED)
-        .when(batchRefUpdateValidator.legacyRefEnforcement)
         .getPolicy(A_TEST_PROJECT_NAME, A_REF_NAME_1);
 
     doReturn(false).when(sharedRefDatabase).isUpToDate(eq(A_TEST_PROJECT_NAME_KEY), any());
@@ -198,14 +187,10 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
     ReceiveCommand receiveCommand = new ReceiveCommand(A, B, A_REF_NAME_1, UPDATE);
     BatchRefUpdate batchRefUpdate = newBatchUpdate(singletonList(receiveCommand));
     BatchRefUpdateValidator batchRefUpdateValidator =
-        getRefValidatorForEnforcement(tmpRefEnforcement, legacyTmpRefEnforcement);
+        getRefValidatorForEnforcement(tmpRefEnforcement);
 
     doReturn(SharedRefEnforcement.Policy.INCLUDE)
         .when(batchRefUpdateValidator.refEnforcement)
-        .getPolicy(A_TEST_PROJECT_NAME, A_REF_NAME_1);
-
-    doReturn(LegacySharedRefEnforcement.EnforcePolicy.REQUIRED)
-        .when(batchRefUpdateValidator.legacyRefEnforcement)
         .getPolicy(A_TEST_PROJECT_NAME, A_REF_NAME_1);
 
     doReturn(true).when(sharedRefDatabase).isUpToDate(any(), any());
@@ -227,14 +212,10 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
     ReceiveCommand receiveCommand = new ReceiveCommand(A, B, A_REF_NAME_1, UPDATE);
     BatchRefUpdate batchRefUpdate = newBatchUpdate(singletonList(receiveCommand));
     BatchRefUpdateValidator batchRefUpdateValidator =
-        getRefValidatorForEnforcement(tmpRefEnforcement, legacyTmpRefEnforcement);
+        getRefValidatorForEnforcement(tmpRefEnforcement);
 
     doReturn(SharedRefEnforcement.Policy.INCLUDE)
         .when(batchRefUpdateValidator.refEnforcement)
-        .getPolicy(A_TEST_PROJECT_NAME, A_REF_NAME_1);
-
-    doReturn(LegacySharedRefEnforcement.EnforcePolicy.REQUIRED)
-        .when(batchRefUpdateValidator.legacyRefEnforcement)
         .getPolicy(A_TEST_PROJECT_NAME, A_REF_NAME_1);
 
     doReturn(true).when(sharedRefDatabase).isUpToDate(any(), any());
@@ -258,7 +239,7 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
     BatchRefUpdate batchRefUpdate =
         newBatchUpdate(singletonList(new ReceiveCommand(A, B, A_REF_NAME_1, UPDATE)));
     BatchRefUpdateValidator batchRefUpdateValidator =
-        getRefValidatorForEnforcement(tmpRefEnforcement, legacyTmpRefEnforcement);
+        getRefValidatorForEnforcement(tmpRefEnforcement);
 
     batchRefUpdateValidator.executeBatchUpdateWithValidation(
         batchRefUpdate, () -> execute(batchRefUpdate), this::defaultRollback);
@@ -281,19 +262,16 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
     return getRefValidatorForEnforcement(
         new SharedRefEnforcement(
             new SharedRefDbConfiguration(new Config(), "testplugin"),
-            new DraftCommentEventsEnabledProvider(new Config())),
-        new LegacyDefaultSharedRefEnforcement());
+            new DraftCommentEventsEnabledProvider(new Config())));
   }
 
   private BatchRefUpdateValidator getRefValidatorForEnforcement(
-      SharedRefEnforcement sharedRefEnforcement,
-      LegacySharedRefEnforcement legacySharedRefEnforcement) {
+      SharedRefEnforcement sharedRefEnforcement) {
     return new BatchRefUpdateValidator(
         sharedRefDatabase,
         new ValidationMetrics(
             new DisabledMetricMaker(), new SharedRefDbConfiguration(new Config(), "testplugin")),
         sharedRefEnforcement,
-        legacySharedRefEnforcement,
         projectsFilter,
         RefFixture.A_TEST_PROJECT_NAME,
         diskRepo.getRefDatabase(),
