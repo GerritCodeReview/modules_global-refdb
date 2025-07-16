@@ -29,7 +29,6 @@ import com.gerritforge.gerrit.globalrefdb.DraftCommentEventsEnabledProvider;
 import com.gerritforge.gerrit.globalrefdb.GlobalRefDbSystemError;
 import com.gerritforge.gerrit.globalrefdb.RefDbLockException;
 import com.gerritforge.gerrit.globalrefdb.validation.RefUpdateValidator.OneParameterFunction;
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacyDefaultSharedRefEnforcement;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.RefFixture;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement;
 import com.google.common.collect.ImmutableSet;
@@ -54,9 +53,6 @@ public class RefUpdateValidatorTest implements RefFixture {
       new SharedRefEnforcement(
           new SharedRefDbConfiguration(new Config(), "testplugin"),
           new DraftCommentEventsEnabledProvider(new Config()));
-
-  private static final LegacyDefaultSharedRefEnforcement legacyDefaultRefEnforcement =
-      new LegacyDefaultSharedRefEnforcement();
 
   @Mock SharedRefDatabaseWrapper sharedRefDb;
 
@@ -303,7 +299,6 @@ public class RefUpdateValidatorTest implements RefFixture {
         refDbWrapper,
         validationMetrics,
         defaultRefEnforcement,
-        legacyDefaultRefEnforcement,
         projectsFilter,
         A_TEST_PROJECT_NAME,
         localRefDb,
