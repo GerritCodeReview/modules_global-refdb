@@ -17,10 +17,6 @@ package com.gerritforge.gerrit.globalrefdb.validation;
 import com.gerritforge.gerrit.globalrefdb.GlobalRefDbLockException;
 import com.gerritforge.gerrit.globalrefdb.GlobalRefDbSystemError;
 import com.gerritforge.gerrit.globalrefdb.RefDbLockException;
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacyCustomSharedRefEnforcementByProject;
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacyDefaultSharedRefEnforcement;
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacySharedRefEnforcement;
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacySharedRefEnforcement.EnforcePolicy;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.OutOfSyncException;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedDbSplitBrainException;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement;
@@ -51,7 +47,6 @@ public class RefUpdateValidator {
   protected final String projectName;
   protected final RefDatabase refDb;
   protected final SharedRefEnforcement refEnforcement;
-  protected final LegacySharedRefEnforcement legacyRefEnforcement;
   protected final ProjectsFilter projectsFilter;
   private final ImmutableSet<String> ignoredRefs;
 
@@ -93,9 +88,6 @@ public class RefUpdateValidator {
    * @param sharedRefDb an instance of the global refdb to check for out-of-sync refs.
    * @param validationMetrics to update validation results, such as split-brains.
    * @param refEnforcement Whether or not a given ref should be stored
-   * @param legacyRefEnforcement Specific ref enforcements for this project. Either a {@link
-   *     LegacyCustomSharedRefEnforcementByProject} when custom policies are provided via
-   *     configuration file or a {@link LegacyDefaultSharedRefEnforcement} for defaults.
    * @param projectsFilter filter to match whether the project being updated should be validated
    *     against global refdb
    * @param projectName the name of the project being updated.
@@ -108,7 +100,6 @@ public class RefUpdateValidator {
       SharedRefDatabaseWrapper sharedRefDb,
       ValidationMetrics validationMetrics,
       SharedRefEnforcement refEnforcement,
-      LegacySharedRefEnforcement legacyRefEnforcement,
       ProjectsFilter projectsFilter,
       @Assisted String projectName,
       @Assisted RefDatabase refDb,
@@ -119,7 +110,6 @@ public class RefUpdateValidator {
     this.ignoredRefs = ignoredRefs;
     this.projectName = projectName;
     this.refEnforcement = refEnforcement;
-    this.legacyRefEnforcement = legacyRefEnforcement;
     this.projectsFilter = projectsFilter;
   }
 
@@ -137,7 +127,7 @@ public class RefUpdateValidator {
    *       RefUpdateValidator#isRefToBeIgnored(String)})
    *   <li>The project being updated is a global project ({@link
    *       RefUpdateValidator#isGlobalProject(String)}
-   *   <li>The enforcement policy for the project being updated is {@link EnforcePolicy#IGNORED}
+   *   <li>The enforcement policy for the project being updated is {@link Policy#EXCLUDE}
    * </ul>
    *
    * @param refUpdate the refUpdate command
@@ -154,8 +144,7 @@ public class RefUpdateValidator {
       throws IOException {
     if (isRefToBeIgnored(refUpdate.getName())
         || !isGlobalProject(projectName)
-        || refEnforcement.getPolicy(projectName) == Policy.EXCLUDE
-        || legacyRefEnforcement.getPolicy(projectName) == EnforcePolicy.IGNORED) {
+        || refEnforcement.getPolicy(projectName) == Policy.EXCLUDE) {
       return refUpdateFunction.invoke();
     }
 
@@ -223,10 +212,7 @@ public class RefUpdateValidator {
     // We are not checking refs that should be ignored
     final Policy refEnforcementPolicy =
         refEnforcement.getPolicy(projectName, refSnapshot.getName());
-    final EnforcePolicy legacyRefEnforcementPolicy =
-        legacyRefEnforcement.getPolicy(projectName, refSnapshot.getName());
-    if (refEnforcementPolicy == Policy.EXCLUDE
-        || legacyRefEnforcementPolicy == EnforcePolicy.IGNORED) {
+    if (refEnforcementPolicy == Policy.EXCLUDE) {
       return;
     }
 
@@ -279,11 +265,6 @@ public class RefUpdateValidator {
     String refName = refUpdateSnapshot.getName();
     Policy refEnforcementPolicy = refEnforcement.getPolicy(projectName, refName);
     if (refEnforcementPolicy == Policy.EXCLUDE) {
-      return refUpdateSnapshot;
-    }
-
-    EnforcePolicy legacyRefEnforcementPolicy = legacyRefEnforcement.getPolicy(projectName, refName);
-    if (legacyRefEnforcementPolicy == EnforcePolicy.IGNORED) {
       return refUpdateSnapshot;
     }
 
