@@ -14,10 +14,6 @@
 
 package com.gerritforge.gerrit.globalrefdb.validation;
 
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacyCustomSharedRefEnforcementByProject;
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacyDefaultSharedRefEnforcement;
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacySharedRefEnforcement;
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacySharedRefEnforcement.EnforcePolicy;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.OutOfSyncException;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement.Policy;
@@ -58,9 +54,6 @@ public class BatchRefUpdateValidator extends RefUpdateValidator {
    * @param sharedRefDb an instance of the global refdb to check for out-of-sync refs.
    * @param validationMetrics to update validation results, such as split-brains.
    * @param refEnforcement Specific ref enforcements for this project.
-   * @param legacyRefEnforcement Specific legacy ref enforcements for this project. Either a {@link
-   *     LegacyCustomSharedRefEnforcementByProject} when custom policies are provided via
-   *     configuration * file or a {@link LegacyDefaultSharedRefEnforcement} for defaults.
    * @param projectsFilter filter to match whether the project being updated should be validated
    *     against global refdb
    * @param projectName the name of the project being updated.
@@ -73,7 +66,6 @@ public class BatchRefUpdateValidator extends RefUpdateValidator {
       SharedRefDatabaseWrapper sharedRefDb,
       ValidationMetrics validationMetrics,
       SharedRefEnforcement refEnforcement,
-      LegacySharedRefEnforcement legacyRefEnforcement,
       ProjectsFilter projectsFilter,
       @Assisted String projectName,
       @Assisted RefDatabase refDb,
@@ -82,7 +74,6 @@ public class BatchRefUpdateValidator extends RefUpdateValidator {
         sharedRefDb,
         validationMetrics,
         refEnforcement,
-        legacyRefEnforcement,
         projectsFilter,
         projectName,
         refDb,
@@ -118,11 +109,6 @@ public class BatchRefUpdateValidator extends RefUpdateValidator {
       batchRefUpdateFunction.invoke();
       return;
     }
-    if (legacyRefEnforcement.getPolicy(projectName) == EnforcePolicy.IGNORED
-        || !isGlobalProject(projectName)) {
-      batchRefUpdateFunction.invoke();
-      return;
-    }
 
     try {
       doExecuteBatchUpdate(batchRefUpdate, batchRefUpdateFunction, batchRefUpdateRollbackFunction);
@@ -130,9 +116,6 @@ public class BatchRefUpdateValidator extends RefUpdateValidator {
       logger.atWarning().withCause(e).log(
           "Failed to execute Batch Update on project %s", projectName);
       if (refEnforcement.getPolicy(projectName) == Policy.INCLUDE) {
-        throw e;
-      }
-      if (legacyRefEnforcement.getPolicy(projectName) == EnforcePolicy.REQUIRED) {
         throw e;
       }
     }
