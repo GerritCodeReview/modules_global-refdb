@@ -34,13 +34,6 @@ public class FooModule extends FactoryModule {
     factory(BatchRefUpdateValidator.Factory.class);
     bind(SharedRefDbConfiguration.class).toInstance(cfg.getSharedRefDbConfiguration());
     bind(GitRepositoryManager.class).to(SharedRefDbGitRepositoryManager.class);
-    if (cfg.getSharedRefDbConfiguration().getSharedRefDb().getEnforcementRules().isEmpty()) {
-      bind(LegacySharedRefEnforcement.class).to(LegacyDefaultSharedRefEnforcement.class).in(Scopes.SINGLETON);
-    } else {
-      bind(LegacySharedRefEnforcement.class)
-          .to(LegacyCustomSharedRefEnforcementByProject.class)
-          .in(Scopes.SINGLETON);
-    }
     DynamicSet.bind(binder(), ExceptionHook.class).to(SharedRefDbExceptionHook.class);
   }
 }
