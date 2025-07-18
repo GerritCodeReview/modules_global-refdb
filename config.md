@@ -18,8 +18,13 @@ the libModule consuming this library.
 
     Excludes draft comments, immutable non-meta refs, and cache-automerge refs.
 
-    Details: An asterisk can be used to match all projects. A project can only be
-    in one ref storage category (storeMutableRefs, storeAllRefs, or storeNoRefs).
+    Details:
+    An asterisk can be used to match all projects.
+
+    Storage rules are evaluated in order of precedence: first by project-specific
+    settings (in the following order: storeNoRefs, storeMutableRefs, then
+    storeAllRefs), and only if no match is found, by global settings (using * as
+    a wildcard).
 
 ```ref-database.storeAllRefs```
 :   Specifies which projects should have all refs stored, including refs which
@@ -29,8 +34,7 @@ the libModule consuming this library.
 ```ref-database.storeNoRefs```
 :   Specifies which projects should not be stored in the global-refdb. No refs
     from these projects will be stored. An asterisk can be used to match all
-    projects. If a project is in both storeNoRefs and storeAllRefs, it will not
-    be stored; the order of processing is storeNoRefs then storeAllRefs.
+    projects.
 
 ```projects.pattern```
 :   Specifies which projects should be validated against the global refdb.
