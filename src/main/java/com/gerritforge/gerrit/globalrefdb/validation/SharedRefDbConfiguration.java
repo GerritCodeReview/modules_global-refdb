@@ -55,7 +55,17 @@ public class SharedRefDbConfiguration {
   public SharedRefDbConfiguration(Config config, String pluginName) {
     Supplier<Config> lazyCfg = lazyLoad(config);
     projects = memoize(() -> new Projects(lazyCfg));
-    sharedRefDb = memoize(() -> new SharedRefDatabase(lazyCfg));
+    sharedRefDb =
+        memoize(
+            () -> {
+              try {
+                return new SharedRefDatabase(lazyCfg);
+              } catch (ConfigInvalidException e) {
+                log.error("Invalid configuration for shared refdb", e);
+                throw new RuntimeException(
+                    "Failed to initialize SharedRefDatabase due to invalid configuration", e);
+              }
+            });
     this.pluginName = pluginName;
   }
 
@@ -122,7 +132,7 @@ public class SharedRefDbConfiguration {
     private final ImmutableSet<String> storeMutableRefs;
     private final ImmutableSet<String> storeNoRefs;
 
-    private SharedRefDatabase(Supplier<Config> cfg) {
+    private SharedRefDatabase(Supplier<Config> cfg) throws ConfigInvalidException {
       enabled = getBoolean(cfg, SECTION, null, ENABLE_KEY, false);
       enforcementRules = MultimapBuilder.hashKeys().arrayListValues().build();
       for (EnforcePolicy policy : EnforcePolicy.values()) {
@@ -133,6 +143,11 @@ public class SharedRefDbConfiguration {
       storeAllRefs = getSet(cfg, SECTION, STORE_ALL_REFS_KEY, PROJECT);
       storeMutableRefs = getSet(cfg, SECTION, STORE_MUTABLE_REFS_KEY, PROJECT);
       storeNoRefs = getSet(cfg, SECTION, STORE_NO_REFS_KEY, PROJECT);
+      if (checkRefStorageOverlap(storeAllRefs, storeMutableRefs, storeNoRefs)) {
+        throw new ConfigInvalidException(
+            "There is project overlap in the ref storage configuration. Each project can only be in"
+                + " one ref storage category (storeMutableRefs, storeAllRefs, or storeNoRefs).");
+      }
     }
 
     /**
@@ -211,6 +226,32 @@ public class SharedRefDbConfiguration {
     private ImmutableSet<String> getSet(
         Supplier<Config> cfg, String section, String subsection, String name) {
       return ImmutableSet.copyOf(cfg.get().getStringList(section, subsection, name));
+    }
+
+    /**
+     * Checks if there is an overlap in the ref storage configuration.
+     *
+     * @return boolean indicating whether there is an overlap, true if there is an overlap, false
+     *     otherwise
+     */
+    private boolean checkRefStorageOverlap(
+        ImmutableSet<String> storeAllRefs,
+        ImmutableSet<String> storeMutableRefs,
+        ImmutableSet<String> storeNoRefs) {
+      for (String project : storeAllRefs) {
+        if (storeMutableRefs.contains(project)) {
+          return true;
+        }
+        if (storeNoRefs.contains(project)) {
+          return true;
+        }
+      }
+      for (String project : storeMutableRefs) {
+        if (storeNoRefs.contains(project)) {
+          return true;
+        }
+      }
+      return false;
     }
   }
 
