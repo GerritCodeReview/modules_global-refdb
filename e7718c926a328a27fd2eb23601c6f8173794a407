@@ -9,12 +9,12 @@
       "updated": "2025-07-18T10:17:04Z"
     },
     "gerritforge:global-refdb-format-59a34d6c50367a468c810e28d733855abc059f13": {
-      "state": "SUCCESSFUL",
-      "url": "https://gerrit-ci.gerritforge.com/job/module-global-refdb-verifier/job/42%252F491142%252F3/2/console",
-      "started": "2025-07-18T10:13:32Z",
+      "state": "RUNNING",
+      "url": "https://gerrit-ci.gerritforge.com/job/module-global-refdb-verifier/job/42%252F491142%252F3/3/console",
+      "started": "2025-07-18T10:17:48Z",
       "finished": "2025-07-18T10:14:03Z",
       "created": "2025-07-18T10:12:52Z",
-      "updated": "2025-07-18T10:14:03Z"
+      "updated": "2025-07-18T10:17:48Z"
     }
   }
 }
