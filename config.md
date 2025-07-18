@@ -18,10 +18,21 @@ the libModule consuming this library.
 
     Excludes draft comments, immutable non-meta refs, and cache-automerge refs.
 
+<<<<<<< PATCH SET (9cf229426cfc76eea1fd71eb7c2ef485a46fef66 Projects cannot be in multiple ref storage configurations)
+    Details: An asterisk can be used to match all projects. A project can only be
+    in one ref storage category (storeMutableRefs, storeAllRefs, or storeNoRefs).
+    Storage rules are evaluated in order of precedence: first by project-specific
+    settings (in the following order: storeNoRefs, storeMutableRefs, then
+    storeAllRefs), and only if no match is found, by global settings (using * as
+    a wildcard).
+||||||| BASE
+    Details: An asterisk can be used to match all projects.
+=======
     Details: An asterisk can be used to match all projects. Storage rules are
     evaluated in order of precedence: first by project-specific settings (in the
     following order: storeNoRefs, storeMutableRefs, then storeAllRefs), and only
     if no match is found, by global settings (using * as a wildcard).
+>>>>>>> BASE      (8c8fd1f37747ef74dc78d304ba3b2021dc49c1bc Prioritize per-project ref storage settings over global sett)
 
 ```ref-database.storeAllRefs```
 :   Specifies which projects should have all refs stored, including refs which
