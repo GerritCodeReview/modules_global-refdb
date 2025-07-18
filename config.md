@@ -28,8 +28,7 @@ the libModule consuming this library.
 ```ref-database.storeNoRefs```
 :   Specifies which projects should not be stored in the global-refdb. No refs
     from these projects will be stored. An asterisk can be used to match all
-    projects. If a project is in both storeNoRefs and storeAllRefs, it will not
-    be stored; the order of processing is storeNoRefs then storeAllRefs.
+    projects.
 
 ```projects.pattern```
 :   Specifies which projects should be validated against the global refdb.
