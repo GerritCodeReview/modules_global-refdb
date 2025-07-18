@@ -21,7 +21,8 @@ the libModule consuming this library.
     Details: An asterisk can be used to match all projects. Storage rules are
     evaluated in the following order: project-specific settings (storeNoRefs, then
     storeMutableRefs, then storeAllRefs), followed by global settings (using * as
-    a wildcard) in the same order.
+    a wildcard) in the same order. Each project can only be in one ref storage
+    category.
 
 ```ref-database.storeAllRefs```
 :   Specifies which projects should have all refs stored, including refs which
