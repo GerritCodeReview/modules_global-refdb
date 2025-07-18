@@ -99,14 +99,34 @@ public class SharedRefEnforcement {
     return enableDraftCommentEvents;
   }
 
+  /**
+   * Returns the configured enforcement policy for a project. First checks the project-specific
+   * settings, then the global projects setting. Priority order is storeNoRefs over storeMutableRefs
+   * and storeAllRefs.
+   *
+   * <p>If no specific policy is configured, defaults to storing mutable refs.
+   *
+   * @param projectName the name of the project to get the policy for
+   * @return the enforcement policy for the project
+   */
   Optional<Policy> getConfiguredPolicy(String projectName) {
-    if (storeMutableRefs.contains(ALL) || storeMutableRefs.contains(projectName)) {
-      return Optional.empty();
-    }
-    if (storeNoRefs.contains(ALL) || storeNoRefs.contains(projectName)) {
+    if (storeNoRefs.contains(projectName)) {
       return Optional.of(Policy.EXCLUDE);
     }
-    if (storeAllRefs.contains(ALL) || storeAllRefs.contains(projectName)) {
+    if (storeMutableRefs.contains(projectName)) {
+      return Optional.empty();
+    }
+    if (storeAllRefs.contains(projectName)) {
+      return Optional.of(Policy.INCLUDE);
+    }
+
+    if (storeNoRefs.contains(ALL)) {
+      return Optional.of(Policy.EXCLUDE);
+    }
+    if (storeMutableRefs.contains(ALL)) {
+      return Optional.empty();
+    }
+    if (storeAllRefs.contains(ALL)) {
       return Optional.of(Policy.INCLUDE);
     }
     return Optional.empty();
