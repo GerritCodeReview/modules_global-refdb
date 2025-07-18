@@ -100,6 +100,27 @@ public class SharedRefEnforcementTest implements RefFixture {
   }
 
   @Test
+  public void shouldPrioritizeSpecificProjectConfigurationOverUsingWildcard() {
+    Config sharedRefDbConfig = new Config();
+    sharedRefDbConfig.setStringList(
+        SharedRefDatabase.SECTION,
+        SharedRefDatabase.STORE_NO_REFS_KEY,
+        SharedRefDatabase.PROJECT,
+        Arrays.asList("*"));
+    sharedRefDbConfig.setStringList(
+        SharedRefDatabase.SECTION,
+        SharedRefDatabase.STORE_ALL_REFS_KEY,
+        SharedRefDatabase.PROJECT,
+        Arrays.asList(A_TEST_PROJECT_NAME));
+
+    SharedRefEnforcement refEnforcement = newRefEnforcement(sharedRefDbConfig);
+    Ref changeRef = newRef(A_REF_NAME_OF_A_PATCHSET, AN_OBJECT_ID_1);
+
+    assertThat(refEnforcement.getPolicy(A_TEST_PROJECT_NAME, changeRef.getName()))
+        .isEqualTo(SharedRefEnforcement.Policy.INCLUDE);
+  }
+
+  @Test
   public void shouldExcludePatchSetRefWhenStoringMutableRefs() {
     Config sharedRefDbConfig = new Config();
     sharedRefDbConfig.setStringList(

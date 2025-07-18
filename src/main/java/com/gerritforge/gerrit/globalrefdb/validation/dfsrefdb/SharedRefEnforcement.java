@@ -109,6 +109,56 @@ public class SharedRefEnforcement {
     return enableDraftCommentEvents;
   }
 
+<<<<<<< PATCH SET (75fc1d3a5b191a7e5a66fa8b15c836f1b52e4206 Prioritize per-project over global ref storage settings)
+  /**
+   * Returns the configured enforcement policy for a project. First checks the project-specific
+   * settings, then the global projects setting. Priority order is storeNoRefs over storeMutableRefs
+   * and storeAllRefs.
+   *
+   * <p>If no specific policy is configured, defaults to storing mutable refs.
+   *
+   * @param projectName the name of the project to get the policy for
+   * @return the enforcement policy for the project
+   */
+  Optional<Policy> getConfiguredPolicy(String projectName) {
+    if (storeNoRefs.contains(projectName)) {
+      return Optional.of(Policy.EXCLUDE);
+    }
+    if (storeMutableRefs.contains(projectName)) {
+      return Optional.empty();
+    }
+    if (storeAllRefs.contains(projectName)) {
+      return Optional.of(Policy.INCLUDE);
+    }
+
+    if (storeNoRefs.contains(ALL)) {
+      return Optional.of(Policy.EXCLUDE);
+    }
+    if (storeMutableRefs.contains(ALL)) {
+      return Optional.empty();
+    }
+    if (storeAllRefs.contains(ALL)) {
+      return Optional.of(Policy.INCLUDE);
+    }
+    return Optional.empty();
+  }
+
+||||||| BASE
+  Optional<Policy> getConfiguredPolicy(String projectName) {
+    if (storeMutableRefs.contains(ALL) || storeMutableRefs.contains(projectName)) {
+      return Optional.empty();
+    }
+    if (storeNoRefs.contains(ALL) || storeNoRefs.contains(projectName)) {
+      return Optional.of(Policy.EXCLUDE);
+    }
+    if (storeAllRefs.contains(ALL) || storeAllRefs.contains(projectName)) {
+      return Optional.of(Policy.INCLUDE);
+    }
+    return Optional.empty();
+  }
+
+=======
+>>>>>>> BASE      (4b407c068ee02dc15b98c30bb5576b5bec59865b Add StoreMutableRefs as label for default behavior)
   /**
    * Check if a refName should be ignored by global refdb. These rules apply when not storing all
    * refs.
