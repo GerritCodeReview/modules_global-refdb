@@ -84,11 +84,9 @@ public class SharedRefEnforcement {
   }
 
   /**
-   * The enforcement policy for 'projectName'. By default all projects are INCLUDE to be consistent
-   * on all refs.
+   * Returns whether draft comment events are enabled.
    *
-   * @param projectName the name of the project to get the policy for
-   * @return the enforcement policy for the project
+   * @return true if draft comment events are enabled, false otherwise
    */
   public Boolean isDraftCommentEventsEnabled() {
     return enableDraftCommentEvents;
