@@ -38,6 +38,23 @@ public class SharedRefEnforcementTest implements RefFixture {
     refEnforcement = newRefEnforcement(sharedRefDbConfig);
   }
 
+  @Test(expected = RuntimeException.class)
+  public void expectExceptionIfProjectStoredInMultipleConfigurations() {
+    Config sharedRefDbConfig = new Config();
+    sharedRefDbConfig.setStringList(
+        SharedRefDatabase.SECTION,
+        SharedRefDatabase.STORE_NO_REFS_KEY,
+        SharedRefDatabase.PROJECT,
+        Arrays.asList(A_TEST_PROJECT_NAME));
+    sharedRefDbConfig.setStringList(
+        SharedRefDatabase.SECTION,
+        SharedRefDatabase.STORE_ALL_REFS_KEY,
+        SharedRefDatabase.PROJECT,
+        Arrays.asList(A_TEST_PROJECT_NAME));
+
+    SharedRefEnforcement refEnforcement = newRefEnforcement(sharedRefDbConfig);
+  }
+
   @Test
   public void shouldProcessStoreNoRefsBeforeStoreAllRefs() {
     Config sharedRefDbConfig = new Config();
@@ -50,7 +67,7 @@ public class SharedRefEnforcementTest implements RefFixture {
         SharedRefDatabase.SECTION,
         SharedRefDatabase.STORE_ALL_REFS_KEY,
         SharedRefDatabase.PROJECT,
-        Arrays.asList(A_TEST_PROJECT_NAME));
+        Arrays.asList("*"));
 
     SharedRefEnforcement refEnforcement = newRefEnforcement(sharedRefDbConfig);
     Ref changeRef = newRef(A_REF_NAME_OF_A_PATCHSET, AN_OBJECT_ID_1);
