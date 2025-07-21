@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09db32dc_3b413f94",
+        "filename": "config.md",
+        "patchSetId": 12
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-07-21T23:24:23Z",
+      "side": 1,
+      "message": "Should this a general remark and not specific to `storeMutableRefs`? If yes, it should be a note across all the three of them.",
+      "range": {
+        "startLine": 48,
+        "startChar": 60,
+        "endLine": 51,
+        "endChar": 34
+      },
+      "revId": "75fc1d3a5b191a7e5a66fa8b15c836f1b52e4206",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
