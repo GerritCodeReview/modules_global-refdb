@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21207fca_735aa5eb",
+        "filename": "config.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-07-21T23:22:24Z",
+      "side": 1,
+      "message": "Would be best to be formatted as the other defaults, as in L35",
+      "range": {
+        "startLine": 43,
+        "startChar": 32,
+        "endLine": 44,
+        "endChar": 48
+      },
+      "revId": "3c2adb4984905b5eee5ae4f7db5f147fdcf07010",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
