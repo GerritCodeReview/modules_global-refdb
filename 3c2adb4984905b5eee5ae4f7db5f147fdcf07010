@@ -56,6 +56,24 @@
       "message": "why doesn\u0027t this return a policy ?",
       "revId": "3c2adb4984905b5eee5ae4f7db5f147fdcf07010",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb3ba9fa_ef1b9690",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/SharedRefEnforcement.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2025-07-22T08:22:07Z",
+      "side": 1,
+      "message": "It\u0027s weird that the default behavior maps to no policy.\nI\u0027d map it to a policy explicitly, e.g. Policy.INCLUDE_MUTABLE",
+      "parentUuid": "c5b3276a_d68f2169",
+      "revId": "3c2adb4984905b5eee5ae4f7db5f147fdcf07010",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
