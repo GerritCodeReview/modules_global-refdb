@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9dc5753_6cb6979b",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbConfiguration.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2025-07-22T08:24:50Z",
+      "side": 1,
+      "message": "Can we report which projects have which ambiguous configuration ?\nI think that would help to understand how to fix this.",
+      "revId": "64cee29aafdbefedc5172cee21200b83355924ed",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
