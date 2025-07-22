@@ -22,6 +22,40 @@
       },
       "revId": "3c2adb4984905b5eee5ae4f7db5f147fdcf07010",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81e66f27_f582b71c",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbConfiguration.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2025-07-22T08:19:32Z",
+      "side": 1,
+      "message": "```suggestion\n     * @return set of projects to store only mutable refs for\n```",
+      "revId": "3c2adb4984905b5eee5ae4f7db5f147fdcf07010",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5b3276a_d68f2169",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/SharedRefEnforcement.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2025-07-22T08:19:32Z",
+      "side": 1,
+      "message": "why doesn\u0027t this return a policy ?",
+      "revId": "3c2adb4984905b5eee5ae4f7db5f147fdcf07010",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
