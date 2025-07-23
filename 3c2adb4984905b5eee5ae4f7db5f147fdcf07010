@@ -41,6 +41,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0107dd03_cba87154",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbConfiguration.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2025-07-23T12:25:49Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "81e66f27_f582b71c",
+      "revId": "3c2adb4984905b5eee5ae4f7db5f147fdcf07010",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c5b3276a_d68f2169",
