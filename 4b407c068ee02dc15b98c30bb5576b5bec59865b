@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc79fe03_7f0d5425",
+        "filename": "config.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-07-24T04:46:38Z",
+      "side": 1,
+      "message": "Unrelated: draft comments were historically excluded because they were not generating events in Gerrit and therefore were impossible to replicate.\n\nNowadays, the problem is gone and I believe draft comments should be included as they are mutable refs.",
+      "range": {
+        "startLine": 43,
+        "startChar": 32,
+        "endLine": 43,
+        "endChar": 55
+      },
+      "revId": "4b407c068ee02dc15b98c30bb5576b5bec59865b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55901abb_37c4cc0c",
+        "filename": "config.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-07-24T04:46:38Z",
+      "side": 1,
+      "message": "Immutable meta-refs do not exist, therefore adding the \u0027non-meta\u0027 is redundant here.\n\n\n\n```suggestion\n    used to match all projects. Excludes draft comments, immutable refs,\n```",
+      "range": {
+        "startLine": 43,
+        "startChar": 57,
+        "endLine": 43,
+        "endChar": 75
+      },
+      "revId": "4b407c068ee02dc15b98c30bb5576b5bec59865b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4e625c1_18ffeb18",
+        "filename": "config.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-07-24T04:46:38Z",
+      "side": 1,
+      "message": "Same as above.",
+      "range": {
+        "startLine": 50,
+        "startChar": 29,
+        "endLine": 50,
+        "endChar": 68
+      },
+      "revId": "4b407c068ee02dc15b98c30bb5576b5bec59865b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d12b1255_62db5240",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/SharedRefEnforcement.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-07-24T04:46:38Z",
+      "side": 1,
+      "message": "This method would never return `Policy.INCLUDE_MUTABLE` but basically only a boolean result, if the project / ref should be included or not.\n\nShould we then just return a boolean here, instead of giving the impression that is returning a 3-state enum?",
+      "range": {
+        "startLine": 75,
+        "startChar": 9,
+        "endLine": 75,
+        "endChar": 15
+      },
+      "revId": "4b407c068ee02dc15b98c30bb5576b5bec59865b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
