@@ -47,6 +47,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f33c56a_7d57cc43",
+        "filename": "config.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2025-07-24T09:53:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55901abb_37c4cc0c",
+      "range": {
+        "startLine": 43,
+        "startChar": 57,
+        "endLine": 43,
+        "endChar": 75
+      },
+      "revId": "4b407c068ee02dc15b98c30bb5576b5bec59865b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e4e625c1_18ffeb18",
@@ -70,6 +94,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "152e8519_4b51b401",
+        "filename": "config.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2025-07-24T09:53:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4e625c1_18ffeb18",
+      "range": {
+        "startLine": 50,
+        "startChar": 29,
+        "endLine": 50,
+        "endChar": 68
+      },
+      "revId": "4b407c068ee02dc15b98c30bb5576b5bec59865b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d12b1255_62db5240",
@@ -83,6 +131,30 @@
       "writtenOn": "2025-07-24T04:46:38Z",
       "side": 1,
       "message": "This method would never return `Policy.INCLUDE_MUTABLE` but basically only a boolean result, if the project / ref should be included or not.\n\nShould we then just return a boolean here, instead of giving the impression that is returning a 3-state enum?",
+      "range": {
+        "startLine": 75,
+        "startChar": 9,
+        "endLine": 75,
+        "endChar": 15
+      },
+      "revId": "4b407c068ee02dc15b98c30bb5576b5bec59865b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "339e1eeb_fe40bfa4",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/SharedRefEnforcement.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2025-07-24T09:53:48Z",
+      "side": 1,
+      "message": "It\u0027s true that the enforcement policy for a given project/ref combo can only be INCLUDE/EXCLUDE\n\nHowever, the enforcement policy for a project can be INCLUDE/INCLUDE_MUTABLE/EXCLUDE - so it is possible to return a 3-state enum when only looking at the enforcement policy per project\n\nI don\u0027t think it would be good to remove the explicit INCLUDE/EXCLUDE in favor of boolean. I would prefer the current implementation over something like \u0027public boolean include\u0027 with a true/false value.",
+      "parentUuid": "d12b1255_62db5240",
       "range": {
         "startLine": 75,
         "startChar": 9,
