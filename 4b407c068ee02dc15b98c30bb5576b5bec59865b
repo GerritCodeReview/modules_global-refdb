@@ -71,6 +71,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5f3f76a_b0b9e5ce",
+        "filename": "config.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2025-07-25T19:42:45Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "fc79fe03_7f0d5425",
+      "range": {
+        "startLine": 43,
+        "startChar": 32,
+        "endLine": 43,
+        "endChar": 55
+      },
+      "revId": "4b407c068ee02dc15b98c30bb5576b5bec59865b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e4e625c1_18ffeb18",
@@ -155,6 +179,30 @@
       "side": 1,
       "message": "It\u0027s true that the enforcement policy for a given project/ref combo can only be INCLUDE/EXCLUDE\n\nHowever, the enforcement policy for a project can be INCLUDE/INCLUDE_MUTABLE/EXCLUDE - so it is possible to return a 3-state enum when only looking at the enforcement policy per project\n\nI don\u0027t think it would be good to remove the explicit INCLUDE/EXCLUDE in favor of boolean. I would prefer the current implementation over something like \u0027public boolean include\u0027 with a true/false value.",
       "parentUuid": "d12b1255_62db5240",
+      "range": {
+        "startLine": 75,
+        "startChar": 9,
+        "endLine": 75,
+        "endChar": 15
+      },
+      "revId": "4b407c068ee02dc15b98c30bb5576b5bec59865b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f14f32c6_074ac08e",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/dfsrefdb/SharedRefEnforcement.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2025-07-25T19:42:45Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "339e1eeb_fe40bfa4",
       "range": {
         "startLine": 75,
         "startChar": 9,
