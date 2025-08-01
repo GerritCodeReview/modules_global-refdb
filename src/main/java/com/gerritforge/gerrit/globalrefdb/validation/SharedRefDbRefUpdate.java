@@ -14,8 +14,9 @@
 
 package com.gerritforge.gerrit.globalrefdb.validation;
 
-import com.gerritforge.gerrit.globalrefdb.validation.RefUpdateValidator.NoParameterFunction;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.flogger.FluentLogger;
+import com.google.gerrit.common.Nullable;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import java.io.IOException;
@@ -34,11 +35,13 @@ import org.eclipse.jgit.transport.PushCertificate;
  * against the global refdb.
  */
 public class SharedRefDbRefUpdate extends RefUpdate {
+  private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
   protected final RefUpdate refUpdateBase;
   private final String projectName;
   private final RefUpdateValidator.Factory refValidatorFactory;
   private final RefUpdateValidator refUpdateValidator;
+  private final RefDatabase refDatabase;
 
   /** {@code SharedRefDbRefUpdate} Factory for Guice assisted injection. */
   public interface Factory {
@@ -71,6 +74,7 @@ public class SharedRefDbRefUpdate extends RefUpdate {
     refUpdateBase = refUpdate;
     this.projectName = projectName;
     this.refValidatorFactory = refValidatorFactory;
+    this.refDatabase = refDb;
     refUpdateValidator = this.refValidatorFactory.create(this.projectName, refDb, ignoredRefs);
   }
 
@@ -126,7 +130,7 @@ public class SharedRefDbRefUpdate extends RefUpdate {
     return refUpdateValidator.executeRefUpdate(
         refUpdateBase,
         refUpdateBase::update,
-        objectId -> rollback(objectId, refUpdateBase::update));
+        objectId -> rollback(objectId, rollbackRu -> updateOrDelete(rollbackRu, null)));
   }
 
   /**
@@ -144,7 +148,15 @@ public class SharedRefDbRefUpdate extends RefUpdate {
     return refUpdateValidator.executeRefUpdate(
         refUpdateBase,
         () -> refUpdateBase.update(rev),
-        objectId -> rollback(objectId, () -> refUpdateBase.update(rev)));
+        objectId -> rollback(objectId, rollbackRu -> updateOrDelete(rollbackRu, rev)));
+  }
+
+  private Result updateOrDelete(RefUpdate rollbackRu, @Nullable RevWalk rev) throws IOException {
+    ObjectId newObjectId = rollbackRu.getNewObjectId();
+    if (newObjectId == null || ObjectId.zeroId().equals(newObjectId)) {
+      return rev != null ? rollbackRu.delete(rev) : rollbackRu.delete();
+    }
+    return rev != null ? rollbackRu.update(rev) : rollbackRu.update();
   }
 
   /**
@@ -158,9 +170,7 @@ public class SharedRefDbRefUpdate extends RefUpdate {
   @Override
   public Result delete() throws IOException {
     return refUpdateValidator.executeRefUpdate(
-        refUpdateBase,
-        refUpdateBase::delete,
-        objectId -> rollback(objectId, refUpdateBase::update));
+        refUpdateBase, refUpdateBase::delete, objectId -> rollback(objectId, RefUpdate::update));
   }
 
   /**
@@ -176,7 +186,7 @@ public class SharedRefDbRefUpdate extends RefUpdate {
     return refUpdateValidator.executeRefUpdate(
         refUpdateBase,
         () -> refUpdateBase.delete(walk),
-        objectId -> rollback(objectId, () -> refUpdateBase.update(walk)));
+        objectId -> rollback(objectId, rollbackRu -> rollbackRu.update(walk)));
   }
 
   @Override
@@ -294,7 +304,7 @@ public class SharedRefDbRefUpdate extends RefUpdate {
     return refUpdateValidator.executeRefUpdate(
         refUpdateBase,
         refUpdateBase::forceUpdate,
-        objectId -> rollback(objectId, refUpdateBase::forceUpdate));
+        objectId -> rollback(objectId, RefUpdate::forceUpdate));
   }
 
   @Override
@@ -307,8 +317,9 @@ public class SharedRefDbRefUpdate extends RefUpdate {
     refUpdateBase.setCheckConflicting(check);
   }
 
-  private Result rollback(ObjectId objectId, NoParameterFunction<Result> updateFunction)
-      throws IOException {
+    if (objectId == null || ObjectId.zeroId().equals(objectId)) {
+      return refDatabase.newUpdate(getRef().getName(), true).delete();
+    }
     refUpdateBase.setExpectedOldObjectId(refUpdateBase.getNewObjectId());
     refUpdateBase.setNewObjectId(objectId);
     return updateFunction.invoke();
