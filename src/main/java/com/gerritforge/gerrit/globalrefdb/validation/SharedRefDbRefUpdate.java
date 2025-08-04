@@ -39,6 +39,7 @@ public class SharedRefDbRefUpdate extends RefUpdate {
   private final String projectName;
   private final RefUpdateValidator.Factory refValidatorFactory;
   private final RefUpdateValidator refUpdateValidator;
+  private final RefDatabase refDatabase;
 
   /** {@code SharedRefDbRefUpdate} Factory for Guice assisted injection. */
   public interface Factory {
@@ -71,6 +72,7 @@ public class SharedRefDbRefUpdate extends RefUpdate {
     refUpdateBase = refUpdate;
     this.projectName = projectName;
     this.refValidatorFactory = refValidatorFactory;
+    this.refDatabase = refDb;
     refUpdateValidator = this.refValidatorFactory.create(this.projectName, refDb, ignoredRefs);
   }
 
@@ -309,6 +311,9 @@ public class SharedRefDbRefUpdate extends RefUpdate {
 
   private Result rollback(ObjectId objectId, NoParameterFunction<Result> updateFunction)
       throws IOException {
+    if (objectId == null || ObjectId.zeroId().equals(objectId)) {
+      return refDatabase.newUpdate(getRef().getName(), true).delete();
+    }
     refUpdateBase.setExpectedOldObjectId(refUpdateBase.getNewObjectId());
     refUpdateBase.setNewObjectId(objectId);
     return updateFunction.invoke();
