@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1df1f7eb_b0dd1ba2",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbRefUpdate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-08-04T15:46:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "284dc907_14f0505f",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 49
+      },
+      "revId": "1303fc3f032caaecdbd53273a5bbe3b7f6ff26e1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "33ebb342_15cc4e1d",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-08-04T14:41:10Z",
       "side": 1,
       "message": "Unrelated change, if we just address the fix in the rollback function as suggested.",
+      "range": {
+        "startLine": 151,
+        "startChar": 0,
+        "endLine": 151,
+        "endChar": 87
+      },
+      "revId": "1303fc3f032caaecdbd53273a5bbe3b7f6ff26e1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "559b3d49_7d0598db",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbRefUpdate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-08-04T15:46:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33ebb342_15cc4e1d",
       "range": {
         "startLine": 151,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8bd96c2_d8a9ebf2",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbRefUpdate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-08-04T15:46:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "037c5e20_92be0bbd",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 160,
+        "endChar": 3
+      },
+      "revId": "1303fc3f032caaecdbd53273a5bbe3b7f6ff26e1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "be9c9509_048749e5",
@@ -83,6 +155,24 @@
       "writtenOn": "2025-08-04T14:41:10Z",
       "side": 1,
       "message": "Unrelated change, if we just address the fix in the `rollback` function as suggested.",
+      "revId": "1303fc3f032caaecdbd53273a5bbe3b7f6ff26e1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ec77633_22de6f21",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbRefUpdate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-08-04T15:46:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be9c9509_048749e5",
       "revId": "1303fc3f032caaecdbd53273a5bbe3b7f6ff26e1",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -104,6 +194,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c42a69cf_df82916c",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbRefUpdate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-08-04T15:46:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a94efcee_4ade2780",
+      "revId": "1303fc3f032caaecdbd53273a5bbe3b7f6ff26e1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3dd0a6f4_8d84a6b7",
@@ -121,6 +229,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "631d1fed_66e6ae01",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbRefUpdate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-08-04T15:46:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3dd0a6f4_8d84a6b7",
+      "revId": "1303fc3f032caaecdbd53273a5bbe3b7f6ff26e1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a6ec3f5b_d71bbd42",
@@ -134,6 +260,30 @@
       "writtenOn": "2025-08-04T14:41:10Z",
       "side": 1,
       "message": "The issue that this change is addressing is associated with the failure of *creating a new ref* where the rollback updated the ref with zeros instead of deleting it.\n\nI believe we should address *the specific issue* in this change, leaving other cases to a possible follow up.\n\n\n\n```suggestion\n    if (objectId \u003d\u003d null || ObjectId.zeroId().equals(objectId)) {\n      return refDatabase.newUpdate(getRef().getName(), true).delete();\n    }\n    refUpdateBase.setExpectedOldObjectId(refUpdateBase.getNewObjectId());\n    refUpdateBase.setNewObjectId(objectId);\n    return updateFunction.invoke();\n```",
+      "range": {
+        "startLine": 320,
+        "startChar": 0,
+        "endLine": 330,
+        "endChar": 52
+      },
+      "revId": "1303fc3f032caaecdbd53273a5bbe3b7f6ff26e1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f82bb43_de5caf09",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbRefUpdate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-08-04T15:46:19Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "a6ec3f5b_d71bbd42",
       "range": {
         "startLine": 320,
         "startChar": 0,
