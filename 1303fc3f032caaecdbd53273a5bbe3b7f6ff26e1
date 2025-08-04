@@ -1,0 +1,147 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "284dc907_14f0505f",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbRefUpdate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-08-04T14:41:10Z",
+      "side": 1,
+      "message": "Unrelated change, if we just address the fix in the rollback function as suggested.",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 49
+      },
+      "revId": "1303fc3f032caaecdbd53273a5bbe3b7f6ff26e1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33ebb342_15cc4e1d",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbRefUpdate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-08-04T14:41:10Z",
+      "side": 1,
+      "message": "Unrelated change, if we just address the fix in the rollback function as suggested.",
+      "range": {
+        "startLine": 151,
+        "startChar": 0,
+        "endLine": 151,
+        "endChar": 87
+      },
+      "revId": "1303fc3f032caaecdbd53273a5bbe3b7f6ff26e1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "037c5e20_92be0bbd",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbRefUpdate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-08-04T14:41:10Z",
+      "side": 1,
+      "message": "This isn\u0027t needed: the rollback function does a deleted when needed and the update was already working before and will continue to work.",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 160,
+        "endChar": 3
+      },
+      "revId": "1303fc3f032caaecdbd53273a5bbe3b7f6ff26e1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be9c9509_048749e5",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbRefUpdate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-08-04T14:41:10Z",
+      "side": 1,
+      "message": "Unrelated change, if we just address the fix in the `rollback` function as suggested.",
+      "revId": "1303fc3f032caaecdbd53273a5bbe3b7f6ff26e1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a94efcee_4ade2780",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbRefUpdate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-08-04T14:41:10Z",
+      "side": 1,
+      "message": "Unrelated change, if we just address the fix in the `rollback` function as suggested.",
+      "revId": "1303fc3f032caaecdbd53273a5bbe3b7f6ff26e1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3dd0a6f4_8d84a6b7",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbRefUpdate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-08-04T14:41:10Z",
+      "side": 1,
+      "message": "Unrelated change, if we just address the fix in the `rollback` function as suggested.",
+      "revId": "1303fc3f032caaecdbd53273a5bbe3b7f6ff26e1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6ec3f5b_d71bbd42",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbRefUpdate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-08-04T14:41:10Z",
+      "side": 1,
+      "message": "The issue that this change is addressing is associated with the failure of *creating a new ref* where the rollback updated the ref with zeros instead of deleting it.\n\nI believe we should address *the specific issue* in this change, leaving other cases to a possible follow up.\n\n\n\n```suggestion\n    if (objectId \u003d\u003d null || ObjectId.zeroId().equals(objectId)) {\n      return refDatabase.newUpdate(getRef().getName(), true).delete();\n    }\n    refUpdateBase.setExpectedOldObjectId(refUpdateBase.getNewObjectId());\n    refUpdateBase.setNewObjectId(objectId);\n    return updateFunction.invoke();\n```",
+      "range": {
+        "startLine": 320,
+        "startChar": 0,
+        "endLine": 330,
+        "endChar": 52
+      },
+      "revId": "1303fc3f032caaecdbd53273a5bbe3b7f6ff26e1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
