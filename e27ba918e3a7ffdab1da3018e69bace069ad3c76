@@ -145,6 +145,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "7056bb6c_29306a51",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-10-13T06:45:51Z",
+      "side": 1,
+      "message": "@danielesassoli@gmail.com is this needed? can it be abandoned?",
+      "revId": "e27ba918e3a7ffdab1da3018e69bace069ad3c76",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "845c274b_03453f0b",
         "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
         "patchSetId": 7
