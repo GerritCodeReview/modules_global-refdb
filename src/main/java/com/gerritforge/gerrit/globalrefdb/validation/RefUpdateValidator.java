@@ -223,7 +223,10 @@ public class RefUpdateValidator {
             Optional.ofNullable(refDb.findRef(refSnapshot.getName()))
                 .map(Ref::getObjectId)
                 .orElse(ObjectId.zeroId());
-        if (!localObjectId.equals(refSnapshot.getNewValue())) {
+
+        ObjectId snapshotValueObjectId =
+            Optional.ofNullable(refSnapshot.getNewValue()).orElse(ObjectId.zeroId());
+        if (!localObjectId.equals(snapshotValueObjectId)) {
           String error =
               String.format(
                   "Aborting the global-refdb update of %s = %s: local ref value is %s instead of"
