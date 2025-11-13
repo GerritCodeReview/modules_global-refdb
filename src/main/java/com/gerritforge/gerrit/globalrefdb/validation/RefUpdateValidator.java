@@ -223,6 +223,7 @@ public class RefUpdateValidator {
             Optional.ofNullable(refDb.findRef(refSnapshot.getName()))
                 .map(Ref::getObjectId)
                 .orElse(ObjectId.zeroId());
+
         if (!localObjectId.equals(refSnapshot.getNewValue())) {
           String error =
               String.format(
