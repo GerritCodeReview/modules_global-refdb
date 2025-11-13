@@ -14,6 +14,8 @@
 
 package com.gerritforge.gerrit.globalrefdb.validation;
 
+import com.google.common.base.MoreObjects;
+import com.google.common.flogger.FluentLogger;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Ref;
 
@@ -28,6 +30,8 @@ class RefUpdateSnapshot {
   private final ObjectId newValue;
   private final Exception exception;
 
+  private static final FluentLogger logger = FluentLogger.forEnclosingClass();
+
   /**
    * Constructs a {@code RefUpdateSnapshot} with the provided old and new values. The old value of
    * this Ref must not be null, otherwise an {@link IllegalArgumentException} is thrown.
@@ -40,7 +44,7 @@ class RefUpdateSnapshot {
       throw new IllegalArgumentException("RefUpdateSnapshot cannot be created for null Ref");
     }
     this.ref = ref;
-    this.newValue = newRefValue;
+    this.newValue = MoreObjects.firstNonNull(newRefValue, logAndReturnZeroId(ref));
     this.exception = null;
   }
 
@@ -110,5 +114,10 @@ class RefUpdateSnapshot {
    */
   public boolean hasFailed() {
     return exception != null;
+  }
+
+  private ObjectId logAndReturnZeroId(Ref ref) {
+    logger.atWarning().log("normalizing null newObjectId for %s to zeroId()", ref.getName());
+    return ObjectId.zeroId();
   }
 }
