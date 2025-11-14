@@ -46,6 +46,30 @@
       },
       "revId": "1d5d2126b6ae96e7e02459093522a29a1420c6c2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d675b20f_8cfa6580",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-11-14T08:39:19Z",
+      "side": 1,
+      "message": "Yes, I like the idea of adding it directly in the snapshot class + warning it.\nlet me do it",
+      "parentUuid": "dd83c7f2_96778007",
+      "range": {
+        "startLine": 227,
+        "startChar": 8,
+        "endLine": 228,
+        "endChar": 85
+      },
+      "revId": "1d5d2126b6ae96e7e02459093522a29a1420c6c2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
