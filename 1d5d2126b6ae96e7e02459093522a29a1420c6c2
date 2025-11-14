@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33e424bd_cffc4de7",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-14T08:30:57Z",
+      "side": 1,
+      "message": "This is good, however, I would still produce a warning to highlight the inconsistency in the incoming `refSnapshot`, so that it can be noticed and fixed it.\n\nAlso, Guava has a direct method for managing these conditions, see my suggestion below.\n\n\n\n```suggestion\n        ObjectId snapshotValueObjectId \u003d\n            MoreObjects.firstNonNull(refSnapshot.getNewValue(), ObjectId.zeroId());\n```",
+      "range": {
+        "startLine": 227,
+        "startChar": 8,
+        "endLine": 228,
+        "endChar": 85
+      },
+      "revId": "1d5d2126b6ae96e7e02459093522a29a1420c6c2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
