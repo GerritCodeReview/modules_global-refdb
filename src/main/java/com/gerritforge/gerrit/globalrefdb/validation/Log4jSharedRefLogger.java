@@ -14,9 +14,6 @@
 
 package com.gerritforge.gerrit.globalrefdb.validation;
 
-import static org.eclipse.jgit.lib.Constants.OBJ_BLOB;
-import static org.eclipse.jgit.lib.Constants.OBJ_COMMIT;
-
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.entities.Project;
@@ -39,6 +36,8 @@ import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevWalk;
+
+import static org.eclipse.jgit.lib.Constants.*;
 
 /**
  * Implementation of SharedRefLogger for Log4j. Logs to 'sharedref_log' file
@@ -89,6 +88,7 @@ public class Log4jSharedRefLogger extends LibModuleLogFile implements SharedRefL
           int objectType = walk.parseAny(newRefValue).getType();
           switch (objectType) {
             case OBJ_COMMIT:
+            case OBJ_TAG:
               RevCommit commit = walk.parseCommit(newRefValue);
               committer = CommonConverters.toGitPerson(commit.getCommitterIdent());
               commitMessage = commit.getShortMessage();
