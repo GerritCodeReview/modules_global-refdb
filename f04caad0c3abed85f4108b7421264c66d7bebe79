@@ -116,6 +116,30 @@
       },
       "revId": "f04caad0c3abed85f4108b7421264c66d7bebe79",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58959f9b_39aab8fa",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/Log4jSharedRefLogger.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2026-03-09T15:56:46Z",
+      "side": 1,
+      "message": "Bit more complicated than I was expecting, but yeah, good shout.",
+      "parentUuid": "f855b1ec_21d2afae",
+      "range": {
+        "startLine": 92,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 25
+      },
+      "revId": "f04caad0c3abed85f4108b7421264c66d7bebe79",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
