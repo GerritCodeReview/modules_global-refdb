@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "611708cc_c2c0bb42",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2026-03-09T14:46:18Z",
+      "side": 1,
+      "message": "I think this reads a bit strange, how about: \"Handle annotated tag updates in shared ref logging\" or something similar?",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 43
+      },
+      "revId": "f04caad0c3abed85f4108b7421264c66d7bebe79",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b4350fa_3abdfd91",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2026-03-09T14:46:18Z",
+      "side": 1,
+      "message": "This is a big grammatically awkward imho, can you consider rephrasing?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 70
+      },
+      "revId": "f04caad0c3abed85f4108b7421264c66d7bebe79",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f855b1ec_21d2afae",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/Log4jSharedRefLogger.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2026-03-09T14:46:18Z",
+      "side": 1,
+      "message": "Have you considered adding a test in `Log4jSharedRefLoggerTest` to cover annotated tags as well? By looking at the existing tests, I believe it should be fairly easy.",
+      "range": {
+        "startLine": 92,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 25
+      },
+      "revId": "f04caad0c3abed85f4108b7421264c66d7bebe79",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
