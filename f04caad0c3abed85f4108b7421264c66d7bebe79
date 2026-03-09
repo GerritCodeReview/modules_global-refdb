@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b330289a_869ba2cc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2026-03-09T15:09:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "611708cc_c2c0bb42",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 43
+      },
+      "revId": "f04caad0c3abed85f4108b7421264c66d7bebe79",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5b4350fa_3abdfd91",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-03-09T14:46:18Z",
       "side": 1,
       "message": "This is a big grammatically awkward imho, can you consider rephrasing?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 70
+      },
+      "revId": "f04caad0c3abed85f4108b7421264c66d7bebe79",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf7a7bf8_3c905221",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2026-03-09T15:09:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b4350fa_3abdfd91",
       "range": {
         "startLine": 9,
         "startChar": 0,
