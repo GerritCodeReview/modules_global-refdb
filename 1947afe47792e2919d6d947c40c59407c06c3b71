@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "87c7c302_271cdd3b",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/Log4jSharedRefLogger.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2026-03-10T13:42:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2acb91ec_63dd0a8a",
+      "range": {
+        "startLine": 76,
+        "startChar": 8,
+        "endLine": 77,
+        "endChar": 21
+      },
+      "revId": "1947afe47792e2919d6d947c40c59407c06c3b71",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e3c81dac_b51522d7",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-03-10T10:24:33Z",
       "side": 1,
       "message": "I looked at Jgit implementation to see what it does when `parseCommit` is called on an annotated `tag` and it does the following:\n\n```\n\tpublic RevCommit parseCommit(AnyObjectId id) throws MissingObjectException,\n\t\t\tIncorrectObjectTypeException, IOException {\n\t\tRevObject c \u003d peel(parseAny(id));\n\t\tif (!(c instanceof RevCommit))\n\t\t\tthrow new IncorrectObjectTypeException(id.toObjectId(),\n\t\t\t\t\tConstants.TYPE_COMMIT);\n\t\treturn (RevCommit) c;\n\t}\n```\n\nSee how it `peels()` the annotated tag with `RevObject c \u003d peel(parseAny(id));`, which loops until a non-tag is found:\n\n```\n\tpublic RevObject peel(RevObject obj)\n\t\t\tthrows MissingObjectException, IOException {\n\t\twhile (obj instanceof RevTag) {\n\t\t\tparseHeaders(obj);\n\t\t\tobj \u003d ((RevTag) obj).getObject();\n\t\t}\n\t\tparseHeaders(obj);\n\t\treturn obj;\n\t}\n```\n\nThis means that here, we are logging metadata for the **peeled commit**, not for the annotated tag. I would have expected this to be handled via `walk.parseTag()`, have you considered that?\n\n```\ncase OBJ_TAG:\n   RevTag revTag \u003d walk.parseTag(newRefValue);\n   committer \u003d CommonConverters.toGitPerson(revTag.getTaggerIdent());\n   commitMessage \u003d revTag.getShortMessage();\n   break;\n```",
+      "range": {
+        "startLine": 94,
+        "startChar": 33,
+        "endLine": 94,
+        "endChar": 63
+      },
+      "revId": "1947afe47792e2919d6d947c40c59407c06c3b71",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5095a68e_235fc347",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/Log4jSharedRefLogger.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2026-03-10T13:42:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3c81dac_b51522d7",
       "range": {
         "startLine": 94,
         "startChar": 33,
@@ -70,6 +118,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c4e2ed8_ff169269",
+        "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/Log4jSharedRefLoggerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2026-03-10T13:42:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4fac56b6_0d3aad96",
+      "range": {
+        "startLine": 188,
+        "startChar": 0,
+        "endLine": 188,
+        "endChar": 48
+      },
+      "revId": "1947afe47792e2919d6d947c40c59407c06c3b71",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c96e08c1_9039445b",
@@ -83,6 +155,30 @@
       "writtenOn": "2026-03-10T10:24:33Z",
       "side": 1,
       "message": "I believe we should assert this is the **tagger** identity, not the pointed-to commit identity",
+      "range": {
+        "startLine": 188,
+        "startChar": 0,
+        "endLine": 189,
+        "endChar": 50
+      },
+      "revId": "1947afe47792e2919d6d947c40c59407c06c3b71",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b5d6777_2c41b1eb",
+        "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/Log4jSharedRefLoggerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2026-03-10T13:42:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c96e08c1_9039445b",
       "range": {
         "startLine": 188,
         "startChar": 0,
