@@ -40,6 +40,30 @@
       },
       "revId": "b0d65556c443959d2a3dcfbce0a5e674626b59b5",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5714833_e03c1e60",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/Log4jSharedRefLogger.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2026-03-10T15:29:46Z",
+      "side": 1,
+      "message": "Don\u0027t think there\u0027s much point? One\u0027s a RevTag, one\u0027s a RevCommit.\nYes they both extend RevObject, but then we wouldn\u0027t have getTaggerIdent or getCommitterIdent.\n\nnot sure there\u0027s much point in trying to abstract this?",
+      "parentUuid": "aab666bf_e6ca3890",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 20
+      },
+      "revId": "b0d65556c443959d2a3dcfbce0a5e674626b59b5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
