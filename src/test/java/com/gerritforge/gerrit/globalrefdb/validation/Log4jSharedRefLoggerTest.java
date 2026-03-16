@@ -15,6 +15,7 @@
 package com.gerritforge.gerrit.globalrefdb.validation;
 
 import static com.google.common.truth.Truth.assertThat;
+import static com.google.gerrit.server.update.context.RefUpdateContext.RefUpdateType.TAG_MODIFICATION;
 
 import com.google.gerrit.acceptance.AbstractDaemonTest;
 import com.google.gerrit.acceptance.PushOneCommit;
@@ -22,6 +23,7 @@ import com.google.gerrit.entities.RefNames;
 import com.google.gerrit.json.OutputFormat;
 import com.google.gerrit.server.config.SitePaths;
 import com.google.gerrit.server.notedb.Sequences;
+import com.google.gerrit.server.update.context.RefUpdateContext;
 import com.google.gerrit.server.util.SystemLog;
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -32,9 +34,14 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 import org.apache.log4j.WriterAppender;
+import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.ObjectId;
+import org.eclipse.jgit.lib.ObjectInserter;
+import org.eclipse.jgit.lib.PersonIdent;
 import org.eclipse.jgit.lib.Ref;
+import org.eclipse.jgit.lib.RefUpdate;
 import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.lib.TagBuilder;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -141,6 +148,45 @@ public class Log4jSharedRefLoggerTest extends AbstractDaemonTest {
     assertThat(gotLogEntry.type).isEqualTo(SharedRefLogEntry.Type.LOCK_RELEASE);
     assertThat(gotLogEntry.projectName).isEqualTo(project.get());
     assertThat(gotLogEntry.refName).isEqualTo(refName);
+  }
+
+  @Test
+  public void shouldLogAnnotatedTagRef() throws Exception {
+    final String tagRefName = "refs/tags/v1.0";
+    final String refName = "refs/remotes/origin/master";
+    PushOneCommit.Result result = pushTo(refName);
+    ObjectId commitId = result.getCommit().toObjectId();
+    PersonIdent taggerIdent = new PersonIdent("Tagger123", "tagger@test.com");
+    String message = "Release v1.0";
+    ObjectId tagId;
+    try (Repository repository = repoManager.openRepository(project);
+        ObjectInserter inserter = repository.newObjectInserter();
+        RefUpdateContext ctx = RefUpdateContext.open(TAG_MODIFICATION)) {
+      TagBuilder tag = new TagBuilder();
+      tag.setTag("v1.0");
+      tag.setMessage(message);
+      tag.setTagger(taggerIdent);
+      tag.setObjectId(commitId, Constants.OBJ_COMMIT);
+      tagId = inserter.insert(tag);
+      inserter.flush();
+
+      RefUpdate ru = repository.updateRef(tagRefName);
+      ru.setNewObjectId(tagId);
+      ru.update();
+
+      Ref tagRef = repository.exactRef(tagRefName);
+      log4jSharedRefLogger.logRefUpdate(project.get(), tagRef, tagId);
+    }
+
+    SharedRefLogEntry.UpdateRef gotLogEntry =
+        gson.fromJson(logWriter.toString(), SharedRefLogEntry.UpdateRef.class);
+
+    assertThat(gotLogEntry.type).isEqualTo(SharedRefLogEntry.Type.UPDATE_REF);
+    assertThat(gotLogEntry.projectName).isEqualTo(project.get());
+    assertThat(gotLogEntry.refName).isEqualTo(tagRefName);
+    assertThat(gotLogEntry.newId).isEqualTo(tagId.getName());
+    assertThat(gotLogEntry.comment).isEqualTo(message);
+    assertThat(gotLogEntry.committer.name).isEqualTo(taggerIdent.getName());
   }
 
   private Log4jSharedRefLogger newLog4jSharedRefLogger() throws IOException {
