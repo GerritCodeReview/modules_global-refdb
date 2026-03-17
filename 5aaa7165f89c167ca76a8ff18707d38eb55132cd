@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c63995f3_499d0f02",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-03-17T12:15:20Z",
+      "side": 1,
+      "message": "The build issue is unrelated and is fixed in Gerrit stable-3.11: possibly wrong Bazel options during the front-end publish.sh script processing.",
+      "revId": "5aaa7165f89c167ca76a8ff18707d38eb55132cd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
