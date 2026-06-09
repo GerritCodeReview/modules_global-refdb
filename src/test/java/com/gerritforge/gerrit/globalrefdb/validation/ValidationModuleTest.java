@@ -35,17 +35,17 @@ public class ValidationModuleTest extends LightweightPluginDaemonTest {
 
   @Test
   public void shouldSetupValidationWithEmptyIgnoredRefs() throws Exception {
-    installPlugin("test-plugin", ValidationModuleWithEmptyIgnoredRefs.class);
+    var unused = installPlugin("test-plugin", ValidationModuleWithEmptyIgnoredRefs.class);
   }
 
   @Test
   public void shouldSetupValidationWithNonEmptyIgnoredRefs() throws Exception {
-    installPlugin("test-plugin", ValidationModuleWithNonEmptyIgnoredRefs.class);
+    var unused = installPlugin("test-plugin", ValidationModuleWithNonEmptyIgnoredRefs.class);
   }
 
   @Test
   public void shouldSetupValidationWithoutIgnoredRefs() throws Exception {
-    installPlugin("test-plugin", ValidationModuleWithoutIgnoredRefs.class);
+    var unused = installPlugin("test-plugin", ValidationModuleWithoutIgnoredRefs.class);
   }
 
   public static class ValidationModuleWithNonEmptyIgnoredRefs extends ValidationModule {
