@@ -69,6 +69,7 @@ public class SharedRefDbBatchRefUpdate extends BatchRefUpdate {
     this.project = project;
     this.batchRefUpdate = refDb.newBatchUpdate();
     this.batchRefUpdateRollback = refDb.newBatchUpdate();
+    this.batchRefUpdateRollback.setAllowNonFastForwards(true);
     this.batchRefValidatorFactory = batchRefValidatorFactory;
     this.ignoredRefs = ignoredRefs;
   }
@@ -90,7 +91,6 @@ public class SharedRefDbBatchRefUpdate extends BatchRefUpdate {
 
   @Override
   public BatchRefUpdate setAllowNonFastForwards(boolean allow) {
-    batchRefUpdateRollback.setAllowNonFastForwards(allow);
     return batchRefUpdate.setAllowNonFastForwards(allow);
   }
 
