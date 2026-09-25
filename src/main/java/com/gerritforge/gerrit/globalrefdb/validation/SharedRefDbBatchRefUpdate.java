@@ -90,7 +90,7 @@ public class SharedRefDbBatchRefUpdate extends BatchRefUpdate {
 
   @Override
   public BatchRefUpdate setAllowNonFastForwards(boolean allow) {
-    batchRefUpdateRollback.setAllowNonFastForwards(allow);
+    batchRefUpdateRollback.setAllowNonFastForwards(true);
     return batchRefUpdate.setAllowNonFastForwards(allow);
   }
 

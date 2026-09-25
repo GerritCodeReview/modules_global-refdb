@@ -231,6 +231,34 @@ public class BatchRefUpdateValidatorTest extends LocalDiskRepositoryTestCase imp
   }
 
   @Test
+  public void shouldRollbackFastForwardUpdateWhenNonFastForwardsAreDisabled() throws Exception {
+    SharedRefDbBatchRefUpdate update =
+        new SharedRefDbBatchRefUpdate(
+            (project, refDb, ignoredRefs) -> newDefaultValidator(),
+            A_TEST_PROJECT_NAME,
+            refdir,
+            ImmutableSet.of());
+    ReceiveCommand command = new ReceiveCommand(A, B, A_REF_NAME_1);
+    update.addCommand(command);
+    update.setAllowNonFastForwards(false);
+    doReturn(true).when(sharedRefDatabase).isUpToDate(any(), any());
+
+    // Let's trigger a rollback: B -> A
+    // Having `AllowNonFastForwards`: `false` should not prevent this, rollbacks are always non-ff
+    when(sharedRefDatabase.compareAndPut(any(), any(), any()))
+        .thenAnswer(
+            invocation -> {
+              assertThat(diskRepo.exactRef(A_REF_NAME_1).getObjectId()).isEqualTo(B);
+              throw new GlobalRefDbSystemError("Shared-refdb write failed", new IOException());
+            });
+
+    execute(update);
+
+    assertThat(command.getResult()).isEqualTo(Result.LOCK_FAILURE);
+    assertThat(diskRepo.exactRef(A_REF_NAME_1).getObjectId()).isEqualTo(A);
+  }
+
+  @Test
   public void shouldNotUpdateSharedRefDbWhenProjectIsLocal() throws Exception {
     when(projectsFilter.matches(anyString())).thenReturn(false);
 
