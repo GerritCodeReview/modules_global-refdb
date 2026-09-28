@@ -15,6 +15,7 @@
 package com.gerritforge.gerrit.globalrefdb.validation;
 
 import com.google.common.collect.ImmutableSet;
+import com.google.common.flogger.FluentLogger;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import java.io.IOException;
@@ -34,6 +35,7 @@ import org.eclipse.jgit.util.time.ProposedTimestamp;
  * those operations against the global refdb.
  */
 public class SharedRefDbBatchRefUpdate extends BatchRefUpdate {
+  private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
   private final BatchRefUpdate batchRefUpdate;
   private final BatchRefUpdate batchRefUpdateRollback;
@@ -209,8 +211,7 @@ public class SharedRefDbBatchRefUpdate extends BatchRefUpdate {
         .executeBatchUpdateWithValidation(
             batchRefUpdate,
             () -> batchRefUpdate.execute(walk, monitor, options),
-            (commands) ->
-                batchRefUpdateRollback.addCommand(commands).execute(walk, monitor, options));
+            (commands) -> rollback(commands, walk, monitor, options));
   }
 
   /**
@@ -233,7 +234,33 @@ public class SharedRefDbBatchRefUpdate extends BatchRefUpdate {
         .executeBatchUpdateWithValidation(
             batchRefUpdate,
             () -> batchRefUpdate.execute(walk, monitor),
-            (commands) -> batchRefUpdateRollback.addCommand(commands).execute(walk, monitor));
+            (commands) -> rollback(commands, walk, monitor));
+  }
+
+  private void rollback(
+      List<ReceiveCommand> commands, RevWalk walk, ProgressMonitor monitor, List<String> options)
+      throws IOException {
+    batchRefUpdateRollback.addCommand(commands).execute(walk, monitor, options);
+    logFailedRollbackCommands(commands);
+  }
+
+  private void rollback(List<ReceiveCommand> commands, RevWalk walk, ProgressMonitor monitor)
+      throws IOException {
+    batchRefUpdateRollback.addCommand(commands).execute(walk, monitor);
+    logFailedRollbackCommands(commands);
+  }
+
+  private void logFailedRollbackCommands(List<ReceiveCommand> commands) {
+    commands.stream()
+        .filter(command -> command.getResult() != ReceiveCommand.Result.OK)
+        .forEach(
+            command ->
+                logger.atWarning().log(
+                    "Rollback of ref %s from %s to %s failed with result %s",
+                    command.getRefName(),
+                    command.getOldId(),
+                    command.getNewId(),
+                    command.getResult()));
   }
 
   @Override
