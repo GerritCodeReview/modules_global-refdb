@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51508ec3_999196dd",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbBatchRefUpdate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2026-09-28T15:45:11Z",
+      "side": 1,
+      "message": "To ensure this is always set to true, why not do it in the constructor?\n\nThis will also ensure future uses have it set properly.",
+      "range": {
+        "startLine": 93,
+        "startChar": 27,
+        "endLine": 93,
+        "endChar": 50
+      },
+      "revId": "56a4500af0e65321a4c1da8e6b093902a07359a2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
