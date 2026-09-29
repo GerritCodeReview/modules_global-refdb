@@ -314,6 +314,7 @@ public class SharedRefDbRefUpdate extends RefUpdate {
     if (objectId == null || ObjectId.zeroId().equals(objectId)) {
       return refDatabase.newUpdate(getRef().getName(), true).delete();
     }
+    refUpdateBase.setForceUpdate(true);
     refUpdateBase.setExpectedOldObjectId(refUpdateBase.getNewObjectId());
     refUpdateBase.setNewObjectId(objectId);
     return updateFunction.invoke();

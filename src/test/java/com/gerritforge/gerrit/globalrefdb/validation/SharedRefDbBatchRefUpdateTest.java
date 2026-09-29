@@ -144,6 +144,7 @@ public class SharedRefDbBatchRefUpdateTest implements RefFixture {
 
   @Test(expected = IOException.class)
   public void executeAndFailsWithExceptions() throws IOException {
+    doReturn(batchRefUpdate).when(refDatabase).newBatchUpdate();
     sharedRefDbRefUpdate = getSharedRefDbBatchRefUpdateWithMockedValidator();
     doThrow(new IOException("IO Test Exception"))
         .when(batchRefUpdateValidator)
