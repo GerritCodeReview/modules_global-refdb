@@ -89,6 +89,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "35f7d112_1e86b9bb",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbRefUpdate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2026-09-29T14:49:51Z",
+      "side": 1,
+      "message": "Good catch @luca.milanesio@gmail.com\n\nDone",
+      "parentUuid": "fa0b910e_1df854c3",
+      "revId": "56a4500af0e65321a4c1da8e6b093902a07359a2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0966360f_0c44310c",
