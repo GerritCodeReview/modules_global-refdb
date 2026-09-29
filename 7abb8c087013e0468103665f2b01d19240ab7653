@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fd0aa94_c5503fc2",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/RefUpdateValidator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2026-09-29T14:37:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f9c3c47_ea65b607",
+      "range": {
+        "startLine": 209,
+        "startChar": 41,
+        "endLine": 209,
+        "endChar": 42
+      },
+      "revId": "7abb8c087013e0468103665f2b01d19240ab7653",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e46a71f6_637fb274",
@@ -47,6 +71,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "61058f7f_4b2a09cf",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbBatchRefUpdate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2026-09-29T14:37:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e46a71f6_637fb274",
+      "range": {
+        "startLine": 272,
+        "startChar": 23,
+        "endLine": 272,
+        "endChar": 32
+      },
+      "revId": "7abb8c087013e0468103665f2b01d19240ab7653",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "805b5f69_78754997",
@@ -60,6 +108,30 @@
       "writtenOn": "2026-09-28T14:29:55Z",
       "side": 1,
       "message": "Adding projectName to log might be useful.",
+      "range": {
+        "startLine": 273,
+        "startChar": 76,
+        "endLine": 273,
+        "endChar": 77
+      },
+      "revId": "7abb8c087013e0468103665f2b01d19240ab7653",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a54fa935_5cac00c1",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbBatchRefUpdate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2026-09-29T14:37:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "805b5f69_78754997",
       "range": {
         "startLine": 273,
         "startChar": 76,
