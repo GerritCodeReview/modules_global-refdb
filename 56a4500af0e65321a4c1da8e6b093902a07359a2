@@ -22,6 +22,29 @@
       },
       "revId": "56a4500af0e65321a4c1da8e6b093902a07359a2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0966360f_0c44310c",
+        "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/BatchRefUpdateValidatorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2026-09-29T08:37:57Z",
+      "side": 1,
+      "message": "What about `firstCommit` and `secondCommit`? I think it is more descriptive",
+      "range": {
+        "startLine": 241,
+        "startChar": 48,
+        "endLine": 241,
+        "endChar": 52
+      },
+      "revId": "56a4500af0e65321a4c1da8e6b093902a07359a2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
