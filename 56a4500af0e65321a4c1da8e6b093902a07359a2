@@ -48,6 +48,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "44dd47f9_4971f1d2",
+        "filename": "src/main/java/com/gerritforge/gerrit/globalrefdb/validation/SharedRefDbBatchRefUpdate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2026-09-29T14:36:34Z",
+      "side": 1,
+      "message": "Yep, good shout!\nAlso, rollbacks should always allow non-FF even if `setAllowNonFastForwards` is not called explicitly.\n\nDone.",
+      "parentUuid": "51508ec3_999196dd",
+      "range": {
+        "startLine": 93,
+        "startChar": 27,
+        "endLine": 93,
+        "endChar": 50
+      },
+      "revId": "56a4500af0e65321a4c1da8e6b093902a07359a2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fa0b910e_1df854c3",
@@ -78,6 +102,30 @@
       "writtenOn": "2026-09-29T08:37:57Z",
       "side": 1,
       "message": "What about `firstCommit` and `secondCommit`? I think it is more descriptive",
+      "range": {
+        "startLine": 241,
+        "startChar": 48,
+        "endLine": 241,
+        "endChar": 52
+      },
+      "revId": "56a4500af0e65321a4c1da8e6b093902a07359a2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7d632f3_1ed658e4",
+        "filename": "src/test/java/com/gerritforge/gerrit/globalrefdb/validation/BatchRefUpdateValidatorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2026-09-29T14:36:34Z",
+      "side": 1,
+      "message": "We don\u0027t create `A` and `B` as part of this test; they are already existing fixtures used throughout this test class, so I\u0027d keep them consistent, unless you feel strongly about it",
+      "parentUuid": "0966360f_0c44310c",
       "range": {
         "startLine": 241,
         "startChar": 48,
